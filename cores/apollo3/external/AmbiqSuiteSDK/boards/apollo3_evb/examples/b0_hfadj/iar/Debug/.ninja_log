@@ -1,0 +1,9 @@
+# ninja log v5
+0	179	6613984402992500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/am_util_faultisr.o	fb0dbf968172ded3
+188	364	6613984404867500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/am_util_id.o	1125daf23ffe9496
+375	505	6613984406273750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/am_util_stdio.o	395e97b2b0571cdf
+516	723	6613984408461250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/b0_hfadj.o	188abc7d1dd3d4be
+733	771	6613984408930000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/startup_iar.o	ecc3cd14f7b4fad5
+782	975	6613984410961250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/am_util_delay.o	1bca59f735eba740
+985	1036	6613984411586250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/b0_hfadj.out	5aa1ab282adaa5a1
+1047	1050	6613984411898750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/b0_hfadj/iar/bin/b0_hfadj.bin	fb4dbf015af3fbf3

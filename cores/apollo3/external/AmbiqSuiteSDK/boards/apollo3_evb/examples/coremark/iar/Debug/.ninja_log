@@ -1,0 +1,16 @@
+# ninja log v5
+0	190	6614009331742500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/am_time.o	11b7313e37f2a0c3
+200	390	6614009333773750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/am_util_delay.o	c74b664b82f9c3d5
+400	588	6614009335805000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/am_util_faultisr.o	620660c4e0789ff6
+598	1415	6614009344086250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/am_util_stdio.o	ffa00fd30843acc2
+1427	1875	6614009348617500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_list_join.o	71767caa758c650c
+1886	2866	6614009358617500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_main.o	bdbc0765a6f07ba6
+2877	3123	6614009361117500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/am_devices_led.o	661bae0eb9cde925
+3136	3869	6614009368617500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_matrix.o	a2e3543714da5702
+3880	4161	6614009371430000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_portme.o	3ab986e8a00d815f
+4172	4592	6614009375805000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_state.o	500cfb2c0ab5ee6
+4603	4936	6614009379242500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/core_util.o	314562081090ac0e
+4947	4969	6614009379711250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/coremark.o	9e24e2d2a6cdf2f6
+4980	5018	6614009380180000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/startup_iar.o	95a00b8988c500cf
+5028	5107	6614009380961250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/coremark.out	8da8addc490f08ad
+5121	5125	6614009381273750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/coremark/iar/bin/coremark.bin	9402c705767bd16b

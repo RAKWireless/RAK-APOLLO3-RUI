@@ -1,0 +1,9 @@
+# ninja log v5
+1	211	6613984029398750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/adc_lpmode0_dma.o	116d3353a03b4bb9
+222	446	6613984031742500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/am_devices_led.o	bb6f770ed0bdac5d
+458	633	6613984033617500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/am_util_delay.o	b1775f70df0121b7
+645	829	6613984035648750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/am_util_faultisr.o	5bef0838246f0016
+839	955	6613984036898750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/am_util_stdio.o	1410e4a5fbc222e
+970	1012	6613984037367500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/startup_iar.o	f45e23484c951a0f
+1025	1088	6613984038148750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/adc_lpmode0_dma.out	61d220ccdaca8e21
+1098	1102	6613984038461250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/adc_lpmode0_dma/iar/bin/adc_lpmode0_dma.bin	7dbcaa06ba3a7a57

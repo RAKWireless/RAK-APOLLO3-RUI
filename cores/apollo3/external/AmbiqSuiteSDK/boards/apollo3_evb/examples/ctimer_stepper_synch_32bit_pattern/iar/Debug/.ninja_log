@@ -1,0 +1,8 @@
+# ninja log v5
+0	182	6614009769242500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/am_util_faultisr.o	2929d9468b3efc0
+194	318	6614009770492500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/am_util_stdio.o	dd8fe4d2bd725ab6
+331	529	6614009772680000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/ctimer_stepper_synch_32bit_pattern.o	ad30158489ad67a1
+542	578	6614009773148750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/startup_iar.o	3ad349da28d96e03
+590	766	6614009775023750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/am_util_delay.o	66a83c0882ab04e7
+777	1049	6614009777680000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/ctimer_stepper_synch_32bit_pattern.out	262e2d1a30f10af4
+1062	1065	6614009778148750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_stepper_synch_32bit_pattern/iar/bin/ctimer_stepper_synch_32bit_pattern.bin	648c369857580a39

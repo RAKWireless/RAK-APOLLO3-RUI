@@ -1,0 +1,9 @@
+# ninja log v5
+0	283	6614035224242500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/am_devices_mspi_psram_aps6404l.o	813a87ed2285c5f
+295	502	6614035226430000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/am_util_delay.o	861c06204eee7ad3
+514	724	6614035228617500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/am_util_faultisr.o	2a9d1b75e2af997f
+736	852	6614035229867500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/am_util_stdio.o	8768c962208784bb
+863	1109	6614035232367500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/mspi_power_example.o	34c19f638308d8fc
+1124	1166	6614035232992500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/startup_iar.o	421496b2783e36b7
+1181	1273	6614035234086250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/mspi_power_example.out	eed0e4461304112a
+1284	1288	6614035234242500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3p_evb_cygnus/examples/mspi_power_example/iar/bin/mspi_power_example.bin	737d422c5d100fd9

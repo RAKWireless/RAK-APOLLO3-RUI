@@ -1,0 +1,8 @@
+# ninja log v5
+0	220	6614009669242500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/am_util_delay.o	75587f4c06922ce
+232	420	6614009671273750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/am_util_faultisr.o	d4332e07761b091f
+434	558	6614009672680000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/am_util_stdio.o	639b48b68cb150c5
+569	760	6614009674555000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/ctimer_repeated_pattern.o	ceb8748c42a0553f
+772	808	6614009675180000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/startup_iar.o	966380c47fecb2f
+820	1452	6614009675805000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/ctimer_repeated_pattern.out	1d4a1dcdd31e7ed8
+1463	1466	6614009681742500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ctimer_repeated_pattern/iar/bin/ctimer_repeated_pattern.bin	1c0aac369b008cc7

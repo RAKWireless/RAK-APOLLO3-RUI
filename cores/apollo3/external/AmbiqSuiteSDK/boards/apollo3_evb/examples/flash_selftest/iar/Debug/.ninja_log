@@ -1,0 +1,6 @@
+# ninja log v5
+0	1366	6614010222836250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/flash_selftest/iar/bin/flash_selftest.o	70b1b8381154d692
+1376	1419	6614010223461250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/flash_selftest/iar/bin/startup_iar.o	306bc8da2e176d10
+1430	2208	6614010231273750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/flash_selftest/iar/bin/am_util_stdio.o	ef9f929dcde84dc0
+2218	2270	6614010231898750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/flash_selftest/iar/bin/flash_selftest.out	92d1bada831d3fcf
+2279	2282	6614010232055000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/flash_selftest/iar/bin/flash_selftest.bin	f9c1c9534de90152

@@ -1,0 +1,7 @@
+# ninja log v5
+0	226	6614011974086250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/am_util_faultisr.o	84fa29faa47f7819
+235	1744	6614011986273750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/am_util_stdio.o	7597d08cc6ebdb6f
+1754	1821	6614011990023750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/startup_iar.o	a1743e337659cb2b
+1831	2045	6614011992211250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/while.o	ffd420f81490723e
+2056	2114	6614011992992500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/while.out	2636dec3057944e3
+2124	2127	6614011993148750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/while/iar/bin/while.bin	6298ea484a3dfd45

@@ -1,0 +1,7 @@
+# ninja log v5
+1	116	6614010969711250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/am_util_stdio.o	555c47d28300a00d
+126	363	6614010972055000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/ios_fifo_host.o	da9b4abed2f97f19
+374	411	6614010972680000	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/startup_iar.o	d4a7ce5abe01f524
+423	597	6614010974398750	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/am_util_delay.o	62456c6f6990e4c2
+610	681	6614010975336250	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/ios_fifo_host.out	ffc763d551db3470
+691	694	6614010975492500	C:/Jenkins/workspace/AmbiqSuite_release_3_3p/workspace/boards/apollo3_evb/examples/ios_fifo_host/iar/bin/ios_fifo_host.bin	a04c5719b95f07d9
