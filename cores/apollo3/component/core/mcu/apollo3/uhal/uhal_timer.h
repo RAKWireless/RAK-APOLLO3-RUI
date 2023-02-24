@@ -14,7 +14,7 @@
 #include "task.h"
 #include "event_groups.h"
 
-#define OSTIMER_WAIT_FOR_QUEUE    2   /**< Number of ticks to wait for the timer queue to be ready */
+#define OSTIMER_WAIT_FOR_QUEUE    100   /**< Number of ticks to wait for the timer queue to be ready */
 
 typedef struct uhal_timer_data_ {
     union {
@@ -33,6 +33,7 @@ int32_t uhal_sys_timer_create (SysTimerID_E timer_id, timer_handler tmr_handler,
 int32_t uhal_sys_timer_start (SysTimerID_E timer_id, uint32_t count, void *m_data);
 int32_t uhal_sys_timer_stop (SysTimerID_E timer_id);
 UBaseType_t get_apollo_timer_mode(TimerMode_E mode); //Edited by Sercan ERAT
+uint64_t uhal_get_microsecond(void);
 
 void uhal_timer_handler_handler(void *pdata);
 

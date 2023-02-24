@@ -65,7 +65,7 @@ typedef enum
 typedef enum
 {
   RAK_LORA_NO_ACK = 0, ///< The device will not get received data from network
-  RAL_LORA_ACK = 1,    ///< The device will get received data from network
+  RAK_LORA_ACK = 1,    ///< The device will get received data from network
 } RAK_LORA_CONFIRM_MODE;
 
 /**@par	Description

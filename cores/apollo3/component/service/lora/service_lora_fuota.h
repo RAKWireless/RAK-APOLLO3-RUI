@@ -36,6 +36,7 @@ extern "C"
 
 #define UNFRAGMENTED_DATA_SIZE                     ( FRAG_MAX_NB * FRAG_MAX_SIZE )
 extern volatile uint8_t IsTxFramePending;
+extern volatile bool IsMcSessionStarted ;
 extern LmhpFragmentationParams_t LmhpFragmentationParams ;
 /*
  * Un-fragmented data storage. Only if datafile fragments are
@@ -47,7 +48,7 @@ static uint8_t UnfragmentedData[UNFRAGMENTED_DATA_SIZE];
 void UplinkProcess( void ); 
 void OnSysTimeUpdate(void);
 void OnFragProgress(uint16_t fragCounter, uint16_t fragNb, uint8_t fragSize, uint16_t fragNbLost);
-void OnFragDone(int32_t status,uint32_t size);
+void OnFragDone(int32_t status, uint8_t *file, uint32_t size);
 void LoraStartTx(void);
 
 #ifdef __cplusplus

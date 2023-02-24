@@ -17,6 +17,21 @@ extern "C"
 {
 #endif // __cplusplus
 
+extern const uint32_t g_ADigitalPinMap[]; 
+#define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+
+#define portOutputRegister(port) ( &AM_REGVAL(port + offsetof(GPIO_Type, WTA)) )
+#define portInputRegister(port)  ( (volatile uint32_t*) &AM_REGVAL(port + offsetof(GPIO_Type, RDA)) )
+#define portModeRegister(port)   ( ) 
+#define digitalPinHasPWM(P)      ( g_ADigitalPinMap[P] > 1 ) // FIXME
+#define digitalPinToBitMask(P)   ( (uint32_t)0x1 << (P % 32) )
+#define digitalPinToPinName(P)   g_ADigitalPinMap[P]
+
+#define digitalPinToPort(P)      (GPIO_BASE + ((P & 0x20) >> 3))
+
+// Interrupts
+#define digitalPinToInterrupt(P)   ( P ) //FIXME
+
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
@@ -103,8 +118,8 @@ extern "C"
 #define PIN_LED1 WB_LED1//PA0
 #define PIN_LED2 WB_LED2//PA1
 
-//#define LED_BUILTIN PIN_LED1
-//#define LED_CONN PIN_LED2
+#define LED_BUILTIN PIN_LED1
+#define LED_CONN PIN_LED2
 
 #define LED_GREEN PIN_LED1
 #define LED_BLUE PIN_LED2
@@ -117,9 +132,30 @@ extern "C"
 #define PIN_A0 P13
 #define PIN_A1 P33
 
-//#define A0 PIN_A0
-//#define A1 PIN_A1
 
+static const uint8_t A0 = PIN_A0;
+static const uint8_t A1 = PIN_A1;
+
+ 
+#define PIN_A3 P5    // channel1
+#define PIN_A4 P31    // channel2
+#define PIN_A5 P32    // channel4
+#define PIN_A6 P36
+#define PIN_A7 P7   // channel6
+ 
+static const uint8_t A3 = PIN_A3;
+static const uint8_t A4 = PIN_A4;
+static const uint8_t A5 = PIN_A5;
+static const uint8_t A6 = PIN_A6;
+static const uint8_t A7 = PIN_A7;
+
+  
+
+#define ADC_RESOLUTION 14
+// Other pins
+#define PIN_AREF (0)
+
+static const uint8_t AREF = PIN_AREF;
 
 /*
  * Serial interfaces
@@ -135,9 +171,15 @@ extern "C"
  */
 #define SPI_INTERFACES_COUNT 1
 
+#define PIN_SPI_CS   WB_SPI_CS
 #define PIN_SPI_MISO WB_SPI_MISO
 #define PIN_SPI_MOSI WB_SPI_MOSI
 #define PIN_SPI_SCK  WB_SPI_CLK
+
+static const uint8_t SS = PIN_SPI_CS;
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK = PIN_SPI_SCK;
 
 /*
  * Wire Interfaces

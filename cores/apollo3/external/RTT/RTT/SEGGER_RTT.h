@@ -229,7 +229,7 @@ Revision: $Rev: 24324 $
     #define _CORE_HAS_RTT_ASM_SUPPORT 0              // Default for unknown cores
   #endif
   #if (_CC_HAS_RTT_ASM_SUPPORT && _CORE_HAS_RTT_ASM_SUPPORT)
-    #define RTT_USE_ASM                           (1)
+    #define RTT_USE_ASM                           (0)
   #else
     #define RTT_USE_ASM                           (0)
   #endif

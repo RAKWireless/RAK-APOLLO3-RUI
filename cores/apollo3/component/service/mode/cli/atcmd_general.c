@@ -1,4 +1,3 @@
-
 #include <string.h>
 
 #include "atcmd.h"
@@ -19,7 +18,7 @@
 #include "hci_core_ps.h"
 #endif
 #endif
-
+#include "board_basic.h"
 #ifndef RUI_BOOTLOADER
 extern const char *sw_version;
 extern const char *model_id;
@@ -131,6 +130,11 @@ int At_Restore(SERIAL_PORT port, char *cmd, stParam *param)
 #endif
     if (ret == UDRV_RETURN_OK)
     {
+#ifdef RUI_BOOTLOADER
+        uhal_sys_reboot();
+#else
+        udrv_system_reboot();
+#endif
         return AT_OK;
     }
     else if (ret == -UDRV_BUSY)
@@ -453,6 +457,86 @@ int At_BLEMac (SERIAL_PORT port, char *cmd, stParam *param)
         return AT_OK;
     }
     else 
+        return AT_PARAM_ERROR;
+
+}
+
+int At_BLEDTM (SERIAL_PORT port, char *cmd, stParam *param)
+{
+    if (param->argc == 1 && !strcmp(param->argv[0], "?")) {
+        atcmd_printf("BLEDTM\r\n");
+        return AT_OK;
+    }
+    else if (param->argc == 0)
+    {
+        if(strlen(param->argv[0])%2)
+            return AT_PARAM_ERROR;
+        service_mode_cli_deinit(DEFAULT_SERIAL_CONSOLE);
+        uint8_t serial_buf[256];
+        uint8_t serial_ascii_buf[512];
+        uint8_t cnt = 0;
+        uint32_t hci_recv_bytes;
+        while(1)
+        {
+            if(udrv_serial_read_available(DEFAULT_SERIAL_CONSOLE))
+            {
+                udrv_serial_read(DEFAULT_SERIAL_CONSOLE, serial_buf+cnt, 1);
+                cnt++;
+                if(serial_buf[cnt-1] == '\n')
+                {
+                    serial_buf[--cnt] = '\0';
+                    if(serial_buf[cnt-1] == '\r')
+                        serial_buf[--cnt] = '\0';
+                    if(cnt == 0)
+                        continue;
+                    if(strncasecmp("at+atm",serial_buf,6) == 0)
+                        break;    
+                    memset(serial_ascii_buf,'\0',sizeof(serial_ascii_buf));
+                    for(int i = 0;i<cnt;i++)
+                    {
+                        sprintf(serial_ascii_buf+2*i,"%x",serial_buf[i] & 0xF0);
+                        sprintf(serial_ascii_buf+2*i+1,"%x",serial_buf[i] & 0x0F);
+                    }
+                    uhal_ble_hci_write(serial_ascii_buf,cnt*2);
+                    memset(serial_ascii_buf,'\0',sizeof(serial_ascii_buf));
+                    if (uhal_ble_hci_read(serial_ascii_buf,&hci_recv_bytes) == UDRV_RETURN_OK)
+                    {
+                        udrv_serial_write(DEFAULT_SERIAL_CONSOLE,serial_ascii_buf,hci_recv_bytes);
+                        atcmd_printf("\r\n");
+                    }
+                    cnt = 0;
+                    memset(serial_buf,'\0',sizeof(serial_buf));
+                }
+            }
+        }
+        service_mode_cli_init(DEFAULT_SERIAL_CONSOLE);
+        return AT_OK;
+    }
+    else if (param->argc == 2)
+    {
+        if(strlen(param->argv[0])%2)
+            return AT_PARAM_ERROR;
+        service_mode_cli_deinit(DEFAULT_SERIAL_CONSOLE);
+        int power;
+        uint8_t hci_recv[256];
+        uint32_t hci_recv_bytes;
+
+        sscanf(param->argv[1],"%d",&power);
+#ifdef rak11720
+        uhal_ble_set_dtm_txpower(power);
+#else
+        uhal_ble_set_txpower(power);
+#endif
+        uhal_ble_hci_write(param->argv[0],strlen(param->argv[0]));
+        uhal_ble_hci_read(hci_recv,&hci_recv_bytes);
+        atcmd_printf("%s=",cmd);
+        for(int i = 0;i<hci_recv_bytes;i++)
+            atcmd_printf("%02X",hci_recv[i]);
+        atcmd_printf("\r\n");
+        return AT_OK;
+    }
+
+    else
         return AT_PARAM_ERROR;
 
 }

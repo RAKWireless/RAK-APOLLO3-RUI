@@ -9322,7 +9322,7 @@ typedef struct {                                /*!< (@ 0x40024000) WDT Structur
 #define IOSLAVE                     ((IOSLAVE_Type*)           IOSLAVE_BASE)
 #define MCUCTRL                     ((MCUCTRL_Type*)           MCUCTRL_BASE)
 #define MSPI                        ((MSPI_Type*)              MSPI_BASE)
-#define PDM                         ((PDM_Type*)               PDM_BASE)
+#define _PDM                         ((PDM_Type*)               PDM_BASE)
 #define PWRCTRL                     ((PWRCTRL_Type*)           PWRCTRL_BASE)
 #define RSTGEN                      ((RSTGEN_Type*)            RSTGEN_BASE)
 #define RTC                         ((RTC_Type*)               RTC_BASE)

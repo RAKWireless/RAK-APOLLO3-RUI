@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -3082,6 +3084,9 @@ void RtcBkupRead( uint32_t* data0, uint32_t* data1 );
 void RtcProcess( void );
 # 195 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/rtc-board.h"
 TimerTime_t RtcTempCompensation( TimerTime_t period, float temperature );
+
+
+uint32_t RtcGetMaxticks();
 # 27 "/home/jenkins/workspace/RUI_Release/rui-v3/external/lora/LoRaMac-node-4.4.7/src/system/systime.c" 2
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/lora/LoRaMac-node-4.4.7/src/system/systime.h" 1
 # 26 "/home/jenkins/workspace/RUI_Release/rui-v3/external/lora/LoRaMac-node-4.4.7/src/system/systime.h"

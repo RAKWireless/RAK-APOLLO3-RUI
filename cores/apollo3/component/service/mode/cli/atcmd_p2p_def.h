@@ -181,7 +181,7 @@
  * | AT+IQINVER=\<Param\> | \<0 or 1\>         | --                                                              | OK / AT_PARAM_ERROR|
  * | Example<br>AT+IQINVER=?| --               | 0                                                               | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+SYNCWORD: P2P syncword (0x0000 - 0xffff) in p2p mode
+ * @subsection ATCMD_p2p_16 AT+SYNCWORD: P2P syncword (0x0000 - 0xffff) in p2p mode
  *
  * This command allows the user to get or set P2P syncword (0x0000 - 0xffff)
  *
@@ -192,7 +192,7 @@
  * | AT+SYNCWORD=\<Param\> | \<2 Hex\>       | --                                                             | OK / AT_PARAM_ERROR|
  * | Example<br>AT+SYNCWORD=?| --            | 3444                                                           | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+RFFREQUENCY: frequency in p2p mode
+ * @subsection ATCMD_p2p_17 AT+RFFREQUENCY: frequency in p2p mode
  *
  * This command allows the user to access the frequency in p2p mode.
  *
@@ -203,7 +203,7 @@
  * | AT+RFFREQUENCY=\<Param\> | <interger>   | --                                                                | OK / AT_PARAM_ERROR|
  * | Example<br>AT+RFFREQUENCY=?| --         | 0                                                                 | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+TXOUTPUTPOWER: P2P Tx Power(5-22)
+ * @subsection ATCMD_p2p_18 AT+TXOUTPUTPOWER: P2P Tx Power(5-22)
  *
  * This command allows the user to get or set P2P Tx Power(5-22)
  *
@@ -214,7 +214,7 @@
  * | AT+TXOUTPUTPOWER=\<Param\> | \<powerlevel\>| --                                                             | OK / AT_PARAM_ERROR|
  * | Example<br>AT+TXOUTPUTPOWER=?| --       | 20                                                                | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+BANDWIDTH:P2P Bandwidth
+ * @subsection ATCMD_p2p_19 AT+BANDWIDTH:P2P Bandwidth
  *
  * This command allows the user to get or set P2P Bandwidth(LORA: 0 = 125, 1 = 250, 2 = 500, 3 = 7.8, 4 = 10.4, 5 = 15.63, 6 = 20.83, 7 = 31.25, 8 = 41.67, 9 = 62.5  FSK:4800-467000)
  *
@@ -225,7 +225,7 @@
  * | AT+BANDWIDTH=\<Param\> | \<bandwidth\>    | --                                                              | OK / AT_PARAM_ERROR|
  * | Example<br>AT+BANDWIDTH=?| --           | 0                                                                 | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+SPREADINGFACTOR: P2P Spreading Factor (5-12)
+ * @subsection ATCMD_p2p_20 AT+SPREADINGFACTOR: P2P Spreading Factor (5-12)
  *
  * This command allows the user to get or set P2P Spreading Factor (5-12)
  *
@@ -236,7 +236,7 @@
  * | AT+SPREADINGFACTOR=\<Param\> | \<Spreading Factor\>| --                                                     | OK / AT_PARAM_ERROR|
  * | Example<br>AT+SPREADINGFACTOR=?| --     | 5                                                                 | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+SPREADINGFACTOR: P2P coding rate
+ * @subsection ATCMD_p2p_21 AT+SPREADINGFACTOR: P2P coding rate
  *
  * This command allows the user to get or set P2P Code Rate(0=4/5, 1=4/6, 2=4/7, 3=4/8)
  *
@@ -247,7 +247,7 @@
  * | AT+SPREADINGFACTOR=\<Param\> | \<coding rate\>| --                                                          | OK / AT_PARAM_ERROR|
  * | Example<br>AT+SPREADINGFACTOR=?| --     | 0                                                                 | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+PREAMBLELENGTH: P2P Preamble Length (5-65535)
+ * @subsection ATCMD_p2p_22 AT+PREAMBLELENGTH: P2P Preamble Length (5-65535)
  *
  * This command allows the user to get or set P2P Preamble Length (5-65535)
  *
@@ -258,7 +258,7 @@
  * | AT+PREAMBLELENGTH=\<Param\> | <interger>| --                                                                | OK / AT_PARAM_ERROR|
  * | Example<br>AT+PREAMBLELENGTH=?| --      | 10                                                                | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+SYMBOLTIMEOUT: P2P symbolTimeout (0-248)
+ * @subsection ATCMD_p2p_23 AT+SYMBOLTIMEOUT: P2P symbolTimeout (0-248)
  *
  * This command allows the user to get or set P2P symbolTimeout (0-248)
  *
@@ -269,7 +269,7 @@
  * | AT+SYMBOLTIMEOUT=\<Param\> | <interger>| --                                                                 | OK / AT_PARAM_ERROR|
  * | Example<br>AT+SYMBOLTIMEOUT=?| --     | 0                                                                   | OK                 |
  *
- * @subsection ATCMD_p2p_15 AT+FIXLENGTHPAYLOAD: P2P fix length payload on/off ( 1 = on, 0 = off)
+ * @subsection ATCMD_p2p_24 AT+FIXLENGTHPAYLOAD: P2P fix length payload on/off ( 1 = on, 0 = off)
  *
  * This command allows the user to get or set P2P fix length payload on/off ( 1 = on, 0 = off)
  *
@@ -280,8 +280,32 @@
  * | AT+FIXLENGTHPAYLOAD=\<Param\> | \<0 or 1\>| --                                                              | OK / AT_PARAM_ERROR|
  * | Example<br>AT+FIXLENGTHPAYLOAD=?| --      | 0                                                               | OK                 |
  * 
- * 
+ *
+ * @subsection ATCMD_p2p_25 AT+ENCRY: P2P encryption status  
+ *
+ * This command allows the user to get or set  the encryption status of P2P mode ( 1 = on, 0 = off)
+ *
+ * | Command            | Input parameter    | Return value                                                      | Return code        |
+ * |:------------------:|:------------------:|:------------------------------------------------------------------|:------------------:|
+ * | AT+ENCRY?                     | --        | AT+ENCRY: get or set the encryption status of P2P( 1 = on, 0 = off) | OK                 |
+ * | AT+ENCRY=?                    | --        | \<0 or 1\>                                                      | OK                 |
+ * | AT+ENCRY=\<Param\>            | \<0 or 1\>| --                                                              | OK / AT_PARAM_ERROR|
+ * | Example<br>AT+ENCRY=?         | --        | 0                                                               | OK                 |
+ *  
+ * @subsection ATCMD_p2p_26 AT+ENCKEY: P2P encryption key 
+ *
+ * This command allows the user to get or set  the encryption key of P2P mode (8 bytes in hex)
+ *
+ * | Command            | Input parameter    | Return value                                                      | Return code        |
+ * |:------------------:|:------------------:|:------------------------------------------------------------------|:------------------:|
+ * | AT+ENCKEY?              | --                | AT+ENCKEY: get or set  the encryption key of P2P mode (8 bytes in hex)      | OK                 |
+ * | AT+ENCKEY=?             | --                | \<8 hex\>                                                     | OK                 |
+ * | AT+ENCKEY=\<Param\>     |\<8 hex\>          | --                                                            | OK                 |
+ * | Example<br>AT+ENCKEY=   |  0011223344556677 | --                                                            | OK                 |
+ * | Example<br>AT+ENCKEY=?  | --                | 0011223344556677                                              | OK                 |                                              
+ *
  */
+
 #endif
 
 #ifndef _ATCMD_P2P_DEF_H_

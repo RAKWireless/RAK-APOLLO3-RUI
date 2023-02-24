@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -12633,7 +12635,7 @@ typedef struct {
 #define IOSLAVE ((IOSLAVE_Type*) IOSLAVE_BASE)
 #define MCUCTRL ((MCUCTRL_Type*) MCUCTRL_BASE)
 #define MSPI ((MSPI_Type*) MSPI_BASE)
-#define PDM ((PDM_Type*) PDM_BASE)
+#define _PDM ((PDM_Type*) PDM_BASE)
 #define PWRCTRL ((PWRCTRL_Type*) PWRCTRL_BASE)
 #define RSTGEN ((RSTGEN_Type*) RSTGEN_BASE)
 #define RTC ((RTC_Type*) RTC_BASE)
@@ -31086,11 +31088,11 @@ typedef struct
 
 
 
-    uint32_t B0;
+    uint32_t _B0;
 
 
 
-    uint32_t B1;
+    uint32_t _B1;
 
 
 
@@ -36022,7 +36024,7 @@ extern uint32_t am_hal_wdt_int_status_get(
 #define _CORE_NEEDS_DMB 1
 #define RTT__DMB() __asm volatile ("dmb\n" : : :);
 # 232 "/home/jenkins/workspace/RUI_Release/rui-v3/external/RTT/RTT/SEGGER_RTT.h"
-#define RTT_USE_ASM (1)
+#define RTT_USE_ASM (0)
 # 251 "/home/jenkins/workspace/RUI_Release/rui-v3/external/RTT/RTT/SEGGER_RTT.h"
 #define SEGGER_RTT_CPU_CACHE_LINE_SIZE (0)
 
@@ -37383,9 +37385,6 @@ unsigned SEGGER_RTT_GetBytesInBuffer (unsigned BufferIndex);
 
 
 #define SEGGER_RTT_HASDATA(n) (((SEGGER_RTT_BUFFER_DOWN*)((char*)&_SEGGER_RTT.aDown[n] + SEGGER_RTT_UNCACHED_OFF))->WrOff - ((SEGGER_RTT_BUFFER_DOWN*)((char*)&_SEGGER_RTT.aDown[n] + SEGGER_RTT_UNCACHED_OFF))->RdOff)
-
-
-#define SEGGER_RTT_WriteSkipNoLock SEGGER_RTT_ASM_WriteSkipNoLock
 # 401 "/home/jenkins/workspace/RUI_Release/rui-v3/external/RTT/RTT/SEGGER_RTT.h"
 unsigned SEGGER_RTT_ReadUpBuffer (unsigned BufferIndex, void* pBuffer, unsigned BufferSize);
 unsigned SEGGER_RTT_ReadUpBufferNoLock (unsigned BufferIndex, void* pData, unsigned BufferSize);

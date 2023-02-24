@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -2373,19 +2375,19 @@ char *strsignal (int __signo);
 #define configTICK_RATE_HZ 1000
 #define configMAX_PRIORITIES 5
 #define configMINIMAL_STACK_SIZE (256)
-#define configTOTAL_HEAP_SIZE (40 * 1024)
+#define configTOTAL_HEAP_SIZE (66 * 1024)
 #define configMAX_TASK_NAME_LEN 16
 #define configUSE_16_BIT_TICKS 0
 #define configIDLE_SHOULD_YIELD 1
 
 #define configUSE_MUTEXES 1
 #define configUSE_RECURSIVE_MUTEXES 0
-#define configUSE_COUNTING_SEMAPHORES 0
+#define configUSE_COUNTING_SEMAPHORES 1
 #define configUSE_ALTERNATIVE_API 0
 #define configQUEUE_REGISTRY_SIZE 0
 #define configUSE_QUEUE_SETS 0
 #define configUSE_TIME_SLICING 0
-#define configUSE_NEWLIB_REENTRANT 0
+#define configUSE_NEWLIB_REENTRANT 1
 #define configENABLE_BACKWARD_COMPATIBILITY 0
 
 
@@ -2403,7 +2405,7 @@ char *strsignal (int __signo);
 #define configUSE_TIMERS 1
 #define configTIMER_TASK_PRIORITY 3
 #define configTIMER_QUEUE_LENGTH 15
-#define configTIMER_TASK_STACK_DEPTH configMINIMAL_STACK_SIZE*4
+#define configTIMER_TASK_STACK_DEPTH configMINIMAL_STACK_SIZE*8
 
 
 #define configKERNEL_INTERRUPT_PRIORITY (0x7 << 5)
@@ -2776,6 +2778,75 @@ BaseType_t xPortStartScheduler( void ) ;
 
 void vPortEndScheduler( void ) ;
 # 63 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
+# 71 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 1 3
+# 91 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
+#define _REENT_H_ 
+
+
+
+
+#define __need_size_t 
+#define __need_ptrdiff_t 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 99 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 2 3
+
+
+
+# 101 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
+struct stat;
+struct tms;
+struct timeval;
+struct timezone;
+# 139 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
+extern int _close_r (struct _reent *, int);
+extern int _execve_r (struct _reent *, const char *, char *const *, char *const *);
+extern int _fcntl_r (struct _reent *, int, int, int);
+extern int _fork_r (struct _reent *);
+extern int _fstat_r (struct _reent *, int, struct stat *);
+extern int _getpid_r (struct _reent *);
+extern int _isatty_r (struct _reent *, int);
+extern int _kill_r (struct _reent *, int, int);
+extern int _link_r (struct _reent *, const char *, const char *);
+extern _off_t _lseek_r (struct _reent *, int, _off_t, int);
+extern int _mkdir_r (struct _reent *, const char *, int);
+extern int _open_r (struct _reent *, const char *, int, int);
+extern _ssize_t _read_r (struct _reent *, int, void *, size_t);
+extern int _rename_r (struct _reent *, const char *, const char *);
+extern void *_sbrk_r (struct _reent *, ptrdiff_t);
+extern int _stat_r (struct _reent *, const char *, struct stat *);
+extern unsigned long _times_r (struct _reent *, struct tms *);
+extern int _unlink_r (struct _reent *, const char *);
+extern int _wait_r (struct _reent *, int *);
+extern _ssize_t _write_r (struct _reent *, int, const void *, size_t);
+
+
+extern int _gettimeofday_r (struct _reent *, struct timeval *__tp, void *__tzp);
+# 72 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
 # 108 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 #define configUSE_CO_ROUTINES 0
 # 140 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
@@ -3325,6 +3396,8 @@ void vPortEndScheduler( void ) ;
 # 950 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 #define configUSE_TASK_FPU_SUPPORT 1
 # 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+
+# 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 struct xSTATIC_LIST_ITEM
 {
  TickType_t xDummy1;
@@ -3360,7 +3433,10 @@ typedef struct xSTATIC_TCB
  uint8_t ucDummy7[ 16 ];
 # 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
   UBaseType_t uxDummy12[ 2 ];
-# 1034 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+# 1031 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+  struct _reent xDummy17;
+
+
   uint32_t ulDummy18;
   uint8_t ucDummy19;
 # 1047 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"

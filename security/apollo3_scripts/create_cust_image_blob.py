@@ -10,9 +10,10 @@ import hmac
 import os
 import binascii
 import importlib
+from sys import exit
 
 from am_defines import *
-#from keys_info import keyTblAes, keyTblHmac, minAesKeyIdx, maxAesKeyIdx, minHmacKeyIdx, maxHmacKeyIdx, INFO_KEY
+from keys_info import keyTblAes, keyTblHmac, minAesKeyIdx, maxAesKeyIdx, minHmacKeyIdx, maxHmacKeyIdx, INFO_KEY
 
 
 #******************************************************************************
@@ -20,7 +21,7 @@ from am_defines import *
 # Generate the image blob as per command line parameters
 #
 #******************************************************************************
-def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection, authKeyIdx, output, encKeyIdx, version, erasePrev, child0, child1, authalgo, encalgo, keyFile):
+def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection, authKeyIdx, output, encKeyIdx, version, erasePrev, child0, child1, authalgo, encalgo):
 
     app_binarray = bytearray()
     # Open the file, and read it into an array of integers.
@@ -28,13 +29,10 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
         app_binarray.extend(f_app.read())
         f_app.close()
 
-    filenames = keyFile.split('.')
-    keys = importlib.import_module(filenames[0])
-
     encVal = 0
     if (encalgo != 0):
         encVal = 1
-        if ((encKeyIdx < keys.minAesKeyIdx) or (encKeyIdx > keys.maxAesKeyIdx)):
+        if ((encKeyIdx < minAesKeyIdx) or (encKeyIdx > maxAesKeyIdx)):
             am_print("Invalid encKey Idx ", encKeyIdx, level=AM_PRINT_LEVEL_ERROR);
             return
         if (encalgo == 2):
@@ -45,7 +43,7 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
         else:
             keySize = 16
     if (authalgo != 0):
-        if ((authKeyIdx < keys.minHmacKeyIdx) or (authKeyIdx > keys.maxHmacKeyIdx) or (authKeyIdx & 0x1)):
+        if ((authKeyIdx < minHmacKeyIdx) or (authKeyIdx > maxHmacKeyIdx) or (authKeyIdx & 0x1)):
             am_print("Invalid authKey Idx ", authKeyIdx, level=AM_PRINT_LEVEL_ERROR);
             return
 
@@ -110,7 +108,7 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
     if (magicNum == AM_IMAGE_MAGIC_INFO0):
         # Insert the INFO0 size and offset
         addrWord = ((orig_app_length>>2) << 16) | ((loadaddress>>2) & 0xFFFF)
-        versionKeyWord = keys.INFO_KEY
+        versionKeyWord = INFO_KEY
     else:
         # Insert the application binary load address.
         addrWord = loadaddress | (protection & 0x3)
@@ -129,13 +127,13 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
     am_print("child1 = ",hex(child1))
     fill_word(hdr_binarray, AM_IMAGEHDR_OFFSET_CHILDPTR + 4, child1)
 
-    authKeyIdx = authKeyIdx - keys.minHmacKeyIdx
+    authKeyIdx = authKeyIdx - minHmacKeyIdx
     if (authB != 0): # Authentication needed
         am_print("Boot Authentication Enabled")
 #        am_print("Key used for HMAC")
 #        am_print([hex(keys.keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES + n]) for n in range (0, AM_HMAC_SIG_SIZE)])
         # Initialize the clear image HMAC
-        sigClr = compute_hmac(keys.keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES:(authKeyIdx*AM_SECBOOT_KEYIDX_BYTES+AM_HMAC_SIG_SIZE)], (hdr_binarray[AM_IMAGEHDR_START_HMAC:hdr_length] + app_binarray))
+        sigClr = compute_hmac(keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES:(authKeyIdx*AM_SECBOOT_KEYIDX_BYTES+AM_HMAC_SIG_SIZE)], (hdr_binarray[AM_IMAGEHDR_START_HMAC:hdr_length] + app_binarray))
         am_print("HMAC Clear")
         am_print([hex(n) for n in sigClr])
         # Fill up the HMAC
@@ -158,7 +156,7 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
 #        am_print("Key used for encrypting AES Key")
 #        am_print([hex(keys.keyTblAes[encKeyIdx*keySize + n]) for n in range (0, keySize)])
         # Encrypted Key
-        enc_key = encrypt_app_aes(keyAes, keys.keyTblAes[encKeyIdx*keySize:encKeyIdx*keySize + keySize], ivVal0)
+        enc_key = encrypt_app_aes(keyAes, keyTblAes[encKeyIdx*keySize:encKeyIdx*keySize + keySize], ivVal0)
         am_print("Encrypted Key")
         am_print([hex(enc_key[n]) for n in range (0, keySize)])
         # Fill up the IV
@@ -176,7 +174,7 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
 #        am_print("Key used for HMAC")
 #        am_print([hex(keys.keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES + n]) for n in range (0, AM_HMAC_SIG_SIZE)])
         # Initialize the top level HMAC
-        sig = compute_hmac(keys.keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES:(authKeyIdx*AM_SECBOOT_KEYIDX_BYTES+AM_HMAC_SIG_SIZE)], (hdr_binarray[AM_IMAGEHDR_START_HMAC_INST:AM_IMAGEHDR_START_ENCRYPT] + enc_binarray))
+        sig = compute_hmac(keyTblHmac[authKeyIdx*AM_SECBOOT_KEYIDX_BYTES:(authKeyIdx*AM_SECBOOT_KEYIDX_BYTES+AM_HMAC_SIG_SIZE)], (hdr_binarray[AM_IMAGEHDR_START_HMAC_INST:AM_IMAGEHDR_START_ENCRYPT] + enc_binarray))
         am_print("Generated Signature")
         am_print([hex(n) for n in sig])
         # Fill up the HMAC
@@ -195,9 +193,18 @@ def process(loadaddress, appFile, magicNum, crcI, crcB, authI, authB, protection
         out.write(hdr_binarray[0:AM_IMAGEHDR_START_ENCRYPT])
         out.write(enc_binarray)
 
+#******************************************************************************
+#
+# Main function.
+#
+#******************************************************************************
+def main():
+    am_set_print_level(args.loglevel)
 
+    process(args.loadaddress, args.appFile, args.magic_num, args.crcI, args.crcB, args.authI, args.authB, args.protection, args.authkey, args.output, args.kek, args.version, args.erasePrev, args.child0, args.child1, args.authalgo, args.encalgo)
+    exit()
 
-def parse_arguments():
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description =
                      'Generate Corvette Image Blob')
 
@@ -267,9 +274,6 @@ def parse_arguments():
 
     parser.add_argument('-p', dest = 'protection', type=auto_int, default=0, choices = [0x0, 0x1, 0x2, 0x3],
                         help = 'protection info 2 bit C W')
- 
-    parser.add_argument('-k', type=str, dest='keyFile', nargs='?', default='keys_info.py',
-                        help='key file in specified format [default = keys_info.py]')
 
     parser.add_argument('--loglevel', dest='loglevel', type=auto_int, default=AM_PRINT_LEVEL_INFO,
                         choices = range(AM_PRINT_LEVEL_MIN, AM_PRINT_LEVEL_MAX+1),
@@ -278,22 +282,5 @@ def parse_arguments():
 
     args = parser.parse_args()
     args.magic_num = int(args.magic_num, 16)
-
-
-    return args
-
-#******************************************************************************
-#
-# Main function.
-#
-#******************************************************************************
-def main():
-    # Read the arguments.
-    args = parse_arguments()
-    am_set_print_level(args.loglevel)
-
-
-    process(args.loadaddress, args.appFile, args.magic_num, args.crcI, args.crcB, args.authI, args.authB, args.protection, args.authkey, args.output, args.kek, args.version, args.erasePrev, args.child0, args.child1, args.authalgo, args.encalgo, args.keyFile)
-
-if __name__ == '__main__':
+    
     main()

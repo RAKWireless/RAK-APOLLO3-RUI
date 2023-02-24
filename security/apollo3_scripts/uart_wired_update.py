@@ -7,6 +7,7 @@ import sys
 import array
 import os
 import binascii
+import time
 
 from am_defines import *
 
@@ -32,7 +33,12 @@ def main():
 
     print('Connecting with Corvette over serial port {}...'.format(args.port), flush=True)
 
-    with serial.Serial(args.port, args.baud, timeout=12) as ser:
+    with serial.Serial(args.port, args.baud, timeout=16) as ser:
+
+        print('RESET RAK11720 BOARD!!!', flush=True)
+        t_su = 2
+        time.sleep(t_su)
+
         connect_device(ser)
 
     print('Done.')
@@ -52,26 +58,26 @@ def connect_device(ser):
     hello = bytearray([0x00]*4);
     
     fill_word(hello, 0, ((8 << 16) | AM_SECBOOT_WIRED_MSGTYPE_HELLO))
-    print('Sending Hello.')
+    print('Sending Hello.', flush=True)
     response = send_command(hello, 88, ser)
-    print("Received response for Hello")
+    print("Received response for Hello", flush=True)
     word = word_from_bytes(response, 4)
     if ((word & 0xFFFF) == AM_SECBOOT_WIRED_MSGTYPE_STATUS):
         # Received Status
-        print("Received Status")
-        print("length = ", hex((word >> 16)))
-        print("version = ", hex(word_from_bytes(response, 8)))
-        print("Max Storage = ", hex(word_from_bytes(response, 12)))
-        print("Status = ", hex(word_from_bytes(response, 16)))
-        print("State = ", hex(word_from_bytes(response, 20)))
-        print("AMInfo = ")
+        print("Received Status", flush=True)
+        print("length = ", hex((word >> 16)), flush=True)
+        print("version = ", hex(word_from_bytes(response, 8)), flush=True)
+        print("Max Storage = ", hex(word_from_bytes(response, 12)), flush=True)
+        print("Status = ", hex(word_from_bytes(response, 16)), flush=True)
+        print("State = ", hex(word_from_bytes(response, 20)), flush=True)
+        print("AMInfo = ", flush=True)
         for x in range(24, 88, 4):
-            print(hex(word_from_bytes(response, x)))
+            print(hex(word_from_bytes(response, x)), flush=True)
 
         abort = args.abort
         if (abort != -1):
             # Send OTA Desc
-            print('Sending Abort command.')
+            print('Sending Abort command.', flush=True)
             abortMsg = bytearray([0x00]*8);
             fill_word(abortMsg, 0, ((12 << 16) | AM_SECBOOT_WIRED_MSGTYPE_ABORT))
             fill_word(abortMsg, 4, abort)
@@ -80,7 +86,7 @@ def connect_device(ser):
         otadescaddr = args.otadesc
         if (otadescaddr != 0xFFFFFFFF):
             # Send OTA Desc
-            print('Sending OTA Descriptor = ', hex(otadescaddr))
+            print('Sending OTA Descriptor = ', hex(otadescaddr), flush=True)
             otaDesc = bytearray([0x00]*8);
             fill_word(otaDesc, 0, ((12 << 16) | AM_SECBOOT_WIRED_MSGTYPE_OTADESC))
             fill_word(otaDesc, 4, otadescaddr)
@@ -95,25 +101,25 @@ def connect_device(ser):
             # Gather the important binary metadata.
             totalLen = len(application)
             # Send Update command
-            print('Sending Update Command.')
+            print('Sending Update Command.', flush=True)
 
             # It is assumed that maxSize is 256b multiple
             maxImageSize = args.split
             if ((maxImageSize & (FLASH_PAGE_SIZE - 1)) != 0):
-                print ("split needs to be multiple of flash page size")
+                print ("split needs to be multiple of flash page size", flush=True)
                 return
 
             # Each Block of image consists of AM_WU_IMAGEHDR_SIZE Bytes Image header and the Image blob
             maxUpdateSize = AM_WU_IMAGEHDR_SIZE + maxImageSize
             numUpdates = (totalLen + maxUpdateSize - 1) // maxUpdateSize # Integer division
-            print("number of updates needed = ", numUpdates)
+            print("number of updates needed = ", numUpdates, flush=True)
 
             end = totalLen
             for numUpdates in range(numUpdates, 0 , -1):
                 start = (numUpdates-1)*maxUpdateSize
                 crc = crc32(application[start:end])
                 applen = end - start
-                print("Sending block of size ", str(hex(applen)), " from ", str(hex(start)), " to ", str(hex(end)))
+                print("Sending block of size ", str(hex(applen)), " from ", str(hex(start)), " to ", str(hex(end)), flush=True)
                 end = end - applen
 
                 update = bytearray([0x00]*16);
@@ -148,7 +154,7 @@ def connect_device(ser):
                     # seqNo
                     fill_word(dataMsg, 4, x)
 
-                    print("Sending Data Packet of length ", chunklen)
+                    print("Sending Data Packet of length ", chunklen, flush=True)
                     send_ackd_command(dataMsg + chunk, ser)
 
         if (args.raw != ''):
@@ -157,12 +163,12 @@ def connect_device(ser):
             with open(args.raw, mode='rb') as rawfile:
                 blob = rawfile.read()
             # Send Raw command
-            print('Sending Raw Command.')
+            print('Sending Raw Command.', flush=True)
             ser.write(blob)
 
         if (args.reset != 0):
             # Send reset
-            print('Sending Reset Command.')
+            print('Sending Reset Command.', flush=True)
             resetmsg = bytearray([0x00]*8);
             fill_word(resetmsg, 0, ((12 << 16) | AM_SECBOOT_WIRED_MSGTYPE_RESET))
             # options
@@ -170,12 +176,12 @@ def connect_device(ser):
             send_ackd_command(resetmsg, ser)
     else:
         # Received Wrong message
-        print("Received Unknown Message")
+        print("Received Unknown Message", flush=True)
         word = word_from_bytes(response, 4)
-        print("msgType = ", hex(word & 0xFFFF))
-        print("Length = ", hex(word >> 16))
-        print([hex(n) for n in response])
-        print("!!!Wired Upgrade Unsuccessful!!!....Terminating the script")
+        print("msgType = ", hex(word & 0xFFFF), flush=True)
+        print("Length = ", hex(word >> 16), flush=True)
+        print([hex(n) for n in response], flush=True)
+        print("!!!Wired Upgrade Unsuccessful!!!....Terminating the script", flush=True)
         exit()
 
 #******************************************************************************
@@ -193,21 +199,21 @@ def send_ackd_command(command, ser):
         if ((word & 0xFFFF) == AM_SECBOOT_WIRED_MSGTYPE_ACK):
             # Received ACK
             if (word_from_bytes(response, 12) != AM_SECBOOT_WIRED_ACK_STATUS_SUCCESS):
-                print("Received NACK")
-                print("msgType = ", hex(word_from_bytes(response, 8)))
-                print("error = ", hex(word_from_bytes(response, 12)))
-                print("seqNo = ", hex(word_from_bytes(response, 16)))
+                print("Received NACK", flush=True)
+                print("msgType = ", hex(word_from_bytes(response, 8)), flush=True)
+                print("error = ", hex(word_from_bytes(response, 12)), flush=True)
+                print("seqNo = ", hex(word_from_bytes(response, 16)), flush=True)
                 if (numTries < 4):
-                    print("Retry # ", numTries)
+                    print("Retry # ", numTries, flush=True)
                 else:
-                    print("Exceed number of retries")
+                    print("Exceed number of retries", flush=True)
             else:
                 break
         else:
-            print("!!!Wired Upgrade Unsuccessful!!!....unexpected respose - Terminating the script")
+            print("!!!Wired Upgrade Unsuccessful!!!....unexpected respose - Terminating the script", flush=True)
             exit()
     if (numTries == 4):
-        print("!!!Wired Upgrade Unsuccessful!!!....numTries exceeded - Terminating the script")
+        print("!!!Wired Upgrade Unsuccessful!!!....numTries exceeded - Terminating the script", flush=True)
         exit()
 
     return response
@@ -227,6 +233,8 @@ def send_command(params, response_len, ser):
 #    print([hex(n) for n in params])
     # send crc first
     ser.write(int_to_bytes(crc))
+    t_su = 0.15
+    time.sleep(t_su)
 
     # Next, send the parameters.
     ser.write(params)
@@ -236,11 +244,11 @@ def send_command(params, response_len, ser):
 
     # Make sure we got the number of bytes we asked for.
     if len(response) != response_len:
-        print('No response for command 0x{:08X}'.format(word_from_bytes(params, 0) & 0xFFFF))
+        print('No response for command 0x{:08X}'.format(word_from_bytes(params, 0) & 0xFFFF), flush=True)
         n = len(response)
         if (n != 0):
-            print("received bytes ", len(response))
-            print([hex(n) for n in response])
+            print("received bytes ", len(response), flush=True)
+            print([hex(n) for n in response], flush=True)
         raise NoResponseError
 
     return response
@@ -262,7 +270,7 @@ def send_bytewise_command(command, params, response_len, ser):
 
     # Make sure we got the number of bytes we asked for.
     if len(response) != response_len:
-        print('No response for command 0x{:08X}'.format(command))
+        print('No response for command 0x{:08X}'.format(command), flush=True)
         raise NoResponseError
 
     return response

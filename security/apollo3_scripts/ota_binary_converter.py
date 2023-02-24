@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+from sys import exit
 
 
 #******************************************************************************
@@ -163,7 +164,16 @@ def process(load_address, app_filename, secinfo_file_name, app_ver, bin_type, st
                 out.write(pad_binarray)
         out.write(app_binarray)
 
-def parse_arguments():
+#******************************************************************************
+#
+# Main function.
+#
+#******************************************************************************
+def main():
+    process(args.loadaddress, args.appbin, args.secbin, args.app_ver, args.bin_type, args.str_type, args.output, args.alignment)
+    exit()
+
+if __name__ == '__main__':
     parser = argparse.ArgumentParser(description =
                      'Combine two binary files in to a single download.')
 
@@ -196,19 +206,5 @@ def parse_arguments():
 
 
     args = parser.parse_args()
-
-    return args
-
-#******************************************************************************
-#
-# Main function.
-#
-#******************************************************************************
-def main():
-    # Read the arguments.
-    args = parse_arguments()
-
-    process(args.loadaddress, args.appbin, args.secbin, args.app_ver, args.bin_type, args.str_type, args.output, args.alignment)
-
-if __name__ == '__main__':
+    
     main()

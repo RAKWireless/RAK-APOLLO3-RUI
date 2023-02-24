@@ -20,6 +20,7 @@ void uhal_gpio_intc_clear(uint32_t pin);
 void uhal_gpio_set_wakeup_enable(uint32_t pin);
 void uhal_gpio_set_wakeup_disable(uint32_t pin);
 void uhal_gpio_set_wakeup_mode(gpio_intc_trigger_mode_t mode);
+void uhal_gpio_pin_suspend(uint32_t pin);
 void uhal_gpio_suspend(void);
 void uhal_gpio_resume(void);
 

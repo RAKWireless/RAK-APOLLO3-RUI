@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -20785,7 +20787,7 @@ typedef struct {
 #define IOSLAVE ((IOSLAVE_Type*) IOSLAVE_BASE)
 #define MCUCTRL ((MCUCTRL_Type*) MCUCTRL_BASE)
 #define MSPI ((MSPI_Type*) MSPI_BASE)
-#define PDM ((PDM_Type*) PDM_BASE)
+#define _PDM ((PDM_Type*) PDM_BASE)
 #define PWRCTRL ((PWRCTRL_Type*) PWRCTRL_BASE)
 #define RSTGEN ((RSTGEN_Type*) RSTGEN_BASE)
 #define RTC ((RTC_Type*) RTC_BASE)
@@ -39238,11 +39240,11 @@ typedef struct
 
 
 
-    uint32_t B0;
+    uint32_t _B0;
 
 
 
-    uint32_t B1;
+    uint32_t _B1;
 
 
 
@@ -44112,17 +44114,17 @@ extern uint32_t am_hal_wdt_int_status_get(
                                               bEnabledOnly);
 # 155 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/mcu/apollo3/am_mcu_apollo.h" 2
 # 66 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 1
-# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 1
+# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_H 
 
 
 
 
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h" 1
-# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h" 1
+# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h"
 #define AM_BSP_PINS_H 
-# 70 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h"
+# 70 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h"
 #define AM_BSP_GPIO_BUTTON0 16
 extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_BUTTON0;
 
@@ -44751,7 +44753,7 @@ extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_SWDCK;
 
 #define AM_BSP_GPIO_SWDIO 21
 extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_SWDIO;
-# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
+# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
 
 
 
@@ -44797,7 +44799,7 @@ extern
            am_devices_led_get(am_devices_led_t *psLEDs, uint32_t ui32LEDNum);
 extern void am_devices_led_array_out(am_devices_led_t *psLEDs, uint32_t ui32NumLEDs,
                                      uint32_t ui32Value);
-# 66 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
+# 66 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/devices/am_devices_button.h" 1
 # 47 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/devices/am_devices_button.h"
 #define AM_DEVICES_BUTTON_H 
@@ -44867,8 +44869,8 @@ extern void am_devices_button_tick(am_devices_button_t *psButton);
 
 extern void am_devices_button_array_tick(am_devices_button_t *psButtons,
                                          uint32_t ui32NumButtons);
-# 67 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
-# 78 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 67 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
+# 78 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_PRINT_INFC_NONE 0
 #define AM_BSP_PRINT_INFC_SWO 1
 #define AM_BSP_PRINT_INFC_UART0 2
@@ -44889,12 +44891,12 @@ extern am_devices_button_t am_bsp_psButtons[3];
 
 #define AM_BSP_NUM_LEDS 5
 extern am_devices_led_t am_bsp_psLEDs[5];
-# 108 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 108 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_PIN_PWM_LED AM_BSP_GPIO_LED1
 #define AM_BSP_PWM_LED_TIMER 2
 #define AM_BSP_PWM_LED_TIMER_SEG AM_HAL_CTIMER_TIMERB
 #define AM_BSP_PWM_LED_TIMER_INT AM_HAL_CTIMER_INT_TIMERB2C0
-# 122 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 122 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_UART_IOS_INST 0
 #define AM_BSP_UART_PRINT_INST 0
 #define AM_BSP_UART_BOOTLOADER_INST 1
@@ -44907,9 +44909,9 @@ extern am_devices_led_t am_bsp_psLEDs[5];
 typedef struct
 {
     
-# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 3 4
+# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 3 4
    _Bool 
-# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
             bSaved;
     uint32_t ui32TxPinNum;
     uint32_t ui32TxPinCfg;
@@ -45342,12 +45344,30 @@ extern void am_bootloader_erase_flash_page(uint32_t ui32Addr);
 #define AMOTA_PROFILE_CONFIG_H 
 
 
-
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 1
+# 57 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/amota_profile_config.h" 2
 
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/bootloader/am_bootloader.h" 1
 # 59 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/amota_profile_config.h" 2
-# 70 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/amota_profile_config.h"
-#define AMOTA_INT_FLASH_OTA_ADDRESS 0x00084000
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/mcu_basic.h" 1
+
+#define __MCU_BASIC_H__ 
+
+#define MCU_FLASH_OTA_ADDRESS 0x00084000
+#define MCU_FLASH_OTA_ADDRESS_UART 0x00014000
+
+#define MCU_OTA_POINTER_LOCATION 0x000F8000
+#define MCU_BLE_NVM_LOCATION 0x000FA000
+#define MCU_BOOT_VERSION_LOCATION 0x000FC000
+#define MCU_BOOTLOADER_FLAG_LOCATION 0x000FE000
+
+#define MCU_FACTORY_DEFAULT_NVM_ADDR 0x000F6000
+#define MCU_SYS_CONFIG_NVM_ADDR 0x000F4000
+#define MCU_USER_DATA_NVM_ADDR 0x000D4000
+# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/amota_profile_config.h" 2
+# 71 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/amota_profile_config.h"
+#define AMOTA_INT_FLASH_OTA_ADDRESS MCU_FLASH_OTA_ADDRESS
+#define AMOTA_INT_FLASH_OTA_ADDRESS_UART MCU_FLASH_OTA_ADDRESS_UART
 
 
 
@@ -45355,11 +45375,12 @@ extern void am_bootloader_erase_flash_page(uint32_t ui32Addr);
 
 
 #define AMOTA_INT_FLASH_OTA_MAX_SIZE (AM_HAL_FLASH_LARGEST_VALID_ADDR - AMOTA_INT_FLASH_OTA_ADDRESS + 1)
+#define AMOTA_INT_FLASH_OTA_MAX_SIZE_UART (AM_HAL_FLASH_LARGEST_VALID_ADDR - AMOTA_INT_FLASH_OTA_ADDRESS_UART + 1)
 
 
 
 
-#define OTA_POINTER_LOCATION 0x00080000
+#define OTA_POINTER_LOCATION MCU_OTA_POINTER_LOCATION
 
 
 #define AMOTAS_SUPPORT_EXT_FLASH 0
@@ -45476,6 +45497,886 @@ extern
            am_multiboot_get_main_image_info(uint32_t *pui32LinkAddr, uint32_t *pui32Length);
 # 72 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 2
 
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h" 1
+
+#define _UHAL_UART_H_ 
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 6 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h" 2
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 1
+# 10 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+#define _UDRV_SERIAL_H_ 
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 17 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 2
+
+
+
+
+typedef enum _SERIAL_STATE{
+    SERIAL_STATE_DEFAULT = 0,
+    SERIAL_STATE_AT_START_1 = 1,
+    SERIAL_STATE_AT_START_2 = 2,
+    SERIAL_STATE_AT_START_3 = 3,
+    SERIAL_STATE_BOOT_1 = 4,
+    SERIAL_STATE_BOOT_2 = 5,
+    SERIAL_STATE_BOOT_3 = 6,
+    SERIAL_STATE_BOOT_4 = 7,
+    SERIAL_STATE_ATM_1 = 8,
+    SERIAL_STATE_ATM_2 = 9,
+    SERIAL_STATE_ATM_3 = 10,
+    SERIAL_STATE_AT_END = 11,
+    SERIAL_STATE_MAX = 12,
+} SERIAL_STATE;
+
+typedef enum _SERIAL_EVENT{
+    SERIAL_EVENT_RECV_A_A_CHAR = 0,
+    SERIAL_EVENT_RECV_A_T_CHAR = 1,
+    SERIAL_EVENT_RECV_A_PLUS_CHAR = 2,
+    SERIAL_EVENT_RECV_A_B_CHAR = 3,
+    SERIAL_EVENT_RECV_A_O_CHAR = 4,
+    SERIAL_EVENT_RECV_A_M_CHAR = 5,
+    SERIAL_EVENT_RECV_CRLF = 6,
+    SERIAL_EVENT_RECV_OTHER_CHAR = 7,
+    SERIAL_EVENT_MAX = 8,
+} SERIAL_EVENT;
+
+#define SERIAL_NO_TIMEOUT UINT32_MAX
+
+typedef enum _SERIAL_WIRE_MODE_E {
+    SERIAL_TWO_WIRE_NORMAL_MODE = 0x0,
+    SERIAL_ONE_WIRE_TX_PIN_MODE = 0x1,
+    SERIAL_ONE_WIRE_RX_PIN_MODE = 0x2,
+} SERIAL_WIRE_MODE_E;
+
+typedef enum _SERIAL_WORD_LEN_E {
+    SERIAL_WORD_LEN_5 = 0x0,
+    SERIAL_WORD_LEN_6 = 0x1,
+    SERIAL_WORD_LEN_7 = 0x2,
+    SERIAL_WORD_LEN_8 = 0x3
+} SERIAL_WORD_LEN_E;
+
+typedef enum _SERIAL_STOP_BIT_E {
+    SERIAL_STOP_BIT_1 = 0x0,
+    SERIAL_STOP_BIT_2 = 0x1
+} SERIAL_STOP_BIT_E;
+
+typedef enum _SERIAL_PARITY_E {
+    SERIAL_PARITY_DISABLE = 0x0,
+    SERIAL_PARITY_ODD = 0x1,
+    SERIAL_PARITY_EVEN = 0x3,
+    SERIAL_PARITY_FORCED1 = 0x5,
+    SERIAL_PARITY_FORCED0 = 0x7
+} SERIAL_PARITY_E;
+
+typedef enum _SERIAL_PORT
+{
+    SERIAL_UART0 = 0,
+    SERIAL_UART1,
+    SERIAL_UART2,
+
+
+
+
+    SERIAL_BLE0,
+
+
+
+
+    SERIAL_MAX,
+} SERIAL_PORT;
+
+typedef enum _SERIAL_WLOCK_STATE
+{
+    SERIAL_WLOCK_OPEN = 0,
+    SERIAL_WLOCK_LOCKED = 1,
+    SERIAL_WLOCK_DISABLED = 2,
+} SERIAL_WLOCK_STATE;
+
+typedef void (*SERIAL_CLI_HANDLER) (SERIAL_PORT, void *);
+
+
+struct udrv_serial_api {
+    void (*SERIAL_INIT) (SERIAL_PORT Port, uint32_t BaudRate, SERIAL_WORD_LEN_E DataBits, SERIAL_STOP_BIT_E StopBits, SERIAL_PARITY_E Parity, SERIAL_WIRE_MODE_E WireMode);
+    void (*SERIAL_DEINIT) (SERIAL_PORT Port);
+    int32_t (*SERIAL_WRITE) (SERIAL_PORT Port, uint8_t const *Buffer, int32_t NumberOfBytes, uint32_t Timeout);
+    int32_t (*SERIAL_READ) (SERIAL_PORT Port, uint8_t *Buffer, int32_t NumberOfBytes, uint32_t Timeout);
+    int32_t (*SERIAL_PEEK) (SERIAL_PORT Port);
+    void (*SERIAL_FLUSH) (SERIAL_PORT Port, uint32_t Timeout);
+    int32_t (*SERIAL_READ_AVAIL) (SERIAL_PORT Port);
+    
+# 112 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
+   _Bool 
+# 112 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+        (*SERIAL_IS_READY) (SERIAL_PORT Port);
+
+
+};
+
+
+
+
+
+
+void udrv_serial_register_onewire_handler (SERIAL_CLI_HANDLER handler);
+
+
+
+
+
+
+
+# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
+_Bool 
+# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+    is_udrv_serial_initialized(SERIAL_PORT Port);
+# 141 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+void udrv_serial_init (SERIAL_PORT Port, uint32_t BaudRate, SERIAL_WORD_LEN_E DataBits, SERIAL_STOP_BIT_E StopBits, SERIAL_PARITY_E Parity, SERIAL_WIRE_MODE_E WireMode);
+
+
+
+
+
+
+void udrv_serial_deinit (SERIAL_PORT Port);
+# 158 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+int32_t udrv_serial_write (SERIAL_PORT Port, uint8_t const *Buffer, int32_t NumberOfBytes);
+# 168 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+int32_t udrv_serial_printf (SERIAL_PORT Port, const char *fmt, ...);
+# 178 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+int32_t udrv_serial_log_printf (const char *fmt, ...);
+# 189 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+int32_t udrv_serial_read (SERIAL_PORT Port, uint8_t *Buffer, int32_t NumberOfBytes);
+
+
+
+
+
+
+
+int32_t udrv_serial_peek (SERIAL_PORT Port);
+
+
+
+
+
+
+void udrv_serial_flush (SERIAL_PORT Port);
+
+
+
+
+
+void udrv_serial_lock (void);
+
+
+
+
+
+void udrv_serial_unlock (void);
+
+
+
+
+
+
+
+int32_t udrv_serial_get_passwd (char *passwd, uint32_t len);
+
+
+
+
+
+
+
+int32_t udrv_serial_set_passwd (const char *passwd, uint32_t len);
+
+
+
+
+
+
+SERIAL_WLOCK_STATE udrv_serial_get_lock_state (SERIAL_PORT Port);
+
+
+
+
+
+
+void udrv_serial_disable (SERIAL_PORT Port);
+
+
+
+
+
+
+void udrv_serial_enable (SERIAL_PORT Port);
+# 262 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+int32_t udrv_serial_read_available(SERIAL_PORT Port);
+
+
+
+
+
+uint32_t udrv_serial_get_timeout ();
+
+
+
+
+
+
+void udrv_serial_set_timeout (uint32_t timeout);
+
+
+
+
+
+void udrv_serial_suspend();
+
+
+
+
+
+void udrv_serial_resume();
+
+
+
+
+
+
+void serial_fallback_handler(SERIAL_PORT port, uint8_t ch);
+# 8 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h" 2
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/udrv_errno.h" 1
+# 10 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/udrv_errno.h"
+#define _UDRV_ERRNO_H_ 
+
+
+
+
+
+typedef enum _UDRV_RETURN_CODE
+{
+    UDRV_RETURN_OK,
+    UDRV_NOT_INIT,
+    UDRV_ALREADY_INIT,
+    UDRV_WRONG_ARG,
+    UDRV_NACK,
+    UDRV_OCCUPIED,
+    UDRV_BUSY,
+    UDRV_INTERNAL_ERR,
+    UDRV_TEMP_LOCKED,
+    UDRV_BUFF_OVERFLOW,
+    UDRV_ADDR_NOT_ALIGNED,
+    UDRV_LEN_NOT_ALIGNED,
+    UDRV_NO_WAN_CONNECTION,
+    UDRV_FORBIDDEN,
+    UDRV_CONTINUE,
+    UDRV_NOT_FOUND,
+    UDRV_PARAM_ERR,
+} UDRV_RETURN_CODE;
+# 9 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h" 2
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 1 3
+# 27 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define _STDIO_H_ 
+
+
+
+#define _FSTDIO 
+
+#define __need_size_t 
+#define __need_NULL 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+
+
+#define __need___va_list 
+# 61 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 1 3
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __uint8_t u_int8_t;
+
+
+typedef __uint16_t u_int16_t;
+
+
+typedef __uint32_t u_int32_t;
+
+
+typedef __uint64_t u_int64_t;
+
+typedef __intptr_t register_t;
+#define __BIT_TYPES_DEFINED__ 1
+
+
+
+#define _SYS_TYPES_H 
+# 97 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __blkcnt_t blkcnt_t;
+#define _BLKCNT_T_DECLARED 
+
+
+
+typedef __blksize_t blksize_t;
+#define _BLKSIZE_T_DECLARED 
+
+
+
+typedef unsigned long clock_t;
+#define __clock_t_defined 
+#define _CLOCK_T_DECLARED 
+
+
+
+typedef __int_least64_t time_t;
+#define __time_t_defined 
+#define _TIME_T_DECLARED 
+
+
+
+typedef long daddr_t;
+#define __daddr_t_defined 
+
+
+typedef char * caddr_t;
+#define __caddr_t_defined 
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+typedef __fsfilcnt_t fsfilcnt_t;
+#define _FSBLKCNT_T_DECLARED 
+
+
+
+typedef __id_t id_t;
+#define _ID_T_DECLARED 
+
+
+
+typedef __ino_t ino_t;
+#define _INO_T_DECLARED 
+# 157 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __off_t off_t;
+#define _OFF_T_DECLARED 
+
+
+typedef __dev_t dev_t;
+#define _DEV_T_DECLARED 
+
+
+typedef __uid_t uid_t;
+#define _UID_T_DECLARED 
+
+
+typedef __gid_t gid_t;
+#define _GID_T_DECLARED 
+
+
+
+typedef __pid_t pid_t;
+#define _PID_T_DECLARED 
+
+
+
+typedef __key_t key_t;
+#define _KEY_T_DECLARED 
+
+
+
+typedef _ssize_t ssize_t;
+#define _SSIZE_T_DECLARED 
+
+
+
+typedef __mode_t mode_t;
+#define _MODE_T_DECLARED 
+
+
+
+typedef __nlink_t nlink_t;
+#define _NLINK_T_DECLARED 
+
+
+
+typedef __clockid_t clockid_t;
+#define __clockid_t_defined 
+#define _CLOCKID_T_DECLARED 
+
+
+
+typedef __timer_t timer_t;
+#define __timer_t_defined 
+#define _TIMER_T_DECLARED 
+
+
+
+typedef __useconds_t useconds_t;
+#define _USECONDS_T_DECLARED 
+
+
+
+typedef __suseconds_t suseconds_t;
+#define _SUSECONDS_T_DECLARED 
+
+
+typedef __int64_t sbintime_t;
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_pthreadtypes.h" 1 3
+# 19 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+#define _SYS__PTHREADTYPES_H_ 
+# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/types.h" 1 3
+# 225 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 2 3
+
+
+
+#undef __need_inttypes
+# 62 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+
+
+
+
+typedef __FILE FILE;
+#define __FILE_defined 
+
+
+
+
+
+typedef _fpos_t fpos_t;
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/stdio.h" 1 3
+
+#define _NEWLIB_STDIO_H 
+# 13 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/stdio.h" 3
+#define _flockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_acquire_recursive((fp)->_lock))
+
+
+
+
+
+
+
+#define _funlockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_release_recursive((fp)->_lock))
+# 80 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+
+#define __SLBF 0x0001
+#define __SNBF 0x0002
+#define __SRD 0x0004
+#define __SWR 0x0008
+
+#define __SRW 0x0010
+#define __SEOF 0x0020
+#define __SERR 0x0040
+#define __SMBF 0x0080
+#define __SAPP 0x0100
+#define __SSTR 0x0200
+#define __SOPT 0x0400
+#define __SNPT 0x0800
+#define __SOFF 0x1000
+#define __SORD 0x2000
+
+
+
+#define __SL64 0x8000
+
+
+#define __SNLK 0x0001
+#define __SWID 0x2000
+# 114 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define _IOFBF 0
+#define _IOLBF 1
+#define _IONBF 2
+
+#define EOF (-1)
+
+
+
+
+#define BUFSIZ 1024
+
+
+
+
+
+#define FOPEN_MAX 20
+
+
+
+
+
+#define FILENAME_MAX 1024
+
+
+
+
+
+#define L_tmpnam FILENAME_MAX
+
+
+
+
+
+
+
+#define SEEK_SET 0
+
+
+#define SEEK_CUR 1
+
+
+#define SEEK_END 2
+
+
+#define TMP_MAX 26
+
+#define stdin (_REENT->_stdin)
+#define stdout (_REENT->_stdout)
+#define stderr (_REENT->_stderr)
+
+#define _stdin_r(x) ((x)->_stdin)
+#define _stdout_r(x) ((x)->_stdout)
+#define _stderr_r(x) ((x)->_stderr)
+
+
+
+
+
+
+
+#define __VALIST __gnuc_va_list
+# 186 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+FILE * tmpfile (void);
+char * tmpnam (char *);
+
+
+
+int fclose (FILE *);
+int fflush (FILE *);
+FILE * freopen (const char *restrict, const char *restrict, FILE *restrict);
+void setbuf (FILE *restrict, char *restrict);
+int setvbuf (FILE *restrict, char *restrict, int, size_t);
+int fprintf (FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int fscanf (FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int printf (const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 1, 2)));
+int scanf (const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 1, 2)));
+int sscanf (const char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int vfprintf (FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int vprintf (const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 1, 0)));
+int vsprintf (char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int fgetc (FILE *);
+char * fgets (char *restrict, int, FILE *restrict);
+int fputc (int, FILE *);
+int fputs (const char *restrict, FILE *restrict);
+int getc (FILE *);
+int getchar (void);
+char * gets (char *);
+int putc (int, FILE *);
+int putchar (int);
+int puts (const char *);
+int ungetc (int, FILE *);
+size_t fread (void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t fwrite (const void *restrict , size_t _size, size_t _n, FILE *);
+
+
+
+int fgetpos (FILE *restrict, fpos_t *restrict);
+
+int fseek (FILE *, long, int);
+
+
+
+int fsetpos (FILE *, const fpos_t *);
+
+long ftell ( FILE *);
+void rewind (FILE *);
+void clearerr (FILE *);
+int feof (FILE *);
+int ferror (FILE *);
+void perror (const char *);
+
+FILE * fopen (const char *restrict _name, const char *restrict _type);
+int sprintf (char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int remove (const char *);
+int rename (const char *, const char *);
+# 266 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int snprintf (char *restrict, size_t, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int vsnprintf (char *restrict, size_t, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int vfscanf (FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int vscanf (const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 1, 0)));
+int vsscanf (const char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 396 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int _asiprintf_r (struct _reent *, char **, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+char * _asniprintf_r (struct _reent *, char *, size_t *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+char * _asnprintf_r (struct _reent *, char *restrict, size_t *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _asprintf_r (struct _reent *, char **restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _diprintf_r (struct _reent *, int, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _dprintf_r (struct _reent *, int, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fclose_r (struct _reent *, FILE *);
+int _fcloseall_r (struct _reent *);
+FILE * _fdopen_r (struct _reent *, int, const char *);
+int _fflush_r (struct _reent *, FILE *);
+int _fgetc_r (struct _reent *, FILE *);
+int _fgetc_unlocked_r (struct _reent *, FILE *);
+char * _fgets_r (struct _reent *, char *restrict, int, FILE *restrict);
+char * _fgets_unlocked_r (struct _reent *, char *restrict, int, FILE *restrict);
+
+
+
+
+int _fgetpos_r (struct _reent *, FILE *, fpos_t *);
+int _fsetpos_r (struct _reent *, FILE *, const fpos_t *);
+
+int _fiprintf_r (struct _reent *, FILE *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fiscanf_r (struct _reent *, FILE *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+FILE * _fmemopen_r (struct _reent *, void *restrict, size_t, const char *restrict);
+FILE * _fopen_r (struct _reent *, const char *restrict, const char *restrict);
+FILE * _freopen_r (struct _reent *, const char *restrict, const char *restrict, FILE *restrict);
+int _fprintf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fpurge_r (struct _reent *, FILE *);
+int _fputc_r (struct _reent *, int, FILE *);
+int _fputc_unlocked_r (struct _reent *, int, FILE *);
+int _fputs_r (struct _reent *, const char *restrict, FILE *restrict);
+int _fputs_unlocked_r (struct _reent *, const char *restrict, FILE *restrict);
+size_t _fread_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t _fread_unlocked_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
+int _fscanf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+int _fseek_r (struct _reent *, FILE *, long, int);
+int _fseeko_r (struct _reent *, FILE *, _off_t, int);
+long _ftell_r (struct _reent *, FILE *);
+_off_t _ftello_r (struct _reent *, FILE *);
+void _rewind_r (struct _reent *, FILE *);
+size_t _fwrite_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t _fwrite_unlocked_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
+int _getc_r (struct _reent *, FILE *);
+int _getc_unlocked_r (struct _reent *, FILE *);
+int _getchar_r (struct _reent *);
+int _getchar_unlocked_r (struct _reent *);
+char * _gets_r (struct _reent *, char *);
+int _iprintf_r (struct _reent *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int _iscanf_r (struct _reent *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+FILE * _open_memstream_r (struct _reent *, char **, size_t *);
+void _perror_r (struct _reent *, const char *);
+int _printf_r (struct _reent *, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int _putc_r (struct _reent *, int, FILE *);
+int _putc_unlocked_r (struct _reent *, int, FILE *);
+int _putchar_unlocked_r (struct _reent *, int);
+int _putchar_r (struct _reent *, int);
+int _puts_r (struct _reent *, const char *);
+int _remove_r (struct _reent *, const char *);
+int _rename_r (struct _reent *,
+      const char *_old, const char *_new);
+int _scanf_r (struct _reent *, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int _siprintf_r (struct _reent *, char *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _siscanf_r (struct _reent *, const char *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+int _sniprintf_r (struct _reent *, char *, size_t, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _snprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _sprintf_r (struct _reent *, char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _sscanf_r (struct _reent *, const char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+char * _tempnam_r (struct _reent *, const char *, const char *);
+FILE * _tmpfile_r (struct _reent *);
+char * _tmpnam_r (struct _reent *, char *);
+int _ungetc_r (struct _reent *, int, FILE *);
+int _vasiprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+char * _vasniprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+char * _vasnprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vasprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vdiprintf_r (struct _reent *, int, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vdprintf_r (struct _reent *, int, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfiprintf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfiscanf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _vfprintf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfscanf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _viprintf_r (struct _reent *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int _viscanf_r (struct _reent *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int _vprintf_r (struct _reent *, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int _vscanf_r (struct _reent *, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int _vsiprintf_r (struct _reent *, char *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vsiscanf_r (struct _reent *, const char *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _vsniprintf_r (struct _reent *, char *, size_t, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vsnprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vsprintf_r (struct _reent *, char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vsscanf_r (struct _reent *, const char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+
+
+
+int fpurge (FILE *);
+ssize_t __getdelim (char **, size_t *, int, FILE *);
+ssize_t __getline (char **, size_t *, FILE *);
+# 577 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int __srget_r (struct _reent *, FILE *);
+int __swbuf_r (struct _reent *, int, FILE *);
+# 654 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sgetc_raw_r(__ptr,__f) (--(__f)->_r < 0 ? __srget_r(__ptr, __f) : (int)(*(__f)->_p++))
+# 683 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sgetc_r(__ptr,__p) __sgetc_raw_r(__ptr, __p)
+
+
+
+static __inline__ int __sputc_r(struct _reent *_ptr, int _c, FILE *_p) {
+
+
+
+
+ if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
+  return (*_p->_p++ = _c);
+ else
+  return (__swbuf_r(_ptr, _c, _p));
+}
+# 719 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sfeof(p) ((int)(((p)->_flags & __SEOF) != 0))
+#define __sferror(p) ((int)(((p)->_flags & __SERR) != 0))
+#define __sclearerr(p) ((void)((p)->_flags &= ~(__SERR|__SEOF)))
+#define __sfileno(p) ((p)->_file)
+
+
+
+#define feof(p) __sfeof(p)
+#define ferror(p) __sferror(p)
+#define clearerr(p) __sclearerr(p)
+# 741 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+static __inline int
+_getchar_unlocked(void)
+{
+ struct _reent *_ptr;
+
+ _ptr = _impure_ptr;
+ return ((--(((_ptr)->_stdin))->_r < 0 ? __srget_r(_ptr, ((_ptr)->_stdin)) : (int)(*(((_ptr)->_stdin))->_p++)));
+}
+
+static __inline int
+_putchar_unlocked(int _c)
+{
+ struct _reent *_ptr;
+
+ _ptr = _impure_ptr;
+ return (__sputc_r(_ptr, _c, ((_ptr)->_stdout)));
+}
+# 797 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+
+# 11 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h" 2
+
+#define UHAL_UART_MAX 2
+# 34 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h"
+
+# 34 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/uhal/uhal_uart.h"
+void uhal_uart_register_cli_handler (SERIAL_CLI_HANDLER handler);
+
+void uhal_uart_register_onewire_handler (SERIAL_CLI_HANDLER handler);
+
+void uhal_uart_init (SERIAL_PORT Port, uint32_t BaudRate, SERIAL_WORD_LEN_E DataBits, SERIAL_STOP_BIT_E StopBits, SERIAL_PARITY_E Parity, SERIAL_WIRE_MODE_E WireMode);
+
+void uhal_uart_deinit (SERIAL_PORT Port);
+
+int32_t uhal_uart_write (SERIAL_PORT Port, uint8_t const *Buffer, int32_t NumberOfBytes, uint32_t Timeout);
+void uhal_uart_write_buffer (SERIAL_PORT Port, uint8_t const *Buffer, int32_t NumberOfBytes, uint32_t Timeout);
+
+int32_t uhal_uart_read (SERIAL_PORT Port, uint8_t *Buffer, int32_t NumberOfBytes, uint32_t Timeout);
+
+int32_t uhal_uart_peek (SERIAL_PORT Port);
+
+void uhal_uart_flush (SERIAL_PORT Port, uint32_t Timeout);
+
+int32_t uhal_uart_read_available(SERIAL_PORT Port);
+
+void uhal_uart_suspend(void);
+
+void uhal_uart_resume(void);
+# 74 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 2
+
 
 
 
@@ -45491,7 +46392,7 @@ extern
 #define APP_TRACE_INFO3(msg,var1,var2,var3) 
 
 static am_multiboot_flash_info_t *g_pFlash = &g_intFlash;
-# 104 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 106 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 #define AMOTAS_TEMP_BUFSIZE AM_HAL_FLASH_PAGE_SIZE
 
 
@@ -45519,7 +46420,7 @@ uint32_t amotasTmpBuf[(512 + 16) / 4];
 
 
 static uint32_t ui32ImageCalCRC = 0;
-# 141 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 143 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 typedef enum
 {
     AMOTA_STATE_INIT,
@@ -45595,7 +46496,7 @@ typedef struct
     uint32_t resvd[7];
 }
 amotaMetadataInfo_t;
-# 257 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 259 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 typedef struct
 {
     uint16_t offset;
@@ -45732,12 +46633,12 @@ amotas_find_next2send(void)
         }
     }
     return 
-# 392 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 394 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
           ((void *)0)
-# 392 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 394 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
               ;
 }
-# 402 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 404 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 void
 amotas_disconnect_timer_expired(wsfMsgHdr_t *pMsg)
 {
@@ -45817,20 +46718,20 @@ amotas_reply_to_client(eAmotaCommand cmd, eAmotaStatus status,
 
 
 static 
-# 480 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 482 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
       _Bool
 
-# 481 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 483 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 amotas_set_fw_addr(void)
 {
     
-# 483 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 485 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
    _Bool 
-# 483 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 485 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         bResult = 
-# 483 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 485 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                   0
-# 483 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 485 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                        ;
 
     amotasCb.newFwFlashInfo.addr = 0;
@@ -45844,34 +46745,38 @@ amotas_set_fw_addr(void)
 
         uint32_t storeAddr = (0x00084000 + ( 8 * 1024 ) - 1) & ~(( 8 * 1024 ) - 1);
         uint32_t maxSize = (( 0x00000000 + ( ( 512 * 1024 ) * 2 ) - 1 ) - 0x00084000 + 1) & ~(( 8 * 1024 ) - 1);
-# 516 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 518 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         if (amotasCb.fwHeader.fwLength > maxSize)
         {
            
                                                     ;
+
+            uint8_t msg[] = "Not enough OTA space allocated!\r\n";
+            uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+
             return 
-# 520 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 526 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                   0
-# 520 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 526 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                        ;
         }
 
         g_pFlash = &g_intFlash;
         amotasCb.newFwFlashInfo.addr = storeAddr;
         bResult = 
-# 525 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 531 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                  1
-# 525 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 531 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                      ;
     }
     else if ( amotasCb.fwHeader.storageType == 1 )
     {
-# 547 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 553 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         {
             bResult = 
-# 548 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 554 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                      0
-# 548 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 554 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                           ;
         }
     }
@@ -45879,15 +46784,15 @@ amotas_set_fw_addr(void)
     {
 
         bResult = 
-# 554 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 560 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                  0
-# 554 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 560 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                       ;
     }
     if (bResult == 
-# 556 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 562 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                   1
-# 556 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 562 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                       )
     {
 
@@ -45899,9 +46804,9 @@ amotas_set_fw_addr(void)
             {
                 ((g_pFlash)->flash_deinit ? (g_pFlash)->flash_deinit() : 0);
                 bResult = 
-# 566 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 572 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                          0
-# 566 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 572 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                               ;
             }
 
@@ -45914,9 +46819,9 @@ amotas_set_fw_addr(void)
         else
         {
             bResult = 
-# 577 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 583 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                      0
-# 577 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 583 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                           ;
         }
     }
@@ -45949,33 +46854,33 @@ verify_flash_content(uint32_t flashAddr, uint32_t *pSram, uint32_t len, am_multi
     }
     return ret;
 }
-# 617 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 static 
-# 617 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
       _Bool 
-# 617 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
            amotas_write2flash(uint16_t len, uint8_t *buf, uint32_t addr, 
-# 617 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                          _Bool 
-# 617 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                               lastPktFlag)
 {
     uint16_t ui16BytesRemaining = len;
     uint32_t ui32TargetAddress = 0;
     uint8_t ui8PageCount = 0;
     
-# 622 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 628 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
    _Bool 
-# 622 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 628 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         bResult = 
-# 622 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 628 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                   1
-# 622 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 628 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                       ;
     uint16_t i;
 
     addr -= amotasFlash.bufferIndex;
-# 642 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 648 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
     if (((uint32_t)amotasCb.newFwFlashInfo.addr > addr) ||
         (addr & (g_pFlash->flashPageSize - 1)))
     {
@@ -45983,9 +46888,9 @@ static
 
 
         return 
-# 648 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 654 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
               0
-# 648 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 654 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                    ;
     }
 
@@ -46019,9 +46924,9 @@ static
                 || (verify_flash_content(ui32TargetAddress, (uint32_t *)amotasFlash.writeBuffer, amotasFlash.bufferIndex, g_pFlash) != 0))
             {
                 bResult = 
-# 680 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 686 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                          0
-# 680 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 686 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                               ;
                 break;
             }
@@ -46030,9 +46935,9 @@ static
             ui8PageCount++;
             amotasFlash.bufferIndex = 0;
             bResult = 
-# 687 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 693 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                      1
-# 687 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 693 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                          ;
         }
     }
@@ -46043,7 +46948,7 @@ static
 
     return bResult;
 }
-# 815 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 821 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 static void
 amotas_update_ota(void)
 {
@@ -46056,26 +46961,39 @@ amotas_update_ota(void)
 static void
 amotas_init_ota(void)
 {
-    uint32_t *pOtaDesc = (uint32_t *)(0x00080000 & ~(( 8 * 1024 ) - 1));
+    uint32_t *pOtaDesc = (uint32_t *)(0x000F8000 & ~(( 8 * 1024 ) - 1));
 
 
 
     am_hal_ota_init(0x12344321, pOtaDesc);
 }
-# 941 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+_Bool 
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+    ota_process_status = 
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+                         0
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+                              ;
+uint32_t fwLength = 0;
+uint32_t totalFrames = 0;
+uint32_t index = 0;
+int currentPercentage = 0;
 void
 amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
 {
     eAmotaStatus status = AMOTA_STATUS_SUCCESS;
     uint8_t data[4] = {0};
     
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 957 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
    _Bool 
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 957 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         bResult = 
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 957 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                   0
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 957 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                        ;
     uint32_t ver, fwCrc;
     ver = fwCrc = 0;
@@ -46090,9 +47008,9 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             {
                 status = AMOTA_STATUS_INVALID_HEADER_INFO;
                 amotas_reply_to_client(cmd, status, 
-# 959 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 970 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                    ((void *)0)
-# 959 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 970 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                        , 0);
                 break;
             }
@@ -46104,7 +47022,8 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
 
                 if ( ver == amotasCb.fwHeader.version && fwCrc == amotasCb.fwHeader.fwCrc )
                 {
-                    resumeTransfer = 1;
+
+                    resumeTransfer = 0;
                 }
             }
 
@@ -46118,7 +47037,14 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             {amotasCb.fwHeader.version = ((uint32_t)(buf + 32)[0] + ((uint32_t)(buf + 32)[1] << 8) + ((uint32_t)(buf + 32)[2] << 16) + ((uint32_t)(buf + 32)[3] << 24));};
             {amotasCb.fwHeader.fwDataType = ((uint32_t)(buf + 36)[0] + ((uint32_t)(buf + 36)[1] << 8) + ((uint32_t)(buf + 36)[2] << 16) + ((uint32_t)(buf + 36)[3] << 24));};
             {amotasCb.fwHeader.storageType = ((uint32_t)(buf + 40)[0] + ((uint32_t)(buf + 40)[1] << 8) + ((uint32_t)(buf + 40)[2] << 16) + ((uint32_t)(buf + 40)[3] << 24));};
-# 998 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+
+            fwLength = amotasCb.fwHeader.fwLength;
+            totalFrames = fwLength/512;
+            if(fwLength%512 != 0)
+                totalFrames++;
+            index = 0;
+            currentPercentage = 0;
+# 1018 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
             if (resumeTransfer)
             {
                 ;
@@ -46127,19 +47053,29 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             else
             {
                 ;
+
+                uint8_t msg[] = "OTA process start from beginning.\r\n";
+                uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+
+                ota_process_status = 
+# 1030 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+                                    1
+# 1030 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+                                        ;
+
                 amotasFlash.bufferIndex = 0;
                 bResult = amotas_set_fw_addr();
 
                 if ( bResult == 
-# 1009 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1035 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                0 
-# 1009 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1035 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                      )
                 {
                     amotas_reply_to_client(cmd, AMOTA_STATUS_INSUFFICIENT_FLASH, 
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1037 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                                 ((void *)0)
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1037 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                                     , 0);
                     amotasCb.state = AMOTA_STATE_INIT;
                     return;
@@ -46147,7 +47083,7 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
 
                 amotasCb.state = AMOTA_STATE_GETTING_FW;
             }
-# 1032 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1058 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
             data[0] = ((amotasCb.newFwFlashInfo.offset) & 0xff);
             data[1] = ((amotasCb.newFwFlashInfo.offset >> 8) & 0xff);
             data[2] = ((amotasCb.newFwFlashInfo.offset >> 16) & 0xff);
@@ -46162,16 +47098,16 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             {
                 memcpy(&amotasCb.metaData, buf, sizeof(amotaMetadataInfo_t));
             }
-# 1064 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1090 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
             {
                 bResult = amotas_write2flash(len, buf, amotasCb.newFwFlashInfo.addr + amotasCb.newFwFlashInfo.offset,
                     ((amotasCb.newFwFlashInfo.offset + len) == amotasCb.fwHeader.fwLength));
             }
 
             if ( bResult == 
-# 1069 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1095 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                            0 
-# 1069 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1095 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                  )
             {
                 data[0] = ((amotasCb.newFwFlashInfo.offset) & 0xff);
@@ -46203,10 +47139,19 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             {
                 ;
 
+                ota_process_status = 
+# 1126 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+                                    0
+# 1126 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+                                         ;
+
+                uint8_t msg[] = "CRC verify success.\r\n";
+                uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+
                 amotas_reply_to_client(cmd, AMOTA_STATUS_SUCCESS, 
-# 1100 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1131 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                  ((void *)0)
-# 1100 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1131 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                      , 0);
 
 
@@ -46217,25 +47162,33 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             else
             {
                 ;
+
+                uint8_t msg[] = "CRC verify failed.\r\n";
+                uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+
                 amotas_reply_to_client(cmd, AMOTA_STATUS_CRC_ERROR, 
-# 1110 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1145 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                    ((void *)0)
-# 1110 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1145 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                        , 0);
             }
             ((g_pFlash)->flash_deinit ? (g_pFlash)->flash_deinit() : 0);
             amotasCb.state = AMOTA_STATE_INIT;
             ui32ImageCalCRC = 0;
             g_pFlash = &g_intFlash;
-# 1124 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1159 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
         break;
 
         case AMOTA_CMD_FW_RESET:
             ;
+
+            uint8_t msg[] = "Apollo will disconnect BLE link in 500ms.\r\n";
+            uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+
             amotas_reply_to_client(cmd, AMOTA_STATUS_SUCCESS, 
-# 1128 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1167 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                              ((void *)0)
-# 1128 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1167 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                  , 0);
 
 
@@ -46248,7 +47201,7 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
         break;
     }
 }
-# 1152 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1191 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 void
 amotas_init(wsfHandlerId_t handlerId, AmotasCfg_t *pCfg)
 {
@@ -46275,6 +47228,21 @@ amotas_conn_close(dmConnId_t connId)
     amotasCb.pkt.offset = 0;
     amotasCb.pkt.len = 0;
     amotasCb.pkt.type = AMOTA_CMD_UNKNOWN;
+
+    if(ota_process_status == 
+# 1218 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+                            1
+# 1218 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+                                )
+    {
+        ota_process_status = 
+# 1220 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+                            0
+# 1220 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+                                 ;
+        uint8_t msg[] = "OTA process is unexpectedly failed.\r\n";
+        uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+    }
 }
 
 uint8_t
@@ -46283,14 +47251,14 @@ amotas_write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation,
 {
     uint8_t dataIdx = 0;
     uint32_t calDataCrc = 0;
-# 1196 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1242 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
     if (amotasCb.pkt.offset == 0 && len < 2 + 1)
     {
         ;
         amotas_reply_to_client(AMOTA_CMD_FW_HEADER, AMOTA_STATUS_INVALID_PKT_LENGTH, 
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1245 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                                     ((void *)0)
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1245 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                                         , 0);
         return 0x00;
     }
@@ -46317,9 +47285,9 @@ amotas_write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation,
     {
         ;
         amotas_reply_to_client(amotasCb.pkt.type, AMOTA_STATUS_INSUFFICIENT_BUFFER, 
-# 1224 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1270 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                                    ((void *)0)
-# 1224 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1270 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                                        , 0);
         return 0x00;
     }
@@ -46344,9 +47312,9 @@ amotas_write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation,
         if (peerCrc != calDataCrc)
         {
             amotas_reply_to_client(amotasCb.pkt.type, AMOTA_STATUS_CRC_ERROR, 
-# 1247 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
+# 1293 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c" 3 4
                                                                              ((void *)0)
-# 1247 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1293 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
                                                                                  , 0);
 
 
@@ -46356,6 +47324,19 @@ amotas_write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation,
 
             return 0x00;
         }
+
+        int percentage = (int) (100.0f * (((float) (index)) /totalFrames));
+        index++;
+
+        if(currentPercentage != percentage)
+        {
+            char str[128];
+            sprintf(str, "%d%%\r\n", percentage);
+            uhal_uart_write_buffer(0, str, strlen(str), 0);
+
+            currentPercentage = percentage;
+        }
+
 
         amotas_packet_handler(amotasCb.pkt.type, amotasCb.pkt.len - 4, amotasCb.pkt.data);
 
@@ -46390,7 +47371,7 @@ amotas_stop(dmConnId_t connId)
     amotasCb.conn[connId - 1].connId = 0;
     amotasCb.conn[connId - 1].amotaToSend = 0;
 }
-# 1301 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
+# 1360 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/ambiq_ble/profiles/amota/amotas_main.c"
 void amotas_proc_msg(wsfMsgHdr_t *pMsg)
 {
     if (pMsg->event == DM_CONN_OPEN_IND)

@@ -26,7 +26,7 @@
 #include "FragDecoder.h"
 #include "udrv_serial.h"
 
-#define  DEBUG_ENABLE
+//#define  DEBUG_ENABLE
 #ifdef  DEBUG_ENABLE
 #define DBG(fmt, args...)      udrv_serial_log_printf("(Line:%d)"fmt"\r\n",__LINE__,##args)
 #else

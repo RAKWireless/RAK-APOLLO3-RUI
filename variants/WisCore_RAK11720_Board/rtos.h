@@ -27,10 +27,10 @@
 
 enum
 {
-  RAK_TASK_PRIO_LOWEST  = 0, // Idle task, should not be used
-  RAK_TASK_PRIO_LOW     = 1, // Loop
-  RAK_TASK_PRIO_NORMAL  = 2, // Timer Task, Callback Task
-  RAK_TASK_PRIO_HIGH    = 3, // Bluefruit Task
+  RAK_TASK_PRIO_LOWEST  = 0,
+  RAK_TASK_PRIO_LOW     = 1,
+  RAK_TASK_PRIO_NORMAL  = 2,
+  RAK_TASK_PRIO_HIGH    = 3,
   RAK_TASK_PRIO_HIGHEST = 4,
 };
 

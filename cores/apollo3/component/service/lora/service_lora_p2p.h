@@ -44,16 +44,37 @@ typedef enum
 } RAK_LORA_P2P_SYNCWORD;
 
 /**@}*/
-    
-#ifdef sx1276
+
+#ifdef rak4200
+    #define LORA_CHIP_SX1276
+#elif defined rak4630
+    #define LORA_CHIP_SX126X
+#elif defined rak11720
+    #define LORA_CHIP_SX126X
+#elif defined rak3172 \
+      || defined rak3172-sip
+    #define LORA_CHIP_STM32WLE5XX
+#endif
+
+#ifdef LORA_CHIP_SX1276
     #define SYMBTIMEOUT_MAX 1023
-#elif defined sx126x
+#elif defined LORA_CHIP_SX126X
     #define SYMBTIMEOUT_MAX 248
-#elif defined stm32wle5xx
+#elif defined LORA_CHIP_STM32WLE5XX
     #define SYMBTIMEOUT_MAX 248
 #else
     #define SYMBTIMEOUT_MAX 0
 #endif
+
+// #ifdef sx1276
+//     #define SYMBTIMEOUT_MAX 1023
+// #elif defined sx126x
+//     #define SYMBTIMEOUT_MAX 248
+// #elif defined stm32wle5xx
+//     #define SYMBTIMEOUT_MAX 248
+// #else
+//     #define SYMBTIMEOUT_MAX 0
+// #endif
 
 typedef struct {
     bool isRxCancel;
@@ -159,7 +180,7 @@ bool service_lora_p2p_get_fix_length_payload(void);
 
 int32_t service_lora_p2p_set_fix_length_payload(bool enable);
 
-uint32_t service_lora_p2p_get_syncword(void);
+uint16_t service_lora_p2p_get_syncword(void);
 
 int32_t service_lora_p2p_set_syncword( uint16_t syncword );
 

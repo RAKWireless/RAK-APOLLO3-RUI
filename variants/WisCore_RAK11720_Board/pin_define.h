@@ -1,6 +1,7 @@
 #ifndef __PIN_DEFINE_H__
 #define __PIN_DEFINE_H__
 
+#include "am_mcu_apollo.h"
 #include "variant.h"
 
 #define ASSERT_ERROR   0xA55EA55E

@@ -26,7 +26,7 @@
 #include "service_lora.h"
 #include "udrv_errno.h"
 
-#define DEBUG_ENABLE
+//#define DEBUG_ENABLE
 
 #ifdef  DEBUG_ENABLE
 #define DBG(fmt, args...)      udrv_serial_log_printf("(Line:%d)"fmt"\r\n",__LINE__,##args)
@@ -485,8 +485,8 @@ static void OnSessionStartTimer( void *context )
         goto mm;
         DBG( "Class C switch failed\r\n" );
     }
-    //TimerSetValue( &SessionStopTimer, ( 1 << McSessionData[0].SessionTimeout ) * 1000 );
-    //TimerStart( &SessionStopTimer );
+    TimerSetValue( &SessionStopTimer, ( 1 << McSessionData[0].SessionTimeout ) * 1000 );
+    TimerStart( &SessionStopTimer );
 }
 
 static void OnSessionStopTimer( void *context )

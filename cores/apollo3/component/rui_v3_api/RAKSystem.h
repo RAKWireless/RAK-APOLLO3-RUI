@@ -4,6 +4,7 @@
 #include "WString.h"
 
 #include "sleep.h"
+#include "wdt.h"
 #include "atcmd.h"
 #include "udrv_errno.h"
 #include "udrv_system.h"
@@ -158,6 +159,7 @@ class RAKSystem {
     RAKSystem();
     class sleep sleep;
     class lpm lpm;
+    class wdt wdt;
 
     class firmwareVersion {
       private:

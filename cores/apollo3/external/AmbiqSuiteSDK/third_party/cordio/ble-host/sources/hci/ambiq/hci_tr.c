@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -15780,7 +15782,7 @@ typedef struct {
 #define IOSLAVE ((IOSLAVE_Type*) IOSLAVE_BASE)
 #define MCUCTRL ((MCUCTRL_Type*) MCUCTRL_BASE)
 #define MSPI ((MSPI_Type*) MSPI_BASE)
-#define PDM ((PDM_Type*) PDM_BASE)
+#define _PDM ((PDM_Type*) PDM_BASE)
 #define PWRCTRL ((PWRCTRL_Type*) PWRCTRL_BASE)
 #define RSTGEN ((RSTGEN_Type*) RSTGEN_BASE)
 #define RTC ((RTC_Type*) RTC_BASE)
@@ -34233,11 +34235,11 @@ typedef struct
 
 
 
-    uint32_t B0;
+    uint32_t _B0;
 
 
 
-    uint32_t B1;
+    uint32_t _B1;
 
 
 

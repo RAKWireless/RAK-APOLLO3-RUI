@@ -18,10 +18,6 @@
 #include "LmhpClockSync.h"
 #include "LmhpRemoteMcastSetup.h"
 #include "LmhpFragmentation.h"
-#include "service_ota_huffman.h"
-#include "service_ota_md5.h"
-#include "service_ota_diff.h"
-
 
 static volatile bool IsClockSynched = false;
 /*!
@@ -64,21 +60,6 @@ static volatile uint32_t FileRxCrc = 0;
  * Timer to handle the application data transmission duty cycle
  */
 TimerEvent_t TxTimer;            /* to open the timer to the RemoteMulticast*/
-
-static void change_str(unsigned char* dest, unsigned char* dest_md5)
-{
-    uint8_t i;
-    char temp[8]={0};
-    uint8_t decrypt32[64]={0};
-
-    strcpy((char*)decrypt32,"");
-    for(i=0;i<16;i++)
-    {
-        sprintf(temp,"%02x",dest[i]);
-        strcat((char*)decrypt32,temp);
-    }
-    strcpy((char *)dest_md5,(char *)decrypt32);
-}
 
 
 static void hexdump(uint8_t * data, size_t size, bool line)
@@ -170,14 +151,20 @@ void LoraStartTx(void)
   OnTxTimerEvent(NULL);
 
 }
- 
- 
+
+
+
 void UplinkProcess( void )
 {
   LmHandlerErrorStatus_t status = LORAMAC_HANDLER_ERROR;
 
   if (IsTxFramePending == 1)
   {
+    // if (LmHandlerIsBusy() == true)
+    // {
+    //   udrv_serial_log_printf("Busy\r\n");
+    //   return;
+    // }
 
     if (IsMcSessionStarted == false)    /* we are in Class A*/
     {
@@ -186,7 +173,7 @@ void UplinkProcess( void )
         status = LmhpClockSyncAppTimeReq();
         //udrv_serial_log_printf("status:%d\r\n",status);
       }
-      else if(service_lora_get_class() == SERVICE_LORA_CLASS_A)
+      else
       {
         AppDataBuffer[0] = randr(0, 255);
         /* Send random packet */
@@ -199,7 +186,7 @@ void UplinkProcess( void )
         status = LmHandlerSend(&appData, LORAMAC_HANDLER_UNCONFIRMED_MSG);
         udrv_serial_log_printf(" has send up data!\n\r"); // *olg*TMP
       }
-      }
+    }
     else  /* Now we are in Class C or in Class B -- FUOTA feature could be activated */
     {
       if (IsFileTransferDone == false)
@@ -208,15 +195,13 @@ void UplinkProcess( void )
       }
       else
       {
-/*
         AppDataBuffer[0] = 0x05; // FragDataBlockAuthReq
         AppDataBuffer[1] = FileRxCrc & 0x000000FF;
         AppDataBuffer[2] = (FileRxCrc >> 8) & 0x000000FF;
         AppDataBuffer[3] = (FileRxCrc >> 16) & 0x000000FF;
         AppDataBuffer[4] = (FileRxCrc >> 24) & 0x000000FF;
-*/
+
         /* Send FragAuthReq */
-/*
         LmHandlerAppData_t appData =
         {
           .Buffer = AppDataBuffer,
@@ -224,20 +209,14 @@ void UplinkProcess( void )
           .Port = 201
         };
         status = LmHandlerSend(&appData, LORAMAC_HANDLER_UNCONFIRMED_MSG);
-*/
       }
-
       IsFileTransferDone = false;
-/*
       if (status == LORAMAC_HANDLER_SUCCESS)
       {
-*/
         /* The fragmented transport layer V1.0 doesn't specify any behavior*/
         /* we keep the interop test behavior - CRC32 is returned to the server*/
-/*
         udrv_serial_log_printf(" CRC send \n\r");
       }
-*/
     }
     /* send application frame - could be put in conditional compilation*/
     /*  Send(NULL);  comment the sending to avoid interference during multicast*/
@@ -263,104 +242,23 @@ void OnFragProgress(uint16_t fragCounter, uint16_t fragNb, uint8_t fragSize, uin
 }
 
 
-void OnFragDone(int32_t status, uint32_t size)
+void OnFragDone(int32_t status, uint8_t *file, uint32_t size)
 {
-    IsFileTransferDone = true;
-    uint8_t file_md5[16]= "\0";
-    uint8_t calc_file_md5[36]= "\0";
-	  uint8_t str_file_md5[36] = "\0";
-    huffman_node* root = NULL;
-    huffman_node* l_p = NULL;
-    uint32_t pData_Bytes = 0;
-    uint32_t huff_len = 0;
-    uint8_t *data_addr = NULL;
-    uint32_t data_len = 0;
-    uint8_t bufout[4096] = "\0";
-	  uint32_t bufoutlen;
-    uint32_t len = 1024;
-    uint32_t fw_location;
+  IsFileTransferDone = true;
+  uint8_t ch[150] = "";
+  /* copy the file from RAM to FLASH & ASK to reboot the device*/
 
-    /* copy the file from RAM to FLASH & ASK to reboot the device*/
-
-    uint8_t *comp_diff_data = (uint8_t *)malloc(size);
-    if (comp_diff_data == NULL) {
-        udrv_serial_log_printf("malloc error!!!");
-        return;
-    }
-    memset(comp_diff_data,'\0',size);
-    Boot boot_info;
-    udrv_flash_read(FW_LOAD_INFO,sizeof(boot_info), (uint8_t*)&boot_info);
-    fw_location = (boot_info.A_valid == 1) ? SECTOR_B_ADDR:SECTOR_A_ADDR;
-    write_addr =  fw_location;
-    udrv_serial_log_printf("fw_location:%x\r\n",fw_location);
-    memcpy(comp_diff_data,fw_location, size);
-    memcpy(file_md5,comp_diff_data, 16);
-    hexdump(comp_diff_data,size,false);
-    calc_md5_flash(fw_location+18, size-18, calc_file_md5);
-    change_str(file_md5, str_file_md5);
-    udrv_serial_log_printf("file_md5:%s\r\n",str_file_md5);
-    udrv_serial_log_printf("calc_file_md5:%s\r\n",calc_file_md5);
-    if(strcmp((char *)calc_file_md5,(char *)str_file_md5) == 0)   //校验MD5
-	{
-        if(fw_location == SECTOR_A_ADDR)
-        {
-            flash_operate.new_fw_addr = SECTOR_A_ADDR;
-            flash_operate.origin_fw_addr = SECTOR_B_ADDR;
-        }
-        else
-        {
-            flash_operate.new_fw_addr = SECTOR_B_ADDR;
-            flash_operate.origin_fw_addr = SECTOR_A_ADDR;
-        }
-        variable_init();
-        //对压缩后的差分数据进行解压
-        root = read_code_table_from_memory(comp_diff_data+18,size-18,&pData_Bytes,&huff_len);
-         udrv_serial_log_printf("pData_Bytes:%d \r\n",pData_Bytes);
-        udrv_serial_log_printf("huff_len:%d \r\n",huff_len);
-        if(!root)
-        {
-            udrv_serial_log_printf("read_code_table_from_memory failed!\r\n");
-            return;
-        }
-        data_addr = comp_diff_data + 18 + huff_len;    //差分数据起始位置
-        data_len = size - 18 - huff_len;   //差分数据长度
-        while(1)
-        {
-            udrv_serial_log_printf("data_len:%d \r\n",data_len);
-            len = (((data_len / len) > 0)  ?  1024 : data_len);
-            l_p = huffman_decode_memory(data_addr,len, bufout, &bufoutlen, root, l_p , &pData_Bytes);
-            //打印解压出来的差分数据
-            udrv_serial_log_printf("***************************************************************************************\r\n");
-            //还原差分数据
-            data_reduction(bufout, bufoutlen);
-            data_addr += len;
-            if(!(data_len -= len)) break;
-        }
-        udrv_serial_log_printf("\r\n");
-        udrv_serial_log_printf("newfw_rec_size: %d  \r\n",newfw_rec_size);
-        calc_md5_flash(fw_location, newfw_rec_size, file_md5);
-        udrv_serial_log_printf("\r\n");
+  if (udrv_flash_read(0x7d000,100,ch) == UDRV_RETURN_OK) {
+    udrv_serial_log_printf("\r\n...... Transfer file RAM to Flash success --> Run  ......\r\n");
+    hexdump(ch, 100,true);
+    //FwUpdateAgentRun();
+  } else {
+    udrv_serial_log_printf("\r\n...... Transfer file RAM to Flash Failed  ......\r\n");
+  }
 
 
-        if(fw_location == SECTOR_A_ADDR)
-        {
-            boot_info.A_valid  = 1;
-            boot_info.B_valid  = 0;
-        }
-        else
-        {
-            boot_info.A_valid  = 0;
-            boot_info.B_valid  = 1;
-        }
-        udrv_flash_write(FW_LOAD_INFO,sizeof(boot_info), (uint8_t *)&boot_info);
-        // 软件复位
-        free(comp_diff_data);
-        NVIC_SystemReset();
-
-	}
-    free(comp_diff_data);
-
+  udrv_serial_log_printf("\r\n....... FRAG_DECODER Finished .......\r\n");
+  udrv_serial_log_printf("STATUS      : %ld\r\n", status);
 }
  
-
  #endif //FUOTA

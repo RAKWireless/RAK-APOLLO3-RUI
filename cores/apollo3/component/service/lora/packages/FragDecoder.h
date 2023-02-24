@@ -38,7 +38,7 @@
  *
  * \remark This parameter has an impact on the memory footprint.
  */
-#define FRAG_MAX_NB                                 2000
+#define FRAG_MAX_NB                                 4000
 
 /*!
  * Maximum fragment size that can be handled.
@@ -52,23 +52,19 @@
  *
  * \remark This parameter affects the location where the received fragment data is stored.
  */
+#define FW_LOCATION                   0X7D000
 
-#define FW_LOAD_INFO                 0x7C800
 
-#define SECTOR_A_ADDR                0x27000
-
-#define SECTOR_B_ADDR                0x7d000
 /*!
  * Maximum number of extra frames that can be handled.
  *
  * \remark This parameter has an impact on the memory footprint.
  */
-#define FRAG_MAX_REDUNDANCY                        40
+#define FRAG_MAX_REDUNDANCY                        100
 
 #define FRAG_SESSION_FINISHED                       ( int32_t )0
 #define FRAG_SESSION_NOT_STARTED                    ( int32_t )-2
 #define FRAG_SESSION_ONGOING                        ( int32_t )-1
-
 
 typedef struct sFragDecoderStatus
 {

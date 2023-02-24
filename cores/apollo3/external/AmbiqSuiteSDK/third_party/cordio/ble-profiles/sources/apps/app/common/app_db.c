@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -13757,7 +13759,7 @@ typedef struct {
 #define IOSLAVE ((IOSLAVE_Type*) IOSLAVE_BASE)
 #define MCUCTRL ((MCUCTRL_Type*) MCUCTRL_BASE)
 #define MSPI ((MSPI_Type*) MSPI_BASE)
-#define PDM ((PDM_Type*) PDM_BASE)
+#define _PDM ((PDM_Type*) PDM_BASE)
 #define PWRCTRL ((PWRCTRL_Type*) PWRCTRL_BASE)
 #define RSTGEN ((RSTGEN_Type*) RSTGEN_BASE)
 #define RTC ((RTC_Type*) RTC_BASE)
@@ -32210,11 +32212,11 @@ typedef struct
 
 
 
-    uint32_t B0;
+    uint32_t _B0;
 
 
 
-    uint32_t B1;
+    uint32_t _B1;
 
 
 
@@ -42934,7 +42936,30 @@ extern dmConnId_t appConnAccept(uint8_t advHandle, uint8_t advType, uint16_t int
 
 extern dmConnId_t appConnOpen(uint8_t initPhys, uint8_t addrType, uint8_t *pAddr, appDbHdl_t dbHdl);
 # 32 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 2
-# 40 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/mcu/apollo3/mcu_basic.h" 1
+
+#define __MCU_BASIC_H__ 
+
+#define MCU_FLASH_OTA_ADDRESS 0x00084000
+#define MCU_FLASH_OTA_ADDRESS_UART 0x00014000
+
+#define MCU_OTA_POINTER_LOCATION 0x000F8000
+#define MCU_BLE_NVM_LOCATION 0x000FA000
+#define MCU_BOOT_VERSION_LOCATION 0x000FC000
+#define MCU_BOOTLOADER_FLAG_LOCATION 0x000FE000
+
+#define MCU_FACTORY_DEFAULT_NVM_ADDR 0x000F6000
+#define MCU_SYS_CONFIG_NVM_ADDR 0x000F4000
+#define MCU_USER_DATA_NVM_ADDR 0x000D4000
+# 35 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 2
+
+
+
+
+
+
 typedef struct
 {
 
@@ -42995,7 +43020,7 @@ static appDbRec_t *pAppDbNewRec = appDb.rec;
 
 
 
-appDbRec_t * pRecListNvmPointer = (appDbRec_t *)0x000F4000;
+appDbRec_t * pRecListNvmPointer = (appDbRec_t *) 0x000FA000;
 
 void AppCopyRecListInNvm(appDbRec_t *pRecord)
 {
@@ -43074,9 +43099,9 @@ int32_t AppStorePairingInfoInNVM(appDbHdl_t hdl)
             {
                 updateRecordInNVM((uint32_t*)&pRamBufRec[i], (uint32_t*)((appDbRec_t*)hdl)->peerAddr, (uint32_t*)pRecListNvmPointer);
                 return 
-# 178 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 179 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
                       1
-# 178 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 179 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                           ;
             }
 
@@ -43097,9 +43122,9 @@ int32_t AppStorePairingInfoInNVM(appDbHdl_t hdl)
                                       (sizeof(appDbRec_t)%4?((sizeof(appDbRec_t)/4) + 1):(sizeof(appDbRec_t)/4)));
 
             return 
-# 197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 198 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
                   1
-# 197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 198 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                       ;
         }
     }
@@ -43128,9 +43153,9 @@ int32_t AppStorePairingInfoInNVM(appDbHdl_t hdl)
     am_hal_interrupt_master_set(ui32Critical);
 
     return 
-# 224 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 225 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
           0
-# 224 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 225 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                ;
 
 }
@@ -43148,7 +43173,7 @@ void AppDbInit(void)
 
   return;
 }
-# 252 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 253 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 appDbHdl_t AppDbNewRecord(uint8_t addrType, uint8_t *pAddr, bool_t master_role)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43188,16 +43213,16 @@ appDbHdl_t AppDbNewRecord(uint8_t addrType, uint8_t *pAddr, bool_t master_role)
 
   return (appDbHdl_t) pRec;
 }
-# 302 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 303 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 appDbHdl_t AppDbGetNextRecord(appDbHdl_t hdl)
 {
   appDbRec_t *pRec;
 
 
   if (hdl == 
-# 307 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 308 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
             ((void *)0)
-# 307 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 308 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                            )
   {
     pRec = appDb.rec;
@@ -43212,9 +43237,9 @@ appDbHdl_t AppDbGetNextRecord(appDbHdl_t hdl)
   else
   {
     return 
-# 320 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 321 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
           ((void *)0)
-# 320 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 321 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                          ;
   }
 
@@ -43234,17 +43259,17 @@ appDbHdl_t AppDbGetNextRecord(appDbHdl_t hdl)
 
 
   return 
-# 338 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 339 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
         ((void *)0)
-# 338 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 339 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                        ;
 }
-# 350 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 351 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbDeleteRecord(appDbHdl_t hdl)
 {
   ((appDbRec_t *) hdl)->inUse = 0;
 }
-# 366 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 367 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbValidateRecord(appDbHdl_t hdl, uint8_t keyMask)
 {
   ((appDbRec_t *) hdl)->valid = 1;
@@ -43254,7 +43279,7 @@ void AppDbValidateRecord(appDbHdl_t hdl, uint8_t keyMask)
   AppStorePairingInfoInNVM(hdl);
 
 }
-# 386 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 387 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbCheckValidRecord(appDbHdl_t hdl)
 {
   if (((appDbRec_t *) hdl)->valid == 0)
@@ -43262,7 +43287,7 @@ void AppDbCheckValidRecord(appDbHdl_t hdl)
     AppDbDeleteRecord(hdl);
   }
 }
-# 403 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 404 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbRecordInUse(appDbHdl_t hdl)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43279,7 +43304,7 @@ bool_t AppDbRecordInUse(appDbHdl_t hdl)
 
   return 0;
 }
-# 429 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 430 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbCheckBonded(void)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43296,7 +43321,7 @@ bool_t AppDbCheckBonded(void)
 
   return 0;
 }
-# 453 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 454 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbDeleteAllRecords(void)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43308,7 +43333,7 @@ void AppDbDeleteAllRecords(void)
     pRec->inUse = 0;
   }
 }
-# 475 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 476 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 appDbHdl_t AppDbFindByAddr(uint8_t addrType, uint8_t *pAddr)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43325,12 +43350,12 @@ appDbHdl_t AppDbFindByAddr(uint8_t addrType, uint8_t *pAddr)
   }
 
   return 
-# 490 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 491 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
         ((void *)0)
-# 490 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 491 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                        ;
 }
-# 503 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 504 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 appDbHdl_t AppDbFindByLtkReq(uint16_t encDiversifier, uint8_t *pRandNum)
 {
   appDbRec_t *pRec = appDb.rec;
@@ -43347,18 +43372,18 @@ appDbHdl_t AppDbFindByLtkReq(uint16_t encDiversifier, uint8_t *pRandNum)
   }
 
   return 
-# 518 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 519 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
         ((void *)0)
-# 518 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 519 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                        ;
 }
-# 532 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 533 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 dmSecKey_t *AppDbGetKey(appDbHdl_t hdl, uint8_t type, uint8_t *pSecLevel)
 {
   dmSecKey_t *pKey = 
-# 534 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 535 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
                     ((void *)0)
-# 534 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 535 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                         ;
 
 
@@ -43391,7 +43416,7 @@ dmSecKey_t *AppDbGetKey(appDbHdl_t hdl, uint8_t type, uint8_t *pSecLevel)
 
   return pKey;
 }
-# 577 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 578 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetKey(appDbHdl_t hdl, dmSecKeyIndEvt_t *pKey)
 {
   switch(pKey->type)
@@ -43425,34 +43450,34 @@ void AppDbSetKey(appDbHdl_t hdl, dmSecKeyIndEvt_t *pKey)
       break;
   }
 }
-# 620 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 621 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint8_t *AppDbGetPeerDbHash(appDbHdl_t hdl)
 {
   return ((appDbRec_t *) hdl)->dbHash;
 }
-# 635 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 636 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetPeerDbHash(appDbHdl_t hdl, uint8_t *pDbHash)
 {
   ;
 
   memcpy(((appDbRec_t *) hdl)->dbHash, pDbHash, 16);
 }
-# 651 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 652 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbIsCacheCheckedByHash(appDbHdl_t hdl)
 {
   return ((appDbRec_t *) hdl)->cacheByHash;
 }
-# 666 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 667 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetCacheByHash(appDbHdl_t hdl, bool_t cacheByHash)
 {
   ((appDbRec_t *) hdl)->cacheByHash = cacheByHash;
 }
-# 680 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 681 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint16_t *AppDbGetCccTbl(appDbHdl_t hdl)
 {
   return ((appDbRec_t *) hdl)->cccTbl;
 }
-# 696 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 697 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetCccTblValue(appDbHdl_t hdl, uint16_t idx, uint16_t value)
 {
   ;
@@ -43468,36 +43493,36 @@ void AppDbSetCccTblValue(appDbHdl_t hdl, uint16_t idx, uint16_t value)
   }
 
 }
-# 723 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 724 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbGetCsfRecord(appDbHdl_t hdl, uint8_t *pChangeAwareState, uint8_t **pCsf)
 {
   *pChangeAwareState = ((appDbRec_t *)hdl)->changeAwareState;
   *pCsf = ((appDbRec_t *) hdl)->csf;
 }
-# 740 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 741 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetCsfRecord(appDbHdl_t hdl, uint8_t changeAwareState, uint8_t *pCsf)
 {
   if ((pCsf != 
-# 742 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 743 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
               ((void *)0)
-# 742 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 743 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                   ) && (hdl != 
-# 742 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 743 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
                                ((void *)0)
-# 742 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 743 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                                               ))
   {
     ((appDbRec_t *) hdl)->changeAwareState = changeAwareState;
     memcpy(&((appDbRec_t *) hdl)->csf, pCsf, 1);
   }
 }
-# 760 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 761 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetClientsChangeAwareState(appDbHdl_t hdl, uint8_t state)
 {
   if (hdl == 
-# 762 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 763 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
             ((void *)0)
-# 762 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 763 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                            )
   {
     appDbRec_t *pRec = appDb.rec;
@@ -43514,44 +43539,44 @@ void AppDbSetClientsChangeAwareState(appDbHdl_t hdl, uint8_t state)
     ((appDbRec_t *) hdl)->changeAwareState = state;
   }
 }
-# 786 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 787 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint8_t *AppDbGetDbHash(void)
 {
   return appDb.dbHash;
 }
-# 800 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 801 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetDbHash(uint8_t *pHash)
 {
   if (pHash != 
-# 802 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 803 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
               ((void *)0)
-# 802 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 803 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
                   )
   {
     memcpy(appDb.dbHash, pHash, 16);
   }
 }
-# 817 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 818 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint8_t AppDbGetDiscStatus(appDbHdl_t hdl)
 {
   return ((appDbRec_t *) hdl)->discStatus;
 }
-# 832 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 833 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetDiscStatus(appDbHdl_t hdl, uint8_t status)
 {
   ((appDbRec_t *) hdl)->discStatus = status;
 }
-# 846 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 847 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint16_t *AppDbGetHdlList(appDbHdl_t hdl)
 {
   return ((appDbRec_t *) hdl)->hdlList;
 }
-# 861 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 862 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetHdlList(appDbHdl_t hdl, uint16_t *pHdlList)
 {
   memcpy(((appDbRec_t *) hdl)->hdlList, pHdlList, sizeof(((appDbRec_t *) hdl)->hdlList));
 }
-# 875 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 876 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 char *AppDbGetDevName(uint8_t *pLen)
 {
 
@@ -43559,9 +43584,9 @@ char *AppDbGetDevName(uint8_t *pLen)
   {
     *pLen = 0;
     return 
-# 881 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
+# 882 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c" 3 4
           ((void *)0)
-# 881 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 882 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
               ;
   }
   else
@@ -43570,7 +43595,7 @@ char *AppDbGetDevName(uint8_t *pLen)
     return appDb.devName;
   }
 }
-# 900 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 901 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetDevName(uint8_t len, char *pStr)
 {
 
@@ -43578,42 +43603,42 @@ void AppDbSetDevName(uint8_t len, char *pStr)
 
   memcpy(appDb.devName, pStr, len);
 }
-# 917 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 918 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbGetPeerAddrRes(appDbHdl_t hdl)
 {
   return ((appDbRec_t *)hdl)->peerAddrRes;
 }
-# 932 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 933 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetPeerAddrRes(appDbHdl_t hdl, uint8_t addrRes)
 {
   ((appDbRec_t *)hdl)->peerAddrRes = addrRes;
 }
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 947 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 uint32_t AppDbGetPeerSignCounter(appDbHdl_t hdl)
 {
   return ((appDbRec_t *)hdl)->peerSignCounter;
 }
-# 961 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 962 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetPeerSignCounter(appDbHdl_t hdl, uint32_t signCounter)
 {
   ((appDbRec_t *)hdl)->peerSignCounter = signCounter;
 }
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbGetPeerAddedToRl(appDbHdl_t hdl)
 {
   return ((appDbRec_t *)hdl)->peerAddedToRl;
 }
-# 990 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 991 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetPeerAddedToRl(appDbHdl_t hdl, bool_t peerAddedToRl)
 {
   ((appDbRec_t *)hdl)->peerAddedToRl = peerAddedToRl;
 }
-# 1004 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 1005 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 bool_t AppDbGetPeerRpao(appDbHdl_t hdl)
 {
   return ((appDbRec_t *)hdl)->peerRpao;
 }
-# 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
+# 1020 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-profiles/sources/apps/app/common/app_db.c"
 void AppDbSetPeerRpao(appDbHdl_t hdl, bool_t peerRpao)
 {
   ((appDbRec_t *)hdl)->peerRpao = peerRpao;

@@ -29,7 +29,6 @@
 #include "FragDecoder.h"
 #include "udrv_serial.h"
 #include "udrv_flash.h"
-#include "service_ota_diff.h"
 
 #ifdef  DEBUG_ENABLE
 #define DBG(fmt, args...)      udrv_serial_log_printf("(Line:%d)"fmt"\r\n",__LINE__,##args)
@@ -37,7 +36,6 @@
 #define DBG(fmt, args...)
 #endif
 
-uint8_t *fw_location;
 
 static void hexdump(uint8_t * data, size_t size, bool line)
 {
@@ -292,9 +290,8 @@ void FragDecoderInit( uint16_t fragNb, uint8_t fragSize, uint8_t *file, uint32_t
     }
 
     // Initialize final uncoded data buffer ( FRAG_MAX_NB * FRAG_MAX_SIZE )
-    Boot *boot_info = (Boot *)FW_LOAD_INFO;
-    fw_location = (boot_info->A_valid == 1) ? SECTOR_B_ADDR:SECTOR_A_ADDR;
-    udrv_flash_erase(fw_location, fragNb * fragSize);
+    udrv_flash_erase(FW_LOCATION, fragNb * fragSize);
+
 
     FragDecoder.Status.FragNbLost = 0;
     FragDecoder.Status.FragNbLastRx = 0;
@@ -506,7 +503,7 @@ static void SetRow( uint8_t *src, uint16_t row, uint16_t size )
     if( ( FragDecoder.Callbacks != NULL ) && ( FragDecoder.Callbacks->FragDecoderWrite != NULL ) )
     {
         hexdump(src, size, true);
-        FragDecoder.Callbacks->FragDecoderWrite(row * size + fw_location, size, src); 
+        FragDecoder.Callbacks->FragDecoderWrite(row * size + FW_LOCATION, size, src); 
     }
 }
 
@@ -514,7 +511,7 @@ static void GetRow( uint8_t *dst, uint16_t row, uint16_t size )
 {
     if( ( FragDecoder.Callbacks != NULL ) && ( FragDecoder.Callbacks->FragDecoderRead != NULL ) )
     {
-        FragDecoder.Callbacks->FragDecoderRead(row * size + fw_location, size, dst );
+        FragDecoder.Callbacks->FragDecoderRead(row * size + FW_LOCATION, size, dst );
     }
 }
 #else

@@ -20,7 +20,9 @@
 #include "semphr.h"
 #include "event_groups.h"
 
-void uhal_mcu_sleep (void);
+#define UART_WAIT_TIMEOUT_TIME 10000
+
+void uhal_mcu_sleep (uint32_t level);
 void uhal_mcu_wake_up (void);
 void uhal_sys_clock_init(void);
 void uhal_sys_clock_on(void);
@@ -29,8 +31,12 @@ int32_t uhal_ps_timer_create (timer_handler tmr_handler, TimerMode_E mode);
 int32_t uhal_ps_timer_start (uint32_t count, void *m_data);
 int32_t uhal_ps_timer_stop ();
 
+int32_t uhal_uart_wait_timer_start (uint32_t count);
+int32_t uhal_uart_wait_timer_stop ();
+
 void uhal_mcu_resume(void);
 void uhal_mcu_suspend(void);
 bool uhal_mcu_sleep_status(void);
+void uhal_mcu_consume_event(void);
 
 #endif  // #ifndef _UHAL_POWERSAVE_H_

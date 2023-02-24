@@ -480,7 +480,16 @@ extern "C"
     uint8_t service_lora_get_timereq(void);
 
     int32_t service_lora_set_timereq(uint8_t mode);
+
     void service_lora_systemMaxRxError(void);
+
+    int32_t service_lora_get_lbt();
+    int32_t service_lora_set_lbt(uint8_t enable);
+    int16_t service_lora_get_lbt_rssi();
+    int32_t service_lora_set_lbt_rssi(int16_t rssi);
+    uint32_t service_lora_get_lbt_scantime();
+    int32_t service_lora_set_lbt_scantime(uint32_t time);
+
 #ifdef __cplusplus
 }
 #endif

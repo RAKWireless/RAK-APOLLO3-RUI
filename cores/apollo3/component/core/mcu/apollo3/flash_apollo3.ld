@@ -5,11 +5,11 @@
  *
  *****************************************************************************/
 ENTRY(Reset_Handler)
-BOOT_VERSION = 0x000F6000;
+BOOT_VERSION = 0x000FC000;
 
 MEMORY
 {
-    ROMEM (rx) : ORIGIN = 0x00010000, LENGTH = 976K
+    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 976K
     RWMEM (rwx) : ORIGIN = 0x10000000, LENGTH = 384K
 }
 
@@ -49,7 +49,7 @@ SECTIONS
         PROVIDE(__start_atcmd_queue = .);
         KEEP(*(.atcmd_queue))
         PROVIDE(__stop_atcmd_queue = .);
-    } > RWMEM
+    } > ROMEM
 
     .data :
     {

@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -5514,8 +5516,8 @@ void hciClearCmdQueue(void);
 # 33 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/cordio/ble-host/sources/hci/ambiq/apollo3/hci_vs_apollo3.c" 2
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/hci_apollo_config.h" 1
 # 48 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/hci_apollo_config.h"
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 1
-# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 1
+# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_H 
 
 
@@ -5530,7 +5532,7 @@ void hciClearCmdQueue(void);
 #define false 0
 # 52 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 3 4
 #define __bool_true_false_are_defined 1
-# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
+# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/mcu/apollo3/am_mcu_apollo.h" 1
 # 55 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/mcu/apollo3/am_mcu_apollo.h"
 #define AM_MCU_APOLLO_H 
@@ -16950,7 +16952,7 @@ typedef struct {
 #define IOSLAVE ((IOSLAVE_Type*) IOSLAVE_BASE)
 #define MCUCTRL ((MCUCTRL_Type*) MCUCTRL_BASE)
 #define MSPI ((MSPI_Type*) MSPI_BASE)
-#define PDM ((PDM_Type*) PDM_BASE)
+#define _PDM ((PDM_Type*) PDM_BASE)
 #define PWRCTRL ((PWRCTRL_Type*) PWRCTRL_BASE)
 #define RSTGEN ((RSTGEN_Type*) RSTGEN_BASE)
 #define RTC ((RTC_Type*) RTC_BASE)
@@ -35403,11 +35405,11 @@ typedef struct
 
 
 
-    uint32_t B0;
+    uint32_t _B0;
 
 
 
-    uint32_t B1;
+    uint32_t _B1;
 
 
 
@@ -40276,11 +40278,11 @@ extern uint32_t am_hal_wdt_int_status_get(
 # 175 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/mcu/apollo3/hal/am_hal_wdt.h"
                                               bEnabledOnly);
 # 155 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/mcu/apollo3/am_mcu_apollo.h" 2
-# 59 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h" 1
-# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h"
+# 59 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h" 1
+# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h"
 #define AM_BSP_PINS_H 
-# 70 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp_pins.h"
+# 70 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp_pins.h"
 #define AM_BSP_GPIO_BUTTON0 16
 extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_BUTTON0;
 
@@ -40909,7 +40911,7 @@ extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_SWDCK;
 
 #define AM_BSP_GPIO_SWDIO 21
 extern const am_hal_gpio_pincfg_t g_AM_BSP_GPIO_SWDIO;
-# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
+# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
 
 
 
@@ -40955,7 +40957,7 @@ extern
            am_devices_led_get(am_devices_led_t *psLEDs, uint32_t ui32LEDNum);
 extern void am_devices_led_array_out(am_devices_led_t *psLEDs, uint32_t ui32NumLEDs,
                                      uint32_t ui32Value);
-# 66 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
+# 66 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
 # 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/devices/am_devices_button.h" 1
 # 47 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/devices/am_devices_button.h"
 #define AM_DEVICES_BUTTON_H 
@@ -41025,8 +41027,8 @@ extern void am_devices_button_tick(am_devices_button_t *psButton);
 
 extern void am_devices_button_array_tick(am_devices_button_t *psButtons,
                                          uint32_t ui32NumButtons);
-# 67 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 2
-# 78 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 67 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 2
+# 78 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_PRINT_INFC_NONE 0
 #define AM_BSP_PRINT_INFC_SWO 1
 #define AM_BSP_PRINT_INFC_UART0 2
@@ -41047,12 +41049,12 @@ extern am_devices_button_t am_bsp_psButtons[3];
 
 #define AM_BSP_NUM_LEDS 5
 extern am_devices_led_t am_bsp_psLEDs[5];
-# 108 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 108 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_PIN_PWM_LED AM_BSP_GPIO_LED1
 #define AM_BSP_PWM_LED_TIMER 2
 #define AM_BSP_PWM_LED_TIMER_SEG AM_HAL_CTIMER_TIMERB
 #define AM_BSP_PWM_LED_TIMER_INT AM_HAL_CTIMER_INT_TIMERB2C0
-# 122 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 122 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
 #define AM_BSP_UART_IOS_INST 0
 #define AM_BSP_UART_PRINT_INST 0
 #define AM_BSP_UART_BOOTLOADER_INST 1
@@ -41065,9 +41067,9 @@ extern am_devices_led_t am_bsp_psLEDs[5];
 typedef struct
 {
     
-# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h" 3 4
+# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h" 3 4
    _Bool 
-# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/boards/apollo3_evb/bsp/am_bsp.h"
+# 133 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/am_bsp.h"
             bSaved;
     uint32_t ui32TxPinNum;
     uint32_t ui32TxPinCfg;

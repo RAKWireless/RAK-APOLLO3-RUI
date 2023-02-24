@@ -347,11 +347,11 @@ typedef struct
     //
     //! Compare Register B0.
     //
-    uint32_t B0;
+    uint32_t _B0;
     //
     //! Compare Register B1.
     //
-    uint32_t B1;
+    uint32_t _B1;
     //
     //! Compare Register B2.
     //

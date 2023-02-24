@@ -477,7 +477,6 @@
 #define __USES_INITFINI__ 1
 #define apollo3 1
 #define SUPPORT_LORA 1
-#define LORA_RF_LP 1
 #define LORA_IO_SPI_PORT 1
 #define SYS_RTC_COUNTER_PORT 2
 #define ATCMD_CUST_TABLE_SIZE 64
@@ -490,9 +489,11 @@
 #define AM_PACKAGE_BGA 1
 #define AM_PART_APOLLO3 1
 #define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
 #define AM_BLE_USE_NVM 1
 #define AM_CUSTOM_BDADDR 1
 #define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
 #define AM_AMOTA_ADD 1
 #define AM_UTIL_FAULTISR_PRINT 1
 #define SEC_ECC_CFG SEC_ECC_CFG_HCI
@@ -520,6 +521,7 @@
 #define SOFT_SE 1
 #define SECURE_ELEMENT_PRE_PROVISIONED 1
 #define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
 #define WISBLOCK_BASE_5005_O 1
 #define SUPPORT_BLE 1
 #define SUPPORT_SPI 1
@@ -1606,19 +1608,19 @@ typedef unsigned int wchar_t;
 #define configTICK_RATE_HZ 1000
 #define configMAX_PRIORITIES 5
 #define configMINIMAL_STACK_SIZE (256)
-#define configTOTAL_HEAP_SIZE (40 * 1024)
+#define configTOTAL_HEAP_SIZE (66 * 1024)
 #define configMAX_TASK_NAME_LEN 16
 #define configUSE_16_BIT_TICKS 0
 #define configIDLE_SHOULD_YIELD 1
 
 #define configUSE_MUTEXES 1
 #define configUSE_RECURSIVE_MUTEXES 0
-#define configUSE_COUNTING_SEMAPHORES 0
+#define configUSE_COUNTING_SEMAPHORES 1
 #define configUSE_ALTERNATIVE_API 0
 #define configQUEUE_REGISTRY_SIZE 0
 #define configUSE_QUEUE_SETS 0
 #define configUSE_TIME_SLICING 0
-#define configUSE_NEWLIB_REENTRANT 0
+#define configUSE_NEWLIB_REENTRANT 1
 #define configENABLE_BACKWARD_COMPATIBILITY 0
 
 
@@ -1636,7 +1638,7 @@ typedef unsigned int wchar_t;
 #define configUSE_TIMERS 1
 #define configTIMER_TASK_PRIORITY 3
 #define configTIMER_QUEUE_LENGTH 15
-#define configTIMER_TASK_STACK_DEPTH configMINIMAL_STACK_SIZE*4
+#define configTIMER_TASK_STACK_DEPTH configMINIMAL_STACK_SIZE*8
 
 
 #define configKERNEL_INTERRUPT_PRIORITY (0x7 << 5)
@@ -2009,6 +2011,783 @@ BaseType_t xPortStartScheduler( void ) ;
 
 void vPortEndScheduler( void ) ;
 # 63 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
+# 71 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 1 3
+# 91 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
+#define _REENT_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 1 3
+# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _SYS_REENT_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 1 3
+
+
+
+
+
+
+
+#define _ANSIDECL_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 1 3
+
+
+
+
+
+
+
+#define __NEWLIB_H__ 1
+# 18 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
+#define _WANT_IO_C99_FORMATS 1
+
+
+#define _WANT_IO_LONG_LONG 1
+
+
+#define _WANT_REGISTER_FINI 1
+# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
+#define _REENT_CHECK_VERIFY 1
+
+
+
+
+
+#define _MB_LEN_MAX 1
+# 53 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
+#define HAVE_INITFINI_ARRAY 1
+
+
+
+#define _ATEXIT_DYNAMIC_ALLOC 1
+
+
+#define _HAVE_LONG_DOUBLE 1
+
+
+#define _HAVE_CC_INHIBIT_LOOP_TO_LIBCALL 1
+
+
+#define _LDBL_EQ_DBL 1
+
+
+#define _FVWRITE_IN_STREAMIO 1
+
+
+#define _FSEEK_OPTIMIZATION 1
+
+
+#define _WIDE_ORIENT 1
+
+
+#define _UNBUF_STREAM_OPT 1
+# 95 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
+#define _RETARGETABLE_LOCKING 1
+# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 1 3
+
+#define __SYS_CONFIG_H__ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 1 3
+# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __IEEE_LITTLE_ENDIAN 
+# 473 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __OBSOLETE_MATH_DEFAULT 1
+
+
+#define __OBSOLETE_MATH __OBSOLETE_MATH_DEFAULT
+# 5 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 2 3
+# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
+#define _POINTER_INT long
+
+
+
+
+
+#undef __RAND_MAX
+
+
+
+#define __RAND_MAX 0x7fffffff
+# 250 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
+#define __EXPORT 
+
+
+
+#define __IMPORT 
+
+
+
+
+
+
+#define _READ_WRITE_RETURN_TYPE int
+
+
+
+
+
+#define _READ_WRITE_BUFSIZE_TYPE int
+# 12 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 2 3
+# 31 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
+#define _BEGIN_STD_C 
+#define _END_STD_C 
+#define _NOTHROW 
+
+
+
+#define _LONG_DOUBLE long double
+
+
+
+
+
+#define _ATTRIBUTE(attrs) __attribute__ (attrs)
+# 69 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
+#define _ELIDABLE_INLINE static __inline__
+
+
+
+#define _NOINLINE __attribute__ ((__noinline__))
+#define _NOINLINE_STATIC _NOINLINE static
+# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 1 3
+# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#define _SYS__TYPES_H 
+
+#define __need_size_t 
+#define __need_wint_t 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+
+
+
+
+#define _WINT_T 
+
+
+
+
+
+# 350 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+typedef unsigned int wint_t;
+
+#undef __need_wint_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 25 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_types.h" 1 3
+
+
+
+
+
+#define _MACHINE__TYPES_H 
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+typedef long __blkcnt_t;
+
+
+
+typedef long __blksize_t;
+
+
+
+typedef __uint64_t __fsblkcnt_t;
+
+
+
+typedef __uint32_t __fsfilcnt_t;
+
+
+
+typedef long _off_t;
+
+
+
+
+
+typedef int __pid_t;
+
+
+
+typedef short __dev_t;
+
+
+
+typedef unsigned short __uid_t;
+
+
+typedef unsigned short __gid_t;
+
+
+
+typedef __uint32_t __id_t;
+
+
+
+
+
+
+
+typedef unsigned short __ino_t;
+# 90 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+typedef __uint32_t __mode_t;
+
+
+
+
+
+__extension__ typedef long long _off64_t;
+
+
+
+
+
+typedef _off_t __off_t;
+
+
+typedef _off64_t __loff_t;
+
+
+typedef long __key_t;
+
+
+
+
+
+
+
+typedef long _fpos_t;
+# 127 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#undef __size_t
+
+
+
+typedef unsigned int __size_t;
+# 146 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#define unsigned signed
+typedef signed int _ssize_t;
+#undef unsigned
+# 158 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+typedef _ssize_t __ssize_t;
+
+
+
+typedef struct
+{
+  int __count;
+  union
+  {
+    wint_t __wch;
+    unsigned char __wchb[4];
+  } __value;
+} _mbstate_t;
+
+
+
+
+typedef void *_iconv_t;
+
+
+
+#define _CLOCK_T_ unsigned long
+
+
+typedef unsigned long __clock_t;
+
+
+
+
+#define _TIME_T_ __int_least64_t
+
+typedef __int_least64_t __time_t;
+
+
+#define _CLOCKID_T_ unsigned long
+
+
+typedef unsigned long __clockid_t;
+
+#define _TIMER_T_ unsigned long
+typedef unsigned long __timer_t;
+
+
+typedef __uint8_t __sa_family_t;
+
+
+
+typedef __uint32_t __socklen_t;
+
+
+typedef int __nl_item;
+typedef unsigned short __nlink_t;
+typedef long __suseconds_t;
+typedef unsigned long __useconds_t;
+
+
+
+
+
+
+
+typedef __builtin_va_list __va_list;
+# 16 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+
+#define _NULL 0
+
+
+
+#define __Long long
+typedef unsigned long __ULong;
+# 34 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 1 3
+
+#define __SYS_LOCK_H__ 
+# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 3
+struct __lock;
+typedef struct __lock * _LOCK_T;
+#define _LOCK_RECURSIVE_T _LOCK_T
+
+#define __LOCK_INIT(class,lock) extern struct __lock __lock_ ## lock; class _LOCK_T lock = &__lock_ ## lock
+
+#define __LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class,lock)
+
+extern void __retarget_lock_init(_LOCK_T *lock);
+#define __lock_init(lock) __retarget_lock_init(&lock)
+extern void __retarget_lock_init_recursive(_LOCK_T *lock);
+#define __lock_init_recursive(lock) __retarget_lock_init_recursive(&lock)
+extern void __retarget_lock_close(_LOCK_T lock);
+#define __lock_close(lock) __retarget_lock_close(lock)
+extern void __retarget_lock_close_recursive(_LOCK_T lock);
+#define __lock_close_recursive(lock) __retarget_lock_close_recursive(lock)
+extern void __retarget_lock_acquire(_LOCK_T lock);
+#define __lock_acquire(lock) __retarget_lock_acquire(lock)
+extern void __retarget_lock_acquire_recursive(_LOCK_T lock);
+#define __lock_acquire_recursive(lock) __retarget_lock_acquire_recursive(lock)
+extern int __retarget_lock_try_acquire(_LOCK_T lock);
+#define __lock_try_acquire(lock) __retarget_lock_try_acquire(lock)
+extern int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
+#define __lock_try_acquire_recursive(lock) __retarget_lock_try_acquire_recursive(lock)
+
+extern void __retarget_lock_release(_LOCK_T lock);
+#define __lock_release(lock) __retarget_lock_release(lock)
+extern void __retarget_lock_release_recursive(_LOCK_T lock);
+#define __lock_release_recursive(lock) __retarget_lock_release_recursive(lock)
+# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+typedef _LOCK_T _flock_t;
+
+
+
+
+
+
+
+struct _reent;
+
+struct __locale_t;
+
+
+
+
+
+
+struct _Bigint
+{
+  struct _Bigint *_next;
+  int _k, _maxwds, _sign, _wds;
+  __ULong _x[1];
+};
+
+
+struct __tm
+{
+  int __tm_sec;
+  int __tm_min;
+  int __tm_hour;
+  int __tm_mday;
+  int __tm_mon;
+  int __tm_year;
+  int __tm_wday;
+  int __tm_yday;
+  int __tm_isdst;
+};
+
+
+
+
+
+#define _ATEXIT_SIZE 32
+
+struct _on_exit_args {
+ void * _fnargs[32];
+ void * _dso_handle[32];
+
+ __ULong _fntypes;
+
+
+ __ULong _is_cxa;
+};
+# 98 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct _atexit {
+ struct _atexit *_next;
+ int _ind;
+
+ void (*_fns[32])(void);
+        struct _on_exit_args _on_exit_args;
+};
+#define _ATEXIT_INIT {_NULL, 0, {_NULL}, {{_NULL}, {_NULL}, 0, 0}}
+
+
+
+
+
+#define _REENT_INIT_ATEXIT _NULL, _ATEXIT_INIT,
+# 122 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct __sbuf {
+ unsigned char *_base;
+ int _size;
+};
+# 183 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_SMALL_CHECK_INIT(ptr) 
+
+
+struct __sFILE {
+  unsigned char *_p;
+  int _r;
+  int _w;
+  short _flags;
+  short _file;
+  struct __sbuf _bf;
+  int _lbfsize;
+
+
+
+
+
+
+  void * _cookie;
+
+  int (*_read) (struct _reent *, void *,
+        char *, int);
+  int (*_write) (struct _reent *, void *,
+         const char *,
+         int);
+  _fpos_t (*_seek) (struct _reent *, void *, _fpos_t, int);
+  int (*_close) (struct _reent *, void *);
+
+
+  struct __sbuf _ub;
+  unsigned char *_up;
+  int _ur;
+
+
+  unsigned char _ubuf[3];
+  unsigned char _nbuf[1];
+
+
+  struct __sbuf _lb;
+
+
+  int _blksize;
+  _off_t _offset;
+
+
+  struct _reent *_data;
+
+
+
+  _flock_t _lock;
+
+  _mbstate_t _mbstate;
+  int _flags2;
+};
+# 292 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+typedef struct __sFILE __FILE;
+
+
+
+struct _glue
+{
+  struct _glue *_next;
+  int _niobs;
+  __FILE *_iobs;
+};
+# 317 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _RAND48_SEED_0 (0x330e)
+#define _RAND48_SEED_1 (0xabcd)
+#define _RAND48_SEED_2 (0x1234)
+#define _RAND48_MULT_0 (0xe66d)
+#define _RAND48_MULT_1 (0xdeec)
+#define _RAND48_MULT_2 (0x0005)
+#define _RAND48_ADD (0x000b)
+struct _rand48 {
+  unsigned short _seed[3];
+  unsigned short _mult[3];
+  unsigned short _add;
+
+
+
+
+};
+
+
+#define _REENT_EMERGENCY_SIZE 25
+#define _REENT_ASCTIME_SIZE 26
+#define _REENT_SIGNAL_SIZE 24
+# 613 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct _reent
+{
+  int _errno;
+
+
+
+
+  __FILE *_stdin, *_stdout, *_stderr;
+
+  int _inc;
+  char _emergency[25];
+
+
+  int _unspecified_locale_info;
+  struct __locale_t *_locale;
+
+  int __sdidinit;
+
+  void (*__cleanup) (struct _reent *);
+
+
+  struct _Bigint *_result;
+  int _result_k;
+  struct _Bigint *_p5s;
+  struct _Bigint **_freelist;
+
+
+  int _cvtlen;
+  char *_cvtbuf;
+
+  union
+    {
+      struct
+        {
+          unsigned int _unused_rand;
+          char * _strtok_last;
+          char _asctime_buf[26];
+          struct __tm _localtime_buf;
+          int _gamma_signgam;
+          __extension__ unsigned long long _rand_next;
+          struct _rand48 _r48;
+          _mbstate_t _mblen_state;
+          _mbstate_t _mbtowc_state;
+          _mbstate_t _wctomb_state;
+          char _l64a_buf[8];
+          char _signal_buf[24];
+          int _getdate_err;
+          _mbstate_t _mbrlen_state;
+          _mbstate_t _mbrtowc_state;
+          _mbstate_t _mbsrtowcs_state;
+          _mbstate_t _wcrtomb_state;
+          _mbstate_t _wcsrtombs_state;
+   int _h_errno;
+        } _reent;
+
+
+
+      struct
+        {
+#define _N_LISTS 30
+          unsigned char * _nextf[30];
+          unsigned int _nmalloc[30];
+        } _unused;
+    } _new;
+
+
+
+  struct _atexit *_atexit;
+  struct _atexit _atexit0;
+
+
+
+  void (**(_sig_func))(int);
+
+
+
+
+  struct _glue __sglue;
+
+  __FILE __sf[3];
+
+};
+
+
+
+
+
+#define _REENT_STDIO_STREAM(var,index) &(var)->__sf[index]
+
+
+#define _REENT_INIT(var) { 0, _REENT_STDIO_STREAM(&(var), 0), _REENT_STDIO_STREAM(&(var), 1), _REENT_STDIO_STREAM(&(var), 2), 0, "", 0, _NULL, 0, _NULL, _NULL, 0, _NULL, _NULL, 0, _NULL, { { 0, _NULL, "", {0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 1, { {_RAND48_SEED_0, _RAND48_SEED_1, _RAND48_SEED_2}, {_RAND48_MULT_0, _RAND48_MULT_1, _RAND48_MULT_2}, _RAND48_ADD }, {0, {0}}, {0, {0}}, {0, {0}}, "", "", 0, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}} } }, _REENT_INIT_ATEXIT _NULL, {_NULL, 0, _NULL} }
+# 751 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_INIT_PTR_ZEROED(var) { (var)->_stdin = _REENT_STDIO_STREAM(var, 0); (var)->_stdout = _REENT_STDIO_STREAM(var, 1); (var)->_stderr = _REENT_STDIO_STREAM(var, 2); (var)->_new._reent._rand_next = 1; (var)->_new._reent._r48._seed[0] = _RAND48_SEED_0; (var)->_new._reent._r48._seed[1] = _RAND48_SEED_1; (var)->_new._reent._r48._seed[2] = _RAND48_SEED_2; (var)->_new._reent._r48._mult[0] = _RAND48_MULT_0; (var)->_new._reent._r48._mult[1] = _RAND48_MULT_1; (var)->_new._reent._r48._mult[2] = _RAND48_MULT_2; (var)->_new._reent._r48._add = _RAND48_ADD; }
+# 765 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_CHECK_RAND48(ptr) 
+#define _REENT_CHECK_MP(ptr) 
+#define _REENT_CHECK_TM(ptr) 
+#define _REENT_CHECK_ASCTIME_BUF(ptr) 
+#define _REENT_CHECK_EMERGENCY(ptr) 
+#define _REENT_CHECK_MISC(ptr) 
+#define _REENT_CHECK_SIGNAL_BUF(ptr) 
+
+#define _REENT_SIGNGAM(ptr) ((ptr)->_new._reent._gamma_signgam)
+#define _REENT_RAND_NEXT(ptr) ((ptr)->_new._reent._rand_next)
+#define _REENT_RAND48_SEED(ptr) ((ptr)->_new._reent._r48._seed)
+#define _REENT_RAND48_MULT(ptr) ((ptr)->_new._reent._r48._mult)
+#define _REENT_RAND48_ADD(ptr) ((ptr)->_new._reent._r48._add)
+#define _REENT_MP_RESULT(ptr) ((ptr)->_result)
+#define _REENT_MP_RESULT_K(ptr) ((ptr)->_result_k)
+#define _REENT_MP_P5S(ptr) ((ptr)->_p5s)
+#define _REENT_MP_FREELIST(ptr) ((ptr)->_freelist)
+#define _REENT_ASCTIME_BUF(ptr) ((ptr)->_new._reent._asctime_buf)
+#define _REENT_TM(ptr) (&(ptr)->_new._reent._localtime_buf)
+#define _REENT_EMERGENCY(ptr) ((ptr)->_emergency)
+#define _REENT_STRTOK_LAST(ptr) ((ptr)->_new._reent._strtok_last)
+#define _REENT_MBLEN_STATE(ptr) ((ptr)->_new._reent._mblen_state)
+#define _REENT_MBTOWC_STATE(ptr) ((ptr)->_new._reent._mbtowc_state)
+#define _REENT_WCTOMB_STATE(ptr) ((ptr)->_new._reent._wctomb_state)
+#define _REENT_MBRLEN_STATE(ptr) ((ptr)->_new._reent._mbrlen_state)
+#define _REENT_MBRTOWC_STATE(ptr) ((ptr)->_new._reent._mbrtowc_state)
+#define _REENT_MBSRTOWCS_STATE(ptr) ((ptr)->_new._reent._mbsrtowcs_state)
+#define _REENT_WCRTOMB_STATE(ptr) ((ptr)->_new._reent._wcrtomb_state)
+#define _REENT_WCSRTOMBS_STATE(ptr) ((ptr)->_new._reent._wcsrtombs_state)
+#define _REENT_L64A_BUF(ptr) ((ptr)->_new._reent._l64a_buf)
+#define _REENT_SIGNAL_BUF(ptr) ((ptr)->_new._reent._signal_buf)
+#define _REENT_GETDATE_ERR_P(ptr) (&((ptr)->_new._reent._getdate_err))
+
+
+
+#define _REENT_INIT_PTR(var) { memset((var), 0, sizeof(*(var))); _REENT_INIT_PTR_ZEROED(var); }
+
+
+
+
+
+
+
+#define _Kmax (sizeof (size_t) << 3)
+
+
+
+
+
+
+
+#define __ATTRIBUTE_IMPURE_PTR__ 
+
+
+extern struct _reent *_impure_ptr ;
+extern struct _reent *const _global_impure_ptr ;
+
+void _reclaim_reent (struct _reent *);
+# 832 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT _impure_ptr
+
+
+#define _GLOBAL_REENT _global_impure_ptr
+
+
+
+
+
+#define _GLOBAL_ATEXIT (_GLOBAL_REENT->_atexit)
+# 94 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 2 3
+
+
+#define __need_size_t 
+#define __need_ptrdiff_t 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 99 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 2 3
+
+
+struct stat;
+struct tms;
+struct timeval;
+struct timezone;
+# 139 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
+extern int _close_r (struct _reent *, int);
+extern int _execve_r (struct _reent *, const char *, char *const *, char *const *);
+extern int _fcntl_r (struct _reent *, int, int, int);
+extern int _fork_r (struct _reent *);
+extern int _fstat_r (struct _reent *, int, struct stat *);
+extern int _getpid_r (struct _reent *);
+extern int _isatty_r (struct _reent *, int);
+extern int _kill_r (struct _reent *, int, int);
+extern int _link_r (struct _reent *, const char *, const char *);
+extern _off_t _lseek_r (struct _reent *, int, _off_t, int);
+extern int _mkdir_r (struct _reent *, const char *, int);
+extern int _open_r (struct _reent *, const char *, int, int);
+extern _ssize_t _read_r (struct _reent *, int, void *, size_t);
+extern int _rename_r (struct _reent *, const char *, const char *);
+extern void *_sbrk_r (struct _reent *, ptrdiff_t);
+extern int _stat_r (struct _reent *, const char *, struct stat *);
+extern unsigned long _times_r (struct _reent *, struct tms *);
+extern int _unlink_r (struct _reent *, const char *);
+extern int _wait_r (struct _reent *, int *);
+extern _ssize_t _write_r (struct _reent *, int, const void *, size_t);
+
+
+extern int _gettimeofday_r (struct _reent *, struct timeval *__tp, void *__tzp);
+# 72 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
 # 108 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 #define configUSE_CO_ROUTINES 0
 # 140 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
@@ -2558,6 +3337,8 @@ void vPortEndScheduler( void ) ;
 # 950 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 #define configUSE_TASK_FPU_SUPPORT 1
 # 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+
+# 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
 struct xSTATIC_LIST_ITEM
 {
  TickType_t xDummy1;
@@ -2593,7 +3374,10 @@ typedef struct xSTATIC_TCB
  uint8_t ucDummy7[ 16 ];
 # 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
   UBaseType_t uxDummy12[ 2 ];
-# 1034 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+# 1031 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
+  struct _reent xDummy17;
+
+
   uint32_t ulDummy18;
   uint8_t ucDummy19;
 # 1047 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"

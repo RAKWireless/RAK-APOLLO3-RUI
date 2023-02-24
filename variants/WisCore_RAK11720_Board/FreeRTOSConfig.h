@@ -62,19 +62,19 @@ extern "C"
 #define configTICK_RATE_HZ                      1000
 #define configMAX_PRIORITIES                    5
 #define configMINIMAL_STACK_SIZE                (256)
-#define configTOTAL_HEAP_SIZE                   (40 * 1024)
+#define configTOTAL_HEAP_SIZE                   (66 * 1024)
 #define configMAX_TASK_NAME_LEN                 16
 #define configUSE_16_BIT_TICKS                  0
 #define configIDLE_SHOULD_YIELD                 1
 
 #define configUSE_MUTEXES                       1
 #define configUSE_RECURSIVE_MUTEXES             0
-#define configUSE_COUNTING_SEMAPHORES           0
+#define configUSE_COUNTING_SEMAPHORES           1
 #define configUSE_ALTERNATIVE_API               0 /* Deprecated! */
 #define configQUEUE_REGISTRY_SIZE               0
 #define configUSE_QUEUE_SETS                    0
 #define configUSE_TIME_SLICING                  0
-#define configUSE_NEWLIB_REENTRANT              0
+#define configUSE_NEWLIB_REENTRANT              1
 #define configENABLE_BACKWARD_COMPATIBILITY     0
 
 /* Hook function related definitions. */
@@ -92,7 +92,7 @@ extern "C"
 #define configUSE_TIMERS                        1
 #define configTIMER_TASK_PRIORITY               3
 #define configTIMER_QUEUE_LENGTH                15
-#define configTIMER_TASK_STACK_DEPTH            configMINIMAL_STACK_SIZE*4
+#define configTIMER_TASK_STACK_DEPTH            configMINIMAL_STACK_SIZE*8
 
 /* Interrupt nesting behaviour configuration. */
 #define configKERNEL_INTERRUPT_PRIORITY         (0x7 << 5)
@@ -154,6 +154,10 @@ extern void am_freertos_wakeup(uint32_t);
 #define configCTIMER_NUM                          3
 #define configCTIMER_CLOCK_HZ                     32768
 #define configCTIMER_CLOCK                        AM_HAL_CTIMER_XT_32_768KHZ
+#endif
+
+#if CFG_SYSVIEW
+#include "SEGGER_SYSVIEW_FreeRTOS.h"
 #endif
 
 #ifdef __cplusplus
