@@ -5,7 +5,7 @@ void setup()
     Serial.begin(baudrate);
     Serial6.begin(baudrate, RAK_AT_MODE);
       
-    Serial.println("RAKwireless RAK11720 BLE Example");
+    Serial.println("RAKwireless RAK11720");
     Serial.println("------------------------------------------------------");
   
     // Start BLE UART advertisement for 30 seconds
