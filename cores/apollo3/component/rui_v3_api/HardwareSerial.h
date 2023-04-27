@@ -355,27 +355,6 @@ class HardwareSerial : public Stream
 
      */
     virtual void flush(void);
-
-    /**@par Description
-     *          Get the baud rate from the system configure
-     *
-     * @par Syntax
-     *          Serial.getBaudrate();
-     * @return  void
-     * @par     Example
-     * @verbatim
-     void setup() {
-	   uint32_t baudrate = Serial.getBaudrate();
-       Serial.begin(baudrate);
-     }
-
-     void loop() {
-     }
-     @endverbatim
-
-     */
-    virtual uint32_t getBaudrate(void);
-
     /**@}*/
 };
 

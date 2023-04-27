@@ -1,13 +1,11 @@
 
 void setup()
 {
-    uint32_t baudrate = Serial.getBaudrate();
-    Serial.begin(baudrate);
-    Serial6.begin(baudrate, RAK_AT_MODE);
+    Serial.begin(115200);
+    Serial6.begin(115200, RAK_AT_MODE);
       
-    Serial.println("RAKwireless RAK11720");
+    Serial.println("RAKwireless RAK11720 BLE Example");
     Serial.println("------------------------------------------------------");
-    Serial.printf("Version: %s\r\n", api.system.firmwareVersion.get().c_str());
   
     // Start BLE UART advertisement for 30 seconds
     api.ble.settings.blemode(RAK_BLE_UART_MODE);
