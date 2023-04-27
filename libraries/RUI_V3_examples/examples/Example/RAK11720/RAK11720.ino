@@ -1,8 +1,9 @@
 
 void setup()
 {
-    Serial.begin(115200);
-    Serial6.begin(115200, RAK_AT_MODE);
+    uint32_t baudrate = Serial.getBaudrate();
+    Serial.begin(baudrate);
+    Serial6.begin(baudrate, RAK_AT_MODE);
       
     Serial.println("RAKwireless RAK11720 BLE Example");
     Serial.println("------------------------------------------------------");
