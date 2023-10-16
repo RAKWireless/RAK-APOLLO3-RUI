@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-name=RAKwireless RUI STM32 Modules
+name=RAKwireless RUI APOLLO3 Modules
 
 # Compile variables
 # -----------------
@@ -33,13 +33,13 @@ compiler.optimization_flag=-Os
 
 compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
 compiler.c.cmd=arm-none-eabi-gcc
-compiler.c.flags=-mcpu={build.mcu} -mthumb -c -g {compiler.warning_flags} {build.float_flags} -std=gnu11 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -MMD
+compiler.c.flags=-mcpu={build.mcu} -mthumb -c -g {compiler.warning_flags} {build.float_flags} -std=gnu11 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -nostdlib -fno-use-cxa-atexit -MMD
 compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.c.elf.flags={compiler.optimization_flag} -Wl,--gc-sections -save-temps
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.S.flags=-c -g -x assembler-with-cpp {compiler.warning_flags}
 compiler.cpp.cmd=arm-none-eabi-g++
-compiler.cpp.flags=-mcpu={build.mcu} -mthumb -c -g {compiler.warning_flags} {build.float_flags} -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD
+compiler.cpp.flags=-mcpu={build.mcu} -mthumb -c -g {compiler.warning_flags} {build.float_flags} -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -nostdlib -fno-use-cxa-atexit -MMD
 compiler.ar.cmd=arm-none-eabi-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=arm-none-eabi-objcopy
@@ -48,11 +48,11 @@ compiler.elf2bin.flags=-O binary -S
 compiler.elf2bin.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.flags=-O ihex
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
-compiler.ldflags=-mcpu={build.mcu} -mthumb {build.float_flags} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common --specs=nano.specs --specs=nosys.specs {build.flags.lib_path}
+compiler.ldflags=-mcpu={build.mcu} -mthumb {build.float_flags} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common --specs=nano.specs --specs=nosys.specs -nostartfiles {build.flags.lib_path}
 compiler.size.cmd=arm-none-eabi-size
 
 # this can be overriden in boards.txt
-build.float_flags=-mfpu=fpv4-sp-d16 -u _printf_float
+build.float_flags=-mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -u _printf_float
 build.debug_flags=-DCFG_DEBUG=0
 build.logger_flags=-DCFG_LOGGER=1
 build.sysview_flags=-DCFG_SYSVIEW=0
@@ -114,7 +114,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -DF_CPU=
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" "-L{build.path}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} "-L{build.core.path}/component/core/soc/stm32wle5xx" "-T{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" {object_files} {compiler.libraries.ldflags} -Wl,--start-group -lc -lm -lnosys -lstdc++ "{build.path}/{archive_file}" {build.flags.lib} -Wl,--end-group
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" "-L{build.path}" {compiler.c.elf.flags} {compiler.c.elf.extra_flags} "-L{build.core.path}/component/core/soc/apollo3" "-T{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" {object_files} {compiler.libraries.ldflags} -Wl,--start-group -lc -lm -lnosys -lstdc++ "{build.path}/{archive_file}" {build.flags.lib} -Wl,--end-group
 
 ## Create output (bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf2bin.flags} {compiler.elf2bin.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
@@ -123,7 +123,15 @@ recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2bin.cmd}" {compiler.elf
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
 
 ## Create dfu package zip file
-#recipe.objcopy.zip.pattern="{runtime.tools.pc-nrfutil.path}/nrfutil" pkg generate --hw-version 52 --application-version 1 --application "{build.path}/{build.project_name}.hex" --sd-req {build.sd_fwid} --key-file {runtime.platform.path}/security/private.key "{build.path}/{build.project_name}.zip"
+recipe.objcopy.zip.1.pattern=python3 "{runtime.platform.path}/security/apollo3_scripts/ota_binary_converter.py" --load-address 0x14000 --appbin "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_UART"
+recipe.objcopy.zip.1.pattern.windows="{runtime.platform.path}/security/apollo3_scripts/windows/ota_binary_converter.exe" --load-address 0x14000 --appbin "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_UART"
+recipe.objcopy.zip.1.pattern.macosx="{runtime.platform.path}/security/apollo3_scripts/macosx/ota_binary_converter" --load-address 0x14000 --appbin "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_UART"
+recipe.objcopy.zip.2.pattern=python3 "{runtime.platform.path}/security/apollo3_scripts/create_cust_image_blob.py" --bin "{build.path}/{build.project_name}.bin" --load-address 0x14000 --magic-num 0xC1 -o "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB" --version 0x0
+recipe.objcopy.zip.2.pattern.windows="{runtime.platform.path}/security/apollo3_scripts/windows/create_cust_image_blob.exe" --bin "{build.path}/{build.project_name}.bin" --load-address 0x14000 --magic-num 0xC1 -o "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB" --version 0x0
+recipe.objcopy.zip.2.pattern.macosx="{runtime.platform.path}/security/apollo3_scripts/macosx/create_cust_image_blob" --bin "{build.path}/{build.project_name}.bin" --load-address 0x14000 --magic-num 0xC1 -o "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB" --version 0x0
+recipe.objcopy.zip.3.pattern=python3 "{runtime.platform.path}/security/apollo3_scripts/ota_binary_converter.py" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
+recipe.objcopy.zip.3.pattern.windows="{runtime.platform.path}/security/apollo3_scripts/windows/ota_binary_converter.exe" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
+recipe.objcopy.zip.3.pattern.macosx="{runtime.platform.path}/security/apollo3_scripts/macosx/ota_binary_converter" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
 
 ## Save bin
 recipe.output.tmp_file_bin={build.project_name}.bin
@@ -142,13 +150,18 @@ recipe.size.regex.data=^(?:\.data|\.bss)\s+([0-9]+).*
 recipe.output.tmp_file={build.project_name}.hex
 recipe.output.save_file={build.project_name}.{build.variant}.hex
 
-tools.uploader_ymodem.cmd="{runtime.tools.uploader_ymodem.path}/uploader_ymodem.py"
-tools.uploader_ymodem.cmd.windows="{runtime.tools.uploader_ymodem.path}/uploader_ymodem.exe"
-tools.uploader_ymodem.cmd.macosx=python3 "{runtime.tools.uploader_ymodem.path}/uploader_ymodem.py"
+#tools.uploader_ymodem.cmd="{runtime.tools.uploader_ymodem.path}/uploader_ymodem.py"
+#tools.uploader_ymodem.cmd.windows="{runtime.tools.uploader_ymodem.path}/uploader_ymodem.exe"
+#tools.uploader_ymodem.cmd.macosx=python3 "{runtime.tools.uploader_ymodem.path}/uploader_ymodem.py"
+
+tools.uploader_ymodem.cmd=python3 "{runtime.platform.path}/security/apollo3_scripts/apollo3_uart_update_script.py"
+tools.uploader_ymodem.cmd.windows="{runtime.platform.path}/security/apollo3_scripts/windows/apollo3_uart_update_script.exe"
+tools.uploader_ymodem.cmd.macosx="{runtime.platform.path}/security/apollo3_scripts/macosx/apollo3_uart_update_script"
 
 tools.uploader_ymodem.upload.params.verbose=--verbose
 tools.uploader_ymodem.upload.params.quiet=
-tools.uploader_ymodem.upload.pattern={cmd} -f "{build.path}/{build.project_name}.bin" -p {serial.port} 
+tools.uploader_ymodem.upload.pattern={cmd} -f "{build.path}/{build.project_name}_Nonsecure_OTA_Package_UART.bin" -p {serial.port}
+
 #***************************************************
 # prebuild hooks for buildtime
 #***************************************************
@@ -156,15 +169,15 @@ recipe.hooks.sketch.prebuild.1.pattern=python3 "{runtime.tools.buildtime.path}/b
 recipe.hooks.sketch.prebuild.1.pattern.windows="{runtime.tools.buildtime.path}/buildtime.exe" "{runtime.platform.path}/variants/{build.variant}/version.c"
 
 #***************************************************
-# Burning bootloader with either jlink or nrfutil
+# Burning bootloader with Ambiq SBL
 #***************************************************
 
 # Bootloader version
-tools.bootburn.bootloader.file={runtime.platform.path}/prebuilt/bootloader.hex
+tools.bootburn.bootloader.file={runtime.platform.path}/prebuilt/bootloader_apollo3_ota.bin
 
 tools.bootburn.bootloader.params.verbose=
 tools.bootburn.bootloader.params.quiet=
-tools.bootburn.bootloader.pattern={program.burn_pattern}
+tools.bootburn.bootloader.pattern={program.burn_pattern} "{serial.port}" -f "{bootloader.file}" -i 6 -o 0xF8000
 
 # erase flash page while programming
 tools.bootburn.erase.params.verbose=
