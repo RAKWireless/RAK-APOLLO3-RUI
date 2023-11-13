@@ -517,7 +517,7 @@ void uhal_gpio_suspend(void) {
             continue;
         }
 
-#ifdef SUPPORT_LORA
+#if defined(SUPPORT_LORA) || defined(SUPPORT_LORA_P2P)
         //if (i == RADIO_RESET)
         //{
         //    am_hal_gpio_pinconfig(i, g_AM_HAL_GPIO_DISABLE);
@@ -559,7 +559,7 @@ void uhal_gpio_resume(void) {
             continue;
 	    }
   
-#ifdef SUPPORT_LORA
+#if defined(SUPPORT_LORA) || defined(SUPPORT_LORA_P2P)
         //if (i == RADIO_RESET)
         //{
         //    am_hal_gpio_pinconfig(i, g_AM_HAL_GPIO_DISABLE);

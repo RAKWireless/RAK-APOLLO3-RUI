@@ -38,10 +38,11 @@
 #include "SEGGER_SYSVIEW.h"
 #endif
 
-#ifdef SUPPORT_LORA
+#if defined(SUPPORT_LORA) || defined(SUPPORT_LORA_P2P)
 #include "radio.h"
+#endif
+#ifdef SUPPORT_LORA
 #include "LoRaMac.h"
-
 extern service_lora_join_cb service_lora_join_callback;
 #endif
 
@@ -324,7 +325,7 @@ void rui_event_handler_func(void *data, uint16_t size) {
             break;
         }
 #endif
-#ifdef SUPPORT_LORA
+#if defined(SUPPORT_LORA) || defined(SUPPORT_LORA_P2P)
         case UDRV_SYS_EVT_OP_LORAWAN:
         {
             // Process Radio IRQ
@@ -332,14 +333,17 @@ void rui_event_handler_func(void *data, uint16_t size) {
             {
                 Radio.IrqProcess( );
             }
-
+#ifdef SUPPORT_LORA
             // Processes the LoRaMac events
             LoRaMacProcess( );
 
             // Call all packages process functions
             LmHandlerPackagesProcess( );
+#endif
             break;
         }
+#endif
+#ifdef SUPPORT_LORA
         case UDRV_SYS_EVT_OP_LORAWAN_JOIN_CB:
         {
             if (service_lora_join_callback != NULL) {
