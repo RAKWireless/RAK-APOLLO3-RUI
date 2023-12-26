@@ -45577,6 +45577,12 @@ typedef enum _SERIAL_PARITY_E {
     SERIAL_PARITY_FORCED0 = 0x7
 } SERIAL_PARITY_E;
 
+typedef enum _SERIAL_UART_EVT_E {
+    SERIAL_UART_TX_DONE = 0,
+    SERIAL_UART_RX_DONE = 1,
+    SERIAL_UART_ERROR = 2,
+} SERIAL_UART_EVT;
+
 typedef enum _SERIAL_PORT
 {
     SERIAL_UART0 = 0,
@@ -45602,6 +45608,7 @@ typedef enum _SERIAL_WLOCK_STATE
 } SERIAL_WLOCK_STATE;
 
 typedef void (*SERIAL_CLI_HANDLER) (SERIAL_PORT, void *);
+typedef void (*SERIAL_UART_HANDLER) (SERIAL_PORT, SERIAL_UART_EVT);
 
 
 struct udrv_serial_api {
@@ -45613,9 +45620,9 @@ struct udrv_serial_api {
     void (*SERIAL_FLUSH) (SERIAL_PORT Port, uint32_t Timeout);
     int32_t (*SERIAL_READ_AVAIL) (SERIAL_PORT Port);
     
-# 112 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
+# 119 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
    _Bool 
-# 112 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 119 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
         (*SERIAL_IS_READY) (SERIAL_PORT Port);
 
 
@@ -45626,7 +45633,7 @@ struct udrv_serial_api {
 
 
 
-void udrv_serial_register_onewire_handler (SERIAL_CLI_HANDLER handler);
+void udrv_serial_register_onewire_handler (SERIAL_UART_HANDLER handler);
 
 
 
@@ -45634,11 +45641,11 @@ void udrv_serial_register_onewire_handler (SERIAL_CLI_HANDLER handler);
 
 
 
-# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
+# 136 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h" 3 4
 _Bool 
-# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 136 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
     is_udrv_serial_initialized(SERIAL_PORT Port);
-# 141 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 148 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 void udrv_serial_init (SERIAL_PORT Port, uint32_t BaudRate, SERIAL_WORD_LEN_E DataBits, SERIAL_STOP_BIT_E StopBits, SERIAL_PARITY_E Parity, SERIAL_WIRE_MODE_E WireMode);
 
 
@@ -45647,13 +45654,13 @@ void udrv_serial_init (SERIAL_PORT Port, uint32_t BaudRate, SERIAL_WORD_LEN_E Da
 
 
 void udrv_serial_deinit (SERIAL_PORT Port);
-# 158 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 165 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 int32_t udrv_serial_write (SERIAL_PORT Port, uint8_t const *Buffer, int32_t NumberOfBytes);
-# 168 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 175 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 int32_t udrv_serial_printf (SERIAL_PORT Port, const char *fmt, ...);
-# 178 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 185 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 int32_t udrv_serial_log_printf (const char *fmt, ...);
-# 189 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 196 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 int32_t udrv_serial_read (SERIAL_PORT Port, uint8_t *Buffer, int32_t NumberOfBytes);
 
 
@@ -45719,7 +45726,7 @@ void udrv_serial_disable (SERIAL_PORT Port);
 
 
 void udrv_serial_enable (SERIAL_PORT Port);
-# 262 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
+# 269 "/home/jenkins/workspace/RUI_Release/rui-v3/component/udrv/serial/udrv_serial.h"
 int32_t udrv_serial_read_available(SERIAL_PORT Port);
 
 
