@@ -1,1347 +1,382 @@
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3//"
-# 1 "<built-in>"
-#define __STDC__ 1
-#define __STDC_VERSION__ 199901L
-#define __STDC_HOSTED__ 1
-#define __GNUC__ 10
-#define __GNUC_MINOR__ 2
-#define __GNUC_PATCHLEVEL__ 1
-#define __VERSION__ "10.2.1 20201103 (release)"
-#define __ATOMIC_RELAXED 0
-#define __ATOMIC_SEQ_CST 5
-#define __ATOMIC_ACQUIRE 2
-#define __ATOMIC_RELEASE 3
-#define __ATOMIC_ACQ_REL 4
-#define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
-#define __OPTIMIZE__ 1
-#define __FINITE_MATH_ONLY__ 0
-#define __SIZEOF_INT__ 4
-#define __SIZEOF_LONG__ 4
-#define __SIZEOF_LONG_LONG__ 8
-#define __SIZEOF_SHORT__ 2
-#define __SIZEOF_FLOAT__ 4
-#define __SIZEOF_DOUBLE__ 8
-#define __SIZEOF_LONG_DOUBLE__ 8
-#define __SIZEOF_SIZE_T__ 4
-#define __CHAR_BIT__ 8
-#define __BIGGEST_ALIGNMENT__ 8
-#define __ORDER_LITTLE_ENDIAN__ 1234
-#define __ORDER_BIG_ENDIAN__ 4321
-#define __ORDER_PDP_ENDIAN__ 3412
-#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __SIZEOF_POINTER__ 4
-#define __SIZE_TYPE__ unsigned int
-#define __PTRDIFF_TYPE__ int
-#define __WCHAR_TYPE__ unsigned int
-#define __WINT_TYPE__ unsigned int
-#define __INTMAX_TYPE__ long long int
-#define __UINTMAX_TYPE__ long long unsigned int
-#define __CHAR16_TYPE__ short unsigned int
-#define __CHAR32_TYPE__ long unsigned int
-#define __SIG_ATOMIC_TYPE__ int
-#define __INT8_TYPE__ signed char
-#define __INT16_TYPE__ short int
-#define __INT32_TYPE__ long int
-#define __INT64_TYPE__ long long int
-#define __UINT8_TYPE__ unsigned char
-#define __UINT16_TYPE__ short unsigned int
-#define __UINT32_TYPE__ long unsigned int
-#define __UINT64_TYPE__ long long unsigned int
-#define __INT_LEAST8_TYPE__ signed char
-#define __INT_LEAST16_TYPE__ short int
-#define __INT_LEAST32_TYPE__ long int
-#define __INT_LEAST64_TYPE__ long long int
-#define __UINT_LEAST8_TYPE__ unsigned char
-#define __UINT_LEAST16_TYPE__ short unsigned int
-#define __UINT_LEAST32_TYPE__ long unsigned int
-#define __UINT_LEAST64_TYPE__ long long unsigned int
-#define __INT_FAST8_TYPE__ int
-#define __INT_FAST16_TYPE__ int
-#define __INT_FAST32_TYPE__ int
-#define __INT_FAST64_TYPE__ long long int
-#define __UINT_FAST8_TYPE__ unsigned int
-#define __UINT_FAST16_TYPE__ unsigned int
-#define __UINT_FAST32_TYPE__ unsigned int
-#define __UINT_FAST64_TYPE__ long long unsigned int
-#define __INTPTR_TYPE__ int
-#define __UINTPTR_TYPE__ unsigned int
-#define __GXX_ABI_VERSION 1014
-#define __SCHAR_MAX__ 0x7f
-#define __SHRT_MAX__ 0x7fff
-#define __INT_MAX__ 0x7fffffff
-#define __LONG_MAX__ 0x7fffffffL
-#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
-#define __WCHAR_MAX__ 0xffffffffU
-#define __WCHAR_MIN__ 0U
-#define __WINT_MAX__ 0xffffffffU
-#define __WINT_MIN__ 0U
-#define __PTRDIFF_MAX__ 0x7fffffff
-#define __SIZE_MAX__ 0xffffffffU
-#define __SCHAR_WIDTH__ 8
-#define __SHRT_WIDTH__ 16
-#define __INT_WIDTH__ 32
-#define __LONG_WIDTH__ 32
-#define __LONG_LONG_WIDTH__ 64
-#define __WCHAR_WIDTH__ 32
-#define __WINT_WIDTH__ 32
-#define __PTRDIFF_WIDTH__ 32
-#define __SIZE_WIDTH__ 32
-#define __INTMAX_MAX__ 0x7fffffffffffffffLL
-#define __INTMAX_C(c) c ## LL
-#define __UINTMAX_MAX__ 0xffffffffffffffffULL
-#define __UINTMAX_C(c) c ## ULL
-#define __INTMAX_WIDTH__ 64
-#define __SIG_ATOMIC_MAX__ 0x7fffffff
-#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
-#define __SIG_ATOMIC_WIDTH__ 32
-#define __INT8_MAX__ 0x7f
-#define __INT16_MAX__ 0x7fff
-#define __INT32_MAX__ 0x7fffffffL
-#define __INT64_MAX__ 0x7fffffffffffffffLL
-#define __UINT8_MAX__ 0xff
-#define __UINT16_MAX__ 0xffff
-#define __UINT32_MAX__ 0xffffffffUL
-#define __UINT64_MAX__ 0xffffffffffffffffULL
-#define __INT_LEAST8_MAX__ 0x7f
-#define __INT8_C(c) c
-#define __INT_LEAST8_WIDTH__ 8
-#define __INT_LEAST16_MAX__ 0x7fff
-#define __INT16_C(c) c
-#define __INT_LEAST16_WIDTH__ 16
-#define __INT_LEAST32_MAX__ 0x7fffffffL
-#define __INT32_C(c) c ## L
-#define __INT_LEAST32_WIDTH__ 32
-#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT64_C(c) c ## LL
-#define __INT_LEAST64_WIDTH__ 64
-#define __UINT_LEAST8_MAX__ 0xff
-#define __UINT8_C(c) c
-#define __UINT_LEAST16_MAX__ 0xffff
-#define __UINT16_C(c) c
-#define __UINT_LEAST32_MAX__ 0xffffffffUL
-#define __UINT32_C(c) c ## UL
-#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
-#define __UINT64_C(c) c ## ULL
-#define __INT_FAST8_MAX__ 0x7fffffff
-#define __INT_FAST8_WIDTH__ 32
-#define __INT_FAST16_MAX__ 0x7fffffff
-#define __INT_FAST16_WIDTH__ 32
-#define __INT_FAST32_MAX__ 0x7fffffff
-#define __INT_FAST32_WIDTH__ 32
-#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT_FAST64_WIDTH__ 64
-#define __UINT_FAST8_MAX__ 0xffffffffU
-#define __UINT_FAST16_MAX__ 0xffffffffU
-#define __UINT_FAST32_MAX__ 0xffffffffU
-#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
-#define __INTPTR_MAX__ 0x7fffffff
-#define __INTPTR_WIDTH__ 32
-#define __UINTPTR_MAX__ 0xffffffffU
-#define __GCC_IEC_559 0
-#define __GCC_IEC_559_COMPLEX 0
-#define __FLT_EVAL_METHOD__ 0
-#define __FLT_EVAL_METHOD_TS_18661_3__ 0
-#define __DEC_EVAL_METHOD__ 2
-#define __FLT_RADIX__ 2
-#define __FLT_MANT_DIG__ 24
-#define __FLT_DIG__ 6
-#define __FLT_MIN_EXP__ (-125)
-#define __FLT_MIN_10_EXP__ (-37)
-#define __FLT_MAX_EXP__ 128
-#define __FLT_MAX_10_EXP__ 38
-#define __FLT_DECIMAL_DIG__ 9
-#define __FLT_MAX__ 3.4028234663852886e+38F
-#define __FLT_NORM_MAX__ 3.4028234663852886e+38F
-#define __FLT_MIN__ 1.1754943508222875e-38F
-#define __FLT_EPSILON__ 1.1920928955078125e-7F
-#define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
-#define __FLT_HAS_DENORM__ 1
-#define __FLT_HAS_INFINITY__ 1
-#define __FLT_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF 1
-#define __DBL_MANT_DIG__ 53
-#define __DBL_DIG__ 15
-#define __DBL_MIN_EXP__ (-1021)
-#define __DBL_MIN_10_EXP__ (-307)
-#define __DBL_MAX_EXP__ 1024
-#define __DBL_MAX_10_EXP__ 308
-#define __DBL_DECIMAL_DIG__ 17
-#define __DBL_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_NORM_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_MIN__ ((double)2.2250738585072014e-308L)
-#define __DBL_EPSILON__ ((double)2.2204460492503131e-16L)
-#define __DBL_DENORM_MIN__ ((double)4.9406564584124654e-324L)
-#define __DBL_HAS_DENORM__ 1
-#define __DBL_HAS_INFINITY__ 1
-#define __DBL_HAS_QUIET_NAN__ 1
-#define __LDBL_MANT_DIG__ 53
-#define __LDBL_DIG__ 15
-#define __LDBL_MIN_EXP__ (-1021)
-#define __LDBL_MIN_10_EXP__ (-307)
-#define __LDBL_MAX_EXP__ 1024
-#define __LDBL_MAX_10_EXP__ 308
-#define __DECIMAL_DIG__ 17
-#define __LDBL_DECIMAL_DIG__ 17
-#define __LDBL_MAX__ 1.7976931348623157e+308L
-#define __LDBL_NORM_MAX__ 1.7976931348623157e+308L
-#define __LDBL_MIN__ 2.2250738585072014e-308L
-#define __LDBL_EPSILON__ 2.2204460492503131e-16L
-#define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
-#define __LDBL_HAS_DENORM__ 1
-#define __LDBL_HAS_INFINITY__ 1
-#define __LDBL_HAS_QUIET_NAN__ 1
-#define __FLT32_MANT_DIG__ 24
-#define __FLT32_DIG__ 6
-#define __FLT32_MIN_EXP__ (-125)
-#define __FLT32_MIN_10_EXP__ (-37)
-#define __FLT32_MAX_EXP__ 128
-#define __FLT32_MAX_10_EXP__ 38
-#define __FLT32_DECIMAL_DIG__ 9
-#define __FLT32_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_NORM_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_MIN__ 1.1754943508222875e-38F32
-#define __FLT32_EPSILON__ 1.1920928955078125e-7F32
-#define __FLT32_DENORM_MIN__ 1.4012984643248171e-45F32
-#define __FLT32_HAS_DENORM__ 1
-#define __FLT32_HAS_INFINITY__ 1
-#define __FLT32_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF32 1
-#define __FLT64_MANT_DIG__ 53
-#define __FLT64_DIG__ 15
-#define __FLT64_MIN_EXP__ (-1021)
-#define __FLT64_MIN_10_EXP__ (-307)
-#define __FLT64_MAX_EXP__ 1024
-#define __FLT64_MAX_10_EXP__ 308
-#define __FLT64_DECIMAL_DIG__ 17
-#define __FLT64_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_NORM_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_MIN__ 2.2250738585072014e-308F64
-#define __FLT64_EPSILON__ 2.2204460492503131e-16F64
-#define __FLT64_DENORM_MIN__ 4.9406564584124654e-324F64
-#define __FLT64_HAS_DENORM__ 1
-#define __FLT64_HAS_INFINITY__ 1
-#define __FLT64_HAS_QUIET_NAN__ 1
-#define __FLT32X_MANT_DIG__ 53
-#define __FLT32X_DIG__ 15
-#define __FLT32X_MIN_EXP__ (-1021)
-#define __FLT32X_MIN_10_EXP__ (-307)
-#define __FLT32X_MAX_EXP__ 1024
-#define __FLT32X_MAX_10_EXP__ 308
-#define __FLT32X_DECIMAL_DIG__ 17
-#define __FLT32X_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_NORM_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_MIN__ 2.2250738585072014e-308F32x
-#define __FLT32X_EPSILON__ 2.2204460492503131e-16F32x
-#define __FLT32X_DENORM_MIN__ 4.9406564584124654e-324F32x
-#define __FLT32X_HAS_DENORM__ 1
-#define __FLT32X_HAS_INFINITY__ 1
-#define __FLT32X_HAS_QUIET_NAN__ 1
-#define __SFRACT_FBIT__ 7
-#define __SFRACT_IBIT__ 0
-#define __SFRACT_MIN__ (-0.5HR-0.5HR)
-#define __SFRACT_MAX__ 0X7FP-7HR
-#define __SFRACT_EPSILON__ 0x1P-7HR
-#define __USFRACT_FBIT__ 8
-#define __USFRACT_IBIT__ 0
-#define __USFRACT_MIN__ 0.0UHR
-#define __USFRACT_MAX__ 0XFFP-8UHR
-#define __USFRACT_EPSILON__ 0x1P-8UHR
-#define __FRACT_FBIT__ 15
-#define __FRACT_IBIT__ 0
-#define __FRACT_MIN__ (-0.5R-0.5R)
-#define __FRACT_MAX__ 0X7FFFP-15R
-#define __FRACT_EPSILON__ 0x1P-15R
-#define __UFRACT_FBIT__ 16
-#define __UFRACT_IBIT__ 0
-#define __UFRACT_MIN__ 0.0UR
-#define __UFRACT_MAX__ 0XFFFFP-16UR
-#define __UFRACT_EPSILON__ 0x1P-16UR
-#define __LFRACT_FBIT__ 31
-#define __LFRACT_IBIT__ 0
-#define __LFRACT_MIN__ (-0.5LR-0.5LR)
-#define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
-#define __LFRACT_EPSILON__ 0x1P-31LR
-#define __ULFRACT_FBIT__ 32
-#define __ULFRACT_IBIT__ 0
-#define __ULFRACT_MIN__ 0.0ULR
-#define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
-#define __ULFRACT_EPSILON__ 0x1P-32ULR
-#define __LLFRACT_FBIT__ 63
-#define __LLFRACT_IBIT__ 0
-#define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
-#define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
-#define __LLFRACT_EPSILON__ 0x1P-63LLR
-#define __ULLFRACT_FBIT__ 64
-#define __ULLFRACT_IBIT__ 0
-#define __ULLFRACT_MIN__ 0.0ULLR
-#define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
-#define __ULLFRACT_EPSILON__ 0x1P-64ULLR
-#define __SACCUM_FBIT__ 7
-#define __SACCUM_IBIT__ 8
-#define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
-#define __SACCUM_MAX__ 0X7FFFP-7HK
-#define __SACCUM_EPSILON__ 0x1P-7HK
-#define __USACCUM_FBIT__ 8
-#define __USACCUM_IBIT__ 8
-#define __USACCUM_MIN__ 0.0UHK
-#define __USACCUM_MAX__ 0XFFFFP-8UHK
-#define __USACCUM_EPSILON__ 0x1P-8UHK
-#define __ACCUM_FBIT__ 15
-#define __ACCUM_IBIT__ 16
-#define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
-#define __ACCUM_MAX__ 0X7FFFFFFFP-15K
-#define __ACCUM_EPSILON__ 0x1P-15K
-#define __UACCUM_FBIT__ 16
-#define __UACCUM_IBIT__ 16
-#define __UACCUM_MIN__ 0.0UK
-#define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
-#define __UACCUM_EPSILON__ 0x1P-16UK
-#define __LACCUM_FBIT__ 31
-#define __LACCUM_IBIT__ 32
-#define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
-#define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
-#define __LACCUM_EPSILON__ 0x1P-31LK
-#define __ULACCUM_FBIT__ 32
-#define __ULACCUM_IBIT__ 32
-#define __ULACCUM_MIN__ 0.0ULK
-#define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
-#define __ULACCUM_EPSILON__ 0x1P-32ULK
-#define __LLACCUM_FBIT__ 31
-#define __LLACCUM_IBIT__ 32
-#define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
-#define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
-#define __LLACCUM_EPSILON__ 0x1P-31LLK
-#define __ULLACCUM_FBIT__ 32
-#define __ULLACCUM_IBIT__ 32
-#define __ULLACCUM_MIN__ 0.0ULLK
-#define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
-#define __ULLACCUM_EPSILON__ 0x1P-32ULLK
-#define __QQ_FBIT__ 7
-#define __QQ_IBIT__ 0
-#define __HQ_FBIT__ 15
-#define __HQ_IBIT__ 0
-#define __SQ_FBIT__ 31
-#define __SQ_IBIT__ 0
-#define __DQ_FBIT__ 63
-#define __DQ_IBIT__ 0
-#define __TQ_FBIT__ 127
-#define __TQ_IBIT__ 0
-#define __UQQ_FBIT__ 8
-#define __UQQ_IBIT__ 0
-#define __UHQ_FBIT__ 16
-#define __UHQ_IBIT__ 0
-#define __USQ_FBIT__ 32
-#define __USQ_IBIT__ 0
-#define __UDQ_FBIT__ 64
-#define __UDQ_IBIT__ 0
-#define __UTQ_FBIT__ 128
-#define __UTQ_IBIT__ 0
-#define __HA_FBIT__ 7
-#define __HA_IBIT__ 8
-#define __SA_FBIT__ 15
-#define __SA_IBIT__ 16
-#define __DA_FBIT__ 31
-#define __DA_IBIT__ 32
-#define __TA_FBIT__ 63
-#define __TA_IBIT__ 64
-#define __UHA_FBIT__ 8
-#define __UHA_IBIT__ 8
-#define __USA_FBIT__ 16
-#define __USA_IBIT__ 16
-#define __UDA_FBIT__ 32
-#define __UDA_IBIT__ 32
-#define __UTA_FBIT__ 64
-#define __UTA_IBIT__ 64
-#define __REGISTER_PREFIX__ 
-#define __USER_LABEL_PREFIX__ 
-#define __GNUC_STDC_INLINE__ 1
-#define __STRICT_ANSI__ 1
-#define __CHAR_UNSIGNED__ 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
-#define __GCC_ATOMIC_BOOL_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
-#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
-#define __GCC_ATOMIC_SHORT_LOCK_FREE 2
-#define __GCC_ATOMIC_INT_LOCK_FREE 2
-#define __GCC_ATOMIC_LONG_LOCK_FREE 2
-#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
-#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
-#define __GCC_ATOMIC_POINTER_LOCK_FREE 2
-#define __HAVE_SPECULATION_SAFE_VALUE 1
-#define __GCC_HAVE_DWARF2_CFI_ASM 1
-#define __PRAGMA_REDEFINE_EXTNAME 1
-#define __SIZEOF_WCHAR_T__ 4
-#define __SIZEOF_WINT_T__ 4
-#define __SIZEOF_PTRDIFF_T__ 4
-#define __ARM_FEATURE_DSP 1
-#define __ARM_FEATURE_QBIT 1
-#define __ARM_FEATURE_SAT 1
-#undef __ARM_FEATURE_CRYPTO
-# 1 "<built-in>"
-#define __ARM_FEATURE_UNALIGNED 1
-#undef __ARM_FEATURE_QRDMX
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CRC32
-# 1 "<built-in>"
-#undef __ARM_FEATURE_DOTPROD
-# 1 "<built-in>"
-#undef __ARM_FEATURE_COMPLEX
-# 1 "<built-in>"
-#define __ARM_32BIT_STATE 1
-#undef __ARM_FEATURE_MVE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CMSE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_LDREX
-# 1 "<built-in>"
-#define __ARM_FEATURE_LDREX 7
-#define __ARM_FEATURE_CLZ 1
-#undef __ARM_FEATURE_NUMERIC_MAXMIN
-# 1 "<built-in>"
-#define __ARM_FEATURE_SIMD32 1
-#define __ARM_SIZEOF_MINIMAL_ENUM 1
-#define __ARM_SIZEOF_WCHAR_T 4
-#undef __ARM_ARCH_PROFILE
-# 1 "<built-in>"
-#define __ARM_ARCH_PROFILE 77
-#define __arm__ 1
-#undef __ARM_ARCH
-# 1 "<built-in>"
-#define __ARM_ARCH 7
-#define __APCS_32__ 1
-#define __GCC_ASM_FLAG_OUTPUTS__ 1
-#define __thumb__ 1
-#define __thumb2__ 1
-#define __THUMBEL__ 1
-#undef __ARM_ARCH_ISA_THUMB
-# 1 "<built-in>"
-#define __ARM_ARCH_ISA_THUMB 2
-#define __ARMEL__ 1
-#define __VFP_FP__ 1
-#undef __ARM_FP
-# 1 "<built-in>"
-#define __ARM_FP 4
-#undef __ARM_FP16_FORMAT_IEEE
-# 1 "<built-in>"
-#undef __ARM_FP16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#undef __ARM_FP16_ARGS
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_FML
-# 1 "<built-in>"
-#define __ARM_FEATURE_FMA 1
-#undef __ARM_NEON__
-# 1 "<built-in>"
-#undef __ARM_NEON
-# 1 "<built-in>"
-#undef __ARM_NEON_FP
-# 1 "<built-in>"
-#define __THUMB_INTERWORK__ 1
-#define __ARM_ARCH_7EM__ 1
-#define __ARM_PCS_VFP 1
-#define __ARM_EABI__ 1
-#undef __FDPIC__
-# 1 "<built-in>"
-#define __ARM_ARCH_EXT_IDIV__ 1
-#define __ARM_FEATURE_IDIV 1
-#define __ARM_ASM_SYNTAX_UNIFIED__ 1
-#undef __ARM_FEATURE_COPROC
-# 1 "<built-in>"
-#define __ARM_FEATURE_COPROC 15
-#undef __ARM_FEATURE_CDE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CDE_COPROC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_MATMUL_INT8
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_BF16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#define __GXX_TYPEINFO_EQUALITY_INLINE 0
-#define __ELF__ 1
-# 1 "<command-line>"
-#define __USES_INITFINI__ 1
-#define apollo3 1
-#define SUPPORT_LORA 1
-#define SUPPORT_LORA_P2P 1
-#define LORA_IO_SPI_PORT 1
-#define SYS_RTC_COUNTER_PORT 2
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WAN_TYPE 0
-#define LORA_STACK_VER 0x040407
-#define RAK11720 +RAK5005-O_V1.0 1
-#define rak11720 1
-#define gcc 1
-#define PART_APOLLO3 1
-#define AM_PACKAGE_BGA 1
-#define AM_PART_APOLLO3 1
-#define AM_FREERTOS 1
-#define AM_FREERTOS_STIMER_BACKUP 1
-#define AM_BLE_USE_NVM 1
-#define AM_CUSTOM_BDADDR 1
-#define AM_NUS_ADD 1
-#define AM_CUS_ADD 1
-#define AM_AMOTA_ADD 1
-#define AM_UTIL_FAULTISR_PRINT 1
-#define SEC_ECC_CFG SEC_ECC_CFG_HCI
-#define RTT_LOG_ENABLED 1
-#define DEBUG_ENABLED 1
-#define rak11720 1
-#define SYS_RTC_COUNTER_PORT 2
-#define TWI0_ENABLED 1
-#define SPI0_ENABLED 1
-#define SPI1_ENABLED 1
-#define BLE_SUPPORT 1
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WISBLOCK_BASE_5005_O 1
-#define SX1262_CHIP 1
-#define REGION_AS923 1
-#define REGION_AU915 1
-#define REGION_CN470 1
-#define REGION_CN779 1
-#define REGION_EU433 1
-#define REGION_EU868 1
-#define REGION_KR920 1
-#define REGION_IN865 1
-#define REGION_US915 1
-#define REGION_RU864 1
-#define REGION_LA915 1
-#define SOFT_SE 1
-#define SECURE_ELEMENT_PRE_PROVISIONED 1
-#define LORAMAC_CLASSB_ENABLED 1
-#define BLE_CENTRAL_SUPPORT 1
-#define WISBLOCK_BASE_5005_O 1
-#define SUPPORT_BLE 1
-#define SUPPORT_SPI 1
-#define SUPPORT_AT 1
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
-# 50 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 1 3 4
-# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define _STDINT_H 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 1 3 4
-
-
-
-
-
-#define _MACHINE__DEFAULT_TYPES_H 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 1 3 4
-# 22 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define _SYS_FEATURES_H 
-
-
-
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_newlib_version.h" 1 3 4
-
-
-
-#define _NEWLIB_VERSION_H__ 1
-
-#define _NEWLIB_VERSION "3.3.0"
-#define __NEWLIB__ 3
-#define __NEWLIB_MINOR__ 3
-#define __NEWLIB_PATCHLEVEL__ 0
-# 29 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 2 3 4
-
-
-
-
-#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-
-
-
-
-
-
-#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
-# 249 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __ATFILE_VISIBLE 0
-
-
-
-
-
-#define __BSD_VISIBLE 0
-
-
-
-
-
-#define __GNU_VISIBLE 0
-
-
-
-
-
-
-
-#define __ISO_C_VISIBLE 1999
-
-
-
-
-
-
-
-#define __LARGEFILE_VISIBLE 0
-
-
-
-
-
-#define __MISC_VISIBLE 0
-# 299 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __POSIX_VISIBLE 0
-
-
-
-
-
-#define __SVID_VISIBLE 0
-# 319 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __XSI_VISIBLE 0
-# 330 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __SSP_FORTIFY_LEVEL 0
-# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 2 3 4
-
-
-
-
-
-
-#define __EXP(x) __ ##x ##__
-# 26 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-#define __have_longlong64 1
-
-
-
-
-
-
-#define __have_long32 1
-
-
-
-
-
-
-
-
-# 41 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int8_t;
-
-typedef unsigned char __uint8_t;
-
-
-
-#define ___int8_t_defined 1
-
-
-
-
-
-
-
-typedef short int __int16_t;
-
-typedef short unsigned int __uint16_t;
-
-
-
-#define ___int16_t_defined 1
-# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int32_t;
-
-typedef long unsigned int __uint32_t;
-
-
-
-#define ___int32_t_defined 1
-# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int64_t;
-
-typedef long long unsigned int __uint64_t;
-
-
-
-#define ___int64_t_defined 1
-# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int_least8_t;
-
-typedef unsigned char __uint_least8_t;
-
-
-
-#define ___int_least8_t_defined 1
-# 160 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef short int __int_least16_t;
-
-typedef short unsigned int __uint_least16_t;
-
-
-
-#define ___int_least16_t_defined 1
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int_least32_t;
-
-typedef long unsigned int __uint_least32_t;
-
-
-
-#define ___int_least32_t_defined 1
-# 200 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int_least64_t;
-
-typedef long long unsigned int __uint_least64_t;
-
-
-
-#define ___int_least64_t_defined 1
-
-
-
-
-
-
-
-typedef long long int __intmax_t;
-
-
-
-
-
-
-
-typedef long long unsigned int __uintmax_t;
-
-
-
-
-
-
-
-typedef int __intptr_t;
-
-typedef unsigned int __uintptr_t;
-# 244 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-#undef __EXP
-# 13 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _SYS__INTSUP_H 
-
-
-
-
-
-#define __STDINT_EXP(x) __ ##x ##__
-# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-       
-       
-       
-       
-       
-       
-       
-       
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef __int20
-#undef __int20__
-#undef long
-#define signed +0
-#define unsigned +0
-#define char +0
-#define short +1
-#define __int20 +2
-#define __int20__ +2
-#define int +2
-#define long +4
-# 67 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _INTPTR_EQ_INT 
-
-
-
-
-
-
-#define _INT32_EQ_LONG 
-
-
-
-
-
-
-
-#define __INT8 "hh"
-# 93 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT16 "h"
-# 104 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT32 "l"
-# 113 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT64 "ll"
-
-
-
-
-
-
-#define __FAST8 
-# 129 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST16 
-
-
-
-
-
-
-#define __FAST32 
-# 147 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST64 "ll"
-
-
-
-#define __LEAST8 "hh"
-# 162 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST16 "h"
-# 173 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST32 "l"
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST64 "ll"
-
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef long
-       
-       
-       
-       
-       
-# 194 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20
-       
-# 195 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20__
-       
-       
-# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-#define _SYS__STDINT_H 
-# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-typedef __int8_t int8_t ;
-#define _INT8_T_DECLARED 
-
-
-typedef __uint8_t uint8_t ;
-#define _UINT8_T_DECLARED 
-
-#define __int8_t_defined 1
-
-
-
-
-typedef __int16_t int16_t ;
-#define _INT16_T_DECLARED 
-
-
-typedef __uint16_t uint16_t ;
-#define _UINT16_T_DECLARED 
-
-#define __int16_t_defined 1
-
-
-
-
-typedef __int32_t int32_t ;
-#define _INT32_T_DECLARED 
-
-
-typedef __uint32_t uint32_t ;
-#define _UINT32_T_DECLARED 
-
-#define __int32_t_defined 1
-
-
-
-
-typedef __int64_t int64_t ;
-#define _INT64_T_DECLARED 
-
-
-typedef __uint64_t uint64_t ;
-#define _UINT64_T_DECLARED 
-
-#define __int64_t_defined 1
-
-
-
-typedef __intmax_t intmax_t;
-#define _INTMAX_T_DECLARED 
-
-
-
-typedef __uintmax_t uintmax_t;
-#define _UINTMAX_T_DECLARED 
-
-
-
-typedef __intptr_t intptr_t;
-#define _INTPTR_T_DECLARED 
-
-
-
-typedef __uintptr_t uintptr_t;
-#define _UINTPTR_T_DECLARED 
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-
-
-
-
-
-
-typedef __int_least8_t int_least8_t;
-typedef __uint_least8_t uint_least8_t;
-#define __int_least8_t_defined 1
-
-
-
-typedef __int_least16_t int_least16_t;
-typedef __uint_least16_t uint_least16_t;
-#define __int_least16_t_defined 1
-
-
-
-typedef __int_least32_t int_least32_t;
-typedef __uint_least32_t uint_least32_t;
-#define __int_least32_t_defined 1
-
-
-
-typedef __int_least64_t int_least64_t;
-typedef __uint_least64_t uint_least64_t;
-#define __int_least64_t_defined 1
-# 51 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-  typedef int int_fast8_t;
-  typedef unsigned int uint_fast8_t;
-#define __int_fast8_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast16_t;
-  typedef unsigned int uint_fast16_t;
-#define __int_fast16_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast32_t;
-  typedef unsigned int uint_fast32_t;
-#define __int_fast32_t_defined 1
-
-
-
-
-
-
-
-  typedef long long int int_fast64_t;
-  typedef long long unsigned int uint_fast64_t;
-#define __int_fast64_t_defined 1
-# 128 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTPTR_MIN (-__INTPTR_MAX__ - 1)
-#define INTPTR_MAX (__INTPTR_MAX__)
-#define UINTPTR_MAX (__UINTPTR_MAX__)
-# 152 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT8_MIN (-__INT8_MAX__ - 1)
-#define INT8_MAX (__INT8_MAX__)
-#define UINT8_MAX (__UINT8_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
-#define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
-#define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
-# 174 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_MIN (-__INT16_MAX__ - 1)
-#define INT16_MAX (__INT16_MAX__)
-#define UINT16_MAX (__UINT16_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
-#define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
-#define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
-# 196 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_MIN (-__INT32_MAX__ - 1)
-#define INT32_MAX (__INT32_MAX__)
-#define UINT32_MAX (__UINT32_MAX__)
-# 212 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
-#define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
-#define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
-# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_MIN (-__INT64_MAX__ - 1)
-#define INT64_MAX (__INT64_MAX__)
-#define UINT64_MAX (__UINT64_MAX__)
-# 246 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
-#define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
-#define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
-# 262 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
-#define INT_FAST8_MAX (__INT_FAST8_MAX__)
-#define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
-# 278 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
-#define INT_FAST16_MAX (__INT_FAST16_MAX__)
-#define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
-# 294 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
-#define INT_FAST32_MAX (__INT_FAST32_MAX__)
-#define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
-# 310 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
-#define INT_FAST64_MAX (__INT_FAST64_MAX__)
-#define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
-# 326 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_MAX (__INTMAX_MAX__)
-#define INTMAX_MIN (-INTMAX_MAX - 1)
-
-
-
-
-
-
-
-#define UINTMAX_MAX (__UINTMAX_MAX__)
-
-
-
-
-
-
-
-#define SIZE_MAX (__SIZE_MAX__)
-
-
-
-
-
-#define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
-#define SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))
-
-
-
-#define PTRDIFF_MAX (__PTRDIFF_MAX__)
-
-
-
-#define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
-
-
-
-
-#define WCHAR_MIN (__WCHAR_MIN__)
-# 374 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WCHAR_MAX (__WCHAR_MAX__)
-# 384 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WINT_MAX (__WINT_MAX__)
-
-
-
-
-#define WINT_MIN (__WINT_MIN__)
-
-
-
-
-
-
-#define INT8_C(x) __INT8_C(x)
-#define UINT8_C(x) __UINT8_C(x)
-# 408 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_C(x) __INT16_C(x)
-#define UINT16_C(x) __UINT16_C(x)
-# 420 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_C(x) __INT32_C(x)
-#define UINT32_C(x) __UINT32_C(x)
-# 433 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_C(x) __INT64_C(x)
-#define UINT64_C(x) __UINT64_C(x)
-# 449 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_C(x) __INTMAX_C(x)
-#define UINTMAX_C(x) __UINTMAX_C(x)
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 2 3 4
-
-
-
-#define _GCC_WRAP_STDINT_H 
-# 51 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c" 2
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 1 3 4
-# 29 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 3 4
-#define _STDBOOL_H 
-
-
-
-#define bool _Bool
-#define true 1
-#define false 0
-# 52 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 3 4
-#define __bool_true_false_are_defined 1
-# 52 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h" 1
-# 47 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h"
-#define AM_UTIL_STRING_H 
-# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h"
-#define AM_CATTR_NONE 0x00
-#define AM_CATTR_ALPHA 0x01
-#define AM_CATTR_LOWER 0x02
-#define AM_CATTR_UPPER 0x04
-#define AM_CATTR_DIGIT 0x08
-#define AM_CATTR_XDIGIT 0x10
-#define AM_CATTR_WHSPACE 0x20
-#define AM_CATTR_FILENM83 0x80
-# 76 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h"
-#define MINIMIZE_CATTR_TABLE 0
-
-
-
-
-
-
-
-
-# 84 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h"
-extern const uint8_t am_cattr[];
-
-
-
-
-
-
-
-extern int32_t am_util_string_strcmp(const char *str1, const char *str2);
-extern int32_t am_util_string_stricmp(const char *str1, const char *str2);
-extern int32_t am_util_string_strncmp(const char *str1, const char *str2,
-                                      uint32_t num);
-extern int32_t am_util_string_strnicmp(const char *str1, const char *str2,
-                                      int num);
-extern uint32_t am_util_string_strlen(const char *pcStr);
-extern char *am_util_string_strcpy(char *pcDst, const char *pcSrc);
-extern char *am_util_string_strncpy(char *pcDst, const char *pcSrc, uint32_t uNum);
-extern char *am_util_string_strcat(char *pcDst, const char *pcSrc);
-# 139 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.h"
-#define am_util_string_isalnum(c) (am_cattr[c & 0xff] & (AM_CATTR_ALPHA | AM_CATTR_DIGIT))
-#define am_util_string_isalpha(c) (am_cattr[c & 0xff] & AM_CATTR_ALPHA)
-#define am_util_string_isdigit(c) (am_cattr[c & 0xff] & AM_CATTR_DIGIT)
-#define am_util_string_islower(c) (am_cattr[c & 0xff] & AM_CATTR_LOWER)
-#define am_util_string_isspace(c) (am_cattr[c & 0xff] & AM_CATTR_WHSPACE)
-#define am_util_string_isupper(c) (am_cattr[c & 0xff] & AM_CATTR_UPPER)
-#define am_util_string_isxdigit(c) (am_cattr[c & 0xff] & AM_CATTR_XDIGIT)
-#define am_util_string_tolower(c) ((am_cattr[c & 0xff] & AM_CATTR_UPPER) ? c | 0x20 : c)
-#define am_util_string_toupper(c) ((am_cattr[c & 0xff] & AM_CATTR_LOWER) ? c & ~0x20 : c)
-
-
-
-
-
-#define am_util_string_isfilenm83(c) (am_cattr[c & 0xff] & AM_CATTR_FILENM83)
-# 53 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c" 2
-# 63 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
-#define CATTR_TBL_SIZE 256
-
-
-const uint8_t am_cattr[256] =
+//*****************************************************************************
+//
+//! @file am_util_string.c
+//!
+//! @brief A subset of the functions provided in the C standard string library.
+//!
+//! The functions here are reimplementation of some of the standard "string"
+//! functions.
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+// Copyright (c) 2021, Ambiq Micro, Inc.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice,
+// this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its
+// contributors may be used to endorse or promote products derived from this
+// software without specific prior written permission.
+//
+// Third party software included in this distribution is subject to the
+// additional license terms as defined in the /docs/licenses directory.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
+// This is part of revision release_sdk_3_0_0-742e5ac27c of the AmbiqSuite Development Package.
+//
+//*****************************************************************************
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "am_util_string.h"
+
+
+//*****************************************************************************
+//
+//! @brief Table for quick lookup of character attributes.
+//
+//*****************************************************************************
+#if MINIMIZE_CATTR_TABLE
+#define CATTR_TBL_SIZE  128
+#else
+#define CATTR_TBL_SIZE  256
+#endif
+
+const uint8_t am_cattr[CATTR_TBL_SIZE] =
 {
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x20,
-    0x20,
-    0x20,
-    0x20,
-    0x20,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x20,
-    0x80,
-    0x00,
-    0x80,
-    0x80,
-    0x80,
-    0x80,
-    0x80,
-    0x80,
-    0x80,
-    0x00,
-    0x00,
-    0x00,
-    0x80,
-    0x80,
-    0x00,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x08 | 0x10 | 0x80,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x00,
-    0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x10 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x01 | 0x04 | 0x80,
-    0x00,
-    0x00,
-    0x00,
-    0x80,
-    0x80,
-    0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x10 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x01 | 0x02 | 0x80,
-    0x80,
-    0x00,
-    0x80,
-    0x80,
-    0x00
+    AM_CATTR_NONE,                                                          /* 0x00 */
+    AM_CATTR_NONE,                                                          /* 0x01 */
+    AM_CATTR_NONE,                                                          /* 0x02 */
+    AM_CATTR_NONE,                                                          /* 0x03 */
+    AM_CATTR_NONE,                                                          /* 0x04 */
+    AM_CATTR_NONE,                                                          /* 0x05 */
+    AM_CATTR_NONE,                                                          /* 0x06 */
+    AM_CATTR_NONE,                                                          /* 0x07 */
+    AM_CATTR_NONE,                                                          /* 0x08 */
+    AM_CATTR_WHSPACE,                                                       /* 0x09 */
+    AM_CATTR_WHSPACE,                                                       /* 0x0A */
+    AM_CATTR_WHSPACE,                                                       /* 0x0B */
+    AM_CATTR_WHSPACE,                                                       /* 0x0C */
+    AM_CATTR_WHSPACE,                                                       /* 0x0D */
+    AM_CATTR_NONE,                                                          /* 0x0E */
+    AM_CATTR_NONE,                                                          /* 0x0F */
+    AM_CATTR_NONE,                                                          /* 0x00 */
+    AM_CATTR_NONE,                                                          /* 0x11 */
+    AM_CATTR_NONE,                                                          /* 0x12 */
+    AM_CATTR_NONE,                                                          /* 0x13 */
+    AM_CATTR_NONE,                                                          /* 0x14 */
+    AM_CATTR_NONE,                                                          /* 0x15 */
+    AM_CATTR_NONE,                                                          /* 0x16 */
+    AM_CATTR_NONE,                                                          /* 0x17 */
+    AM_CATTR_NONE,                                                          /* 0x18 */
+    AM_CATTR_NONE,                                                          /* 0x19 */
+    AM_CATTR_NONE,                                                          /* 0x1A */
+    AM_CATTR_NONE,                                                          /* 0x1B */
+    AM_CATTR_NONE,                                                          /* 0x1C */
+    AM_CATTR_NONE,                                                          /* 0x1D */
+    AM_CATTR_NONE,                                                          /* 0x1E */
+    AM_CATTR_NONE,                                                          /* 0x1F */
+    AM_CATTR_WHSPACE,                                                       /* 0x20, space */
+    AM_CATTR_FILENM83,                                                      /* 0x21, ! */
+    AM_CATTR_NONE,                                                          /* 0x22, " */
+    AM_CATTR_FILENM83,                                                      /* 0x23, # */
+    AM_CATTR_FILENM83,                                                      /* 0x24, $ */
+    AM_CATTR_FILENM83,                                                      /* 0x25, % */
+    AM_CATTR_FILENM83,                                                      /* 0x26, & */
+    AM_CATTR_FILENM83,                                                      /* 0x27, ' */
+    AM_CATTR_FILENM83,                                                      /* 0x28, ( */
+    AM_CATTR_FILENM83,                                                      /* 0x29, ) */
+    AM_CATTR_NONE,                                                          /* 0x2A, * */
+    AM_CATTR_NONE,                                                          /* 0x2B, + */
+    AM_CATTR_NONE,                                                          /* 0x2C, , */
+    AM_CATTR_FILENM83,                                                      /* 0x2D, - */
+    AM_CATTR_FILENM83,                                                      /* 0x2E, . */
+    AM_CATTR_NONE,                                                          /* 0x2F, / */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x30, 0 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x31, 1 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x32, 2 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x33, 3 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x34, 4 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x35, 5 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x36, 6 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x37, 7 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x38, 8 */
+    AM_CATTR_DIGIT | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,                   /* 0x39, 9 */
+    AM_CATTR_NONE,                                                          /* 0x3A, : */
+    AM_CATTR_NONE,                                                          /* 0x3B, ; */
+    AM_CATTR_NONE,                                                          /* 0x3C, < */
+    AM_CATTR_NONE,                                                          /* 0x3D, = */
+    AM_CATTR_NONE,                                                          /* 0x3E, > */
+    AM_CATTR_NONE,                                                          /* 0x3F, ? */
+    AM_CATTR_FILENM83,                                                      /* 0x40, @ */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x41, A */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x42, B */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x43, C */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x44, D */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x45, E */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x46, F */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x47, G */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x48, H */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x49, I */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4A, J */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4B, K */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4C, L */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4D, M */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4E, N */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x4F, O */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x50, P */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x51, Q */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x52, R */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x53, S */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x54, T */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x55, U */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x56, V */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x57, W */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x58, X */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x59, Y */
+    AM_CATTR_ALPHA | AM_CATTR_UPPER | AM_CATTR_FILENM83,                    /* 0x5A, Z */
+    AM_CATTR_NONE,                                                          /* 0x5B, [ */
+    AM_CATTR_NONE,                                                          /* 0x5C, \ */
+    AM_CATTR_NONE,                                                          /* 0x5D, ] */
+    AM_CATTR_FILENM83,                                                      /* 0x5E, ^ */
+    AM_CATTR_FILENM83,                                                      /* 0x5F, _ */
+    AM_CATTR_FILENM83,                                                      /* 0x60, ` */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x61, a */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x62, b */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x63, c */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x64, d */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x65, e */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_XDIGIT | AM_CATTR_FILENM83,  /* 0x66, f */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x67, g */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x68, h */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x69, i */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6A, j */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6B, k */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6C, l */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6D, m */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6E, n */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x6F, o */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x70, p */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x71, q */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x72, r */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x73, s */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x74, t */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x75, u */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x76, v */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x77, w */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x78, x */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x79, y */
+    AM_CATTR_ALPHA | AM_CATTR_LOWER | AM_CATTR_FILENM83,                    /* 0x7A, z */
+    AM_CATTR_FILENM83,                                                      /* 0x7B, { */
+    AM_CATTR_NONE,                                                          /* 0x7C, | */
+    AM_CATTR_FILENM83,                                                      /* 0x7D, } */
+    AM_CATTR_FILENM83,                                                      /* 0x7E, ~ */
+    AM_CATTR_NONE                                                           /* 0x7F, delete */
 
-
-
-
+    //
+    // All bit7 chars are AM_CATTR_NONE.
+    //
 };
-# 350 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Character "is" functions
+//!
+//! This family of functions tests a given integer value in order to determine
+//!  whether the integer satisfies the test condition.
+//! These functions are generally based on the C99 standard functions.
+//!
+//! By default all of the "is" functions are implemented as macros. To implement
+//!  as functions rather than macros, use a global compiler command line (-D)
+//!  option to define AM_UTIL_STRING_CTYPE_DISABLE_MACROS.
+//!
+//! Standard functions currently implemented include:
+//!  isalnum(), isalpha(), islower(), isupper(), isdigit(), isxdigit(),
+//!  isspace().
+//!
+//! Standard functions not currently implemented include:
+//!  iscntrl(), isgraph(), isprint(), ispunct(), isblank() (new for C99).
+//!
+//! Non-standard functions currently implemented include:
+//!  isfilenm83().
+//!
+//! @return Each function returns a nonzero value if the integer satisfies
+//!  the test condition and 0 if it does not.
+//
+//*****************************************************************************
+
+#ifdef AM_UTIL_STRING_CTYPE_DISABLE_MACROS
+int
+am_util_string_isalnum(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & (AM_CATTR_ALPHA | AM_CATTR_DIGIT)) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & (AM_CATTR_ALPHA | AM_CATTR_DIGIT)) ? 1 : 0;
+#endif
+}
+
+int
+am_util_string_isalpha(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_ALPHA) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_ALPHA) ? 1 : 0;
+#endif
+}
+
+int
+am_util_string_isdigit(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_DIGIT) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_DIGIT) ? 1 : 0;
+#endif
+}
+
+int am_util_string_islower(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_LOWER) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_LOWER) ? 1 : 0;
+#endif
+}
+
+int
+am_util_string_isspace(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_WHSPACE) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_WHSPACE) ? 1 : 0;
+#endif
+}
+
+int
+am_util_string_isupper(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_UPPER) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_UPPER) ? 1 : 0;
+#endif
+}
+
+int
+am_util_string_isxdigit(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_XDIGIT) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_XDIGIT) ? 1 : 0;
+#endif
+}
+
+int am_util_string_tolower(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (am_cattr[c & 0x7f] & AM_CATTR_UPPER) ? c | 0x20 : c;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_UPPER) ? c | 0x20 : c;
+#endif
+}
+
+int am_util_string_toupper(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (am_cattr[c & 0x7f] & AM_CATTR_LOWER) ? c & ~0x20 : c;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_LOWER) ? c & ~0x20 : c;
+#endif
+}
+
+
+//
+// Non-standard "is" Functions
+//
+int
+am_util_string_isfilenm83(int c)
+{
+#if MINIMIZE_CATTR_TABLE
+    return (c & 0xffffff80) ? 0 : (am_cattr[c] & AM_CATTR_FILENM83) ? 1 : 0;
+#else
+    return (am_cattr[c & 0xff] & AM_CATTR_FILENM83) ? 1 : 0;
+#endif
+}
+#endif // AM_UTIL_STRING_CTYPE_DISABLE_MACROS
+
+
+//*****************************************************************************
+//
+//! @brief Compare two strings.
+//!
+//! @param str1 is the first string to compare.
+//! @param str2 is the second string to compare
+//!
+//! This function steps through a pair of strings, character by character, to
+//! determine if the strings contain the same characters. If the strings match,
+//! this function will return a zero. If str1 is alphabetically earlier than
+//! str2, the return value will be negative. Otherwise, the return value will
+//! be positive.
+//!
+//! @return 0 for a perfect match, negative value if str1<str2, positive value
+//!  if str1>str2.
+//
+//*****************************************************************************
 int32_t
 am_util_string_strcmp(const char *str1, const char *str2)
 {
     return am_util_string_strncmp(str1, str2, 0xffffffff);
 }
-# 374 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Compare two strings with a specified count.
+//!
+//! @param str1 is the first string to compare.
+//! @param str2 is the second string to compare
+//! @param num is the maximum number of characters to compare.
+//!
+//! This function steps through a pair of strings, character by character, to
+//! determine if the strings contain the same characters. If the strings match,
+//! this function will return a zero. If str1 is alphabetically earlier than
+//! str2, the return value will be negative. Otherwise, the return value will
+//! be positive.
+//!
+//! @return 0 for a perfect match, negative value if str1<str2, positive value
+//!  if str1>str2.
+//
+//*****************************************************************************
 int32_t
 am_util_string_strncmp(const char *str1, const char *str2, uint32_t num)
 {
     while ( num-- )
     {
-
+        // Check for inequality OR end of string
         if ( *str1 != *str2 || *str1 == '\0' )
         {
             return *str1 - *str2;
@@ -1351,12 +386,31 @@ am_util_string_strncmp(const char *str1, const char *str2, uint32_t num)
         str2++;
     }
 
-
-
-
+    //
+    // Since we made it here, the strings must be equal to n characters.
+    //
     return 0;
 }
-# 414 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Compare two strings with a specified count and without regard to
+//! letter case in the strings.
+//!
+//! @param str1 is the first string to compare.
+//! @param str2 is the second string to compare
+//! @param num is the maximum number of characters to compare.
+//!
+//! This function steps through a pair of strings, character by character, to
+//! determine if the strings contain the same characters. If the strings match,
+//! this function will return a zero. If str1 is alphabetically earlier than
+//! str2, the return value will be negative. Otherwise, the return value will
+//! be positive.
+//!
+//! @return 0 for a perfect match, negative value if str1<str2, positive value
+//!  if str1>str2.
+//
+//*****************************************************************************
 int32_t
 am_util_string_strnicmp(const char *str1, const char *str2, int num)
 {
@@ -1367,8 +421,8 @@ am_util_string_strnicmp(const char *str1, const char *str2, int num)
         cChar1 = *str1;
         cChar2 = *str2;
 
-        cChar1 |= ( am_cattr[cChar1] & 0x04 ) ? 0x20 : 0x00;
-        cChar2 |= ( am_cattr[cChar2] & 0x04 ) ? 0x20 : 0x00;
+        cChar1 |= ( am_cattr[cChar1] & AM_CATTR_UPPER ) ? 0x20 : 0x00;
+        cChar2 |= ( am_cattr[cChar2] & AM_CATTR_UPPER ) ? 0x20 : 0x00;
 
         if ( cChar1 != cChar2 )
         {
@@ -1380,12 +434,31 @@ am_util_string_strnicmp(const char *str1, const char *str2, int num)
         num--;
     }
 
-
-
-
+    //
+    // Since we made it here, the strings must be equal to n characters.
+    //
     return 0;
 }
-# 462 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Compare two strings with case-insensitivity.
+//!
+//! @param str1 is the first string to compare.
+//! @param str2 is the second string to compare
+//!
+//! This function compares each character in the 2 strings, converting all
+//! alpha characters to lower-case to make the comparison.
+//!
+//! To illustrate a possible unexpected outcome due to comparing the strings
+//! as lower case, consider the example strings "AMBIQ_MICRO" and "AMBIQMICRO".
+//! For these strings, stricmp() will return a negative value (indicating the
+//! first as before the second), whereas strcmp() will return a positive value.
+//!
+//! @return 0 for a case-insensitive match, negative value if str1<str2,
+//!  positive value if str1>str2.
+//
+//*****************************************************************************
 int32_t
 am_util_string_stricmp(const char *str1, const char *str2)
 {
@@ -1396,8 +469,8 @@ am_util_string_stricmp(const char *str1, const char *str2)
         cChar1 = *str1++;
         cChar2 = *str2++;
 
-        cChar1 |= ( am_cattr[cChar1] & 0x04 ) ? 0x20 : 0x00;
-        cChar2 |= ( am_cattr[cChar2] & 0x04 ) ? 0x20 : 0x00;
+        cChar1 |= ( am_cattr[cChar1] & AM_CATTR_UPPER ) ? 0x20 : 0x00;
+        cChar2 |= ( am_cattr[cChar2] & AM_CATTR_UPPER ) ? 0x20 : 0x00;
 
         if ( cChar1 != cChar2 )
         {
@@ -1407,31 +480,54 @@ am_util_string_stricmp(const char *str1, const char *str2)
 
     return *str1 - *str2;
 }
-# 495 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Return the length of a string.
+//!
+//! @param pcStr pointer to the string.
+//!
+//! This function returns the length of the string at pcStr.
+//!
+//! @return length of the string pcStr.
+//
+//*****************************************************************************
 uint32_t
 am_util_string_strlen(const char *pcStr)
 {
     const char *pcS;
 
-
-
-
+    //
+    // Loop through the string.
+    //
     for (pcS = pcStr; *pcS; ++pcS);
 
-
-
-
+    //
+    // Return the length.
+    //
     return(pcS - pcStr);
 }
-# 523 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Copies a string.
+//!
+//! @param pcDst pointer to the destination string.
+//! @param pcSrc pointer to the source string to be copied to pcDst.
+//!
+//! This function copies pcSrc to the location specified by pcDst.
+//!
+//! @return pcDst (the location of the destination string).
+//
+//*****************************************************************************
 char *
 am_util_string_strcpy(char *pcDst, const char *pcSrc)
 {
     char *pcRet = pcDst;
 
-
-
-
+    //
+    // Blindly copy the string until we hit a terminating NULL char.
+    //
     do
     {
         *pcDst++ = *pcSrc;
@@ -1439,7 +535,26 @@ am_util_string_strcpy(char *pcDst, const char *pcSrc)
 
     return pcRet;
 }
-# 558 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Copies a specified number of characters of a string.
+//!
+//! @param pcDst pointer to the destination string.
+//! @param pcSrc pointer to the source string to be copied to pcDst.
+//!
+//! This function copies uNum characters of pcSrc to the location specified
+//!  by pcDst.
+//! If uNum is less than the length of pcSrc, a NULL terminating character
+//!  is not appended to the copied string. Thus the resultant string will be
+//!  exactly uNum chars in length and not terminated.
+//! If uNum is greater than the length of pcSrc, then pcDst is padded with
+//!  NULL characters up to the uNum length.
+//! Behavior is undefined if the addresses ranges overlap.
+//!
+//! @return pcDst (the location of the destination string).
+//
+//*****************************************************************************
 char *
 am_util_string_strncpy(char *pcDst, const char *pcSrc, uint32_t uNum)
 {
@@ -1460,21 +575,38 @@ am_util_string_strncpy(char *pcDst, const char *pcSrc, uint32_t uNum)
 
     return pcRet;
 }
-# 596 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_string.c"
+
+//*****************************************************************************
+//
+//! @brief Concatenate a string.
+//!
+//! @param pcDst pointer to the destination string.
+//! @param pcSrc pointer to the source string to be copied to pcDst.
+//!
+//! This function concatenates the string at pcSrc to the existing string
+//! at pcDst.
+//!
+//! Both strings, pcDst and pcSrc, must be NULL-terminated.
+//! No overflow checking is performed.
+//! pcDst and pcSrc shall not overlap.
+//!
+//! @return pcDst (the location of the destination string).
+//
+//*****************************************************************************
 char *
 am_util_string_strcat(char *pcDst, const char *pcSrc)
 {
     char *pcRet = pcDst;
 
-
-
-
+    //
+    // Find the end of the existing string.
+    //
     while ( *pcDst++ );
     pcDst--;
 
-
-
-
+    //
+    // Now, copy the new string.
+    //
     am_util_string_strcpy(pcDst, pcSrc);
 
     return pcRet;
