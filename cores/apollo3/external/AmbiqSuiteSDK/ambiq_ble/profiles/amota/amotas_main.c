@@ -947,7 +947,7 @@ amotas_init_ota(void)
 bool ota_process_status = false;
 uint32_t fwLength = 0;
 uint32_t totalFrames = 0;
-uint32_t index = 0;
+uint32_t amotasIndex = 0;
 int currentPercentage = 0;
 void
 amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
@@ -998,7 +998,7 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             totalFrames = fwLength/512;
             if(fwLength%512 != 0)
                 totalFrames++;
-            index = 0;
+            amotasIndex = 0;
             currentPercentage = 0;
 
 #if defined(AM_PART_APOLLO4B)
@@ -1300,8 +1300,8 @@ amotas_write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation,
             return ATT_SUCCESS;
         }
 
-        int percentage = (int) (100.0f * (((float) (index)) /totalFrames));
-        index++;
+        int percentage = (int) (100.0f * (((float) (amotasIndex)) /totalFrames));
+        amotasIndex++;
 
         if(currentPercentage != percentage)
         {
