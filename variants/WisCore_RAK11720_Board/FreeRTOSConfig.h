@@ -157,7 +157,7 @@ extern void am_freertos_wakeup(uint32_t);
 #endif
 
 #if CFG_SYSVIEW
-#include "SEGGER_SYSVIEW_FreeRTOS.h"
+//#include "SEGGER_SYSVIEW_FreeRTOS.h"
 #endif
 
 #ifdef __cplusplus

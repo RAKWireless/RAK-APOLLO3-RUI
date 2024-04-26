@@ -161,50 +161,56 @@ void uhal_pwm_init(udrv_pwm_port port, uint32_t freq_hz, uint8_t is_invert, uint
 
 int32_t uhal_pwm_set_duty(udrv_pwm_port port, uint32_t duty) {
 
-    uint32_t period_in_us = (uint32_t) (12000000/pwm_status[port].freq_hz);
+    //uint32_t period_in_us = (uint32_t) (12000000/pwm_status[port].freq_hz);
+    uint32_t period_in_us;
 
-    if (period_in_us > 0x0000FFFF)
+    /*if (period_in_us > 0x0000FFFF)
     {
         return -UDRV_WRONG_ARG;
     }
     if (period_in_us < 3)
     {
         return -UDRV_WRONG_ARG;
-    }
+    }*/
 
-    uint32_t ontime = 0;
+    uint32_t ontime = duty;
 
     switch (pwm_resolution) {
         case UDRV_PWM_RESOLUTION_8BIT:
             if (duty > 255) {
                 return -UDRV_WRONG_ARG;
 	    } else {
-                duty = duty*100/255;
-                ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 8) - 1));
+            period_in_us = 256;
+            //duty = duty*100/255;
+            //ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 8) - 1));
 	    }
             break;
         case UDRV_PWM_RESOLUTION_10BIT:
             if (duty > 1023) {
                 return -UDRV_WRONG_ARG;
 	    } else {
-                duty = duty*100/1023;
-                ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 10) - 1));
+            period_in_us = 1024;
+            //duty = duty*100/1023;
+            //ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 10) - 1));
+
 	    }
             break;
         case UDRV_PWM_RESOLUTION_12BIT:
             if (duty > 4095) {
                 return -UDRV_WRONG_ARG;
 	    } else {
-                duty = duty*100/4095;
-                ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 12) - 1));
+            period_in_us = 4096;
+            //duty = duty*100/4095;
+            //ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 12) - 1));
 	    }
             break;
         case UDRV_PWM_RESOLUTION_14BIT:
             if (duty > 16383) {
                 return -UDRV_WRONG_ARG;
 	    } else {
-                duty = duty*100/16383;
-                ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 14) - 1));
+            period_in_us = 16384;
+            //duty = duty*100/16383;
+            //ontime = (uint32_t)((duty * period_in_us) / ((0x01 << 14) - 1));
 	    }
             break;
         default:
