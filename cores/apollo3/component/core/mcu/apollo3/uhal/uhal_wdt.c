@@ -54,6 +54,10 @@ void uhal_wdt_init(uint32_t period)
     am_hal_wdt_restart();
     am_hal_wdt_start();
     */
+    if(period != 15 && period != 30 && period != 60 && period != 120 && period != 250 && period != 500 && period != 1000 && period != 2000 && period != 4000 && period != 8000 )
+    {
+        period = 8000;
+    }
     wdt_period = period *1.024f;
     wdt_timerhandler = xTimerCreate("WDT",wdt_period,0,NULL,WDT_TimerCallback);
     xTimerStart( wdt_timerhandler, 0 );
