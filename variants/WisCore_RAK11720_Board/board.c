@@ -45,3 +45,9 @@ void BoardGetUniqueId( uint8_t *id )
 uint8_t BoardGetBatteryLevel( void ) {
     return 0;
 }
+
+void BoardResetMcu( void )
+{
+    //Restart system
+    NVIC_SystemReset( );
+}

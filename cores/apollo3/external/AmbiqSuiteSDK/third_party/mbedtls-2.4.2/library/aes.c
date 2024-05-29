@@ -1,385 +1,3992 @@
-/*
- *  FIPS-197 compliant AES implementation
- *
- *  Copyright (C) 2006-2015, ARM Limited, All Rights Reserved
- *  SPDX-License-Identifier: Apache-2.0
- *
- *  Licensed under the Apache License, Version 2.0 (the "License"); you may
- *  not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- *  WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- *  This file is part of mbed TLS (https://tls.mbed.org)
- */
-/*
- *  The AES block cipher was designed by Vincent Rijmen and Joan Daemen.
- *
- *  http://csrc.nist.gov/encryption/aes/rijndael/Rijndael.pdf
- *  http://csrc.nist.gov/publications/fips/fips197/fips-197.pdf
- */
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3//"
+# 1 "<built-in>"
+#define __STDC__ 1
+#define __STDC_VERSION__ 199901L
+#define __STDC_HOSTED__ 1
+#define __GNUC__ 10
+#define __GNUC_MINOR__ 2
+#define __GNUC_PATCHLEVEL__ 1
+#define __VERSION__ "10.2.1 20201103 (release)"
+#define __ATOMIC_RELAXED 0
+#define __ATOMIC_SEQ_CST 5
+#define __ATOMIC_ACQUIRE 2
+#define __ATOMIC_RELEASE 3
+#define __ATOMIC_ACQ_REL 4
+#define __ATOMIC_CONSUME 1
+#define __OPTIMIZE_SIZE__ 1
+#define __OPTIMIZE__ 1
+#define __FINITE_MATH_ONLY__ 0
+#define __SIZEOF_INT__ 4
+#define __SIZEOF_LONG__ 4
+#define __SIZEOF_LONG_LONG__ 8
+#define __SIZEOF_SHORT__ 2
+#define __SIZEOF_FLOAT__ 4
+#define __SIZEOF_DOUBLE__ 8
+#define __SIZEOF_LONG_DOUBLE__ 8
+#define __SIZEOF_SIZE_T__ 4
+#define __CHAR_BIT__ 8
+#define __BIGGEST_ALIGNMENT__ 8
+#define __ORDER_LITTLE_ENDIAN__ 1234
+#define __ORDER_BIG_ENDIAN__ 4321
+#define __ORDER_PDP_ENDIAN__ 3412
+#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
+#define __SIZEOF_POINTER__ 4
+#define __SIZE_TYPE__ unsigned int
+#define __PTRDIFF_TYPE__ int
+#define __WCHAR_TYPE__ unsigned int
+#define __WINT_TYPE__ unsigned int
+#define __INTMAX_TYPE__ long long int
+#define __UINTMAX_TYPE__ long long unsigned int
+#define __CHAR16_TYPE__ short unsigned int
+#define __CHAR32_TYPE__ long unsigned int
+#define __SIG_ATOMIC_TYPE__ int
+#define __INT8_TYPE__ signed char
+#define __INT16_TYPE__ short int
+#define __INT32_TYPE__ long int
+#define __INT64_TYPE__ long long int
+#define __UINT8_TYPE__ unsigned char
+#define __UINT16_TYPE__ short unsigned int
+#define __UINT32_TYPE__ long unsigned int
+#define __UINT64_TYPE__ long long unsigned int
+#define __INT_LEAST8_TYPE__ signed char
+#define __INT_LEAST16_TYPE__ short int
+#define __INT_LEAST32_TYPE__ long int
+#define __INT_LEAST64_TYPE__ long long int
+#define __UINT_LEAST8_TYPE__ unsigned char
+#define __UINT_LEAST16_TYPE__ short unsigned int
+#define __UINT_LEAST32_TYPE__ long unsigned int
+#define __UINT_LEAST64_TYPE__ long long unsigned int
+#define __INT_FAST8_TYPE__ int
+#define __INT_FAST16_TYPE__ int
+#define __INT_FAST32_TYPE__ int
+#define __INT_FAST64_TYPE__ long long int
+#define __UINT_FAST8_TYPE__ unsigned int
+#define __UINT_FAST16_TYPE__ unsigned int
+#define __UINT_FAST32_TYPE__ unsigned int
+#define __UINT_FAST64_TYPE__ long long unsigned int
+#define __INTPTR_TYPE__ int
+#define __UINTPTR_TYPE__ unsigned int
+#define __GXX_ABI_VERSION 1014
+#define __SCHAR_MAX__ 0x7f
+#define __SHRT_MAX__ 0x7fff
+#define __INT_MAX__ 0x7fffffff
+#define __LONG_MAX__ 0x7fffffffL
+#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
+#define __WCHAR_MAX__ 0xffffffffU
+#define __WCHAR_MIN__ 0U
+#define __WINT_MAX__ 0xffffffffU
+#define __WINT_MIN__ 0U
+#define __PTRDIFF_MAX__ 0x7fffffff
+#define __SIZE_MAX__ 0xffffffffU
+#define __SCHAR_WIDTH__ 8
+#define __SHRT_WIDTH__ 16
+#define __INT_WIDTH__ 32
+#define __LONG_WIDTH__ 32
+#define __LONG_LONG_WIDTH__ 64
+#define __WCHAR_WIDTH__ 32
+#define __WINT_WIDTH__ 32
+#define __PTRDIFF_WIDTH__ 32
+#define __SIZE_WIDTH__ 32
+#define __INTMAX_MAX__ 0x7fffffffffffffffLL
+#define __INTMAX_C(c) c ## LL
+#define __UINTMAX_MAX__ 0xffffffffffffffffULL
+#define __UINTMAX_C(c) c ## ULL
+#define __INTMAX_WIDTH__ 64
+#define __SIG_ATOMIC_MAX__ 0x7fffffff
+#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
+#define __SIG_ATOMIC_WIDTH__ 32
+#define __INT8_MAX__ 0x7f
+#define __INT16_MAX__ 0x7fff
+#define __INT32_MAX__ 0x7fffffffL
+#define __INT64_MAX__ 0x7fffffffffffffffLL
+#define __UINT8_MAX__ 0xff
+#define __UINT16_MAX__ 0xffff
+#define __UINT32_MAX__ 0xffffffffUL
+#define __UINT64_MAX__ 0xffffffffffffffffULL
+#define __INT_LEAST8_MAX__ 0x7f
+#define __INT8_C(c) c
+#define __INT_LEAST8_WIDTH__ 8
+#define __INT_LEAST16_MAX__ 0x7fff
+#define __INT16_C(c) c
+#define __INT_LEAST16_WIDTH__ 16
+#define __INT_LEAST32_MAX__ 0x7fffffffL
+#define __INT32_C(c) c ## L
+#define __INT_LEAST32_WIDTH__ 32
+#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
+#define __INT64_C(c) c ## LL
+#define __INT_LEAST64_WIDTH__ 64
+#define __UINT_LEAST8_MAX__ 0xff
+#define __UINT8_C(c) c
+#define __UINT_LEAST16_MAX__ 0xffff
+#define __UINT16_C(c) c
+#define __UINT_LEAST32_MAX__ 0xffffffffUL
+#define __UINT32_C(c) c ## UL
+#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
+#define __UINT64_C(c) c ## ULL
+#define __INT_FAST8_MAX__ 0x7fffffff
+#define __INT_FAST8_WIDTH__ 32
+#define __INT_FAST16_MAX__ 0x7fffffff
+#define __INT_FAST16_WIDTH__ 32
+#define __INT_FAST32_MAX__ 0x7fffffff
+#define __INT_FAST32_WIDTH__ 32
+#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
+#define __INT_FAST64_WIDTH__ 64
+#define __UINT_FAST8_MAX__ 0xffffffffU
+#define __UINT_FAST16_MAX__ 0xffffffffU
+#define __UINT_FAST32_MAX__ 0xffffffffU
+#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
+#define __INTPTR_MAX__ 0x7fffffff
+#define __INTPTR_WIDTH__ 32
+#define __UINTPTR_MAX__ 0xffffffffU
+#define __GCC_IEC_559 0
+#define __GCC_IEC_559_COMPLEX 0
+#define __FLT_EVAL_METHOD__ 0
+#define __FLT_EVAL_METHOD_TS_18661_3__ 0
+#define __DEC_EVAL_METHOD__ 2
+#define __FLT_RADIX__ 2
+#define __FLT_MANT_DIG__ 24
+#define __FLT_DIG__ 6
+#define __FLT_MIN_EXP__ (-125)
+#define __FLT_MIN_10_EXP__ (-37)
+#define __FLT_MAX_EXP__ 128
+#define __FLT_MAX_10_EXP__ 38
+#define __FLT_DECIMAL_DIG__ 9
+#define __FLT_MAX__ 3.4028234663852886e+38F
+#define __FLT_NORM_MAX__ 3.4028234663852886e+38F
+#define __FLT_MIN__ 1.1754943508222875e-38F
+#define __FLT_EPSILON__ 1.1920928955078125e-7F
+#define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
+#define __FLT_HAS_DENORM__ 1
+#define __FLT_HAS_INFINITY__ 1
+#define __FLT_HAS_QUIET_NAN__ 1
+#define __FP_FAST_FMAF 1
+#define __DBL_MANT_DIG__ 53
+#define __DBL_DIG__ 15
+#define __DBL_MIN_EXP__ (-1021)
+#define __DBL_MIN_10_EXP__ (-307)
+#define __DBL_MAX_EXP__ 1024
+#define __DBL_MAX_10_EXP__ 308
+#define __DBL_DECIMAL_DIG__ 17
+#define __DBL_MAX__ ((double)1.7976931348623157e+308L)
+#define __DBL_NORM_MAX__ ((double)1.7976931348623157e+308L)
+#define __DBL_MIN__ ((double)2.2250738585072014e-308L)
+#define __DBL_EPSILON__ ((double)2.2204460492503131e-16L)
+#define __DBL_DENORM_MIN__ ((double)4.9406564584124654e-324L)
+#define __DBL_HAS_DENORM__ 1
+#define __DBL_HAS_INFINITY__ 1
+#define __DBL_HAS_QUIET_NAN__ 1
+#define __LDBL_MANT_DIG__ 53
+#define __LDBL_DIG__ 15
+#define __LDBL_MIN_EXP__ (-1021)
+#define __LDBL_MIN_10_EXP__ (-307)
+#define __LDBL_MAX_EXP__ 1024
+#define __LDBL_MAX_10_EXP__ 308
+#define __DECIMAL_DIG__ 17
+#define __LDBL_DECIMAL_DIG__ 17
+#define __LDBL_MAX__ 1.7976931348623157e+308L
+#define __LDBL_NORM_MAX__ 1.7976931348623157e+308L
+#define __LDBL_MIN__ 2.2250738585072014e-308L
+#define __LDBL_EPSILON__ 2.2204460492503131e-16L
+#define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
+#define __LDBL_HAS_DENORM__ 1
+#define __LDBL_HAS_INFINITY__ 1
+#define __LDBL_HAS_QUIET_NAN__ 1
+#define __FLT32_MANT_DIG__ 24
+#define __FLT32_DIG__ 6
+#define __FLT32_MIN_EXP__ (-125)
+#define __FLT32_MIN_10_EXP__ (-37)
+#define __FLT32_MAX_EXP__ 128
+#define __FLT32_MAX_10_EXP__ 38
+#define __FLT32_DECIMAL_DIG__ 9
+#define __FLT32_MAX__ 3.4028234663852886e+38F32
+#define __FLT32_NORM_MAX__ 3.4028234663852886e+38F32
+#define __FLT32_MIN__ 1.1754943508222875e-38F32
+#define __FLT32_EPSILON__ 1.1920928955078125e-7F32
+#define __FLT32_DENORM_MIN__ 1.4012984643248171e-45F32
+#define __FLT32_HAS_DENORM__ 1
+#define __FLT32_HAS_INFINITY__ 1
+#define __FLT32_HAS_QUIET_NAN__ 1
+#define __FP_FAST_FMAF32 1
+#define __FLT64_MANT_DIG__ 53
+#define __FLT64_DIG__ 15
+#define __FLT64_MIN_EXP__ (-1021)
+#define __FLT64_MIN_10_EXP__ (-307)
+#define __FLT64_MAX_EXP__ 1024
+#define __FLT64_MAX_10_EXP__ 308
+#define __FLT64_DECIMAL_DIG__ 17
+#define __FLT64_MAX__ 1.7976931348623157e+308F64
+#define __FLT64_NORM_MAX__ 1.7976931348623157e+308F64
+#define __FLT64_MIN__ 2.2250738585072014e-308F64
+#define __FLT64_EPSILON__ 2.2204460492503131e-16F64
+#define __FLT64_DENORM_MIN__ 4.9406564584124654e-324F64
+#define __FLT64_HAS_DENORM__ 1
+#define __FLT64_HAS_INFINITY__ 1
+#define __FLT64_HAS_QUIET_NAN__ 1
+#define __FLT32X_MANT_DIG__ 53
+#define __FLT32X_DIG__ 15
+#define __FLT32X_MIN_EXP__ (-1021)
+#define __FLT32X_MIN_10_EXP__ (-307)
+#define __FLT32X_MAX_EXP__ 1024
+#define __FLT32X_MAX_10_EXP__ 308
+#define __FLT32X_DECIMAL_DIG__ 17
+#define __FLT32X_MAX__ 1.7976931348623157e+308F32x
+#define __FLT32X_NORM_MAX__ 1.7976931348623157e+308F32x
+#define __FLT32X_MIN__ 2.2250738585072014e-308F32x
+#define __FLT32X_EPSILON__ 2.2204460492503131e-16F32x
+#define __FLT32X_DENORM_MIN__ 4.9406564584124654e-324F32x
+#define __FLT32X_HAS_DENORM__ 1
+#define __FLT32X_HAS_INFINITY__ 1
+#define __FLT32X_HAS_QUIET_NAN__ 1
+#define __SFRACT_FBIT__ 7
+#define __SFRACT_IBIT__ 0
+#define __SFRACT_MIN__ (-0.5HR-0.5HR)
+#define __SFRACT_MAX__ 0X7FP-7HR
+#define __SFRACT_EPSILON__ 0x1P-7HR
+#define __USFRACT_FBIT__ 8
+#define __USFRACT_IBIT__ 0
+#define __USFRACT_MIN__ 0.0UHR
+#define __USFRACT_MAX__ 0XFFP-8UHR
+#define __USFRACT_EPSILON__ 0x1P-8UHR
+#define __FRACT_FBIT__ 15
+#define __FRACT_IBIT__ 0
+#define __FRACT_MIN__ (-0.5R-0.5R)
+#define __FRACT_MAX__ 0X7FFFP-15R
+#define __FRACT_EPSILON__ 0x1P-15R
+#define __UFRACT_FBIT__ 16
+#define __UFRACT_IBIT__ 0
+#define __UFRACT_MIN__ 0.0UR
+#define __UFRACT_MAX__ 0XFFFFP-16UR
+#define __UFRACT_EPSILON__ 0x1P-16UR
+#define __LFRACT_FBIT__ 31
+#define __LFRACT_IBIT__ 0
+#define __LFRACT_MIN__ (-0.5LR-0.5LR)
+#define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
+#define __LFRACT_EPSILON__ 0x1P-31LR
+#define __ULFRACT_FBIT__ 32
+#define __ULFRACT_IBIT__ 0
+#define __ULFRACT_MIN__ 0.0ULR
+#define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
+#define __ULFRACT_EPSILON__ 0x1P-32ULR
+#define __LLFRACT_FBIT__ 63
+#define __LLFRACT_IBIT__ 0
+#define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
+#define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
+#define __LLFRACT_EPSILON__ 0x1P-63LLR
+#define __ULLFRACT_FBIT__ 64
+#define __ULLFRACT_IBIT__ 0
+#define __ULLFRACT_MIN__ 0.0ULLR
+#define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
+#define __ULLFRACT_EPSILON__ 0x1P-64ULLR
+#define __SACCUM_FBIT__ 7
+#define __SACCUM_IBIT__ 8
+#define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
+#define __SACCUM_MAX__ 0X7FFFP-7HK
+#define __SACCUM_EPSILON__ 0x1P-7HK
+#define __USACCUM_FBIT__ 8
+#define __USACCUM_IBIT__ 8
+#define __USACCUM_MIN__ 0.0UHK
+#define __USACCUM_MAX__ 0XFFFFP-8UHK
+#define __USACCUM_EPSILON__ 0x1P-8UHK
+#define __ACCUM_FBIT__ 15
+#define __ACCUM_IBIT__ 16
+#define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
+#define __ACCUM_MAX__ 0X7FFFFFFFP-15K
+#define __ACCUM_EPSILON__ 0x1P-15K
+#define __UACCUM_FBIT__ 16
+#define __UACCUM_IBIT__ 16
+#define __UACCUM_MIN__ 0.0UK
+#define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
+#define __UACCUM_EPSILON__ 0x1P-16UK
+#define __LACCUM_FBIT__ 31
+#define __LACCUM_IBIT__ 32
+#define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
+#define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
+#define __LACCUM_EPSILON__ 0x1P-31LK
+#define __ULACCUM_FBIT__ 32
+#define __ULACCUM_IBIT__ 32
+#define __ULACCUM_MIN__ 0.0ULK
+#define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
+#define __ULACCUM_EPSILON__ 0x1P-32ULK
+#define __LLACCUM_FBIT__ 31
+#define __LLACCUM_IBIT__ 32
+#define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
+#define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
+#define __LLACCUM_EPSILON__ 0x1P-31LLK
+#define __ULLACCUM_FBIT__ 32
+#define __ULLACCUM_IBIT__ 32
+#define __ULLACCUM_MIN__ 0.0ULLK
+#define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
+#define __ULLACCUM_EPSILON__ 0x1P-32ULLK
+#define __QQ_FBIT__ 7
+#define __QQ_IBIT__ 0
+#define __HQ_FBIT__ 15
+#define __HQ_IBIT__ 0
+#define __SQ_FBIT__ 31
+#define __SQ_IBIT__ 0
+#define __DQ_FBIT__ 63
+#define __DQ_IBIT__ 0
+#define __TQ_FBIT__ 127
+#define __TQ_IBIT__ 0
+#define __UQQ_FBIT__ 8
+#define __UQQ_IBIT__ 0
+#define __UHQ_FBIT__ 16
+#define __UHQ_IBIT__ 0
+#define __USQ_FBIT__ 32
+#define __USQ_IBIT__ 0
+#define __UDQ_FBIT__ 64
+#define __UDQ_IBIT__ 0
+#define __UTQ_FBIT__ 128
+#define __UTQ_IBIT__ 0
+#define __HA_FBIT__ 7
+#define __HA_IBIT__ 8
+#define __SA_FBIT__ 15
+#define __SA_IBIT__ 16
+#define __DA_FBIT__ 31
+#define __DA_IBIT__ 32
+#define __TA_FBIT__ 63
+#define __TA_IBIT__ 64
+#define __UHA_FBIT__ 8
+#define __UHA_IBIT__ 8
+#define __USA_FBIT__ 16
+#define __USA_IBIT__ 16
+#define __UDA_FBIT__ 32
+#define __UDA_IBIT__ 32
+#define __UTA_FBIT__ 64
+#define __UTA_IBIT__ 64
+#define __REGISTER_PREFIX__ 
+#define __USER_LABEL_PREFIX__ 
+#define __GNUC_STDC_INLINE__ 1
+#define __STRICT_ANSI__ 1
+#define __CHAR_UNSIGNED__ 1
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
+#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
+#define __GCC_ATOMIC_BOOL_LOCK_FREE 2
+#define __GCC_ATOMIC_CHAR_LOCK_FREE 2
+#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
+#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
+#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
+#define __GCC_ATOMIC_SHORT_LOCK_FREE 2
+#define __GCC_ATOMIC_INT_LOCK_FREE 2
+#define __GCC_ATOMIC_LONG_LOCK_FREE 2
+#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
+#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
+#define __GCC_ATOMIC_POINTER_LOCK_FREE 2
+#define __HAVE_SPECULATION_SAFE_VALUE 1
+#define __GCC_HAVE_DWARF2_CFI_ASM 1
+#define __PRAGMA_REDEFINE_EXTNAME 1
+#define __SIZEOF_WCHAR_T__ 4
+#define __SIZEOF_WINT_T__ 4
+#define __SIZEOF_PTRDIFF_T__ 4
+#define __ARM_FEATURE_DSP 1
+#define __ARM_FEATURE_QBIT 1
+#define __ARM_FEATURE_SAT 1
+#undef __ARM_FEATURE_CRYPTO
+# 1 "<built-in>"
+#define __ARM_FEATURE_UNALIGNED 1
+#undef __ARM_FEATURE_QRDMX
+# 1 "<built-in>"
+#undef __ARM_FEATURE_CRC32
+# 1 "<built-in>"
+#undef __ARM_FEATURE_DOTPROD
+# 1 "<built-in>"
+#undef __ARM_FEATURE_COMPLEX
+# 1 "<built-in>"
+#define __ARM_32BIT_STATE 1
+#undef __ARM_FEATURE_MVE
+# 1 "<built-in>"
+#undef __ARM_FEATURE_CMSE
+# 1 "<built-in>"
+#undef __ARM_FEATURE_LDREX
+# 1 "<built-in>"
+#define __ARM_FEATURE_LDREX 7
+#define __ARM_FEATURE_CLZ 1
+#undef __ARM_FEATURE_NUMERIC_MAXMIN
+# 1 "<built-in>"
+#define __ARM_FEATURE_SIMD32 1
+#define __ARM_SIZEOF_MINIMAL_ENUM 1
+#define __ARM_SIZEOF_WCHAR_T 4
+#undef __ARM_ARCH_PROFILE
+# 1 "<built-in>"
+#define __ARM_ARCH_PROFILE 77
+#define __arm__ 1
+#undef __ARM_ARCH
+# 1 "<built-in>"
+#define __ARM_ARCH 7
+#define __APCS_32__ 1
+#define __GCC_ASM_FLAG_OUTPUTS__ 1
+#define __thumb__ 1
+#define __thumb2__ 1
+#define __THUMBEL__ 1
+#undef __ARM_ARCH_ISA_THUMB
+# 1 "<built-in>"
+#define __ARM_ARCH_ISA_THUMB 2
+#define __ARMEL__ 1
+#define __VFP_FP__ 1
+#undef __ARM_FP
+# 1 "<built-in>"
+#define __ARM_FP 4
+#undef __ARM_FP16_FORMAT_IEEE
+# 1 "<built-in>"
+#undef __ARM_FP16_FORMAT_ALTERNATIVE
+# 1 "<built-in>"
+#undef __ARM_FP16_ARGS
+# 1 "<built-in>"
+#undef __ARM_FEATURE_FP16_SCALAR_ARITHMETIC
+# 1 "<built-in>"
+#undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
+# 1 "<built-in>"
+#undef __ARM_FEATURE_FP16_FML
+# 1 "<built-in>"
+#define __ARM_FEATURE_FMA 1
+#undef __ARM_NEON__
+# 1 "<built-in>"
+#undef __ARM_NEON
+# 1 "<built-in>"
+#undef __ARM_NEON_FP
+# 1 "<built-in>"
+#define __THUMB_INTERWORK__ 1
+#define __ARM_ARCH_7EM__ 1
+#define __ARM_PCS_VFP 1
+#define __ARM_EABI__ 1
+#undef __FDPIC__
+# 1 "<built-in>"
+#define __ARM_ARCH_EXT_IDIV__ 1
+#define __ARM_FEATURE_IDIV 1
+#define __ARM_ASM_SYNTAX_UNIFIED__ 1
+#undef __ARM_FEATURE_COPROC
+# 1 "<built-in>"
+#define __ARM_FEATURE_COPROC 15
+#undef __ARM_FEATURE_CDE
+# 1 "<built-in>"
+#undef __ARM_FEATURE_CDE_COPROC
+# 1 "<built-in>"
+#undef __ARM_FEATURE_MATMUL_INT8
+# 1 "<built-in>"
+#undef __ARM_FEATURE_BF16_SCALAR_ARITHMETIC
+# 1 "<built-in>"
+#undef __ARM_FEATURE_BF16_VECTOR_ARITHMETIC
+# 1 "<built-in>"
+#undef __ARM_BF16_FORMAT_ALTERNATIVE
+# 1 "<built-in>"
+#define __GXX_TYPEINFO_EQUALITY_INLINE 0
+#define __ELF__ 1
+# 1 "<command-line>"
+#define __USES_INITFINI__ 1
+#define apollo3 1
+#define SUPPORT_LORA 1
+#define SUPPORT_LORA_P2P 1
+#define LORA_IO_SPI_PORT 1
+#define SYS_RTC_COUNTER_PORT 2
+#define ATCMD_CUST_TABLE_SIZE 64
+#define WAN_TYPE 0
+#define RAK11720 +RAK5005-O_V1.0 1
+#define rak11720 1
+#define gcc 1
+#define PART_APOLLO3 1
+#define AM_PACKAGE_BGA 1
+#define AM_PART_APOLLO3 1
+#define AM_FREERTOS 1
+#define AM_FREERTOS_STIMER_BACKUP 1
+#define AM_BLE_USE_NVM 1
+#define AM_CUSTOM_BDADDR 1
+#define AM_NUS_ADD 1
+#define AM_CUS_ADD 1
+#define AM_AMOTA_ADD 1
+#define AM_UTIL_FAULTISR_PRINT 1
+#define SEC_ECC_CFG SEC_ECC_CFG_HCI
+#define RTT_LOG_ENABLED 1
+#define DEBUG_ENABLED 1
+#define rak11720 1
+#define SYS_RTC_COUNTER_PORT 2
+#define TWI0_ENABLED 1
+#define SPI0_ENABLED 1
+#define SPI1_ENABLED 1
+#define BLE_SUPPORT 1
+#define ATCMD_CUST_TABLE_SIZE 64
+#define WISBLOCK_BASE_5005_O 1
+#define SX1262_CHIP 1
+#define REGION_AS923 1
+#define REGION_AU915 1
+#define REGION_CN470 1
+#define REGION_CN779 1
+#define REGION_EU433 1
+#define REGION_EU868 1
+#define REGION_KR920 1
+#define REGION_IN865 1
+#define REGION_US915 1
+#define REGION_RU864 1
+#define REGION_LA915 1
+#define SOFT_SE 1
+#define SECURE_ELEMENT_PRE_PROVISIONED 1
+#define LORAMAC_CLASSB_ENABLED 1
+#define BLE_CENTRAL_SUPPORT 1
+#define WISBLOCK_BASE_5005_O 1
+#define SUPPORT_BLE 1
+#define SUPPORT_SPI 1
+#define SUPPORT_AT 1
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h" 1
+# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CONFIG_H 
+# 56 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_HAVE_ASM 
+# 80 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_HAVE_TIME 
+# 92 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_HAVE_TIME_DATE 
+# 341 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CIPHER_MODE_CBC 
 
-#if !defined(MBEDTLS_CONFIG_FILE)
-#include "mbedtls/config.h"
-#else
-#include MBEDTLS_CONFIG_FILE
-#endif
 
-#if defined(MBEDTLS_AES_C)
 
-#include <string.h>
 
-#include "mbedtls/aes.h"
-#if defined(MBEDTLS_PADLOCK_C)
-#include "mbedtls/padlock.h"
-#endif
-#if defined(MBEDTLS_AESNI_C)
-#include "mbedtls/aesni.h"
-#endif
 
-#if defined(MBEDTLS_SELF_TEST)
-#if defined(MBEDTLS_PLATFORM_C)
-#include "mbedtls/platform.h"
-#else
-#include <stdio.h>
+
+#define MBEDTLS_CIPHER_MODE_CFB 
+
+
+
+
+
+
+#define MBEDTLS_CIPHER_MODE_CTR 
+# 401 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CIPHER_PADDING_PKCS7 
+#define MBEDTLS_CIPHER_PADDING_ONE_AND_ZEROS 
+#define MBEDTLS_CIPHER_PADDING_ZEROS_AND_LEN 
+#define MBEDTLS_CIPHER_PADDING_ZEROS 
+# 432 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_REMOVE_ARC4_CIPHERSUITES 
+# 442 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECP_DP_SECP192R1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP224R1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP256R1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP384R1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP521R1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP192K1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP224K1_ENABLED 
+#define MBEDTLS_ECP_DP_SECP256K1_ENABLED 
+#define MBEDTLS_ECP_DP_BP256R1_ENABLED 
+#define MBEDTLS_ECP_DP_BP384R1_ENABLED 
+#define MBEDTLS_ECP_DP_BP512R1_ENABLED 
+#define MBEDTLS_ECP_DP_CURVE25519_ENABLED 
+# 464 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECP_NIST_OPTIM 
+# 478 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECDSA_DETERMINISTIC 
+# 500 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_PSK_ENABLED 
+# 524 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_DHE_PSK_ENABLED 
+# 544 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_ECDHE_PSK_ENABLED 
+# 569 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_RSA_PSK_ENABLED 
+# 597 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_RSA_ENABLED 
+# 623 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_DHE_RSA_ENABLED 
+# 648 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_ECDHE_RSA_ENABLED 
+# 672 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_ECDHE_ECDSA_ENABLED 
+# 696 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_ECDH_ECDSA_ENABLED 
+# 720 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_KEY_EXCHANGE_ECDH_RSA_ENABLED 
+# 753 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PK_PARSE_EC_EXTENDED 
+# 768 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ERROR_STRERROR_DUMMY 
+# 777 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_GENPRIME 
+
+
+
+
+
+
+#define MBEDTLS_FS_IO 
+# 886 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PK_RSA_ALT_SUPPORT 
+# 897 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PKCS1_V15 
+# 908 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PKCS1_V21 
+# 925 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SELF_TEST 
+# 955 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_ALL_ALERT_MESSAGES 
+# 989 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_ENCRYPT_THEN_MAC 
+# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_EXTENDED_MASTER_SECRET 
+# 1024 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_FALLBACK_SCSV 
+# 1046 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_CBC_RECORD_SPLITTING 
+# 1061 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_RENEGOTIATION 
+# 1090 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_MAX_FRAGMENT_LENGTH 
+# 1114 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_PROTO_TLS1 
+# 1126 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_PROTO_TLS1_1 
+# 1138 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_PROTO_TLS1_2 
+# 1153 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_PROTO_DTLS 
+# 1162 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_ALPN 
+# 1177 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_DTLS_ANTI_REPLAY 
+# 1195 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_DTLS_HELLO_VERIFY 
+# 1211 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_DTLS_CLIENT_PORT_REUSE 
+# 1222 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_DTLS_BADMAC_LIMIT 
+# 1236 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_SESSION_TICKETS 
+# 1246 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_EXPORT_KEYS 
+# 1257 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_SERVER_NAME_INDICATION 
+# 1266 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_TRUNCATED_HMAC 
+# 1301 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_VERSION_FEATURES 
+# 1337 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CHECK_KEY_USAGE 
+# 1350 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CHECK_EXTENDED_KEY_USAGE 
+# 1360 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_RSASSA_PSS_SUPPORT 
+# 1404 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_AESNI_C 
+# 1479 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_AES_C 
+# 1502 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ARC4_C 
+# 1516 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ASN1_PARSE_C 
+# 1530 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ASN1_WRITE_C 
+# 1542 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_BASE64_C 
+# 1558 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_BIGNUM_C 
+# 1567 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_BLOWFISH_C 
+# 1622 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CAMELLIA_C 
+# 1636 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CCM_C 
+# 1648 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CERTS_C 
+# 1660 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CIPHER_C 
+# 1687 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_CTR_DRBG_C 
+# 1701 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_DEBUG_C 
+# 1727 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_DES_C 
+# 1741 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_DHM_C 
+# 1757 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECDH_C 
+# 1772 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECDSA_C 
+# 1805 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ECP_C 
+# 1819 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ENTROPY_C 
+# 1831 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_ERROR_C 
+# 1845 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_GCM_C 
+# 1882 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_HMAC_DRBG_C 
+# 1894 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_MD_C 
+# 1933 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_MD5_C 
+# 1968 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_NET_C 
+# 1991 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_OID_C 
+# 2005 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PADLOCK_C 
+# 2023 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PEM_PARSE_C 
+# 2039 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PEM_WRITE_C 
+# 2055 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PK_C 
+# 2070 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PK_PARSE_C 
+# 2084 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PK_WRITE_C 
+# 2097 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PKCS5_C 
+# 2128 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PKCS12_C 
+# 2148 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_PLATFORM_C 
+# 2159 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_RIPEMD160_C 
+# 2177 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_RSA_C 
+# 2193 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SHA1_C 
+# 2210 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SHA256_C 
+# 2225 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SHA512_C 
+# 2237 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_CACHE_C 
+# 2247 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_COOKIE_C 
+# 2259 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_TICKET_C 
+# 2273 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_CLI_C 
+# 2287 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_SRV_C 
+# 2303 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_SSL_TLS_C 
+# 2348 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_TIMING_C 
+# 2359 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_VERSION_C 
+# 2376 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_USE_C 
+# 2392 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CRT_PARSE_C 
+# 2406 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CRL_PARSE_C 
+# 2420 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CSR_PARSE_C 
+# 2433 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CREATE_C 
+# 2446 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CRT_WRITE_C 
+# 2459 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_X509_CSR_WRITE_C 
+# 2469 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+#define MBEDTLS_XTEA_C 
+# 2598 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h" 1
+# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h"
+#define MBEDTLS_CHECK_CONFIG_H 
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 1 3 4
+# 30 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 3 4
+#define _GCC_LIMITS_H_ 
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/syslimits.h" 1 3 4
+
+
+
+
+
+#define _GCC_NEXT_LIMITS_H 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 1 3 4
+# 195 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 3 4
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/limits.h" 1 3 4
+
+#define _LIBC_LIMITS_H_ 1
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 1 3 4
+
+
+
+
+
+
+
+#define __NEWLIB_H__ 1
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_newlib_version.h" 1 3 4
+
+
+
+#define _NEWLIB_VERSION_H__ 1
+
+#define _NEWLIB_VERSION "3.3.0"
+#define __NEWLIB__ 3
+#define __NEWLIB_MINOR__ 3
+#define __NEWLIB_PATCHLEVEL__ 0
+# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 2 3 4
+
+
+
+#define _WANT_IO_C99_FORMATS 1
+
+
+#define _WANT_IO_LONG_LONG 1
+
+
+#define _WANT_REGISTER_FINI 1
+# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3 4
+#define _REENT_CHECK_VERIFY 1
+
+
+
+
+
+#define _MB_LEN_MAX 1
+# 53 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3 4
+#define HAVE_INITFINI_ARRAY 1
+
+
+
+#define _ATEXIT_DYNAMIC_ALLOC 1
+
+
+#define _HAVE_LONG_DOUBLE 1
+
+
+#define _HAVE_CC_INHIBIT_LOOP_TO_LIBCALL 1
+
+
+#define _LDBL_EQ_DBL 1
+
+
+#define _FVWRITE_IN_STREAMIO 1
+
+
+#define _FSEEK_OPTIMIZATION 1
+
+
+#define _WIDE_ORIENT 1
+
+
+#define _UNBUF_STREAM_OPT 1
+# 95 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3 4
+#define _RETARGETABLE_LOCKING 1
+# 5 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/limits.h" 2 3 4
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 1 3 4
+# 43 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define _SYS_CDEFS_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 1 3 4
+
+
+
+
+
+#define _MACHINE__DEFAULT_TYPES_H 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 1 3 4
+# 22 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define _SYS_FEATURES_H 
+# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
+
+
+
+
+
+
+#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
+# 249 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define __ATFILE_VISIBLE 0
+
+
+
+
+
+#define __BSD_VISIBLE 0
+
+
+
+
+
+#define __GNU_VISIBLE 0
+
+
+
+
+
+
+
+#define __ISO_C_VISIBLE 1999
+
+
+
+
+
+
+
+#define __LARGEFILE_VISIBLE 0
+
+
+
+
+
+#define __MISC_VISIBLE 0
+# 299 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define __POSIX_VISIBLE 0
+
+
+
+
+
+#define __SVID_VISIBLE 0
+# 319 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define __XSI_VISIBLE 0
+# 330 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
+#define __SSP_FORTIFY_LEVEL 0
+# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 2 3 4
+
+
+
+
+
+
+#define __EXP(x) __ ##x ##__
+# 26 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+#define __have_longlong64 1
+
+
+
+
+
+
+#define __have_long32 1
+
+
+
+
+
+
+
+
+# 41 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef signed char __int8_t;
+
+typedef unsigned char __uint8_t;
+
+
+
+#define ___int8_t_defined 1
+
+
+
+
+
+
+
+typedef short int __int16_t;
+
+typedef short unsigned int __uint16_t;
+
+
+
+#define ___int16_t_defined 1
+# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long int __int32_t;
+
+typedef long unsigned int __uint32_t;
+
+
+
+#define ___int32_t_defined 1
+# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long long int __int64_t;
+
+typedef long long unsigned int __uint64_t;
+
+
+
+#define ___int64_t_defined 1
+# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef signed char __int_least8_t;
+
+typedef unsigned char __uint_least8_t;
+
+
+
+#define ___int_least8_t_defined 1
+# 160 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef short int __int_least16_t;
+
+typedef short unsigned int __uint_least16_t;
+
+
+
+#define ___int_least16_t_defined 1
+# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long int __int_least32_t;
+
+typedef long unsigned int __uint_least32_t;
+
+
+
+#define ___int_least32_t_defined 1
+# 200 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+typedef long long int __int_least64_t;
+
+typedef long long unsigned int __uint_least64_t;
+
+
+
+#define ___int_least64_t_defined 1
+
+
+
+
+
+
+
+typedef long long int __intmax_t;
+
+
+
+
+
+
+
+typedef long long unsigned int __uintmax_t;
+
+
+
+
+
+
+
+typedef int __intptr_t;
+
+typedef unsigned int __uintptr_t;
+# 244 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
+#undef __EXP
+# 46 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 39 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#define _STDDEF_H 
+#define _STDDEF_H_ 
+
+#define _ANSI_STDDEF_H 
+# 131 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#define _PTRDIFF_T 
+#define _T_PTRDIFF_ 
+#define _T_PTRDIFF 
+#define __PTRDIFF_T 
+#define _PTRDIFF_T_ 
+#define _BSD_PTRDIFF_T_ 
+#define ___int_ptrdiff_t_h 
+#define _GCC_PTRDIFF_T 
+#define _PTRDIFF_T_DECLARED 
+
+
+
+typedef int ptrdiff_t;
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 181 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#define __size_t__ 
+#define __SIZE_T__ 
+#define _SIZE_T 
+#define _SYS_SIZE_T_H 
+#define _T_SIZE_ 
+#define _T_SIZE 
+#define __SIZE_T 
+#define _SIZE_T_ 
+#define _BSD_SIZE_T_ 
+#define _SIZE_T_DEFINED_ 
+#define _SIZE_T_DEFINED 
+#define _BSD_SIZE_T_DEFINED_ 
+#define _SIZE_T_DECLARED 
+#define ___int_size_t_h 
+#define _GCC_SIZE_T 
+#define _SIZET_ 
+
+
+
+
+
+
+#define __size_t 
+
+
+
+
+
+typedef unsigned int size_t;
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 260 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#define __wchar_t__ 
+#define __WCHAR_T__ 
+#define _WCHAR_T 
+#define _T_WCHAR_ 
+#define _T_WCHAR 
+#define __WCHAR_T 
+#define _WCHAR_T_ 
+#define _BSD_WCHAR_T_ 
+#define _WCHAR_T_DEFINED_ 
+#define _WCHAR_T_DEFINED 
+#define _WCHAR_T_H 
+#define ___int_wchar_t_h 
+#define __INT_WCHAR_T_H 
+#define _GCC_WCHAR_T 
+#define _WCHAR_T_DECLARED 
+# 287 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef _BSD_WCHAR_T_
+# 321 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+typedef unsigned int wchar_t;
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 48 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 2 3 4
+
+#define __PMT(args) args
+#define __DOTS , ...
+#define __THROW 
+
+
+#define __ASMNAME(cname) __XSTRING (__USER_LABEL_PREFIX__) cname
+
+
+#define __ptr_t void *
+#define __long_double_t long double
+
+#define __attribute_malloc__ 
+#define __attribute_pure__ 
+#define __attribute_format_strfmon__(a,b) 
+#define __flexarr [0]
+
+
+#define __bounded 
+#define __unbounded 
+#define __ptrvalue 
+# 78 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __has_extension __has_feature
+
+
+#define __has_feature(x) 0
+# 94 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __BEGIN_DECLS 
+#define __END_DECLS 
+# 107 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __GNUCLIKE_ASM 3
+#define __GNUCLIKE_MATH_BUILTIN_CONSTANTS 
+
+
+
+#define __GNUCLIKE___TYPEOF 1
+#define __GNUCLIKE___OFFSETOF 1
+#define __GNUCLIKE___SECTION 1
+
+
+#define __GNUCLIKE_CTOR_SECTION_HANDLING 1
+
+
+#define __GNUCLIKE_BUILTIN_CONSTANT_P 1
+
+
+
+
+
+
+#define __GNUCLIKE_BUILTIN_VARARGS 1
+#define __GNUCLIKE_BUILTIN_STDARG 1
+#define __GNUCLIKE_BUILTIN_VAALIST 1
+
+
+
+#define __GNUC_VA_LIST_COMPATIBILITY 1
+
+
+
+
+
+
+#define __compiler_membar() __asm __volatile(" " : : : "memory")
+
+
+
+#define __GNUCLIKE_BUILTIN_NEXT_ARG 1
+#define __GNUCLIKE_MATH_BUILTIN_RELOPS 
+
+
+#define __GNUCLIKE_BUILTIN_MEMCPY 1
+
+
+#define __CC_SUPPORTS_INLINE 1
+#define __CC_SUPPORTS___INLINE 1
+#define __CC_SUPPORTS___INLINE__ 1
+
+#define __CC_SUPPORTS___FUNC__ 1
+#define __CC_SUPPORTS_WARNING 1
+
+#define __CC_SUPPORTS_VARADIC_XXX 1
+
+#define __CC_SUPPORTS_DYNAMIC_ARRAY_INIT 1
+# 177 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __P(protos) protos
+#define __CONCAT1(x,y) x ## y
+#define __CONCAT(x,y) __CONCAT1(x,y)
+#define __STRING(x) #x
+#define __XSTRING(x) __STRING(x)
+
+#define __const const
+#define __signed signed
+#define __volatile volatile
+# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __weak_symbol __attribute__((__weak__))
+# 243 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __dead2 __attribute__((__noreturn__))
+#define __pure2 __attribute__((__const__))
+#define __unused __attribute__((__unused__))
+#define __used __attribute__((__used__))
+#define __packed __attribute__((__packed__))
+#define __aligned(x) __attribute__((__aligned__(x)))
+#define __section(x) __attribute__((__section__(x)))
+
+
+#define __alloc_size(x) __attribute__((__alloc_size__(x)))
+#define __alloc_size2(n,x) __attribute__((__alloc_size__(n, x)))
+
+
+
+
+
+#define __alloc_align(x) __attribute__((__alloc_align__(x)))
+# 280 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define _Alignas(x) __aligned(x)
+
+
+
+
+
+
+#define _Alignof(x) __alignof(x)
+# 296 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define _Atomic(T) struct { T volatile __val; }
+
+
+
+
+
+#define _Noreturn __dead2
+# 331 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define _Thread_local __thread
+# 351 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __generic(expr,t,yes,no) __builtin_choose_expr( __builtin_types_compatible_p(__typeof(expr), t), yes, no)
+# 366 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __min_size(x) static (x)
+
+
+
+
+
+#define __malloc_like __attribute__((__malloc__))
+#define __pure __attribute__((__pure__))
+
+
+
+
+
+
+#define __always_inline __inline__ __attribute__((__always_inline__))
+
+
+
+
+
+#define __noinline __attribute__ ((__noinline__))
+
+
+
+
+
+#define __nonnull(x) __attribute__((__nonnull__ x))
+#define __nonnull_all __attribute__((__nonnull__))
+
+
+
+
+
+
+#define __fastcall __attribute__((__fastcall__))
+#define __result_use_check __attribute__((__warn_unused_result__))
+
+
+
+
+
+
+#define __returns_twice __attribute__((__returns_twice__))
+
+
+
+
+
+#define __unreachable() __builtin_unreachable()
+# 434 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __restrict restrict
+# 467 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __predict_true(exp) __builtin_expect((exp), 1)
+#define __predict_false(exp) __builtin_expect((exp), 0)
+
+
+
+
+
+
+#define __null_sentinel __attribute__((__sentinel__))
+#define __exported __attribute__((__visibility__("default")))
+
+
+#define __hidden __attribute__((__visibility__("hidden")))
+# 489 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __offsetof(type,field) offsetof(type, field)
+#define __rangeof(type,start,end) (__offsetof(type, end) - __offsetof(type, start))
+# 500 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __containerof(x,s,m) ({ const volatile __typeof(((s *)0)->m) *__x = (x); __DEQUALIFY(s *, (const volatile char *)__x - __offsetof(s, m));})
+# 522 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __printflike(fmtarg,firstvararg) __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
+
+#define __scanflike(fmtarg,firstvararg) __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
+
+#define __format_arg(fmtarg) __attribute__((__format_arg__ (fmtarg)))
+#define __strfmonlike(fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg)))
+
+#define __strftimelike(fmtarg,firstvararg) __attribute__((__format__ (__strftime__, fmtarg, firstvararg)))
+# 539 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __printf0like(fmtarg,firstvararg) 
+
+
+
+
+#define __strong_reference(sym,aliassym) extern __typeof (sym) aliassym __attribute__ ((__alias__ (#sym)))
+
+
+
+
+#define __weak_reference(sym,alias) __asm__(".weak " #alias); __asm__(".equ " #alias ", " #sym)
+
+
+#define __warn_references(sym,msg) __asm__(".section .gnu.warning." #sym); __asm__(".asciz \"" msg "\""); __asm__(".previous")
+
+
+
+#define __sym_compat(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@" #verid)
+
+#define __sym_default(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@@" #verid)
+# 593 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __FBSDID(s) struct __hack
+
+
+
+#define __RCSID(s) struct __hack
+
+
+
+#define __RCSID_SOURCE(s) struct __hack
+
+
+
+#define __SCCSID(s) struct __hack
+
+
+
+#define __COPYRIGHT(s) struct __hack
+
+
+
+#define __DECONST(type,var) ((type)(__uintptr_t)(const void *)(var))
+
+
+
+#define __DEVOLATILE(type,var) ((type)(__uintptr_t)(volatile void *)(var))
+
+
+
+#define __DEQUALIFY(type,var) ((type)(__uintptr_t)(const volatile void *)(var))
+
+
+
+
+
+
+#define _Nonnull 
+#define _Nullable 
+#define _Null_unspecified 
+#define __NULLABILITY_PRAGMA_PUSH 
+#define __NULLABILITY_PRAGMA_POP 
+# 653 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __arg_type_tag(arg_kind,arg_idx,type_tag_idx) 
+#define __datatype_type_tag(kind,type) 
+# 672 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3 4
+#define __lock_annotate(x) 
+
+
+
+
+
+#define __lockable __lock_annotate(lockable)
+
+
+#define __locks_exclusive(...) __lock_annotate(exclusive_lock_function(__VA_ARGS__))
+
+#define __locks_shared(...) __lock_annotate(shared_lock_function(__VA_ARGS__))
+
+
+
+#define __trylocks_exclusive(...) __lock_annotate(exclusive_trylock_function(__VA_ARGS__))
+
+#define __trylocks_shared(...) __lock_annotate(shared_trylock_function(__VA_ARGS__))
+
+
+
+#define __unlocks(...) __lock_annotate(unlock_function(__VA_ARGS__))
+
+
+#define __asserts_exclusive(...) __lock_annotate(assert_exclusive_lock(__VA_ARGS__))
+
+#define __asserts_shared(...) __lock_annotate(assert_shared_lock(__VA_ARGS__))
+
+
+
+#define __requires_exclusive(...) __lock_annotate(exclusive_locks_required(__VA_ARGS__))
+
+#define __requires_shared(...) __lock_annotate(shared_locks_required(__VA_ARGS__))
+
+#define __requires_unlocked(...) __lock_annotate(locks_excluded(__VA_ARGS__))
+
+
+
+#define __no_lock_analysis __lock_annotate(no_thread_safety_analysis)
+
+
+#define __guarded_by(x) __lock_annotate(guarded_by(x))
+#define __pt_guarded_by(x) __lock_annotate(pt_guarded_by(x))
+# 6 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/limits.h" 2 3 4
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/syslimits.h" 1 3 4
+# 38 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/syslimits.h" 3 4
+#define _SYS_SYSLIMITS_H_ 
+
+#define ARG_MAX 65536
+
+#define CHILD_MAX 40
+
+#define LINK_MAX 32767
+#define MAX_CANON 255
+#define MAX_INPUT 255
+#define NAME_MAX 255
+#define NGROUPS_MAX 16
+
+#define OPEN_MAX 64
+
+#define PATH_MAX 1024
+#define PIPE_BUF 512
+#define IOV_MAX 1024
+
+#define BC_BASE_MAX 99
+#define BC_DIM_MAX 2048
+#define BC_SCALE_MAX 99
+#define BC_STRING_MAX 1000
+#define COLL_WEIGHTS_MAX 0
+#define EXPR_NEST_MAX 32
+#define LINE_MAX 2048
+#define RE_DUP_MAX 255
+# 7 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/limits.h" 2 3 4
+
+
+#define MB_LEN_MAX _MB_LEN_MAX
+
+
+
+
+
+
+#define NL_ARGMAX 32
+# 138 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/limits.h" 3 4
+#define _POSIX2_RE_DUP_MAX 255
+# 196 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 2 3 4
+# 8 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/syslimits.h" 2 3 4
+#undef _GCC_NEXT_LIMITS_H
+# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 2 3 4
+# 60 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 3 4
+#define _LIMITS_H___ 
+
+
+#undef CHAR_BIT
+#define CHAR_BIT __CHAR_BIT__
+
+
+
+
+
+
+
+#undef SCHAR_MIN
+#define SCHAR_MIN (-SCHAR_MAX - 1)
+#undef SCHAR_MAX
+#define SCHAR_MAX __SCHAR_MAX__
+
+
+#undef UCHAR_MAX
+
+
+
+#define UCHAR_MAX (SCHAR_MAX * 2 + 1)
+
+
+
+
+#undef CHAR_MIN
+
+
+
+#define CHAR_MIN 0
+
+#undef CHAR_MAX
+#define CHAR_MAX UCHAR_MAX
+# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include-fixed/limits.h" 3 4
+#undef SHRT_MIN
+#define SHRT_MIN (-SHRT_MAX - 1)
+#undef SHRT_MAX
+#define SHRT_MAX __SHRT_MAX__
+
+
+#undef USHRT_MAX
+
+
+
+#define USHRT_MAX (SHRT_MAX * 2 + 1)
+
+
+
+#undef INT_MIN
+#define INT_MIN (-INT_MAX - 1)
+#undef INT_MAX
+#define INT_MAX __INT_MAX__
+
+
+#undef UINT_MAX
+#define UINT_MAX (INT_MAX * 2U + 1U)
+
+
+
+#undef LONG_MIN
+#define LONG_MIN (-LONG_MAX - 1L)
+#undef LONG_MAX
+#define LONG_MAX __LONG_MAX__
+
+
+#undef ULONG_MAX
+#define ULONG_MAX (LONG_MAX * 2UL + 1UL)
+
+
+
+#undef LLONG_MIN
+#define LLONG_MIN (-LLONG_MAX - 1LL)
+#undef LLONG_MAX
+#define LLONG_MAX __LONG_LONG_MAX__
+
+
+#undef ULLONG_MAX
+#define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# 37 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h" 2
+# 583 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h"
+#undef MBEDTLS_THREADING_IMPL
+# 626 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h"
+
+# 626 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/check_config.h"
+typedef int mbedtls_iso_c_forbids_empty_translation_units;
+# 2599 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h" 2
+# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 1 3
+
+
+
+
+
+
+
+#define _STRING_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 1 3
+
+
+
+
+
+
+
+#define _ANSIDECL_H_ 
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 1 3
+
+#define __SYS_CONFIG_H__ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 1 3
+# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __IEEE_LITTLE_ENDIAN 
+# 473 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
+#define __OBSOLETE_MATH_DEFAULT 1
+
+
+#define __OBSOLETE_MATH __OBSOLETE_MATH_DEFAULT
+# 5 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 2 3
+# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
+#define _POINTER_INT long
+
+
+
+
+
+#undef __RAND_MAX
+
+
+
+#define __RAND_MAX 0x7fffffff
+# 250 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
+#define __EXPORT 
+
+
+
+#define __IMPORT 
+
+
+
+
+
+
+#define _READ_WRITE_RETURN_TYPE int
+
+
+
+
+
+#define _READ_WRITE_BUFSIZE_TYPE int
+# 12 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 2 3
+# 31 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
+#define _BEGIN_STD_C 
+#define _END_STD_C 
+#define _NOTHROW 
+
+
+
+#define _LONG_DOUBLE long double
+
+
+
+
+
+#define _ATTRIBUTE(attrs) __attribute__ (attrs)
+# 69 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
+#define _ELIDABLE_INLINE static __inline__
+
+
+
+#define _NOINLINE __attribute__ ((__noinline__))
+#define _NOINLINE_STATIC _NOINLINE static
+# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 1 3
+# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _SYS_REENT_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 1 3
+# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 1 3
+# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#define _SYS__TYPES_H 
+
+#define __need_size_t 
+#define __need_wint_t 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+
+
+
+
+#define _WINT_T 
+
+
+
+
+
+# 350 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+typedef unsigned int wint_t;
+
+#undef __need_wint_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 25 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_types.h" 1 3
+
+
+
+
+
+#define _MACHINE__TYPES_H 
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
+
+
+typedef long __blkcnt_t;
+
+
+
+typedef long __blksize_t;
+
+
+
+typedef __uint64_t __fsblkcnt_t;
+
+
+
+typedef __uint32_t __fsfilcnt_t;
+
+
+
+typedef long _off_t;
+
+
+
+
+
+typedef int __pid_t;
+
+
+
+typedef short __dev_t;
+
+
+
+typedef unsigned short __uid_t;
+
+
+typedef unsigned short __gid_t;
+
+
+
+typedef __uint32_t __id_t;
+
+
+
+
+
+
+
+typedef unsigned short __ino_t;
+# 90 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+typedef __uint32_t __mode_t;
+
+
+
+
+
+__extension__ typedef long long _off64_t;
+
+
+
+
+
+typedef _off_t __off_t;
+
+
+typedef _off64_t __loff_t;
+
+
+typedef long __key_t;
+
+
+
+
+
+
+
+typedef long _fpos_t;
+# 127 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#undef __size_t
+
+
+
+typedef unsigned int __size_t;
+# 146 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+#define unsigned signed
+typedef signed int _ssize_t;
+#undef unsigned
+# 158 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
+typedef _ssize_t __ssize_t;
+
+
+
+typedef struct
+{
+  int __count;
+  union
+  {
+    wint_t __wch;
+    unsigned char __wchb[4];
+  } __value;
+} _mbstate_t;
+
+
+
+
+typedef void *_iconv_t;
+
+
+
+#define _CLOCK_T_ unsigned long
+
+
+typedef unsigned long __clock_t;
+
+
+
+
+#define _TIME_T_ __int_least64_t
+
+typedef __int_least64_t __time_t;
+
+
+#define _CLOCKID_T_ unsigned long
+
+
+typedef unsigned long __clockid_t;
+
+#define _TIMER_T_ unsigned long
+typedef unsigned long __timer_t;
+
+
+typedef __uint8_t __sa_family_t;
+
+
+
+typedef __uint32_t __socklen_t;
+
+
+typedef int __nl_item;
+typedef unsigned short __nlink_t;
+typedef long __suseconds_t;
+typedef unsigned long __useconds_t;
+
+
+
+
+
+
+
+typedef __builtin_va_list __va_list;
+# 16 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+
+#define _NULL 0
+
+
+
+#define __Long long
+typedef unsigned long __ULong;
+# 34 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 1 3
+
+#define __SYS_LOCK_H__ 
+# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 3
+struct __lock;
+typedef struct __lock * _LOCK_T;
+#define _LOCK_RECURSIVE_T _LOCK_T
+
+#define __LOCK_INIT(class,lock) extern struct __lock __lock_ ## lock; class _LOCK_T lock = &__lock_ ## lock
+
+#define __LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class,lock)
+
+extern void __retarget_lock_init(_LOCK_T *lock);
+#define __lock_init(lock) __retarget_lock_init(&lock)
+extern void __retarget_lock_init_recursive(_LOCK_T *lock);
+#define __lock_init_recursive(lock) __retarget_lock_init_recursive(&lock)
+extern void __retarget_lock_close(_LOCK_T lock);
+#define __lock_close(lock) __retarget_lock_close(lock)
+extern void __retarget_lock_close_recursive(_LOCK_T lock);
+#define __lock_close_recursive(lock) __retarget_lock_close_recursive(lock)
+extern void __retarget_lock_acquire(_LOCK_T lock);
+#define __lock_acquire(lock) __retarget_lock_acquire(lock)
+extern void __retarget_lock_acquire_recursive(_LOCK_T lock);
+#define __lock_acquire_recursive(lock) __retarget_lock_acquire_recursive(lock)
+extern int __retarget_lock_try_acquire(_LOCK_T lock);
+#define __lock_try_acquire(lock) __retarget_lock_try_acquire(lock)
+extern int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
+#define __lock_try_acquire_recursive(lock) __retarget_lock_try_acquire_recursive(lock)
+
+extern void __retarget_lock_release(_LOCK_T lock);
+#define __lock_release(lock) __retarget_lock_release(lock)
+extern void __retarget_lock_release_recursive(_LOCK_T lock);
+#define __lock_release_recursive(lock) __retarget_lock_release_recursive(lock)
+# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
+typedef _LOCK_T _flock_t;
+
+
+
+
+
+
+
+struct _reent;
+
+struct __locale_t;
+
+
+
+
+
+
+struct _Bigint
+{
+  struct _Bigint *_next;
+  int _k, _maxwds, _sign, _wds;
+  __ULong _x[1];
+};
+
+
+struct __tm
+{
+  int __tm_sec;
+  int __tm_min;
+  int __tm_hour;
+  int __tm_mday;
+  int __tm_mon;
+  int __tm_year;
+  int __tm_wday;
+  int __tm_yday;
+  int __tm_isdst;
+};
+
+
+
+
+
+#define _ATEXIT_SIZE 32
+
+struct _on_exit_args {
+ void * _fnargs[32];
+ void * _dso_handle[32];
+
+ __ULong _fntypes;
+
+
+ __ULong _is_cxa;
+};
+# 98 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct _atexit {
+ struct _atexit *_next;
+ int _ind;
+
+ void (*_fns[32])(void);
+        struct _on_exit_args _on_exit_args;
+};
+#define _ATEXIT_INIT {_NULL, 0, {_NULL}, {{_NULL}, {_NULL}, 0, 0}}
+
+
+
+
+
+#define _REENT_INIT_ATEXIT _NULL, _ATEXIT_INIT,
+# 122 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct __sbuf {
+ unsigned char *_base;
+ int _size;
+};
+# 183 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_SMALL_CHECK_INIT(ptr) 
+
+
+struct __sFILE {
+  unsigned char *_p;
+  int _r;
+  int _w;
+  short _flags;
+  short _file;
+  struct __sbuf _bf;
+  int _lbfsize;
+
+
+
+
+
+
+  void * _cookie;
+
+  int (*_read) (struct _reent *, void *,
+        char *, int);
+  int (*_write) (struct _reent *, void *,
+         const char *,
+         int);
+  _fpos_t (*_seek) (struct _reent *, void *, _fpos_t, int);
+  int (*_close) (struct _reent *, void *);
+
+
+  struct __sbuf _ub;
+  unsigned char *_up;
+  int _ur;
+
+
+  unsigned char _ubuf[3];
+  unsigned char _nbuf[1];
+
+
+  struct __sbuf _lb;
+
+
+  int _blksize;
+  _off_t _offset;
+
+
+  struct _reent *_data;
+
+
+
+  _flock_t _lock;
+
+  _mbstate_t _mbstate;
+  int _flags2;
+};
+# 292 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+typedef struct __sFILE __FILE;
+
+
+
+struct _glue
+{
+  struct _glue *_next;
+  int _niobs;
+  __FILE *_iobs;
+};
+# 317 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _RAND48_SEED_0 (0x330e)
+#define _RAND48_SEED_1 (0xabcd)
+#define _RAND48_SEED_2 (0x1234)
+#define _RAND48_MULT_0 (0xe66d)
+#define _RAND48_MULT_1 (0xdeec)
+#define _RAND48_MULT_2 (0x0005)
+#define _RAND48_ADD (0x000b)
+struct _rand48 {
+  unsigned short _seed[3];
+  unsigned short _mult[3];
+  unsigned short _add;
+
+
+
+
+};
+
+
+#define _REENT_EMERGENCY_SIZE 25
+#define _REENT_ASCTIME_SIZE 26
+#define _REENT_SIGNAL_SIZE 24
+# 613 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+struct _reent
+{
+  int _errno;
+
+
+
+
+  __FILE *_stdin, *_stdout, *_stderr;
+
+  int _inc;
+  char _emergency[25];
+
+
+  int _unspecified_locale_info;
+  struct __locale_t *_locale;
+
+  int __sdidinit;
+
+  void (*__cleanup) (struct _reent *);
+
+
+  struct _Bigint *_result;
+  int _result_k;
+  struct _Bigint *_p5s;
+  struct _Bigint **_freelist;
+
+
+  int _cvtlen;
+  char *_cvtbuf;
+
+  union
+    {
+      struct
+        {
+          unsigned int _unused_rand;
+          char * _strtok_last;
+          char _asctime_buf[26];
+          struct __tm _localtime_buf;
+          int _gamma_signgam;
+          __extension__ unsigned long long _rand_next;
+          struct _rand48 _r48;
+          _mbstate_t _mblen_state;
+          _mbstate_t _mbtowc_state;
+          _mbstate_t _wctomb_state;
+          char _l64a_buf[8];
+          char _signal_buf[24];
+          int _getdate_err;
+          _mbstate_t _mbrlen_state;
+          _mbstate_t _mbrtowc_state;
+          _mbstate_t _mbsrtowcs_state;
+          _mbstate_t _wcrtomb_state;
+          _mbstate_t _wcsrtombs_state;
+   int _h_errno;
+        } _reent;
+
+
+
+      struct
+        {
+#define _N_LISTS 30
+          unsigned char * _nextf[30];
+          unsigned int _nmalloc[30];
+        } _unused;
+    } _new;
+
+
+
+  struct _atexit *_atexit;
+  struct _atexit _atexit0;
+
+
+
+  void (**(_sig_func))(int);
+
+
+
+
+  struct _glue __sglue;
+
+  __FILE __sf[3];
+
+};
+
+
+
+
+
+#define _REENT_STDIO_STREAM(var,index) &(var)->__sf[index]
+
+
+#define _REENT_INIT(var) { 0, _REENT_STDIO_STREAM(&(var), 0), _REENT_STDIO_STREAM(&(var), 1), _REENT_STDIO_STREAM(&(var), 2), 0, "", 0, _NULL, 0, _NULL, _NULL, 0, _NULL, _NULL, 0, _NULL, { { 0, _NULL, "", {0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 1, { {_RAND48_SEED_0, _RAND48_SEED_1, _RAND48_SEED_2}, {_RAND48_MULT_0, _RAND48_MULT_1, _RAND48_MULT_2}, _RAND48_ADD }, {0, {0}}, {0, {0}}, {0, {0}}, "", "", 0, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}} } }, _REENT_INIT_ATEXIT _NULL, {_NULL, 0, _NULL} }
+# 751 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_INIT_PTR_ZEROED(var) { (var)->_stdin = _REENT_STDIO_STREAM(var, 0); (var)->_stdout = _REENT_STDIO_STREAM(var, 1); (var)->_stderr = _REENT_STDIO_STREAM(var, 2); (var)->_new._reent._rand_next = 1; (var)->_new._reent._r48._seed[0] = _RAND48_SEED_0; (var)->_new._reent._r48._seed[1] = _RAND48_SEED_1; (var)->_new._reent._r48._seed[2] = _RAND48_SEED_2; (var)->_new._reent._r48._mult[0] = _RAND48_MULT_0; (var)->_new._reent._r48._mult[1] = _RAND48_MULT_1; (var)->_new._reent._r48._mult[2] = _RAND48_MULT_2; (var)->_new._reent._r48._add = _RAND48_ADD; }
+# 765 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT_CHECK_RAND48(ptr) 
+#define _REENT_CHECK_MP(ptr) 
+#define _REENT_CHECK_TM(ptr) 
+#define _REENT_CHECK_ASCTIME_BUF(ptr) 
+#define _REENT_CHECK_EMERGENCY(ptr) 
+#define _REENT_CHECK_MISC(ptr) 
+#define _REENT_CHECK_SIGNAL_BUF(ptr) 
+
+#define _REENT_SIGNGAM(ptr) ((ptr)->_new._reent._gamma_signgam)
+#define _REENT_RAND_NEXT(ptr) ((ptr)->_new._reent._rand_next)
+#define _REENT_RAND48_SEED(ptr) ((ptr)->_new._reent._r48._seed)
+#define _REENT_RAND48_MULT(ptr) ((ptr)->_new._reent._r48._mult)
+#define _REENT_RAND48_ADD(ptr) ((ptr)->_new._reent._r48._add)
+#define _REENT_MP_RESULT(ptr) ((ptr)->_result)
+#define _REENT_MP_RESULT_K(ptr) ((ptr)->_result_k)
+#define _REENT_MP_P5S(ptr) ((ptr)->_p5s)
+#define _REENT_MP_FREELIST(ptr) ((ptr)->_freelist)
+#define _REENT_ASCTIME_BUF(ptr) ((ptr)->_new._reent._asctime_buf)
+#define _REENT_TM(ptr) (&(ptr)->_new._reent._localtime_buf)
+#define _REENT_EMERGENCY(ptr) ((ptr)->_emergency)
+#define _REENT_STRTOK_LAST(ptr) ((ptr)->_new._reent._strtok_last)
+#define _REENT_MBLEN_STATE(ptr) ((ptr)->_new._reent._mblen_state)
+#define _REENT_MBTOWC_STATE(ptr) ((ptr)->_new._reent._mbtowc_state)
+#define _REENT_WCTOMB_STATE(ptr) ((ptr)->_new._reent._wctomb_state)
+#define _REENT_MBRLEN_STATE(ptr) ((ptr)->_new._reent._mbrlen_state)
+#define _REENT_MBRTOWC_STATE(ptr) ((ptr)->_new._reent._mbrtowc_state)
+#define _REENT_MBSRTOWCS_STATE(ptr) ((ptr)->_new._reent._mbsrtowcs_state)
+#define _REENT_WCRTOMB_STATE(ptr) ((ptr)->_new._reent._wcrtomb_state)
+#define _REENT_WCSRTOMBS_STATE(ptr) ((ptr)->_new._reent._wcsrtombs_state)
+#define _REENT_L64A_BUF(ptr) ((ptr)->_new._reent._l64a_buf)
+#define _REENT_SIGNAL_BUF(ptr) ((ptr)->_new._reent._signal_buf)
+#define _REENT_GETDATE_ERR_P(ptr) (&((ptr)->_new._reent._getdate_err))
+
+
+
+#define _REENT_INIT_PTR(var) { memset((var), 0, sizeof(*(var))); _REENT_INIT_PTR_ZEROED(var); }
+
+
+
+
+
+
+
+#define _Kmax (sizeof (size_t) << 3)
+
+
+
+
+
+
+
+#define __ATTRIBUTE_IMPURE_PTR__ 
+
+
+extern struct _reent *_impure_ptr ;
+extern struct _reent *const _global_impure_ptr ;
+
+void _reclaim_reent (struct _reent *);
+# 832 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
+#define _REENT _impure_ptr
+
+
+#define _GLOBAL_REENT _global_impure_ptr
+
+
+
+
+
+#define _GLOBAL_ATEXIT (_GLOBAL_REENT->_atexit)
+# 12 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
+
+
+
+#define __need_size_t 
+#define __need_NULL 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 18 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
+# 27 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
+
+
+void * memchr (const void *, int, size_t);
+int memcmp (const void *, const void *, size_t);
+void * memcpy (void *restrict, const void *restrict, size_t);
+void * memmove (void *, const void *, size_t);
+void * memset (void *, int, size_t);
+char *strcat (char *restrict, const char *restrict);
+char *strchr (const char *, int);
+int strcmp (const char *, const char *);
+int strcoll (const char *, const char *);
+char *strcpy (char *restrict, const char *restrict);
+size_t strcspn (const char *, const char *);
+char *strerror (int);
+size_t strlen (const char *);
+char *strncat (char *restrict, const char *restrict, size_t);
+int strncmp (const char *, const char *, size_t);
+char *strncpy (char *restrict, const char *restrict, size_t);
+char *strpbrk (const char *, const char *);
+char *strrchr (const char *, int);
+size_t strspn (const char *, const char *);
+char *strstr (const char *, const char *);
+
+char *strtok (char *restrict, const char *restrict);
+
+size_t strxfrm (char *restrict, const char *restrict, size_t);
+# 86 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
+char *_strdup_r (struct _reent *, const char *);
+
+
+
+char *_strndup_r (struct _reent *, const char *, size_t);
+# 112 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
+char * _strerror_r (struct _reent *, int, int, int *);
+# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
+char *strsignal (int __signo);
+# 175 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/string.h" 1 3
+# 176 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
+
+
+# 37 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h" 1
+# 24 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+#define MBEDTLS_AES_H 
+
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/config.h" 1
+# 28 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h" 2
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 33 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h" 2
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 1 3 4
+# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 3 4
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 1 3 4
+# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define _STDINT_H 
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 1 3 4
+# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define _SYS__INTSUP_H 
+
+
+
+
+
+#define __STDINT_EXP(x) __ ##x ##__
+# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+       
+       
+       
+       
+       
+       
+       
+       
+#undef signed
+#undef unsigned
+#undef char
+#undef short
+#undef int
+#undef __int20
+#undef __int20__
+#undef long
+#define signed +0
+#define unsigned +0
+#define char +0
+#define short +1
+#define __int20 +2
+#define __int20__ +2
+#define int +2
+#define long +4
+# 67 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define _INTPTR_EQ_INT 
+
+
+
+
+
+
+#define _INT32_EQ_LONG 
+
+
+
+
+
+
+
+#define __INT8 "hh"
+# 93 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __INT16 "h"
+# 104 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __INT32 "l"
+# 113 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __INT64 "ll"
+
+
+
+
+
+
+#define __FAST8 
+# 129 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __FAST16 
+
+
+
+
+
+
+#define __FAST32 
+# 147 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __FAST64 "ll"
+
+
+
+#define __LEAST8 "hh"
+# 162 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __LEAST16 "h"
+# 173 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __LEAST32 "l"
+# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#define __LEAST64 "ll"
+
+#undef signed
+#undef unsigned
+#undef char
+#undef short
+#undef int
+#undef long
+       
+       
+       
+       
+       
+# 194 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#undef __int20
+       
+# 195 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
+#undef __int20__
+       
+       
+# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 1 3 4
+# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
+#define _SYS__STDINT_H 
+# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
+typedef __int8_t int8_t ;
+#define _INT8_T_DECLARED 
+
+
+typedef __uint8_t uint8_t ;
+#define _UINT8_T_DECLARED 
+
+#define __int8_t_defined 1
+
+
+
+
+typedef __int16_t int16_t ;
+#define _INT16_T_DECLARED 
+
+
+typedef __uint16_t uint16_t ;
+#define _UINT16_T_DECLARED 
+
+#define __int16_t_defined 1
+
+
+
+
+typedef __int32_t int32_t ;
+#define _INT32_T_DECLARED 
+
+
+typedef __uint32_t uint32_t ;
+#define _UINT32_T_DECLARED 
+
+#define __int32_t_defined 1
+
+
+
+
+typedef __int64_t int64_t ;
+#define _INT64_T_DECLARED 
+
+
+typedef __uint64_t uint64_t ;
+#define _UINT64_T_DECLARED 
+
+#define __int64_t_defined 1
+
+
+
+typedef __intmax_t intmax_t;
+#define _INTMAX_T_DECLARED 
+
+
+
+typedef __uintmax_t uintmax_t;
+#define _UINTMAX_T_DECLARED 
+
+
+
+typedef __intptr_t intptr_t;
+#define _INTPTR_T_DECLARED 
+
+
+
+typedef __uintptr_t uintptr_t;
+#define _UINTPTR_T_DECLARED 
+# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
+
+
+
+
+
+
+typedef __int_least8_t int_least8_t;
+typedef __uint_least8_t uint_least8_t;
+#define __int_least8_t_defined 1
+
+
+
+typedef __int_least16_t int_least16_t;
+typedef __uint_least16_t uint_least16_t;
+#define __int_least16_t_defined 1
+
+
+
+typedef __int_least32_t int_least32_t;
+typedef __uint_least32_t uint_least32_t;
+#define __int_least32_t_defined 1
+
+
+
+typedef __int_least64_t int_least64_t;
+typedef __uint_least64_t uint_least64_t;
+#define __int_least64_t_defined 1
+# 51 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+  typedef int int_fast8_t;
+  typedef unsigned int uint_fast8_t;
+#define __int_fast8_t_defined 1
+
+
+
+
+
+
+
+  typedef int int_fast16_t;
+  typedef unsigned int uint_fast16_t;
+#define __int_fast16_t_defined 1
+
+
+
+
+
+
+
+  typedef int int_fast32_t;
+  typedef unsigned int uint_fast32_t;
+#define __int_fast32_t_defined 1
+
+
+
+
+
+
+
+  typedef long long int int_fast64_t;
+  typedef long long unsigned int uint_fast64_t;
+#define __int_fast64_t_defined 1
+# 128 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INTPTR_MIN (-__INTPTR_MAX__ - 1)
+#define INTPTR_MAX (__INTPTR_MAX__)
+#define UINTPTR_MAX (__UINTPTR_MAX__)
+# 152 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT8_MIN (-__INT8_MAX__ - 1)
+#define INT8_MAX (__INT8_MAX__)
+#define UINT8_MAX (__UINT8_MAX__)
+
+
+
+
+
+
+
+#define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
+#define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
+#define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
+# 174 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT16_MIN (-__INT16_MAX__ - 1)
+#define INT16_MAX (__INT16_MAX__)
+#define UINT16_MAX (__UINT16_MAX__)
+
+
+
+
+
+
+
+#define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
+#define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
+#define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
+# 196 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT32_MIN (-__INT32_MAX__ - 1)
+#define INT32_MAX (__INT32_MAX__)
+#define UINT32_MAX (__UINT32_MAX__)
+# 212 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
+#define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
+#define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
+# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT64_MIN (-__INT64_MAX__ - 1)
+#define INT64_MAX (__INT64_MAX__)
+#define UINT64_MAX (__UINT64_MAX__)
+# 246 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
+#define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
+#define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
+# 262 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
+#define INT_FAST8_MAX (__INT_FAST8_MAX__)
+#define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
+# 278 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
+#define INT_FAST16_MAX (__INT_FAST16_MAX__)
+#define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
+# 294 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
+#define INT_FAST32_MAX (__INT_FAST32_MAX__)
+#define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
+# 310 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
+#define INT_FAST64_MAX (__INT_FAST64_MAX__)
+#define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
+# 326 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INTMAX_MAX (__INTMAX_MAX__)
+#define INTMAX_MIN (-INTMAX_MAX - 1)
+
+
+
+
+
+
+
+#define UINTMAX_MAX (__UINTMAX_MAX__)
+
+
+
+
+
+
+
+#define SIZE_MAX (__SIZE_MAX__)
+
+
+
+
+
+#define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
+#define SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))
+
+
+
+#define PTRDIFF_MAX (__PTRDIFF_MAX__)
+
+
+
+#define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
+
+
+
+
+#define WCHAR_MIN (__WCHAR_MIN__)
+# 374 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define WCHAR_MAX (__WCHAR_MAX__)
+# 384 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define WINT_MAX (__WINT_MAX__)
+
+
+
+
+#define WINT_MIN (__WINT_MIN__)
+
+
+
+
+
+
+#define INT8_C(x) __INT8_C(x)
+#define UINT8_C(x) __UINT8_C(x)
+# 408 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT16_C(x) __INT16_C(x)
+#define UINT16_C(x) __UINT16_C(x)
+# 420 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT32_C(x) __INT32_C(x)
+#define UINT32_C(x) __UINT32_C(x)
+# 433 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INT64_C(x) __INT64_C(x)
+#define UINT64_C(x) __UINT64_C(x)
+# 449 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
+#define INTMAX_C(x) __INTMAX_C(x)
+#define UINTMAX_C(x) __UINTMAX_C(x)
+# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 2 3 4
+
+
+
+#define _GCC_WRAP_STDINT_H 
+# 34 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h" 2
+
+
+#define MBEDTLS_AES_ENCRYPT 1
+#define MBEDTLS_AES_DECRYPT 0
+
+#define MBEDTLS_ERR_AES_INVALID_KEY_LENGTH -0x0020
+#define MBEDTLS_ERR_AES_INVALID_INPUT_LENGTH -0x0022
+# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+
+# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+typedef struct
+{
+    int nr;
+    uint32_t *rk;
+    uint32_t buf[68];
+}
+mbedtls_aes_context;
+
+
+
+
+
+
+void mbedtls_aes_init( mbedtls_aes_context *ctx );
+
+
+
+
+
+
+void mbedtls_aes_free( mbedtls_aes_context *ctx );
+# 89 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
+                    unsigned int keybits );
+# 101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_setkey_dec( mbedtls_aes_context *ctx, const unsigned char *key,
+                    unsigned int keybits );
+# 114 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
+                    int mode,
+                    const unsigned char input[16],
+                    unsigned char output[16] );
+# 142 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
+                    int mode,
+                    size_t length,
+                    unsigned char iv[16],
+                    const unsigned char *input,
+                    unsigned char *output );
+# 176 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
+                       int mode,
+                       size_t length,
+                       size_t *iv_off,
+                       unsigned char iv[16],
+                       const unsigned char *input,
+                       unsigned char *output );
+# 208 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
+                    int mode,
+                    size_t length,
+                    unsigned char iv[16],
+                    const unsigned char *input,
+                    unsigned char *output );
+# 239 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
+                       size_t length,
+                       size_t *nc_off,
+                       unsigned char nonce_counter[16],
+                       unsigned char stream_block[16],
+                       const unsigned char *input,
+                       unsigned char *output );
+# 257 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
+                          const unsigned char input[16],
+                          unsigned char output[16] );
+# 270 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+void mbedtls_aes_decrypt( mbedtls_aes_context *ctx,
+                          const unsigned char input[16],
+                          unsigned char output[16] );
+# 291 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h"
+int mbedtls_aes_self_test( int verbose );
+# 39 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/padlock.h" 1
+# 25 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/padlock.h"
+#define MBEDTLS_PADLOCK_H 
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aes.h" 1
+# 28 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/padlock.h" 2
+
+#define MBEDTLS_ERR_PADLOCK_DATA_MISALIGNED -0x0030
+# 41 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aesni.h" 1
+# 24 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/aesni.h"
+#define MBEDTLS_AESNI_H 
+
+
+
+#define MBEDTLS_AESNI_AES 0x02000000u
+#define MBEDTLS_AESNI_CLMUL 0x00000002u
+# 44 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+
+
+
+
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h" 1
+# 24 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+#define MBEDTLS_PLATFORM_H 
+# 33 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h" 1
+# 24 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h"
+#define MBEDTLS_PLATFORM_TIME_H 
+# 51 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h"
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 1 3
+
+
+
+
+
+
+
+#define _TIME_H_ 
+
+
+
+
+
+#define __need_size_t 
+#define __need_NULL 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 17 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 2 3
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/time.h" 1 3
+
+#define _MACHTIME_H_ 
+
+
+
+
+#define _CLOCKS_PER_SEC_ 100
+# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 2 3
+
+
+
+
+
+#define CLOCKS_PER_SEC _CLOCKS_PER_SEC_
+#define CLK_TCK CLOCKS_PER_SEC
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 1 3
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+
+# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __uint8_t u_int8_t;
+
+
+typedef __uint16_t u_int16_t;
+
+
+typedef __uint32_t u_int32_t;
+
+
+typedef __uint64_t u_int64_t;
+
+typedef __intptr_t register_t;
+#define __BIT_TYPES_DEFINED__ 1
+
+
+
+#define _SYS_TYPES_H 
+# 97 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __blkcnt_t blkcnt_t;
+#define _BLKCNT_T_DECLARED 
+
+
+
+typedef __blksize_t blksize_t;
+#define _BLKSIZE_T_DECLARED 
+
+
+
+typedef unsigned long clock_t;
+#define __clock_t_defined 
+#define _CLOCK_T_DECLARED 
+
+
+
+typedef __int_least64_t time_t;
+#define __time_t_defined 
+#define _TIME_T_DECLARED 
+
+
+
+typedef long daddr_t;
+#define __daddr_t_defined 
+
+
+typedef char * caddr_t;
+#define __caddr_t_defined 
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+typedef __fsfilcnt_t fsfilcnt_t;
+#define _FSBLKCNT_T_DECLARED 
+
+
+
+typedef __id_t id_t;
+#define _ID_T_DECLARED 
+
+
+
+typedef __ino_t ino_t;
+#define _INO_T_DECLARED 
+# 157 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 3
+typedef __off_t off_t;
+#define _OFF_T_DECLARED 
+
+
+typedef __dev_t dev_t;
+#define _DEV_T_DECLARED 
+
+
+typedef __uid_t uid_t;
+#define _UID_T_DECLARED 
+
+
+typedef __gid_t gid_t;
+#define _GID_T_DECLARED 
+
+
+
+typedef __pid_t pid_t;
+#define _PID_T_DECLARED 
+
+
+
+typedef __key_t key_t;
+#define _KEY_T_DECLARED 
+
+
+
+typedef _ssize_t ssize_t;
+#define _SSIZE_T_DECLARED 
+
+
+
+typedef __mode_t mode_t;
+#define _MODE_T_DECLARED 
+
+
+
+typedef __nlink_t nlink_t;
+#define _NLINK_T_DECLARED 
+
+
+
+typedef __clockid_t clockid_t;
+#define __clockid_t_defined 
+#define _CLOCKID_T_DECLARED 
+
+
+
+typedef __timer_t timer_t;
+#define __timer_t_defined 
+#define _TIMER_T_DECLARED 
+
+
+
+typedef __useconds_t useconds_t;
+#define _USECONDS_T_DECLARED 
+
+
+
+typedef __suseconds_t suseconds_t;
+#define _SUSECONDS_T_DECLARED 
+
+
+typedef __int64_t sbintime_t;
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_pthreadtypes.h" 1 3
+# 19 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_pthreadtypes.h" 3
+#define _SYS__PTHREADTYPES_H_ 
+# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/types.h" 1 3
+# 225 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/types.h" 2 3
+
+
+
+#undef __need_inttypes
+# 29 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 2 3
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/timespec.h" 1 3
+# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/timespec.h" 3
+#define _SYS_TIMESPEC_H_ 
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_timespec.h" 1 3
+# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_timespec.h" 3
+#define _SYS__TIMESPEC_H_ 
+# 47 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_timespec.h" 3
+struct timespec {
+ time_t tv_sec;
+ long tv_nsec;
+};
+# 39 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/timespec.h" 2 3
+# 58 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/timespec.h" 3
+struct itimerspec {
+ struct timespec it_interval;
+ struct timespec it_value;
+};
+# 30 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 2 3
+
+
+
+
+
+
+
+struct tm
+{
+  int tm_sec;
+  int tm_min;
+  int tm_hour;
+  int tm_mday;
+  int tm_mon;
+  int tm_year;
+  int tm_wday;
+  int tm_yday;
+  int tm_isdst;
+
+
+
+
+
+
+};
+
+clock_t clock (void);
+double difftime (time_t _time2, time_t _time1);
+time_t mktime (struct tm *_timeptr);
+time_t time (time_t *_timer);
+
+char *asctime (const struct tm *_tblock);
+char *ctime (const time_t *_time);
+struct tm *gmtime (const time_t *_timer);
+struct tm *localtime (const time_t *_timer);
+
+size_t strftime (char *restrict _s,
+        size_t _maxsize, const char *restrict _fmt,
+        const struct tm *restrict _t);
+
+
+
+
+
+
+
+char *asctime_r (const struct tm *restrict,
+     char *restrict);
+char *ctime_r (const time_t *, char *);
+struct tm *gmtime_r (const time_t *restrict,
+     struct tm *restrict);
+struct tm *localtime_r (const time_t *restrict,
+     struct tm *restrict);
+
+
+# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 3
+void _tzset_r (struct _reent *);
+
+typedef struct __tzrule_struct
+{
+  char ch;
+  int m;
+  int n;
+  int d;
+  int s;
+  time_t change;
+  long offset;
+} __tzrule_type;
+
+typedef struct __tzinfo_struct
+{
+  int __tznorth;
+  int __tzyear;
+  __tzrule_type __tzrule[2];
+} __tzinfo_type;
+
+__tzinfo_type *__gettzinfo (void);
+# 240 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/time.h" 3
+#define CLOCK_ENABLED 1
+#define CLOCK_DISABLED 0
+
+
+
+#define CLOCK_ALLOWED 1
+
+
+#define CLOCK_DISALLOWED 0
+
+
+
+
+
+
+#define TIMER_ABSTIME 4
+
+
+
+
+
+
+
+#define CLOCK_REALTIME ((clockid_t) 1)
+# 52 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h" 2
+
+# 52 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h"
+typedef time_t mbedtls_time_t;
+# 73 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform_time.h"
+#define mbedtls_time time
+# 34 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h" 2
+# 49 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 1 3
+# 27 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define _STDIO_H_ 
+
+
+
+#define _FSTDIO 
+
+#define __need_size_t 
+#define __need_NULL 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+
+
+#define __need___va_list 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 1 3 4
+# 34 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 3 4
+#undef __need___va_list
+
+
+
+
+#define __GNUC_VA_LIST 
+
+# 40 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 3 4
+typedef __builtin_va_list __gnuc_va_list;
+# 41 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+# 63 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+
+
+
+typedef __FILE FILE;
+#define __FILE_defined 
+
+
+
+
+
+typedef _fpos_t fpos_t;
+
+
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/stdio.h" 1 3
+
+#define _NEWLIB_STDIO_H 
+# 13 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/stdio.h" 3
+#define _flockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_acquire_recursive((fp)->_lock))
+
+
+
+
+
+
+
+#define _funlockfile(fp) (((fp)->_flags & __SSTR) ? 0 : __lock_release_recursive((fp)->_lock))
+# 80 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 2 3
+
+#define __SLBF 0x0001
+#define __SNBF 0x0002
+#define __SRD 0x0004
+#define __SWR 0x0008
+
+#define __SRW 0x0010
+#define __SEOF 0x0020
+#define __SERR 0x0040
+#define __SMBF 0x0080
+#define __SAPP 0x0100
+#define __SSTR 0x0200
+#define __SOPT 0x0400
+#define __SNPT 0x0800
+#define __SOFF 0x1000
+#define __SORD 0x2000
+
+
+
+#define __SL64 0x8000
+
+
+#define __SNLK 0x0001
+#define __SWID 0x2000
+# 114 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define _IOFBF 0
+#define _IOLBF 1
+#define _IONBF 2
+
+#define EOF (-1)
+
+
+
+
+#define BUFSIZ 1024
+
+
+
+
+
+#define FOPEN_MAX 20
+
+
+
+
+
+#define FILENAME_MAX 1024
+
+
+
+
+
+#define L_tmpnam FILENAME_MAX
+
+
+
+
+
+
+
+#define SEEK_SET 0
+
+
+#define SEEK_CUR 1
+
+
+#define SEEK_END 2
+
+
+#define TMP_MAX 26
+
+#define stdin (_REENT->_stdin)
+#define stdout (_REENT->_stdout)
+#define stderr (_REENT->_stderr)
+
+#define _stdin_r(x) ((x)->_stdin)
+#define _stdout_r(x) ((x)->_stdout)
+#define _stderr_r(x) ((x)->_stderr)
+
+
+
+
+
+
+
+#define __VALIST __gnuc_va_list
+# 186 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+FILE * tmpfile (void);
+char * tmpnam (char *);
+
+
+
+int fclose (FILE *);
+int fflush (FILE *);
+FILE * freopen (const char *restrict, const char *restrict, FILE *restrict);
+void setbuf (FILE *restrict, char *restrict);
+int setvbuf (FILE *restrict, char *restrict, int, size_t);
+int fprintf (FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int fscanf (FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int printf (const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 1, 2)));
+int scanf (const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 1, 2)));
+int sscanf (const char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int vfprintf (FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int vprintf (const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 1, 0)));
+int vsprintf (char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int fgetc (FILE *);
+char * fgets (char *restrict, int, FILE *restrict);
+int fputc (int, FILE *);
+int fputs (const char *restrict, FILE *restrict);
+int getc (FILE *);
+int getchar (void);
+char * gets (char *);
+int putc (int, FILE *);
+int putchar (int);
+int puts (const char *);
+int ungetc (int, FILE *);
+size_t fread (void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t fwrite (const void *restrict , size_t _size, size_t _n, FILE *);
+
+
+
+int fgetpos (FILE *restrict, fpos_t *restrict);
+
+int fseek (FILE *, long, int);
+
+
+
+int fsetpos (FILE *, const fpos_t *);
+
+long ftell ( FILE *);
+void rewind (FILE *);
+void clearerr (FILE *);
+int feof (FILE *);
+int ferror (FILE *);
+void perror (const char *);
+
+FILE * fopen (const char *restrict _name, const char *restrict _type);
+int sprintf (char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int remove (const char *);
+int rename (const char *, const char *);
+# 266 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int snprintf (char *restrict, size_t, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int vsnprintf (char *restrict, size_t, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int vfscanf (FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int vscanf (const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 1, 0)));
+int vsscanf (const char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 396 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int _asiprintf_r (struct _reent *, char **, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+char * _asniprintf_r (struct _reent *, char *, size_t *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+char * _asnprintf_r (struct _reent *, char *restrict, size_t *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _asprintf_r (struct _reent *, char **restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _diprintf_r (struct _reent *, int, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _dprintf_r (struct _reent *, int, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fclose_r (struct _reent *, FILE *);
+int _fcloseall_r (struct _reent *);
+FILE * _fdopen_r (struct _reent *, int, const char *);
+int _fflush_r (struct _reent *, FILE *);
+int _fgetc_r (struct _reent *, FILE *);
+int _fgetc_unlocked_r (struct _reent *, FILE *);
+char * _fgets_r (struct _reent *, char *restrict, int, FILE *restrict);
+char * _fgets_unlocked_r (struct _reent *, char *restrict, int, FILE *restrict);
+
+
+
+
+int _fgetpos_r (struct _reent *, FILE *, fpos_t *);
+int _fsetpos_r (struct _reent *, FILE *, const fpos_t *);
+
+int _fiprintf_r (struct _reent *, FILE *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fiscanf_r (struct _reent *, FILE *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+FILE * _fmemopen_r (struct _reent *, void *restrict, size_t, const char *restrict);
+FILE * _fopen_r (struct _reent *, const char *restrict, const char *restrict);
+FILE * _freopen_r (struct _reent *, const char *restrict, const char *restrict, FILE *restrict);
+int _fprintf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _fpurge_r (struct _reent *, FILE *);
+int _fputc_r (struct _reent *, int, FILE *);
+int _fputc_unlocked_r (struct _reent *, int, FILE *);
+int _fputs_r (struct _reent *, const char *restrict, FILE *restrict);
+int _fputs_unlocked_r (struct _reent *, const char *restrict, FILE *restrict);
+size_t _fread_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t _fread_unlocked_r (struct _reent *, void *restrict, size_t _size, size_t _n, FILE *restrict);
+int _fscanf_r (struct _reent *, FILE *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+int _fseek_r (struct _reent *, FILE *, long, int);
+int _fseeko_r (struct _reent *, FILE *, _off_t, int);
+long _ftell_r (struct _reent *, FILE *);
+_off_t _ftello_r (struct _reent *, FILE *);
+void _rewind_r (struct _reent *, FILE *);
+size_t _fwrite_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
+size_t _fwrite_unlocked_r (struct _reent *, const void *restrict, size_t _size, size_t _n, FILE *restrict);
+int _getc_r (struct _reent *, FILE *);
+int _getc_unlocked_r (struct _reent *, FILE *);
+int _getchar_r (struct _reent *);
+int _getchar_unlocked_r (struct _reent *);
+char * _gets_r (struct _reent *, char *);
+int _iprintf_r (struct _reent *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int _iscanf_r (struct _reent *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+FILE * _open_memstream_r (struct _reent *, char **, size_t *);
+void _perror_r (struct _reent *, const char *);
+int _printf_r (struct _reent *, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 2, 3)));
+int _putc_r (struct _reent *, int, FILE *);
+int _putc_unlocked_r (struct _reent *, int, FILE *);
+int _putchar_unlocked_r (struct _reent *, int);
+int _putchar_r (struct _reent *, int);
+int _puts_r (struct _reent *, const char *);
+int _remove_r (struct _reent *, const char *);
+int _rename_r (struct _reent *,
+      const char *_old, const char *_new);
+int _scanf_r (struct _reent *, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 2, 3)));
+int _siprintf_r (struct _reent *, char *, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _siscanf_r (struct _reent *, const char *, const char *, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+int _sniprintf_r (struct _reent *, char *, size_t, const char *, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _snprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 4, 5)));
+int _sprintf_r (struct _reent *, char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__printf__, 3, 4)));
+int _sscanf_r (struct _reent *, const char *restrict, const char *restrict, ...)
+               __attribute__ ((__format__ (__scanf__, 3, 4)));
+char * _tempnam_r (struct _reent *, const char *, const char *);
+FILE * _tmpfile_r (struct _reent *);
+char * _tmpnam_r (struct _reent *, char *);
+int _ungetc_r (struct _reent *, int, FILE *);
+int _vasiprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+char * _vasniprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+char * _vasnprintf_r (struct _reent*, char *, size_t *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vasprintf_r (struct _reent *, char **, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vdiprintf_r (struct _reent *, int, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vdprintf_r (struct _reent *, int, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfiprintf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfiscanf_r (struct _reent *, FILE *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _vfprintf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vfscanf_r (struct _reent *, FILE *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _viprintf_r (struct _reent *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int _viscanf_r (struct _reent *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int _vprintf_r (struct _reent *, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 2, 0)));
+int _vscanf_r (struct _reent *, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 2, 0)));
+int _vsiprintf_r (struct _reent *, char *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vsiscanf_r (struct _reent *, const char *, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+int _vsniprintf_r (struct _reent *, char *, size_t, const char *, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vsnprintf_r (struct _reent *, char *restrict, size_t, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 4, 0)));
+int _vsprintf_r (struct _reent *, char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__printf__, 3, 0)));
+int _vsscanf_r (struct _reent *, const char *restrict, const char *restrict, __gnuc_va_list)
+               __attribute__ ((__format__ (__scanf__, 3, 0)));
+
+
+
+int fpurge (FILE *);
+ssize_t __getdelim (char **, size_t *, int, FILE *);
+ssize_t __getline (char **, size_t *, FILE *);
+# 577 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+int __srget_r (struct _reent *, FILE *);
+int __swbuf_r (struct _reent *, int, FILE *);
+# 654 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sgetc_raw_r(__ptr,__f) (--(__f)->_r < 0 ? __srget_r(__ptr, __f) : (int)(*(__f)->_p++))
+# 683 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sgetc_r(__ptr,__p) __sgetc_raw_r(__ptr, __p)
+
+
+
+static __inline__ int __sputc_r(struct _reent *_ptr, int _c, FILE *_p) {
+
+
+
+
+ if (--_p->_w >= 0 || (_p->_w >= _p->_lbfsize && (char)_c != '\n'))
+  return (*_p->_p++ = _c);
+ else
+  return (__swbuf_r(_ptr, _c, _p));
+}
+# 719 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+#define __sfeof(p) ((int)(((p)->_flags & __SEOF) != 0))
+#define __sferror(p) ((int)(((p)->_flags & __SERR) != 0))
+#define __sclearerr(p) ((void)((p)->_flags &= ~(__SERR|__SEOF)))
+#define __sfileno(p) ((p)->_file)
+
+
+
+#define feof(p) __sfeof(p)
+#define ferror(p) __sferror(p)
+#define clearerr(p) __sclearerr(p)
+# 741 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+static __inline int
+_getchar_unlocked(void)
+{
+ struct _reent *_ptr;
+
+ _ptr = _impure_ptr;
+ return ((--(((_ptr)->_stdin))->_r < 0 ? __srget_r(_ptr, ((_ptr)->_stdin)) : (int)(*(((_ptr)->_stdin))->_p++)));
+}
+
+static __inline int
+_putchar_unlocked(int _c)
+{
+ struct _reent *_ptr;
+
+ _ptr = _impure_ptr;
+ return (__sputc_r(_ptr, _c, ((_ptr)->_stdout)));
+}
+# 797 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdio.h" 3
+
+# 50 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h" 2
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 1 3
+
+
+
+
+
+
+
+#define _STDLIB_H_ 
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 1 3
+# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
+
+
+#define __need_size_t 
+#define __need_wchar_t 
+#define __need_NULL 
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
+# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_ptrdiff_t
+# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef __need_wchar_t
+# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+
+
+
+
+#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
+# 17 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
+
+
+
+# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/stdlib.h" 1 3
+
+#define _MACHSTDLIB_H_ 
+# 21 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
+# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+
+
+typedef struct
+{
+  int quot;
+  int rem;
+} div_t;
+
+typedef struct
+{
+  long quot;
+  long rem;
+} ldiv_t;
+
+
+typedef struct
+{
+  long long int quot;
+  long long int rem;
+} lldiv_t;
+
+
+
+#define __compar_fn_t_defined 
+typedef int (*__compar_fn_t) (const void *, const void *);
+
+
+#define EXIT_FAILURE 1
+#define EXIT_SUCCESS 0
+
+#define RAND_MAX __RAND_MAX
+
+int __locale_mb_cur_max (void);
+
+#define MB_CUR_MAX __locale_mb_cur_max()
+
+void abort (void) __attribute__ ((__noreturn__));
+int abs (int);
+
+
+
+
+
+int atexit (void (*__func)(void));
+double atof (const char *__nptr);
+
+
+
+int atoi (const char *__nptr);
+int _atoi_r (struct _reent *, const char *__nptr);
+long atol (const char *__nptr);
+long _atol_r (struct _reent *, const char *__nptr);
+void * bsearch (const void *__key,
+         const void *__base,
+         size_t __nmemb,
+         size_t __size,
+         __compar_fn_t _compar);
+void *calloc(size_t, size_t) __attribute__((__malloc__)) __attribute__((__warn_unused_result__))
+      __attribute__((__alloc_size__(1, 2))) ;
+div_t div (int __numer, int __denom);
+void exit (int __status) __attribute__ ((__noreturn__));
+void free (void *) ;
+char * getenv (const char *__string);
+char * _getenv_r (struct _reent *, const char *__string);
+
+
+
+char * _findenv (const char *, int *);
+char * _findenv_r (struct _reent *, const char *, int *);
+
+
+
+
+long labs (long);
+ldiv_t ldiv (long __numer, long __denom);
+void *malloc(size_t) __attribute__((__malloc__)) __attribute__((__warn_unused_result__)) __attribute__((__alloc_size__(1))) ;
+int mblen (const char *, size_t);
+int _mblen_r (struct _reent *, const char *, size_t, _mbstate_t *);
+int mbtowc (wchar_t *restrict, const char *restrict, size_t);
+int _mbtowc_r (struct _reent *, wchar_t *restrict, const char *restrict, size_t, _mbstate_t *);
+int wctomb (char *, wchar_t);
+int _wctomb_r (struct _reent *, char *, wchar_t, _mbstate_t *);
+size_t mbstowcs (wchar_t *restrict, const char *restrict, size_t);
+size_t _mbstowcs_r (struct _reent *, wchar_t *restrict, const char *restrict, size_t, _mbstate_t *);
+size_t wcstombs (char *restrict, const wchar_t *restrict, size_t);
+size_t _wcstombs_r (struct _reent *, char *restrict, const wchar_t *restrict, size_t, _mbstate_t *);
+# 137 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+char * _mkdtemp_r (struct _reent *, char *);
+int _mkostemp_r (struct _reent *, char *, int);
+int _mkostemps_r (struct _reent *, char *, int, int);
+int _mkstemp_r (struct _reent *, char *);
+int _mkstemps_r (struct _reent *, char *, int);
+char * _mktemp_r (struct _reent *, char *) __attribute__ ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")));
+void qsort (void *__base, size_t __nmemb, size_t __size, __compar_fn_t _compar);
+int rand (void);
+void *realloc(void *, size_t) __attribute__((__warn_unused_result__)) __attribute__((__alloc_size__(2))) ;
+# 159 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+void srand (unsigned __seed);
+double strtod (const char *restrict __n, char **restrict __end_PTR);
+double _strtod_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR);
+
+float strtof (const char *restrict __n, char **restrict __end_PTR);
+
+
+
+
+
+
+
+long strtol (const char *restrict __n, char **restrict __end_PTR, int __base);
+long _strtol_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR, int __base);
+unsigned long strtoul (const char *restrict __n, char **restrict __end_PTR, int __base);
+unsigned long _strtoul_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR, int __base);
+# 191 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+int system (const char *__string);
+# 202 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+void _Exit (int __status) __attribute__ ((__noreturn__));
+
+
+
+
+int _putenv_r (struct _reent *, char *__string);
+void * _reallocf_r (struct _reent *, void *, size_t);
+
+
+
+int _setenv_r (struct _reent *, const char *__string, const char *__value, int __overwrite);
+# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+char * __itoa (int, char *, int);
+char * __utoa (unsigned, char *, int);
+# 263 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+long long atoll (const char *__nptr);
+
+long long _atoll_r (struct _reent *, const char *__nptr);
+
+long long llabs (long long);
+lldiv_t lldiv (long long __numer, long long __denom);
+long long strtoll (const char *restrict __n, char **restrict __end_PTR, int __base);
+
+long long _strtoll_r (struct _reent *, const char *restrict __n, char **restrict __end_PTR, int __base);
+
+unsigned long long strtoull (const char *restrict __n, char **restrict __end_PTR, int __base);
+
+unsigned long long _strtoull_r (struct _reent *, const char *restrict __n, char **restrict __end_PTR, int __base);
+# 284 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+int _unsetenv_r (struct _reent *, const char *__string);
+
+
+
+
+
+
+
+char * _dtoa_r (struct _reent *, double, int, int, int *, int*, char**);
+
+void * _malloc_r (struct _reent *, size_t) ;
+void * _calloc_r (struct _reent *, size_t, size_t) ;
+void _free_r (struct _reent *, void *) ;
+void * _realloc_r (struct _reent *, void *, size_t) ;
+void _mstats_r (struct _reent *, char *);
+
+int _system_r (struct _reent *, const char *);
+
+void __eprintf (const char *, const char *, unsigned int, const char *);
+# 322 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+extern long double _strtold_r (struct _reent *, const char *restrict, char **restrict);
+
+extern long double strtold (const char *restrict, char **restrict);
+# 339 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
+
+# 51 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h" 2
+
+
+
+
+
+#define MBEDTLS_PLATFORM_STD_SNPRINTF snprintf
+
+
+
+#define MBEDTLS_PLATFORM_STD_PRINTF printf
+
+
+#define MBEDTLS_PLATFORM_STD_FPRINTF fprintf
+
+
+#define MBEDTLS_PLATFORM_STD_CALLOC calloc
+
+
+#define MBEDTLS_PLATFORM_STD_FREE free
+
+
+#define MBEDTLS_PLATFORM_STD_EXIT exit
+
+
+#define MBEDTLS_PLATFORM_STD_TIME time
+
+
+#define MBEDTLS_PLATFORM_STD_EXIT_SUCCESS EXIT_SUCCESS
+
+
+#define MBEDTLS_PLATFORM_STD_EXIT_FAILURE EXIT_FAILURE
+
+
+
+#define MBEDTLS_PLATFORM_STD_NV_SEED_READ mbedtls_platform_std_nv_seed_read
+
+
+#define MBEDTLS_PLATFORM_STD_NV_SEED_WRITE mbedtls_platform_std_nv_seed_write
+
+
+#define MBEDTLS_PLATFORM_STD_NV_SEED_FILE "seedfile"
+# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+#define mbedtls_free free
+#define mbedtls_calloc calloc
+# 154 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+#define mbedtls_fprintf fprintf
+# 176 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
 #define mbedtls_printf printf
-#endif /* MBEDTLS_PLATFORM_C */
-#endif /* MBEDTLS_SELF_TEST */
+# 210 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+#define mbedtls_snprintf snprintf
+# 232 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/include/mbedtls/platform.h"
+#define mbedtls_exit exit
 
-#if !defined(MBEDTLS_AES_ALT)
 
-/* Implementation that should never be optimized out by the compiler */
+
+
+
+
+
+#define MBEDTLS_EXIT_SUCCESS MBEDTLS_PLATFORM_STD_EXIT_SUCCESS
+
+
+
+
+#define MBEDTLS_EXIT_FAILURE MBEDTLS_PLATFORM_STD_EXIT_FAILURE
+# 49 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 2
+# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+
+# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 static void mbedtls_zeroize( void *v, size_t n ) {
     volatile unsigned char *p = (unsigned char*)v; while( n-- ) *p++ = 0;
 }
 
-/*
- * 32-bit integer manipulation macros (little endian)
- */
-#ifndef GET_UINT32_LE
-#define GET_UINT32_LE(n,b,i)                            \
-{                                                       \
-    (n) = ( (uint32_t) (b)[(i)    ]       )             \
-        | ( (uint32_t) (b)[(i) + 1] <<  8 )             \
-        | ( (uint32_t) (b)[(i) + 2] << 16 )             \
-        | ( (uint32_t) (b)[(i) + 3] << 24 );            \
-}
-#endif
 
-#ifndef PUT_UINT32_LE
-#define PUT_UINT32_LE(n,b,i)                                    \
-{                                                               \
-    (b)[(i)    ] = (unsigned char) ( ( (n)       ) & 0xFF );    \
-    (b)[(i) + 1] = (unsigned char) ( ( (n) >>  8 ) & 0xFF );    \
-    (b)[(i) + 2] = (unsigned char) ( ( (n) >> 16 ) & 0xFF );    \
-    (b)[(i) + 3] = (unsigned char) ( ( (n) >> 24 ) & 0xFF );    \
-}
-#endif
 
-#if defined(MBEDTLS_PADLOCK_C) &&                      \
-    ( defined(MBEDTLS_HAVE_X86) || defined(MBEDTLS_PADLOCK_ALIGN16) )
-static int aes_padlock_ace = -1;
-#endif
 
-#if defined(MBEDTLS_AES_ROM_TABLES)
-/*
- * Forward S-box
- */
-static const unsigned char FSb[256] =
-{
-    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5,
-    0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
-    0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0,
-    0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
-    0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC,
-    0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15,
-    0x04, 0xC7, 0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A,
-    0x07, 0x12, 0x80, 0xE2, 0xEB, 0x27, 0xB2, 0x75,
-    0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E, 0x5A, 0xA0,
-    0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84,
-    0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B,
-    0x6A, 0xCB, 0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF,
-    0xD0, 0xEF, 0xAA, 0xFB, 0x43, 0x4D, 0x33, 0x85,
-    0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C, 0x9F, 0xA8,
-    0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5,
-    0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2,
-    0xCD, 0x0C, 0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17,
-    0xC4, 0xA7, 0x7E, 0x3D, 0x64, 0x5D, 0x19, 0x73,
-    0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A, 0x90, 0x88,
-    0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB,
-    0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C,
-    0xC2, 0xD3, 0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79,
-    0xE7, 0xC8, 0x37, 0x6D, 0x8D, 0xD5, 0x4E, 0xA9,
-    0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A, 0xAE, 0x08,
-    0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6,
-    0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A,
-    0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E,
-    0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E,
-    0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94,
-    0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
-    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68,
-    0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16
-};
 
-/*
- * Forward tables
- */
-#define FT \
-\
-    V(A5,63,63,C6), V(84,7C,7C,F8), V(99,77,77,EE), V(8D,7B,7B,F6), \
-    V(0D,F2,F2,FF), V(BD,6B,6B,D6), V(B1,6F,6F,DE), V(54,C5,C5,91), \
-    V(50,30,30,60), V(03,01,01,02), V(A9,67,67,CE), V(7D,2B,2B,56), \
-    V(19,FE,FE,E7), V(62,D7,D7,B5), V(E6,AB,AB,4D), V(9A,76,76,EC), \
-    V(45,CA,CA,8F), V(9D,82,82,1F), V(40,C9,C9,89), V(87,7D,7D,FA), \
-    V(15,FA,FA,EF), V(EB,59,59,B2), V(C9,47,47,8E), V(0B,F0,F0,FB), \
-    V(EC,AD,AD,41), V(67,D4,D4,B3), V(FD,A2,A2,5F), V(EA,AF,AF,45), \
-    V(BF,9C,9C,23), V(F7,A4,A4,53), V(96,72,72,E4), V(5B,C0,C0,9B), \
-    V(C2,B7,B7,75), V(1C,FD,FD,E1), V(AE,93,93,3D), V(6A,26,26,4C), \
-    V(5A,36,36,6C), V(41,3F,3F,7E), V(02,F7,F7,F5), V(4F,CC,CC,83), \
-    V(5C,34,34,68), V(F4,A5,A5,51), V(34,E5,E5,D1), V(08,F1,F1,F9), \
-    V(93,71,71,E2), V(73,D8,D8,AB), V(53,31,31,62), V(3F,15,15,2A), \
-    V(0C,04,04,08), V(52,C7,C7,95), V(65,23,23,46), V(5E,C3,C3,9D), \
-    V(28,18,18,30), V(A1,96,96,37), V(0F,05,05,0A), V(B5,9A,9A,2F), \
-    V(09,07,07,0E), V(36,12,12,24), V(9B,80,80,1B), V(3D,E2,E2,DF), \
-    V(26,EB,EB,CD), V(69,27,27,4E), V(CD,B2,B2,7F), V(9F,75,75,EA), \
-    V(1B,09,09,12), V(9E,83,83,1D), V(74,2C,2C,58), V(2E,1A,1A,34), \
-    V(2D,1B,1B,36), V(B2,6E,6E,DC), V(EE,5A,5A,B4), V(FB,A0,A0,5B), \
-    V(F6,52,52,A4), V(4D,3B,3B,76), V(61,D6,D6,B7), V(CE,B3,B3,7D), \
-    V(7B,29,29,52), V(3E,E3,E3,DD), V(71,2F,2F,5E), V(97,84,84,13), \
-    V(F5,53,53,A6), V(68,D1,D1,B9), V(00,00,00,00), V(2C,ED,ED,C1), \
-    V(60,20,20,40), V(1F,FC,FC,E3), V(C8,B1,B1,79), V(ED,5B,5B,B6), \
-    V(BE,6A,6A,D4), V(46,CB,CB,8D), V(D9,BE,BE,67), V(4B,39,39,72), \
-    V(DE,4A,4A,94), V(D4,4C,4C,98), V(E8,58,58,B0), V(4A,CF,CF,85), \
-    V(6B,D0,D0,BB), V(2A,EF,EF,C5), V(E5,AA,AA,4F), V(16,FB,FB,ED), \
-    V(C5,43,43,86), V(D7,4D,4D,9A), V(55,33,33,66), V(94,85,85,11), \
-    V(CF,45,45,8A), V(10,F9,F9,E9), V(06,02,02,04), V(81,7F,7F,FE), \
-    V(F0,50,50,A0), V(44,3C,3C,78), V(BA,9F,9F,25), V(E3,A8,A8,4B), \
-    V(F3,51,51,A2), V(FE,A3,A3,5D), V(C0,40,40,80), V(8A,8F,8F,05), \
-    V(AD,92,92,3F), V(BC,9D,9D,21), V(48,38,38,70), V(04,F5,F5,F1), \
-    V(DF,BC,BC,63), V(C1,B6,B6,77), V(75,DA,DA,AF), V(63,21,21,42), \
-    V(30,10,10,20), V(1A,FF,FF,E5), V(0E,F3,F3,FD), V(6D,D2,D2,BF), \
-    V(4C,CD,CD,81), V(14,0C,0C,18), V(35,13,13,26), V(2F,EC,EC,C3), \
-    V(E1,5F,5F,BE), V(A2,97,97,35), V(CC,44,44,88), V(39,17,17,2E), \
-    V(57,C4,C4,93), V(F2,A7,A7,55), V(82,7E,7E,FC), V(47,3D,3D,7A), \
-    V(AC,64,64,C8), V(E7,5D,5D,BA), V(2B,19,19,32), V(95,73,73,E6), \
-    V(A0,60,60,C0), V(98,81,81,19), V(D1,4F,4F,9E), V(7F,DC,DC,A3), \
-    V(66,22,22,44), V(7E,2A,2A,54), V(AB,90,90,3B), V(83,88,88,0B), \
-    V(CA,46,46,8C), V(29,EE,EE,C7), V(D3,B8,B8,6B), V(3C,14,14,28), \
-    V(79,DE,DE,A7), V(E2,5E,5E,BC), V(1D,0B,0B,16), V(76,DB,DB,AD), \
-    V(3B,E0,E0,DB), V(56,32,32,64), V(4E,3A,3A,74), V(1E,0A,0A,14), \
-    V(DB,49,49,92), V(0A,06,06,0C), V(6C,24,24,48), V(E4,5C,5C,B8), \
-    V(5D,C2,C2,9F), V(6E,D3,D3,BD), V(EF,AC,AC,43), V(A6,62,62,C4), \
-    V(A8,91,91,39), V(A4,95,95,31), V(37,E4,E4,D3), V(8B,79,79,F2), \
-    V(32,E7,E7,D5), V(43,C8,C8,8B), V(59,37,37,6E), V(B7,6D,6D,DA), \
-    V(8C,8D,8D,01), V(64,D5,D5,B1), V(D2,4E,4E,9C), V(E0,A9,A9,49), \
-    V(B4,6C,6C,D8), V(FA,56,56,AC), V(07,F4,F4,F3), V(25,EA,EA,CF), \
-    V(AF,65,65,CA), V(8E,7A,7A,F4), V(E9,AE,AE,47), V(18,08,08,10), \
-    V(D5,BA,BA,6F), V(88,78,78,F0), V(6F,25,25,4A), V(72,2E,2E,5C), \
-    V(24,1C,1C,38), V(F1,A6,A6,57), V(C7,B4,B4,73), V(51,C6,C6,97), \
-    V(23,E8,E8,CB), V(7C,DD,DD,A1), V(9C,74,74,E8), V(21,1F,1F,3E), \
-    V(DD,4B,4B,96), V(DC,BD,BD,61), V(86,8B,8B,0D), V(85,8A,8A,0F), \
-    V(90,70,70,E0), V(42,3E,3E,7C), V(C4,B5,B5,71), V(AA,66,66,CC), \
-    V(D8,48,48,90), V(05,03,03,06), V(01,F6,F6,F7), V(12,0E,0E,1C), \
-    V(A3,61,61,C2), V(5F,35,35,6A), V(F9,57,57,AE), V(D0,B9,B9,69), \
-    V(91,86,86,17), V(58,C1,C1,99), V(27,1D,1D,3A), V(B9,9E,9E,27), \
-    V(38,E1,E1,D9), V(13,F8,F8,EB), V(B3,98,98,2B), V(33,11,11,22), \
-    V(BB,69,69,D2), V(70,D9,D9,A9), V(89,8E,8E,07), V(A7,94,94,33), \
-    V(B6,9B,9B,2D), V(22,1E,1E,3C), V(92,87,87,15), V(20,E9,E9,C9), \
-    V(49,CE,CE,87), V(FF,55,55,AA), V(78,28,28,50), V(7A,DF,DF,A5), \
-    V(8F,8C,8C,03), V(F8,A1,A1,59), V(80,89,89,09), V(17,0D,0D,1A), \
-    V(DA,BF,BF,65), V(31,E6,E6,D7), V(C6,42,42,84), V(B8,68,68,D0), \
-    V(C3,41,41,82), V(B0,99,99,29), V(77,2D,2D,5A), V(11,0F,0F,1E), \
-    V(CB,B0,B0,7B), V(FC,54,54,A8), V(D6,BB,BB,6D), V(3A,16,16,2C)
-
-#define V(a,b,c,d) 0x##a##b##c##d
-static const uint32_t FT0[256] = { FT };
-#undef V
-
-#define V(a,b,c,d) 0x##b##c##d##a
-static const uint32_t FT1[256] = { FT };
-#undef V
-
-#define V(a,b,c,d) 0x##c##d##a##b
-static const uint32_t FT2[256] = { FT };
-#undef V
-
-#define V(a,b,c,d) 0x##d##a##b##c
-static const uint32_t FT3[256] = { FT };
-#undef V
-
-#undef FT
-
-/*
- * Reverse S-box
- */
-static const unsigned char RSb[256] =
-{
-    0x52, 0x09, 0x6A, 0xD5, 0x30, 0x36, 0xA5, 0x38,
-    0xBF, 0x40, 0xA3, 0x9E, 0x81, 0xF3, 0xD7, 0xFB,
-    0x7C, 0xE3, 0x39, 0x82, 0x9B, 0x2F, 0xFF, 0x87,
-    0x34, 0x8E, 0x43, 0x44, 0xC4, 0xDE, 0xE9, 0xCB,
-    0x54, 0x7B, 0x94, 0x32, 0xA6, 0xC2, 0x23, 0x3D,
-    0xEE, 0x4C, 0x95, 0x0B, 0x42, 0xFA, 0xC3, 0x4E,
-    0x08, 0x2E, 0xA1, 0x66, 0x28, 0xD9, 0x24, 0xB2,
-    0x76, 0x5B, 0xA2, 0x49, 0x6D, 0x8B, 0xD1, 0x25,
-    0x72, 0xF8, 0xF6, 0x64, 0x86, 0x68, 0x98, 0x16,
-    0xD4, 0xA4, 0x5C, 0xCC, 0x5D, 0x65, 0xB6, 0x92,
-    0x6C, 0x70, 0x48, 0x50, 0xFD, 0xED, 0xB9, 0xDA,
-    0x5E, 0x15, 0x46, 0x57, 0xA7, 0x8D, 0x9D, 0x84,
-    0x90, 0xD8, 0xAB, 0x00, 0x8C, 0xBC, 0xD3, 0x0A,
-    0xF7, 0xE4, 0x58, 0x05, 0xB8, 0xB3, 0x45, 0x06,
-    0xD0, 0x2C, 0x1E, 0x8F, 0xCA, 0x3F, 0x0F, 0x02,
-    0xC1, 0xAF, 0xBD, 0x03, 0x01, 0x13, 0x8A, 0x6B,
-    0x3A, 0x91, 0x11, 0x41, 0x4F, 0x67, 0xDC, 0xEA,
-    0x97, 0xF2, 0xCF, 0xCE, 0xF0, 0xB4, 0xE6, 0x73,
-    0x96, 0xAC, 0x74, 0x22, 0xE7, 0xAD, 0x35, 0x85,
-    0xE2, 0xF9, 0x37, 0xE8, 0x1C, 0x75, 0xDF, 0x6E,
-    0x47, 0xF1, 0x1A, 0x71, 0x1D, 0x29, 0xC5, 0x89,
-    0x6F, 0xB7, 0x62, 0x0E, 0xAA, 0x18, 0xBE, 0x1B,
-    0xFC, 0x56, 0x3E, 0x4B, 0xC6, 0xD2, 0x79, 0x20,
-    0x9A, 0xDB, 0xC0, 0xFE, 0x78, 0xCD, 0x5A, 0xF4,
-    0x1F, 0xDD, 0xA8, 0x33, 0x88, 0x07, 0xC7, 0x31,
-    0xB1, 0x12, 0x10, 0x59, 0x27, 0x80, 0xEC, 0x5F,
-    0x60, 0x51, 0x7F, 0xA9, 0x19, 0xB5, 0x4A, 0x0D,
-    0x2D, 0xE5, 0x7A, 0x9F, 0x93, 0xC9, 0x9C, 0xEF,
-    0xA0, 0xE0, 0x3B, 0x4D, 0xAE, 0x2A, 0xF5, 0xB0,
-    0xC8, 0xEB, 0xBB, 0x3C, 0x83, 0x53, 0x99, 0x61,
-    0x17, 0x2B, 0x04, 0x7E, 0xBA, 0x77, 0xD6, 0x26,
-    0xE1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0C, 0x7D
-};
-
-/*
- * Reverse tables
- */
-#define RT \
-\
-    V(50,A7,F4,51), V(53,65,41,7E), V(C3,A4,17,1A), V(96,5E,27,3A), \
-    V(CB,6B,AB,3B), V(F1,45,9D,1F), V(AB,58,FA,AC), V(93,03,E3,4B), \
-    V(55,FA,30,20), V(F6,6D,76,AD), V(91,76,CC,88), V(25,4C,02,F5), \
-    V(FC,D7,E5,4F), V(D7,CB,2A,C5), V(80,44,35,26), V(8F,A3,62,B5), \
-    V(49,5A,B1,DE), V(67,1B,BA,25), V(98,0E,EA,45), V(E1,C0,FE,5D), \
-    V(02,75,2F,C3), V(12,F0,4C,81), V(A3,97,46,8D), V(C6,F9,D3,6B), \
-    V(E7,5F,8F,03), V(95,9C,92,15), V(EB,7A,6D,BF), V(DA,59,52,95), \
-    V(2D,83,BE,D4), V(D3,21,74,58), V(29,69,E0,49), V(44,C8,C9,8E), \
-    V(6A,89,C2,75), V(78,79,8E,F4), V(6B,3E,58,99), V(DD,71,B9,27), \
-    V(B6,4F,E1,BE), V(17,AD,88,F0), V(66,AC,20,C9), V(B4,3A,CE,7D), \
-    V(18,4A,DF,63), V(82,31,1A,E5), V(60,33,51,97), V(45,7F,53,62), \
-    V(E0,77,64,B1), V(84,AE,6B,BB), V(1C,A0,81,FE), V(94,2B,08,F9), \
-    V(58,68,48,70), V(19,FD,45,8F), V(87,6C,DE,94), V(B7,F8,7B,52), \
-    V(23,D3,73,AB), V(E2,02,4B,72), V(57,8F,1F,E3), V(2A,AB,55,66), \
-    V(07,28,EB,B2), V(03,C2,B5,2F), V(9A,7B,C5,86), V(A5,08,37,D3), \
-    V(F2,87,28,30), V(B2,A5,BF,23), V(BA,6A,03,02), V(5C,82,16,ED), \
-    V(2B,1C,CF,8A), V(92,B4,79,A7), V(F0,F2,07,F3), V(A1,E2,69,4E), \
-    V(CD,F4,DA,65), V(D5,BE,05,06), V(1F,62,34,D1), V(8A,FE,A6,C4), \
-    V(9D,53,2E,34), V(A0,55,F3,A2), V(32,E1,8A,05), V(75,EB,F6,A4), \
-    V(39,EC,83,0B), V(AA,EF,60,40), V(06,9F,71,5E), V(51,10,6E,BD), \
-    V(F9,8A,21,3E), V(3D,06,DD,96), V(AE,05,3E,DD), V(46,BD,E6,4D), \
-    V(B5,8D,54,91), V(05,5D,C4,71), V(6F,D4,06,04), V(FF,15,50,60), \
-    V(24,FB,98,19), V(97,E9,BD,D6), V(CC,43,40,89), V(77,9E,D9,67), \
-    V(BD,42,E8,B0), V(88,8B,89,07), V(38,5B,19,E7), V(DB,EE,C8,79), \
-    V(47,0A,7C,A1), V(E9,0F,42,7C), V(C9,1E,84,F8), V(00,00,00,00), \
-    V(83,86,80,09), V(48,ED,2B,32), V(AC,70,11,1E), V(4E,72,5A,6C), \
-    V(FB,FF,0E,FD), V(56,38,85,0F), V(1E,D5,AE,3D), V(27,39,2D,36), \
-    V(64,D9,0F,0A), V(21,A6,5C,68), V(D1,54,5B,9B), V(3A,2E,36,24), \
-    V(B1,67,0A,0C), V(0F,E7,57,93), V(D2,96,EE,B4), V(9E,91,9B,1B), \
-    V(4F,C5,C0,80), V(A2,20,DC,61), V(69,4B,77,5A), V(16,1A,12,1C), \
-    V(0A,BA,93,E2), V(E5,2A,A0,C0), V(43,E0,22,3C), V(1D,17,1B,12), \
-    V(0B,0D,09,0E), V(AD,C7,8B,F2), V(B9,A8,B6,2D), V(C8,A9,1E,14), \
-    V(85,19,F1,57), V(4C,07,75,AF), V(BB,DD,99,EE), V(FD,60,7F,A3), \
-    V(9F,26,01,F7), V(BC,F5,72,5C), V(C5,3B,66,44), V(34,7E,FB,5B), \
-    V(76,29,43,8B), V(DC,C6,23,CB), V(68,FC,ED,B6), V(63,F1,E4,B8), \
-    V(CA,DC,31,D7), V(10,85,63,42), V(40,22,97,13), V(20,11,C6,84), \
-    V(7D,24,4A,85), V(F8,3D,BB,D2), V(11,32,F9,AE), V(6D,A1,29,C7), \
-    V(4B,2F,9E,1D), V(F3,30,B2,DC), V(EC,52,86,0D), V(D0,E3,C1,77), \
-    V(6C,16,B3,2B), V(99,B9,70,A9), V(FA,48,94,11), V(22,64,E9,47), \
-    V(C4,8C,FC,A8), V(1A,3F,F0,A0), V(D8,2C,7D,56), V(EF,90,33,22), \
-    V(C7,4E,49,87), V(C1,D1,38,D9), V(FE,A2,CA,8C), V(36,0B,D4,98), \
-    V(CF,81,F5,A6), V(28,DE,7A,A5), V(26,8E,B7,DA), V(A4,BF,AD,3F), \
-    V(E4,9D,3A,2C), V(0D,92,78,50), V(9B,CC,5F,6A), V(62,46,7E,54), \
-    V(C2,13,8D,F6), V(E8,B8,D8,90), V(5E,F7,39,2E), V(F5,AF,C3,82), \
-    V(BE,80,5D,9F), V(7C,93,D0,69), V(A9,2D,D5,6F), V(B3,12,25,CF), \
-    V(3B,99,AC,C8), V(A7,7D,18,10), V(6E,63,9C,E8), V(7B,BB,3B,DB), \
-    V(09,78,26,CD), V(F4,18,59,6E), V(01,B7,9A,EC), V(A8,9A,4F,83), \
-    V(65,6E,95,E6), V(7E,E6,FF,AA), V(08,CF,BC,21), V(E6,E8,15,EF), \
-    V(D9,9B,E7,BA), V(CE,36,6F,4A), V(D4,09,9F,EA), V(D6,7C,B0,29), \
-    V(AF,B2,A4,31), V(31,23,3F,2A), V(30,94,A5,C6), V(C0,66,A2,35), \
-    V(37,BC,4E,74), V(A6,CA,82,FC), V(B0,D0,90,E0), V(15,D8,A7,33), \
-    V(4A,98,04,F1), V(F7,DA,EC,41), V(0E,50,CD,7F), V(2F,F6,91,17), \
-    V(8D,D6,4D,76), V(4D,B0,EF,43), V(54,4D,AA,CC), V(DF,04,96,E4), \
-    V(E3,B5,D1,9E), V(1B,88,6A,4C), V(B8,1F,2C,C1), V(7F,51,65,46), \
-    V(04,EA,5E,9D), V(5D,35,8C,01), V(73,74,87,FA), V(2E,41,0B,FB), \
-    V(5A,1D,67,B3), V(52,D2,DB,92), V(33,56,10,E9), V(13,47,D6,6D), \
-    V(8C,61,D7,9A), V(7A,0C,A1,37), V(8E,14,F8,59), V(89,3C,13,EB), \
-    V(EE,27,A9,CE), V(35,C9,61,B7), V(ED,E5,1C,E1), V(3C,B1,47,7A), \
-    V(59,DF,D2,9C), V(3F,73,F2,55), V(79,CE,14,18), V(BF,37,C7,73), \
-    V(EA,CD,F7,53), V(5B,AA,FD,5F), V(14,6F,3D,DF), V(86,DB,44,78), \
-    V(81,F3,AF,CA), V(3E,C4,68,B9), V(2C,34,24,38), V(5F,40,A3,C2), \
-    V(72,C3,1D,16), V(0C,25,E2,BC), V(8B,49,3C,28), V(41,95,0D,FF), \
-    V(71,01,A8,39), V(DE,B3,0C,08), V(9C,E4,B4,D8), V(90,C1,56,64), \
-    V(61,84,CB,7B), V(70,B6,32,D5), V(74,5C,6C,48), V(42,57,B8,D0)
-
-#define V(a,b,c,d) 0x##a##b##c##d
-static const uint32_t RT0[256] = { RT };
-#undef V
-
-#define V(a,b,c,d) 0x##b##c##d##a
-static const uint32_t RT1[256] = { RT };
-#undef V
-
-#define V(a,b,c,d) 0x##c##d##a##b
-static const uint32_t RT2[256] = { RT };
-#undef V
-
-#define V(a,b,c,d) 0x##d##a##b##c
-static const uint32_t RT3[256] = { RT };
-#undef V
-
-#undef RT
-
-/*
- * Round constants
- */
-static const uint32_t RCON[10] =
-{
-    0x00000001, 0x00000002, 0x00000004, 0x00000008,
-    0x00000010, 0x00000020, 0x00000040, 0x00000080,
-    0x0000001B, 0x00000036
-};
-
-#else /* MBEDTLS_AES_ROM_TABLES */
-
-/*
- * Forward S-box & tables
- */
+#define GET_UINT32_LE(n,b,i) { (n) = ( (uint32_t) (b)[(i) ] ) | ( (uint32_t) (b)[(i) + 1] << 8 ) | ( (uint32_t) (b)[(i) + 2] << 16 ) | ( (uint32_t) (b)[(i) + 3] << 24 ); }
+# 76 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+#define PUT_UINT32_LE(n,b,i) { (b)[(i) ] = (unsigned char) ( ( (n) ) & 0xFF ); (b)[(i) + 1] = (unsigned char) ( ( (n) >> 8 ) & 0xFF ); (b)[(i) + 2] = (unsigned char) ( ( (n) >> 16 ) & 0xFF ); (b)[(i) + 3] = (unsigned char) ( ( (n) >> 24 ) & 0xFF ); }
+# 360 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 static unsigned char FSb[256];
 static uint32_t FT0[256];
 static uint32_t FT1[256];
 static uint32_t FT2[256];
 static uint32_t FT3[256];
 
-/*
- * Reverse S-box & tables
- */
+
+
+
 static unsigned char RSb[256];
 static uint32_t RT0[256];
 static uint32_t RT1[256];
 static uint32_t RT2[256];
 static uint32_t RT3[256];
 
-/*
- * Round constants
- */
+
+
+
 static uint32_t RCON[10];
 
-/*
- * Tables generation code
- */
+
+
+
 #define ROTL8(x) ( ( x << 8 ) & 0xFFFFFFFF ) | ( x >> 24 )
 #define XTIME(x) ( ( x << 1 ) ^ ( ( x & 0x80 ) ? 0x1B : 0x00 ) )
 #define MUL(x,y) ( ( x && y ) ? pow[(log[x]+log[y]) % 255] : 0 )
@@ -392,28 +3999,28 @@ static void aes_gen_tables( void )
     int pow[256];
     int log[256];
 
-    /*
-     * compute pow and log tables over GF(2^8)
-     */
+
+
+
     for( i = 0, x = 1; i < 256; i++ )
     {
         pow[i] = x;
         log[x] = i;
-        x = ( x ^ XTIME( x ) ) & 0xFF;
+        x = ( x ^ ( ( x << 1 ) ^ ( ( x & 0x80 ) ? 0x1B : 0x00 ) ) ) & 0xFF;
     }
 
-    /*
-     * calculate the round constants
-     */
+
+
+
     for( i = 0, x = 1; i < 10; i++ )
     {
         RCON[i] = (uint32_t) x;
-        x = XTIME( x ) & 0xFF;
+        x = ( ( x << 1 ) ^ ( ( x & 0x80 ) ? 0x1B : 0x00 ) ) & 0xFF;
     }
 
-    /*
-     * generate the forward and reverse S-boxes
-     */
+
+
+
     FSb[0x00] = 0x63;
     RSb[0x63] = 0x00;
 
@@ -421,7 +4028,7 @@ static void aes_gen_tables( void )
     {
         x = pow[255 - log[i]];
 
-        y  = x; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
+        y = x; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
         x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
         x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
         x ^= y; y = ( ( y << 1 ) | ( y >> 7 ) ) & 0xFF;
@@ -431,38 +4038,38 @@ static void aes_gen_tables( void )
         RSb[x] = (unsigned char) i;
     }
 
-    /*
-     * generate the forward and reverse tables
-     */
+
+
+
     for( i = 0; i < 256; i++ )
     {
         x = FSb[i];
-        y = XTIME( x ) & 0xFF;
-        z =  ( y ^ x ) & 0xFF;
+        y = ( ( x << 1 ) ^ ( ( x & 0x80 ) ? 0x1B : 0x00 ) ) & 0xFF;
+        z = ( y ^ x ) & 0xFF;
 
-        FT0[i] = ( (uint32_t) y       ) ^
-                 ( (uint32_t) x <<  8 ) ^
+        FT0[i] = ( (uint32_t) y ) ^
+                 ( (uint32_t) x << 8 ) ^
                  ( (uint32_t) x << 16 ) ^
                  ( (uint32_t) z << 24 );
 
-        FT1[i] = ROTL8( FT0[i] );
-        FT2[i] = ROTL8( FT1[i] );
-        FT3[i] = ROTL8( FT2[i] );
+        FT1[i] = ( ( FT0[i] << 8 ) & 0xFFFFFFFF ) | ( FT0[i] >> 24 );
+        FT2[i] = ( ( FT1[i] << 8 ) & 0xFFFFFFFF ) | ( FT1[i] >> 24 );
+        FT3[i] = ( ( FT2[i] << 8 ) & 0xFFFFFFFF ) | ( FT2[i] >> 24 );
 
         x = RSb[i];
 
-        RT0[i] = ( (uint32_t) MUL( 0x0E, x )       ) ^
-                 ( (uint32_t) MUL( 0x09, x ) <<  8 ) ^
-                 ( (uint32_t) MUL( 0x0D, x ) << 16 ) ^
-                 ( (uint32_t) MUL( 0x0B, x ) << 24 );
+        RT0[i] = ( (uint32_t) ( ( 0x0E && x ) ? pow[(log[0x0E]+log[x]) % 255] : 0 ) ) ^
+                 ( (uint32_t) ( ( 0x09 && x ) ? pow[(log[0x09]+log[x]) % 255] : 0 ) << 8 ) ^
+                 ( (uint32_t) ( ( 0x0D && x ) ? pow[(log[0x0D]+log[x]) % 255] : 0 ) << 16 ) ^
+                 ( (uint32_t) ( ( 0x0B && x ) ? pow[(log[0x0B]+log[x]) % 255] : 0 ) << 24 );
 
-        RT1[i] = ROTL8( RT0[i] );
-        RT2[i] = ROTL8( RT1[i] );
-        RT3[i] = ROTL8( RT2[i] );
+        RT1[i] = ( ( RT0[i] << 8 ) & 0xFFFFFFFF ) | ( RT0[i] >> 24 );
+        RT2[i] = ( ( RT1[i] << 8 ) & 0xFFFFFFFF ) | ( RT1[i] >> 24 );
+        RT3[i] = ( ( RT2[i] << 8 ) & 0xFFFFFFFF ) | ( RT2[i] >> 24 );
     }
 }
 
-#endif /* MBEDTLS_AES_ROM_TABLES */
+
 
 void mbedtls_aes_init( mbedtls_aes_context *ctx )
 {
@@ -471,57 +4078,53 @@ void mbedtls_aes_init( mbedtls_aes_context *ctx )
 
 void mbedtls_aes_free( mbedtls_aes_context *ctx )
 {
-    if( ctx == NULL )
+    if( ctx == 
+# 474 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c" 3 4
+              ((void *)0) 
+# 474 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+                   )
         return;
 
     mbedtls_zeroize( ctx, sizeof( mbedtls_aes_context ) );
 }
 
-/*
- * AES key schedule (encryption)
- */
-#if !defined(MBEDTLS_AES_SETKEY_ENC_ALT)
+
+
+
+
 int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
                     unsigned int keybits )
 {
     unsigned int i;
     uint32_t *RK;
 
-#if !defined(MBEDTLS_AES_ROM_TABLES)
+
     if( aes_init_done == 0 )
     {
         aes_gen_tables();
         aes_init_done = 1;
 
     }
-#endif
+
 
     switch( keybits )
     {
         case 128: ctx->nr = 10; break;
         case 192: ctx->nr = 12; break;
         case 256: ctx->nr = 14; break;
-        default : return( MBEDTLS_ERR_AES_INVALID_KEY_LENGTH );
+        default : return( -0x0020 );
     }
-
-#if defined(MBEDTLS_PADLOCK_C) && defined(MBEDTLS_PADLOCK_ALIGN16)
-    if( aes_padlock_ace == -1 )
-        aes_padlock_ace = mbedtls_padlock_has_support( MBEDTLS_PADLOCK_ACE );
-
-    if( aes_padlock_ace )
-        ctx->rk = RK = MBEDTLS_PADLOCK_ALIGN16( ctx->buf );
-    else
-#endif
+# 515 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
     ctx->rk = RK = ctx->buf;
 
-#if defined(MBEDTLS_AESNI_C) && defined(MBEDTLS_HAVE_X86_64)
-    if( mbedtls_aesni_has_support( MBEDTLS_AESNI_AES ) )
-        return( mbedtls_aesni_setkey_enc( (unsigned char *) ctx->rk, key, keybits ) );
-#endif
+
+
+
+
 
     for( i = 0; i < ( keybits >> 5 ); i++ )
     {
-        GET_UINT32_LE( RK[i], key, i << 2 );
+        { (RK[i]) = ( (uint32_t) (key)[(i << 2) ] ) | ( (uint32_t) (key)[(i << 2) + 1] << 8 ) | ( (uint32_t) (key)[(i << 2) + 2] << 16 ) | ( (uint32_t) (key)[(i << 2) + 3] << 24 ); };
     }
 
     switch( ctx->nr )
@@ -530,15 +4133,15 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
 
             for( i = 0; i < 10; i++, RK += 4 )
             {
-                RK[4]  = RK[0] ^ RCON[i] ^
-                ( (uint32_t) FSb[ ( RK[3] >>  8 ) & 0xFF ]       ) ^
-                ( (uint32_t) FSb[ ( RK[3] >> 16 ) & 0xFF ] <<  8 ) ^
+                RK[4] = RK[0] ^ RCON[i] ^
+                ( (uint32_t) FSb[ ( RK[3] >> 8 ) & 0xFF ] ) ^
+                ( (uint32_t) FSb[ ( RK[3] >> 16 ) & 0xFF ] << 8 ) ^
                 ( (uint32_t) FSb[ ( RK[3] >> 24 ) & 0xFF ] << 16 ) ^
-                ( (uint32_t) FSb[ ( RK[3]       ) & 0xFF ] << 24 );
+                ( (uint32_t) FSb[ ( RK[3] ) & 0xFF ] << 24 );
 
-                RK[5]  = RK[1] ^ RK[4];
-                RK[6]  = RK[2] ^ RK[5];
-                RK[7]  = RK[3] ^ RK[6];
+                RK[5] = RK[1] ^ RK[4];
+                RK[6] = RK[2] ^ RK[5];
+                RK[7] = RK[3] ^ RK[6];
             }
             break;
 
@@ -546,15 +4149,15 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
 
             for( i = 0; i < 8; i++, RK += 6 )
             {
-                RK[6]  = RK[0] ^ RCON[i] ^
-                ( (uint32_t) FSb[ ( RK[5] >>  8 ) & 0xFF ]       ) ^
-                ( (uint32_t) FSb[ ( RK[5] >> 16 ) & 0xFF ] <<  8 ) ^
+                RK[6] = RK[0] ^ RCON[i] ^
+                ( (uint32_t) FSb[ ( RK[5] >> 8 ) & 0xFF ] ) ^
+                ( (uint32_t) FSb[ ( RK[5] >> 16 ) & 0xFF ] << 8 ) ^
                 ( (uint32_t) FSb[ ( RK[5] >> 24 ) & 0xFF ] << 16 ) ^
-                ( (uint32_t) FSb[ ( RK[5]       ) & 0xFF ] << 24 );
+                ( (uint32_t) FSb[ ( RK[5] ) & 0xFF ] << 24 );
 
-                RK[7]  = RK[1] ^ RK[6];
-                RK[8]  = RK[2] ^ RK[7];
-                RK[9]  = RK[3] ^ RK[8];
+                RK[7] = RK[1] ^ RK[6];
+                RK[8] = RK[2] ^ RK[7];
+                RK[9] = RK[3] ^ RK[8];
                 RK[10] = RK[4] ^ RK[9];
                 RK[11] = RK[5] ^ RK[10];
             }
@@ -564,19 +4167,19 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
 
             for( i = 0; i < 7; i++, RK += 8 )
             {
-                RK[8]  = RK[0] ^ RCON[i] ^
-                ( (uint32_t) FSb[ ( RK[7] >>  8 ) & 0xFF ]       ) ^
-                ( (uint32_t) FSb[ ( RK[7] >> 16 ) & 0xFF ] <<  8 ) ^
+                RK[8] = RK[0] ^ RCON[i] ^
+                ( (uint32_t) FSb[ ( RK[7] >> 8 ) & 0xFF ] ) ^
+                ( (uint32_t) FSb[ ( RK[7] >> 16 ) & 0xFF ] << 8 ) ^
                 ( (uint32_t) FSb[ ( RK[7] >> 24 ) & 0xFF ] << 16 ) ^
-                ( (uint32_t) FSb[ ( RK[7]       ) & 0xFF ] << 24 );
+                ( (uint32_t) FSb[ ( RK[7] ) & 0xFF ] << 24 );
 
-                RK[9]  = RK[1] ^ RK[8];
+                RK[9] = RK[1] ^ RK[8];
                 RK[10] = RK[2] ^ RK[9];
                 RK[11] = RK[3] ^ RK[10];
 
                 RK[12] = RK[4] ^
-                ( (uint32_t) FSb[ ( RK[11]       ) & 0xFF ]       ) ^
-                ( (uint32_t) FSb[ ( RK[11] >>  8 ) & 0xFF ] <<  8 ) ^
+                ( (uint32_t) FSb[ ( RK[11] ) & 0xFF ] ) ^
+                ( (uint32_t) FSb[ ( RK[11] >> 8 ) & 0xFF ] << 8 ) ^
                 ( (uint32_t) FSb[ ( RK[11] >> 16 ) & 0xFF ] << 16 ) ^
                 ( (uint32_t) FSb[ ( RK[11] >> 24 ) & 0xFF ] << 24 );
 
@@ -589,12 +4192,12 @@ int mbedtls_aes_setkey_enc( mbedtls_aes_context *ctx, const unsigned char *key,
 
     return( 0 );
 }
-#endif /* !MBEDTLS_AES_SETKEY_ENC_ALT */
 
-/*
- * AES key schedule (decryption)
- */
-#if !defined(MBEDTLS_AES_SETKEY_DEC_ALT)
+
+
+
+
+
 int mbedtls_aes_setkey_dec( mbedtls_aes_context *ctx, const unsigned char *key,
                     unsigned int keybits )
 {
@@ -604,32 +4207,15 @@ int mbedtls_aes_setkey_dec( mbedtls_aes_context *ctx, const unsigned char *key,
     uint32_t *SK;
 
     mbedtls_aes_init( &cty );
-
-#if defined(MBEDTLS_PADLOCK_C) && defined(MBEDTLS_PADLOCK_ALIGN16)
-    if( aes_padlock_ace == -1 )
-        aes_padlock_ace = mbedtls_padlock_has_support( MBEDTLS_PADLOCK_ACE );
-
-    if( aes_padlock_ace )
-        ctx->rk = RK = MBEDTLS_PADLOCK_ALIGN16( ctx->buf );
-    else
-#endif
+# 616 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
     ctx->rk = RK = ctx->buf;
 
-    /* Also checks keybits */
+
     if( ( ret = mbedtls_aes_setkey_enc( &cty, key, keybits ) ) != 0 )
         goto exit;
 
     ctx->nr = cty.nr;
-
-#if defined(MBEDTLS_AESNI_C) && defined(MBEDTLS_HAVE_X86_64)
-    if( mbedtls_aesni_has_support( MBEDTLS_AESNI_AES ) )
-    {
-        mbedtls_aesni_inverse_key( (unsigned char *) ctx->rk,
-                           (const unsigned char *) cty.rk, ctx->nr );
-        goto exit;
-    }
-#endif
-
+# 633 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
     SK = cty.rk + cty.nr * 4;
 
     *RK++ = *SK++;
@@ -641,8 +4227,8 @@ int mbedtls_aes_setkey_dec( mbedtls_aes_context *ctx, const unsigned char *key,
     {
         for( j = 0; j < 4; j++, SK++ )
         {
-            *RK++ = RT0[ FSb[ ( *SK       ) & 0xFF ] ] ^
-                    RT1[ FSb[ ( *SK >>  8 ) & 0xFF ] ] ^
+            *RK++ = RT0[ FSb[ ( *SK ) & 0xFF ] ] ^
+                    RT1[ FSb[ ( *SK >> 8 ) & 0xFF ] ] ^
                     RT2[ FSb[ ( *SK >> 16 ) & 0xFF ] ] ^
                     RT3[ FSb[ ( *SK >> 24 ) & 0xFF ] ];
         }
@@ -658,58 +4244,12 @@ exit:
 
     return( ret );
 }
-#endif /* !MBEDTLS_AES_SETKEY_DEC_ALT */
 
-#define AES_FROUND(X0,X1,X2,X3,Y0,Y1,Y2,Y3)     \
-{                                               \
-    X0 = *RK++ ^ FT0[ ( Y0       ) & 0xFF ] ^   \
-                 FT1[ ( Y1 >>  8 ) & 0xFF ] ^   \
-                 FT2[ ( Y2 >> 16 ) & 0xFF ] ^   \
-                 FT3[ ( Y3 >> 24 ) & 0xFF ];    \
-                                                \
-    X1 = *RK++ ^ FT0[ ( Y1       ) & 0xFF ] ^   \
-                 FT1[ ( Y2 >>  8 ) & 0xFF ] ^   \
-                 FT2[ ( Y3 >> 16 ) & 0xFF ] ^   \
-                 FT3[ ( Y0 >> 24 ) & 0xFF ];    \
-                                                \
-    X2 = *RK++ ^ FT0[ ( Y2       ) & 0xFF ] ^   \
-                 FT1[ ( Y3 >>  8 ) & 0xFF ] ^   \
-                 FT2[ ( Y0 >> 16 ) & 0xFF ] ^   \
-                 FT3[ ( Y1 >> 24 ) & 0xFF ];    \
-                                                \
-    X3 = *RK++ ^ FT0[ ( Y3       ) & 0xFF ] ^   \
-                 FT1[ ( Y0 >>  8 ) & 0xFF ] ^   \
-                 FT2[ ( Y1 >> 16 ) & 0xFF ] ^   \
-                 FT3[ ( Y2 >> 24 ) & 0xFF ];    \
-}
 
-#define AES_RROUND(X0,X1,X2,X3,Y0,Y1,Y2,Y3)     \
-{                                               \
-    X0 = *RK++ ^ RT0[ ( Y0       ) & 0xFF ] ^   \
-                 RT1[ ( Y3 >>  8 ) & 0xFF ] ^   \
-                 RT2[ ( Y2 >> 16 ) & 0xFF ] ^   \
-                 RT3[ ( Y1 >> 24 ) & 0xFF ];    \
-                                                \
-    X1 = *RK++ ^ RT0[ ( Y1       ) & 0xFF ] ^   \
-                 RT1[ ( Y0 >>  8 ) & 0xFF ] ^   \
-                 RT2[ ( Y3 >> 16 ) & 0xFF ] ^   \
-                 RT3[ ( Y2 >> 24 ) & 0xFF ];    \
-                                                \
-    X2 = *RK++ ^ RT0[ ( Y2       ) & 0xFF ] ^   \
-                 RT1[ ( Y1 >>  8 ) & 0xFF ] ^   \
-                 RT2[ ( Y0 >> 16 ) & 0xFF ] ^   \
-                 RT3[ ( Y3 >> 24 ) & 0xFF ];    \
-                                                \
-    X3 = *RK++ ^ RT0[ ( Y3       ) & 0xFF ] ^   \
-                 RT1[ ( Y2 >>  8 ) & 0xFF ] ^   \
-                 RT2[ ( Y1 >> 16 ) & 0xFF ] ^   \
-                 RT3[ ( Y0 >> 24 ) & 0xFF ];    \
-}
-
-/*
- * AES-ECB block encryption
- */
-#if !defined(MBEDTLS_AES_ENCRYPT_ALT)
+#define AES_FROUND(X0,X1,X2,X3,Y0,Y1,Y2,Y3) { X0 = *RK++ ^ FT0[ ( Y0 ) & 0xFF ] ^ FT1[ ( Y1 >> 8 ) & 0xFF ] ^ FT2[ ( Y2 >> 16 ) & 0xFF ] ^ FT3[ ( Y3 >> 24 ) & 0xFF ]; X1 = *RK++ ^ FT0[ ( Y1 ) & 0xFF ] ^ FT1[ ( Y2 >> 8 ) & 0xFF ] ^ FT2[ ( Y3 >> 16 ) & 0xFF ] ^ FT3[ ( Y0 >> 24 ) & 0xFF ]; X2 = *RK++ ^ FT0[ ( Y2 ) & 0xFF ] ^ FT1[ ( Y3 >> 8 ) & 0xFF ] ^ FT2[ ( Y0 >> 16 ) & 0xFF ] ^ FT3[ ( Y1 >> 24 ) & 0xFF ]; X3 = *RK++ ^ FT0[ ( Y3 ) & 0xFF ] ^ FT1[ ( Y0 >> 8 ) & 0xFF ] ^ FT2[ ( Y1 >> 16 ) & 0xFF ] ^ FT3[ ( Y2 >> 24 ) & 0xFF ]; }
+# 686 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+#define AES_RROUND(X0,X1,X2,X3,Y0,Y1,Y2,Y3) { X0 = *RK++ ^ RT0[ ( Y0 ) & 0xFF ] ^ RT1[ ( Y3 >> 8 ) & 0xFF ] ^ RT2[ ( Y2 >> 16 ) & 0xFF ] ^ RT3[ ( Y1 >> 24 ) & 0xFF ]; X1 = *RK++ ^ RT0[ ( Y1 ) & 0xFF ] ^ RT1[ ( Y0 >> 8 ) & 0xFF ] ^ RT2[ ( Y3 >> 16 ) & 0xFF ] ^ RT3[ ( Y2 >> 24 ) & 0xFF ]; X2 = *RK++ ^ RT0[ ( Y2 ) & 0xFF ] ^ RT1[ ( Y1 >> 8 ) & 0xFF ] ^ RT2[ ( Y0 >> 16 ) & 0xFF ] ^ RT3[ ( Y3 >> 24 ) & 0xFF ]; X3 = *RK++ ^ RT0[ ( Y3 ) & 0xFF ] ^ RT1[ ( Y2 >> 8 ) & 0xFF ] ^ RT2[ ( Y1 >> 16 ) & 0xFF ] ^ RT3[ ( Y0 >> 24 ) & 0xFF ]; }
+# 713 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
                           const unsigned char input[16],
                           unsigned char output[16] )
@@ -719,54 +4259,54 @@ void mbedtls_aes_encrypt( mbedtls_aes_context *ctx,
 
     RK = ctx->rk;
 
-    GET_UINT32_LE( X0, input,  0 ); X0 ^= *RK++;
-    GET_UINT32_LE( X1, input,  4 ); X1 ^= *RK++;
-    GET_UINT32_LE( X2, input,  8 ); X2 ^= *RK++;
-    GET_UINT32_LE( X3, input, 12 ); X3 ^= *RK++;
+    { (X0) = ( (uint32_t) (input)[(0) ] ) | ( (uint32_t) (input)[(0) + 1] << 8 ) | ( (uint32_t) (input)[(0) + 2] << 16 ) | ( (uint32_t) (input)[(0) + 3] << 24 ); }; X0 ^= *RK++;
+    { (X1) = ( (uint32_t) (input)[(4) ] ) | ( (uint32_t) (input)[(4) + 1] << 8 ) | ( (uint32_t) (input)[(4) + 2] << 16 ) | ( (uint32_t) (input)[(4) + 3] << 24 ); }; X1 ^= *RK++;
+    { (X2) = ( (uint32_t) (input)[(8) ] ) | ( (uint32_t) (input)[(8) + 1] << 8 ) | ( (uint32_t) (input)[(8) + 2] << 16 ) | ( (uint32_t) (input)[(8) + 3] << 24 ); }; X2 ^= *RK++;
+    { (X3) = ( (uint32_t) (input)[(12) ] ) | ( (uint32_t) (input)[(12) + 1] << 8 ) | ( (uint32_t) (input)[(12) + 2] << 16 ) | ( (uint32_t) (input)[(12) + 3] << 24 ); }; X3 ^= *RK++;
 
     for( i = ( ctx->nr >> 1 ) - 1; i > 0; i-- )
     {
-        AES_FROUND( Y0, Y1, Y2, Y3, X0, X1, X2, X3 );
-        AES_FROUND( X0, X1, X2, X3, Y0, Y1, Y2, Y3 );
+        { Y0 = *RK++ ^ FT0[ ( X0 ) & 0xFF ] ^ FT1[ ( X1 >> 8 ) & 0xFF ] ^ FT2[ ( X2 >> 16 ) & 0xFF ] ^ FT3[ ( X3 >> 24 ) & 0xFF ]; Y1 = *RK++ ^ FT0[ ( X1 ) & 0xFF ] ^ FT1[ ( X2 >> 8 ) & 0xFF ] ^ FT2[ ( X3 >> 16 ) & 0xFF ] ^ FT3[ ( X0 >> 24 ) & 0xFF ]; Y2 = *RK++ ^ FT0[ ( X2 ) & 0xFF ] ^ FT1[ ( X3 >> 8 ) & 0xFF ] ^ FT2[ ( X0 >> 16 ) & 0xFF ] ^ FT3[ ( X1 >> 24 ) & 0xFF ]; Y3 = *RK++ ^ FT0[ ( X3 ) & 0xFF ] ^ FT1[ ( X0 >> 8 ) & 0xFF ] ^ FT2[ ( X1 >> 16 ) & 0xFF ] ^ FT3[ ( X2 >> 24 ) & 0xFF ]; };
+        { X0 = *RK++ ^ FT0[ ( Y0 ) & 0xFF ] ^ FT1[ ( Y1 >> 8 ) & 0xFF ] ^ FT2[ ( Y2 >> 16 ) & 0xFF ] ^ FT3[ ( Y3 >> 24 ) & 0xFF ]; X1 = *RK++ ^ FT0[ ( Y1 ) & 0xFF ] ^ FT1[ ( Y2 >> 8 ) & 0xFF ] ^ FT2[ ( Y3 >> 16 ) & 0xFF ] ^ FT3[ ( Y0 >> 24 ) & 0xFF ]; X2 = *RK++ ^ FT0[ ( Y2 ) & 0xFF ] ^ FT1[ ( Y3 >> 8 ) & 0xFF ] ^ FT2[ ( Y0 >> 16 ) & 0xFF ] ^ FT3[ ( Y1 >> 24 ) & 0xFF ]; X3 = *RK++ ^ FT0[ ( Y3 ) & 0xFF ] ^ FT1[ ( Y0 >> 8 ) & 0xFF ] ^ FT2[ ( Y1 >> 16 ) & 0xFF ] ^ FT3[ ( Y2 >> 24 ) & 0xFF ]; };
     }
 
-    AES_FROUND( Y0, Y1, Y2, Y3, X0, X1, X2, X3 );
+    { Y0 = *RK++ ^ FT0[ ( X0 ) & 0xFF ] ^ FT1[ ( X1 >> 8 ) & 0xFF ] ^ FT2[ ( X2 >> 16 ) & 0xFF ] ^ FT3[ ( X3 >> 24 ) & 0xFF ]; Y1 = *RK++ ^ FT0[ ( X1 ) & 0xFF ] ^ FT1[ ( X2 >> 8 ) & 0xFF ] ^ FT2[ ( X3 >> 16 ) & 0xFF ] ^ FT3[ ( X0 >> 24 ) & 0xFF ]; Y2 = *RK++ ^ FT0[ ( X2 ) & 0xFF ] ^ FT1[ ( X3 >> 8 ) & 0xFF ] ^ FT2[ ( X0 >> 16 ) & 0xFF ] ^ FT3[ ( X1 >> 24 ) & 0xFF ]; Y3 = *RK++ ^ FT0[ ( X3 ) & 0xFF ] ^ FT1[ ( X0 >> 8 ) & 0xFF ] ^ FT2[ ( X1 >> 16 ) & 0xFF ] ^ FT3[ ( X2 >> 24 ) & 0xFF ]; };
 
-    X0 = *RK++ ^ \
-            ( (uint32_t) FSb[ ( Y0       ) & 0xFF ]       ) ^
-            ( (uint32_t) FSb[ ( Y1 >>  8 ) & 0xFF ] <<  8 ) ^
+    X0 = *RK++ ^
+            ( (uint32_t) FSb[ ( Y0 ) & 0xFF ] ) ^
+            ( (uint32_t) FSb[ ( Y1 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) FSb[ ( Y2 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) FSb[ ( Y3 >> 24 ) & 0xFF ] << 24 );
 
-    X1 = *RK++ ^ \
-            ( (uint32_t) FSb[ ( Y1       ) & 0xFF ]       ) ^
-            ( (uint32_t) FSb[ ( Y2 >>  8 ) & 0xFF ] <<  8 ) ^
+    X1 = *RK++ ^
+            ( (uint32_t) FSb[ ( Y1 ) & 0xFF ] ) ^
+            ( (uint32_t) FSb[ ( Y2 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) FSb[ ( Y3 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) FSb[ ( Y0 >> 24 ) & 0xFF ] << 24 );
 
-    X2 = *RK++ ^ \
-            ( (uint32_t) FSb[ ( Y2       ) & 0xFF ]       ) ^
-            ( (uint32_t) FSb[ ( Y3 >>  8 ) & 0xFF ] <<  8 ) ^
+    X2 = *RK++ ^
+            ( (uint32_t) FSb[ ( Y2 ) & 0xFF ] ) ^
+            ( (uint32_t) FSb[ ( Y3 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) FSb[ ( Y0 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) FSb[ ( Y1 >> 24 ) & 0xFF ] << 24 );
 
-    X3 = *RK++ ^ \
-            ( (uint32_t) FSb[ ( Y3       ) & 0xFF ]       ) ^
-            ( (uint32_t) FSb[ ( Y0 >>  8 ) & 0xFF ] <<  8 ) ^
+    X3 = *RK++ ^
+            ( (uint32_t) FSb[ ( Y3 ) & 0xFF ] ) ^
+            ( (uint32_t) FSb[ ( Y0 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) FSb[ ( Y1 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) FSb[ ( Y2 >> 24 ) & 0xFF ] << 24 );
 
-    PUT_UINT32_LE( X0, output,  0 );
-    PUT_UINT32_LE( X1, output,  4 );
-    PUT_UINT32_LE( X2, output,  8 );
-    PUT_UINT32_LE( X3, output, 12 );
+    { (output)[(0) ] = (unsigned char) ( ( (X0) ) & 0xFF ); (output)[(0) + 1] = (unsigned char) ( ( (X0) >> 8 ) & 0xFF ); (output)[(0) + 2] = (unsigned char) ( ( (X0) >> 16 ) & 0xFF ); (output)[(0) + 3] = (unsigned char) ( ( (X0) >> 24 ) & 0xFF ); };
+    { (output)[(4) ] = (unsigned char) ( ( (X1) ) & 0xFF ); (output)[(4) + 1] = (unsigned char) ( ( (X1) >> 8 ) & 0xFF ); (output)[(4) + 2] = (unsigned char) ( ( (X1) >> 16 ) & 0xFF ); (output)[(4) + 3] = (unsigned char) ( ( (X1) >> 24 ) & 0xFF ); };
+    { (output)[(8) ] = (unsigned char) ( ( (X2) ) & 0xFF ); (output)[(8) + 1] = (unsigned char) ( ( (X2) >> 8 ) & 0xFF ); (output)[(8) + 2] = (unsigned char) ( ( (X2) >> 16 ) & 0xFF ); (output)[(8) + 3] = (unsigned char) ( ( (X2) >> 24 ) & 0xFF ); };
+    { (output)[(12) ] = (unsigned char) ( ( (X3) ) & 0xFF ); (output)[(12) + 1] = (unsigned char) ( ( (X3) >> 8 ) & 0xFF ); (output)[(12) + 2] = (unsigned char) ( ( (X3) >> 16 ) & 0xFF ); (output)[(12) + 3] = (unsigned char) ( ( (X3) >> 24 ) & 0xFF ); };
 }
-#endif /* !MBEDTLS_AES_ENCRYPT_ALT */
 
-/*
- * AES-ECB block decryption
- */
-#if !defined(MBEDTLS_AES_DECRYPT_ALT)
+
+
+
+
+
 void mbedtls_aes_decrypt( mbedtls_aes_context *ctx,
                           const unsigned char input[16],
                           unsigned char output[16] )
@@ -776,76 +4316,60 @@ void mbedtls_aes_decrypt( mbedtls_aes_context *ctx,
 
     RK = ctx->rk;
 
-    GET_UINT32_LE( X0, input,  0 ); X0 ^= *RK++;
-    GET_UINT32_LE( X1, input,  4 ); X1 ^= *RK++;
-    GET_UINT32_LE( X2, input,  8 ); X2 ^= *RK++;
-    GET_UINT32_LE( X3, input, 12 ); X3 ^= *RK++;
+    { (X0) = ( (uint32_t) (input)[(0) ] ) | ( (uint32_t) (input)[(0) + 1] << 8 ) | ( (uint32_t) (input)[(0) + 2] << 16 ) | ( (uint32_t) (input)[(0) + 3] << 24 ); }; X0 ^= *RK++;
+    { (X1) = ( (uint32_t) (input)[(4) ] ) | ( (uint32_t) (input)[(4) + 1] << 8 ) | ( (uint32_t) (input)[(4) + 2] << 16 ) | ( (uint32_t) (input)[(4) + 3] << 24 ); }; X1 ^= *RK++;
+    { (X2) = ( (uint32_t) (input)[(8) ] ) | ( (uint32_t) (input)[(8) + 1] << 8 ) | ( (uint32_t) (input)[(8) + 2] << 16 ) | ( (uint32_t) (input)[(8) + 3] << 24 ); }; X2 ^= *RK++;
+    { (X3) = ( (uint32_t) (input)[(12) ] ) | ( (uint32_t) (input)[(12) + 1] << 8 ) | ( (uint32_t) (input)[(12) + 2] << 16 ) | ( (uint32_t) (input)[(12) + 3] << 24 ); }; X3 ^= *RK++;
 
     for( i = ( ctx->nr >> 1 ) - 1; i > 0; i-- )
     {
-        AES_RROUND( Y0, Y1, Y2, Y3, X0, X1, X2, X3 );
-        AES_RROUND( X0, X1, X2, X3, Y0, Y1, Y2, Y3 );
+        { Y0 = *RK++ ^ RT0[ ( X0 ) & 0xFF ] ^ RT1[ ( X3 >> 8 ) & 0xFF ] ^ RT2[ ( X2 >> 16 ) & 0xFF ] ^ RT3[ ( X1 >> 24 ) & 0xFF ]; Y1 = *RK++ ^ RT0[ ( X1 ) & 0xFF ] ^ RT1[ ( X0 >> 8 ) & 0xFF ] ^ RT2[ ( X3 >> 16 ) & 0xFF ] ^ RT3[ ( X2 >> 24 ) & 0xFF ]; Y2 = *RK++ ^ RT0[ ( X2 ) & 0xFF ] ^ RT1[ ( X1 >> 8 ) & 0xFF ] ^ RT2[ ( X0 >> 16 ) & 0xFF ] ^ RT3[ ( X3 >> 24 ) & 0xFF ]; Y3 = *RK++ ^ RT0[ ( X3 ) & 0xFF ] ^ RT1[ ( X2 >> 8 ) & 0xFF ] ^ RT2[ ( X1 >> 16 ) & 0xFF ] ^ RT3[ ( X0 >> 24 ) & 0xFF ]; };
+        { X0 = *RK++ ^ RT0[ ( Y0 ) & 0xFF ] ^ RT1[ ( Y3 >> 8 ) & 0xFF ] ^ RT2[ ( Y2 >> 16 ) & 0xFF ] ^ RT3[ ( Y1 >> 24 ) & 0xFF ]; X1 = *RK++ ^ RT0[ ( Y1 ) & 0xFF ] ^ RT1[ ( Y0 >> 8 ) & 0xFF ] ^ RT2[ ( Y3 >> 16 ) & 0xFF ] ^ RT3[ ( Y2 >> 24 ) & 0xFF ]; X2 = *RK++ ^ RT0[ ( Y2 ) & 0xFF ] ^ RT1[ ( Y1 >> 8 ) & 0xFF ] ^ RT2[ ( Y0 >> 16 ) & 0xFF ] ^ RT3[ ( Y3 >> 24 ) & 0xFF ]; X3 = *RK++ ^ RT0[ ( Y3 ) & 0xFF ] ^ RT1[ ( Y2 >> 8 ) & 0xFF ] ^ RT2[ ( Y1 >> 16 ) & 0xFF ] ^ RT3[ ( Y0 >> 24 ) & 0xFF ]; };
     }
 
-    AES_RROUND( Y0, Y1, Y2, Y3, X0, X1, X2, X3 );
+    { Y0 = *RK++ ^ RT0[ ( X0 ) & 0xFF ] ^ RT1[ ( X3 >> 8 ) & 0xFF ] ^ RT2[ ( X2 >> 16 ) & 0xFF ] ^ RT3[ ( X1 >> 24 ) & 0xFF ]; Y1 = *RK++ ^ RT0[ ( X1 ) & 0xFF ] ^ RT1[ ( X0 >> 8 ) & 0xFF ] ^ RT2[ ( X3 >> 16 ) & 0xFF ] ^ RT3[ ( X2 >> 24 ) & 0xFF ]; Y2 = *RK++ ^ RT0[ ( X2 ) & 0xFF ] ^ RT1[ ( X1 >> 8 ) & 0xFF ] ^ RT2[ ( X0 >> 16 ) & 0xFF ] ^ RT3[ ( X3 >> 24 ) & 0xFF ]; Y3 = *RK++ ^ RT0[ ( X3 ) & 0xFF ] ^ RT1[ ( X2 >> 8 ) & 0xFF ] ^ RT2[ ( X1 >> 16 ) & 0xFF ] ^ RT3[ ( X0 >> 24 ) & 0xFF ]; };
 
-    X0 = *RK++ ^ \
-            ( (uint32_t) RSb[ ( Y0       ) & 0xFF ]       ) ^
-            ( (uint32_t) RSb[ ( Y3 >>  8 ) & 0xFF ] <<  8 ) ^
+    X0 = *RK++ ^
+            ( (uint32_t) RSb[ ( Y0 ) & 0xFF ] ) ^
+            ( (uint32_t) RSb[ ( Y3 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) RSb[ ( Y2 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) RSb[ ( Y1 >> 24 ) & 0xFF ] << 24 );
 
-    X1 = *RK++ ^ \
-            ( (uint32_t) RSb[ ( Y1       ) & 0xFF ]       ) ^
-            ( (uint32_t) RSb[ ( Y0 >>  8 ) & 0xFF ] <<  8 ) ^
+    X1 = *RK++ ^
+            ( (uint32_t) RSb[ ( Y1 ) & 0xFF ] ) ^
+            ( (uint32_t) RSb[ ( Y0 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) RSb[ ( Y3 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) RSb[ ( Y2 >> 24 ) & 0xFF ] << 24 );
 
-    X2 = *RK++ ^ \
-            ( (uint32_t) RSb[ ( Y2       ) & 0xFF ]       ) ^
-            ( (uint32_t) RSb[ ( Y1 >>  8 ) & 0xFF ] <<  8 ) ^
+    X2 = *RK++ ^
+            ( (uint32_t) RSb[ ( Y2 ) & 0xFF ] ) ^
+            ( (uint32_t) RSb[ ( Y1 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) RSb[ ( Y0 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) RSb[ ( Y3 >> 24 ) & 0xFF ] << 24 );
 
-    X3 = *RK++ ^ \
-            ( (uint32_t) RSb[ ( Y3       ) & 0xFF ]       ) ^
-            ( (uint32_t) RSb[ ( Y2 >>  8 ) & 0xFF ] <<  8 ) ^
+    X3 = *RK++ ^
+            ( (uint32_t) RSb[ ( Y3 ) & 0xFF ] ) ^
+            ( (uint32_t) RSb[ ( Y2 >> 8 ) & 0xFF ] << 8 ) ^
             ( (uint32_t) RSb[ ( Y1 >> 16 ) & 0xFF ] << 16 ) ^
             ( (uint32_t) RSb[ ( Y0 >> 24 ) & 0xFF ] << 24 );
 
-    PUT_UINT32_LE( X0, output,  0 );
-    PUT_UINT32_LE( X1, output,  4 );
-    PUT_UINT32_LE( X2, output,  8 );
-    PUT_UINT32_LE( X3, output, 12 );
+    { (output)[(0) ] = (unsigned char) ( ( (X0) ) & 0xFF ); (output)[(0) + 1] = (unsigned char) ( ( (X0) >> 8 ) & 0xFF ); (output)[(0) + 2] = (unsigned char) ( ( (X0) >> 16 ) & 0xFF ); (output)[(0) + 3] = (unsigned char) ( ( (X0) >> 24 ) & 0xFF ); };
+    { (output)[(4) ] = (unsigned char) ( ( (X1) ) & 0xFF ); (output)[(4) + 1] = (unsigned char) ( ( (X1) >> 8 ) & 0xFF ); (output)[(4) + 2] = (unsigned char) ( ( (X1) >> 16 ) & 0xFF ); (output)[(4) + 3] = (unsigned char) ( ( (X1) >> 24 ) & 0xFF ); };
+    { (output)[(8) ] = (unsigned char) ( ( (X2) ) & 0xFF ); (output)[(8) + 1] = (unsigned char) ( ( (X2) >> 8 ) & 0xFF ); (output)[(8) + 2] = (unsigned char) ( ( (X2) >> 16 ) & 0xFF ); (output)[(8) + 3] = (unsigned char) ( ( (X2) >> 24 ) & 0xFF ); };
+    { (output)[(12) ] = (unsigned char) ( ( (X3) ) & 0xFF ); (output)[(12) + 1] = (unsigned char) ( ( (X3) >> 8 ) & 0xFF ); (output)[(12) + 2] = (unsigned char) ( ( (X3) >> 16 ) & 0xFF ); (output)[(12) + 3] = (unsigned char) ( ( (X3) >> 24 ) & 0xFF ); };
 }
-#endif /* !MBEDTLS_AES_DECRYPT_ALT */
 
-/*
- * AES-ECB block encryption/decryption
- */
+
+
+
+
 int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
                     int mode,
                     const unsigned char input[16],
                     unsigned char output[16] )
 {
-#if defined(MBEDTLS_AESNI_C) && defined(MBEDTLS_HAVE_X86_64)
-    if( mbedtls_aesni_has_support( MBEDTLS_AESNI_AES ) )
-        return( mbedtls_aesni_crypt_ecb( ctx, mode, input, output ) );
-#endif
-
-#if defined(MBEDTLS_PADLOCK_C) && defined(MBEDTLS_HAVE_X86)
-    if( aes_padlock_ace )
-    {
-        if( mbedtls_padlock_xcryptecb( ctx, mode, input, output ) == 0 )
-            return( 0 );
-
-        // If padlock data misaligned, we just fall back to
-        // unaccelerated mode
-        //
-    }
-#endif
-
-    if( mode == MBEDTLS_AES_ENCRYPT )
+# 848 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+    if( mode == 1 )
         mbedtls_aes_encrypt( ctx, input, output );
     else
         mbedtls_aes_decrypt( ctx, input, output );
@@ -853,10 +4377,10 @@ int mbedtls_aes_crypt_ecb( mbedtls_aes_context *ctx,
     return( 0 );
 }
 
-#if defined(MBEDTLS_CIPHER_MODE_CBC)
-/*
- * AES-CBC buffer encryption/decryption
- */
+
+
+
+
 int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
                     int mode,
                     size_t length,
@@ -868,21 +4392,9 @@ int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
     unsigned char temp[16];
 
     if( length % 16 )
-        return( MBEDTLS_ERR_AES_INVALID_INPUT_LENGTH );
-
-#if defined(MBEDTLS_PADLOCK_C) && defined(MBEDTLS_HAVE_X86)
-    if( aes_padlock_ace )
-    {
-        if( mbedtls_padlock_xcryptcbc( ctx, mode, length, iv, input, output ) == 0 )
-            return( 0 );
-
-        // If padlock data misaligned, we just fall back to
-        // unaccelerated mode
-        //
-    }
-#endif
-
-    if( mode == MBEDTLS_AES_DECRYPT )
+        return( -0x0022 );
+# 885 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
+    if( mode == 0 )
     {
         while( length > 0 )
         {
@@ -894,7 +4406,7 @@ int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
 
             memcpy( iv, temp, 16 );
 
-            input  += 16;
+            input += 16;
             output += 16;
             length -= 16;
         }
@@ -909,7 +4421,7 @@ int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
             mbedtls_aes_crypt_ecb( ctx, mode, output, output );
             memcpy( iv, output, 16 );
 
-            input  += 16;
+            input += 16;
             output += 16;
             length -= 16;
         }
@@ -917,12 +4429,12 @@ int mbedtls_aes_crypt_cbc( mbedtls_aes_context *ctx,
 
     return( 0 );
 }
-#endif /* MBEDTLS_CIPHER_MODE_CBC */
 
-#if defined(MBEDTLS_CIPHER_MODE_CFB)
-/*
- * AES-CFB128 buffer encryption/decryption
- */
+
+
+
+
+
 int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
                        int mode,
                        size_t length,
@@ -934,12 +4446,12 @@ int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
     int c;
     size_t n = *iv_off;
 
-    if( mode == MBEDTLS_AES_DECRYPT )
+    if( mode == 0 )
     {
         while( length-- )
         {
             if( n == 0 )
-                mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, iv, iv );
+                mbedtls_aes_crypt_ecb( ctx, 1, iv, iv );
 
             c = *input++;
             *output++ = (unsigned char)( c ^ iv[n] );
@@ -953,7 +4465,7 @@ int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
         while( length-- )
         {
             if( n == 0 )
-                mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, iv, iv );
+                mbedtls_aes_crypt_ecb( ctx, 1, iv, iv );
 
             iv[n] = *output++ = (unsigned char)( iv[n] ^ *input++ );
 
@@ -966,9 +4478,9 @@ int mbedtls_aes_crypt_cfb128( mbedtls_aes_context *ctx,
     return( 0 );
 }
 
-/*
- * AES-CFB8 buffer encryption/decryption
- */
+
+
+
 int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
                        int mode,
                        size_t length,
@@ -982,14 +4494,14 @@ int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
     while( length-- )
     {
         memcpy( ov, iv, 16 );
-        mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, iv, iv );
+        mbedtls_aes_crypt_ecb( ctx, 1, iv, iv );
 
-        if( mode == MBEDTLS_AES_DECRYPT )
+        if( mode == 0 )
             ov[16] = *input;
 
         c = *output++ = (unsigned char)( iv[0] ^ *input++ );
 
-        if( mode == MBEDTLS_AES_ENCRYPT )
+        if( mode == 1 )
             ov[16] = c;
 
         memcpy( iv, ov + 1, 16 );
@@ -997,12 +4509,12 @@ int mbedtls_aes_crypt_cfb8( mbedtls_aes_context *ctx,
 
     return( 0 );
 }
-#endif /*MBEDTLS_CIPHER_MODE_CFB */
 
-#if defined(MBEDTLS_CIPHER_MODE_CTR)
-/*
- * AES-CTR buffer encryption/decryption
- */
+
+
+
+
+
 int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
                        size_t length,
                        size_t *nc_off,
@@ -1017,7 +4529,7 @@ int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
     while( length-- )
     {
         if( n == 0 ) {
-            mbedtls_aes_crypt_ecb( ctx, MBEDTLS_AES_ENCRYPT, nonce_counter, stream_block );
+            mbedtls_aes_crypt_ecb( ctx, 1, nonce_counter, stream_block );
 
             for( i = 16; i > 0; i-- )
                 if( ++nonce_counter[i - 1] != 0 )
@@ -1033,16 +4545,7 @@ int mbedtls_aes_crypt_ctr( mbedtls_aes_context *ctx,
 
     return( 0 );
 }
-#endif /* MBEDTLS_CIPHER_MODE_CTR */
-
-#endif /* !MBEDTLS_AES_ALT */
-
-#if defined(MBEDTLS_SELF_TEST)
-/*
- * AES test vectors from:
- *
- * http://csrc.nist.gov/archive/aes/rijndael/rijndael-vals.zip
- */
+# 1046 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 static const unsigned char aes_test_ecb_dec[3][16] =
 {
     { 0x44, 0x41, 0x6A, 0xC2, 0xD1, 0xF5, 0x3C, 0x58,
@@ -1063,7 +4566,7 @@ static const unsigned char aes_test_ecb_enc[3][16] =
       0xFF, 0x30, 0xB4, 0xEA, 0x21, 0x63, 0x6D, 0xA4 }
 };
 
-#if defined(MBEDTLS_CIPHER_MODE_CBC)
+
 static const unsigned char aes_test_cbc_dec[3][16] =
 {
     { 0xFA, 0xCA, 0x37, 0xE0, 0xB0, 0xC8, 0x53, 0x73,
@@ -1083,14 +4586,7 @@ static const unsigned char aes_test_cbc_enc[3][16] =
     { 0xFE, 0x3C, 0x53, 0x65, 0x3E, 0x2F, 0x45, 0xB5,
       0x6F, 0xCD, 0x88, 0xB2, 0xCC, 0x89, 0x8F, 0xF0 }
 };
-#endif /* MBEDTLS_CIPHER_MODE_CBC */
-
-#if defined(MBEDTLS_CIPHER_MODE_CFB)
-/*
- * AES-CFB128 test vectors from:
- *
- * http://csrc.nist.gov/publications/nistpubs/800-38a/sp800-38a.pdf
- */
+# 1094 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 static const unsigned char aes_test_cfb128_key[3][32] =
 {
     { 0x2B, 0x7E, 0x15, 0x16, 0x28, 0xAE, 0xD2, 0xA6,
@@ -1149,15 +4645,7 @@ static const unsigned char aes_test_cfb128_ct[3][64] =
       0x75, 0xA3, 0x85, 0x74, 0x1A, 0xB9, 0xCE, 0xF8,
       0x20, 0x31, 0x62, 0x3D, 0x55, 0xB1, 0xE4, 0x71 }
 };
-#endif /* MBEDTLS_CIPHER_MODE_CFB */
-
-#if defined(MBEDTLS_CIPHER_MODE_CTR)
-/*
- * AES-CTR test vectors from:
- *
- * http://www.faqs.org/rfcs/rfc3686.html
- */
-
+# 1161 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/mbedtls-2.4.2/library/aes.c"
 static const unsigned char aes_test_ctr_key[3][16] =
 {
     { 0xAE, 0x68, 0x52, 0xF8, 0x12, 0x10, 0x67, 0xCC,
@@ -1212,50 +4700,50 @@ static const unsigned char aes_test_ctr_ct[3][48] =
 
 static const int aes_test_ctr_len[3] =
     { 16, 32, 36 };
-#endif /* MBEDTLS_CIPHER_MODE_CTR */
 
-/*
- * Checkup routine
- */
+
+
+
+
 int mbedtls_aes_self_test( int verbose )
 {
     int ret = 0, i, j, u, v;
     unsigned char key[32];
     unsigned char buf[64];
-#if defined(MBEDTLS_CIPHER_MODE_CBC) || defined(MBEDTLS_CIPHER_MODE_CFB)
+
     unsigned char iv[16];
-#endif
-#if defined(MBEDTLS_CIPHER_MODE_CBC)
+
+
     unsigned char prv[16];
-#endif
-#if defined(MBEDTLS_CIPHER_MODE_CTR) || defined(MBEDTLS_CIPHER_MODE_CFB)
+
+
     size_t offset;
-#endif
-#if defined(MBEDTLS_CIPHER_MODE_CTR)
+
+
     int len;
     unsigned char nonce_counter[16];
     unsigned char stream_block[16];
-#endif
+
     mbedtls_aes_context ctx;
 
     memset( key, 0, 32 );
     mbedtls_aes_init( &ctx );
 
-    /*
-     * ECB mode
-     */
+
+
+
     for( i = 0; i < 6; i++ )
     {
         u = i >> 1;
-        v = i  & 1;
+        v = i & 1;
 
         if( verbose != 0 )
-            mbedtls_printf( "  AES-ECB-%3d (%s): ", 128 + u * 64,
-                             ( v == MBEDTLS_AES_DECRYPT ) ? "dec" : "enc" );
+            printf( "  AES-ECB-%3d (%s): ", 128 + u * 64,
+                             ( v == 0 ) ? "dec" : "enc" );
 
         memset( buf, 0, 16 );
 
-        if( v == MBEDTLS_AES_DECRYPT )
+        if( v == 0 )
         {
             mbedtls_aes_setkey_dec( &ctx, key, 128 + u * 64 );
 
@@ -1265,7 +4753,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_ecb_dec[u], 16 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1281,7 +4769,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_ecb_enc[u], 16 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1289,30 +4777,30 @@ int mbedtls_aes_self_test( int verbose )
         }
 
         if( verbose != 0 )
-            mbedtls_printf( "passed\n" );
+            printf( "passed\n" );
     }
 
     if( verbose != 0 )
-        mbedtls_printf( "\n" );
+        printf( "\n" );
 
-#if defined(MBEDTLS_CIPHER_MODE_CBC)
-    /*
-     * CBC mode
-     */
+
+
+
+
     for( i = 0; i < 6; i++ )
     {
         u = i >> 1;
-        v = i  & 1;
+        v = i & 1;
 
         if( verbose != 0 )
-            mbedtls_printf( "  AES-CBC-%3d (%s): ", 128 + u * 64,
-                             ( v == MBEDTLS_AES_DECRYPT ) ? "dec" : "enc" );
+            printf( "  AES-CBC-%3d (%s): ", 128 + u * 64,
+                             ( v == 0 ) ? "dec" : "enc" );
 
         memset( iv , 0, 16 );
         memset( prv, 0, 16 );
         memset( buf, 0, 16 );
 
-        if( v == MBEDTLS_AES_DECRYPT )
+        if( v == 0 )
         {
             mbedtls_aes_setkey_dec( &ctx, key, 128 + u * 64 );
 
@@ -1322,7 +4810,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_cbc_dec[u], 16 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1346,7 +4834,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( prv, aes_test_cbc_enc[u], 16 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1354,33 +4842,33 @@ int mbedtls_aes_self_test( int verbose )
         }
 
         if( verbose != 0 )
-            mbedtls_printf( "passed\n" );
+            printf( "passed\n" );
     }
 
     if( verbose != 0 )
-        mbedtls_printf( "\n" );
-#endif /* MBEDTLS_CIPHER_MODE_CBC */
+        printf( "\n" );
 
-#if defined(MBEDTLS_CIPHER_MODE_CFB)
-    /*
-     * CFB128 mode
-     */
+
+
+
+
+
     for( i = 0; i < 6; i++ )
     {
         u = i >> 1;
-        v = i  & 1;
+        v = i & 1;
 
         if( verbose != 0 )
-            mbedtls_printf( "  AES-CFB128-%3d (%s): ", 128 + u * 64,
-                             ( v == MBEDTLS_AES_DECRYPT ) ? "dec" : "enc" );
+            printf( "  AES-CFB128-%3d (%s): ", 128 + u * 64,
+                             ( v == 0 ) ? "dec" : "enc" );
 
-        memcpy( iv,  aes_test_cfb128_iv, 16 );
+        memcpy( iv, aes_test_cfb128_iv, 16 );
         memcpy( key, aes_test_cfb128_key[u], 16 + u * 8 );
 
         offset = 0;
         mbedtls_aes_setkey_enc( &ctx, key, 128 + u * 64 );
 
-        if( v == MBEDTLS_AES_DECRYPT )
+        if( v == 0 )
         {
             memcpy( buf, aes_test_cfb128_ct[u], 64 );
             mbedtls_aes_crypt_cfb128( &ctx, v, 64, &offset, iv, buf, buf );
@@ -1388,7 +4876,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_cfb128_pt, 64 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1402,7 +4890,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_cfb128_ct[u], 64 ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1410,25 +4898,25 @@ int mbedtls_aes_self_test( int verbose )
         }
 
         if( verbose != 0 )
-            mbedtls_printf( "passed\n" );
+            printf( "passed\n" );
     }
 
     if( verbose != 0 )
-        mbedtls_printf( "\n" );
-#endif /* MBEDTLS_CIPHER_MODE_CFB */
+        printf( "\n" );
 
-#if defined(MBEDTLS_CIPHER_MODE_CTR)
-    /*
-     * CTR mode
-     */
+
+
+
+
+
     for( i = 0; i < 6; i++ )
     {
         u = i >> 1;
-        v = i  & 1;
+        v = i & 1;
 
         if( verbose != 0 )
-            mbedtls_printf( "  AES-CTR-128 (%s): ",
-                             ( v == MBEDTLS_AES_DECRYPT ) ? "dec" : "enc" );
+            printf( "  AES-CTR-128 (%s): ",
+                             ( v == 0 ) ? "dec" : "enc" );
 
         memcpy( nonce_counter, aes_test_ctr_nonce_counter[u], 16 );
         memcpy( key, aes_test_ctr_key[u], 16 );
@@ -1436,7 +4924,7 @@ int mbedtls_aes_self_test( int verbose )
         offset = 0;
         mbedtls_aes_setkey_enc( &ctx, key, 128 );
 
-        if( v == MBEDTLS_AES_DECRYPT )
+        if( v == 0 )
         {
             len = aes_test_ctr_len[u];
             memcpy( buf, aes_test_ctr_ct[u], len );
@@ -1447,7 +4935,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_ctr_pt[u], len ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1464,7 +4952,7 @@ int mbedtls_aes_self_test( int verbose )
             if( memcmp( buf, aes_test_ctr_ct[u], len ) != 0 )
             {
                 if( verbose != 0 )
-                    mbedtls_printf( "failed\n" );
+                    printf( "failed\n" );
 
                 ret = 1;
                 goto exit;
@@ -1472,12 +4960,12 @@ int mbedtls_aes_self_test( int verbose )
         }
 
         if( verbose != 0 )
-            mbedtls_printf( "passed\n" );
+            printf( "passed\n" );
     }
 
     if( verbose != 0 )
-        mbedtls_printf( "\n" );
-#endif /* MBEDTLS_CIPHER_MODE_CTR */
+        printf( "\n" );
+
 
     ret = 0;
 
@@ -1486,7 +4974,3 @@ exit:
 
     return( ret );
 }
-
-#endif /* MBEDTLS_SELF_TEST */
-
-#endif /* MBEDTLS_AES_C */

@@ -11,6 +11,7 @@
 
 #define MCU_FACTORY_DEFAULT_NVM_ADDR      0x000F6000
 #define MCU_SYS_CONFIG_NVM_ADDR           0x000F4000
+#define MCU_CERT_CONFIG_NVM_ADDR          0x000F4600
 #define MCU_USER_DATA_NVM_ADDR            0x000D4000
 
 #endif
