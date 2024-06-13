@@ -1,7147 +1,5120 @@
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3//"
-# 1 "<built-in>"
-#define __STDC__ 1
-#define __STDC_VERSION__ 199901L
-#define __STDC_HOSTED__ 1
-#define __GNUC__ 10
-#define __GNUC_MINOR__ 2
-#define __GNUC_PATCHLEVEL__ 1
-#define __VERSION__ "10.2.1 20201103 (release)"
-#define __ATOMIC_RELAXED 0
-#define __ATOMIC_SEQ_CST 5
-#define __ATOMIC_ACQUIRE 2
-#define __ATOMIC_RELEASE 3
-#define __ATOMIC_ACQ_REL 4
-#define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
-#define __OPTIMIZE__ 1
-#define __FINITE_MATH_ONLY__ 0
-#define __SIZEOF_INT__ 4
-#define __SIZEOF_LONG__ 4
-#define __SIZEOF_LONG_LONG__ 8
-#define __SIZEOF_SHORT__ 2
-#define __SIZEOF_FLOAT__ 4
-#define __SIZEOF_DOUBLE__ 8
-#define __SIZEOF_LONG_DOUBLE__ 8
-#define __SIZEOF_SIZE_T__ 4
-#define __CHAR_BIT__ 8
-#define __BIGGEST_ALIGNMENT__ 8
-#define __ORDER_LITTLE_ENDIAN__ 1234
-#define __ORDER_BIG_ENDIAN__ 4321
-#define __ORDER_PDP_ENDIAN__ 3412
-#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __SIZEOF_POINTER__ 4
-#define __SIZE_TYPE__ unsigned int
-#define __PTRDIFF_TYPE__ int
-#define __WCHAR_TYPE__ unsigned int
-#define __WINT_TYPE__ unsigned int
-#define __INTMAX_TYPE__ long long int
-#define __UINTMAX_TYPE__ long long unsigned int
-#define __CHAR16_TYPE__ short unsigned int
-#define __CHAR32_TYPE__ long unsigned int
-#define __SIG_ATOMIC_TYPE__ int
-#define __INT8_TYPE__ signed char
-#define __INT16_TYPE__ short int
-#define __INT32_TYPE__ long int
-#define __INT64_TYPE__ long long int
-#define __UINT8_TYPE__ unsigned char
-#define __UINT16_TYPE__ short unsigned int
-#define __UINT32_TYPE__ long unsigned int
-#define __UINT64_TYPE__ long long unsigned int
-#define __INT_LEAST8_TYPE__ signed char
-#define __INT_LEAST16_TYPE__ short int
-#define __INT_LEAST32_TYPE__ long int
-#define __INT_LEAST64_TYPE__ long long int
-#define __UINT_LEAST8_TYPE__ unsigned char
-#define __UINT_LEAST16_TYPE__ short unsigned int
-#define __UINT_LEAST32_TYPE__ long unsigned int
-#define __UINT_LEAST64_TYPE__ long long unsigned int
-#define __INT_FAST8_TYPE__ int
-#define __INT_FAST16_TYPE__ int
-#define __INT_FAST32_TYPE__ int
-#define __INT_FAST64_TYPE__ long long int
-#define __UINT_FAST8_TYPE__ unsigned int
-#define __UINT_FAST16_TYPE__ unsigned int
-#define __UINT_FAST32_TYPE__ unsigned int
-#define __UINT_FAST64_TYPE__ long long unsigned int
-#define __INTPTR_TYPE__ int
-#define __UINTPTR_TYPE__ unsigned int
-#define __GXX_ABI_VERSION 1014
-#define __SCHAR_MAX__ 0x7f
-#define __SHRT_MAX__ 0x7fff
-#define __INT_MAX__ 0x7fffffff
-#define __LONG_MAX__ 0x7fffffffL
-#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
-#define __WCHAR_MAX__ 0xffffffffU
-#define __WCHAR_MIN__ 0U
-#define __WINT_MAX__ 0xffffffffU
-#define __WINT_MIN__ 0U
-#define __PTRDIFF_MAX__ 0x7fffffff
-#define __SIZE_MAX__ 0xffffffffU
-#define __SCHAR_WIDTH__ 8
-#define __SHRT_WIDTH__ 16
-#define __INT_WIDTH__ 32
-#define __LONG_WIDTH__ 32
-#define __LONG_LONG_WIDTH__ 64
-#define __WCHAR_WIDTH__ 32
-#define __WINT_WIDTH__ 32
-#define __PTRDIFF_WIDTH__ 32
-#define __SIZE_WIDTH__ 32
-#define __INTMAX_MAX__ 0x7fffffffffffffffLL
-#define __INTMAX_C(c) c ## LL
-#define __UINTMAX_MAX__ 0xffffffffffffffffULL
-#define __UINTMAX_C(c) c ## ULL
-#define __INTMAX_WIDTH__ 64
-#define __SIG_ATOMIC_MAX__ 0x7fffffff
-#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
-#define __SIG_ATOMIC_WIDTH__ 32
-#define __INT8_MAX__ 0x7f
-#define __INT16_MAX__ 0x7fff
-#define __INT32_MAX__ 0x7fffffffL
-#define __INT64_MAX__ 0x7fffffffffffffffLL
-#define __UINT8_MAX__ 0xff
-#define __UINT16_MAX__ 0xffff
-#define __UINT32_MAX__ 0xffffffffUL
-#define __UINT64_MAX__ 0xffffffffffffffffULL
-#define __INT_LEAST8_MAX__ 0x7f
-#define __INT8_C(c) c
-#define __INT_LEAST8_WIDTH__ 8
-#define __INT_LEAST16_MAX__ 0x7fff
-#define __INT16_C(c) c
-#define __INT_LEAST16_WIDTH__ 16
-#define __INT_LEAST32_MAX__ 0x7fffffffL
-#define __INT32_C(c) c ## L
-#define __INT_LEAST32_WIDTH__ 32
-#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT64_C(c) c ## LL
-#define __INT_LEAST64_WIDTH__ 64
-#define __UINT_LEAST8_MAX__ 0xff
-#define __UINT8_C(c) c
-#define __UINT_LEAST16_MAX__ 0xffff
-#define __UINT16_C(c) c
-#define __UINT_LEAST32_MAX__ 0xffffffffUL
-#define __UINT32_C(c) c ## UL
-#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
-#define __UINT64_C(c) c ## ULL
-#define __INT_FAST8_MAX__ 0x7fffffff
-#define __INT_FAST8_WIDTH__ 32
-#define __INT_FAST16_MAX__ 0x7fffffff
-#define __INT_FAST16_WIDTH__ 32
-#define __INT_FAST32_MAX__ 0x7fffffff
-#define __INT_FAST32_WIDTH__ 32
-#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT_FAST64_WIDTH__ 64
-#define __UINT_FAST8_MAX__ 0xffffffffU
-#define __UINT_FAST16_MAX__ 0xffffffffU
-#define __UINT_FAST32_MAX__ 0xffffffffU
-#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
-#define __INTPTR_MAX__ 0x7fffffff
-#define __INTPTR_WIDTH__ 32
-#define __UINTPTR_MAX__ 0xffffffffU
-#define __GCC_IEC_559 0
-#define __GCC_IEC_559_COMPLEX 0
-#define __FLT_EVAL_METHOD__ 0
-#define __FLT_EVAL_METHOD_TS_18661_3__ 0
-#define __DEC_EVAL_METHOD__ 2
-#define __FLT_RADIX__ 2
-#define __FLT_MANT_DIG__ 24
-#define __FLT_DIG__ 6
-#define __FLT_MIN_EXP__ (-125)
-#define __FLT_MIN_10_EXP__ (-37)
-#define __FLT_MAX_EXP__ 128
-#define __FLT_MAX_10_EXP__ 38
-#define __FLT_DECIMAL_DIG__ 9
-#define __FLT_MAX__ 3.4028234663852886e+38F
-#define __FLT_NORM_MAX__ 3.4028234663852886e+38F
-#define __FLT_MIN__ 1.1754943508222875e-38F
-#define __FLT_EPSILON__ 1.1920928955078125e-7F
-#define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
-#define __FLT_HAS_DENORM__ 1
-#define __FLT_HAS_INFINITY__ 1
-#define __FLT_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF 1
-#define __DBL_MANT_DIG__ 53
-#define __DBL_DIG__ 15
-#define __DBL_MIN_EXP__ (-1021)
-#define __DBL_MIN_10_EXP__ (-307)
-#define __DBL_MAX_EXP__ 1024
-#define __DBL_MAX_10_EXP__ 308
-#define __DBL_DECIMAL_DIG__ 17
-#define __DBL_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_NORM_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_MIN__ ((double)2.2250738585072014e-308L)
-#define __DBL_EPSILON__ ((double)2.2204460492503131e-16L)
-#define __DBL_DENORM_MIN__ ((double)4.9406564584124654e-324L)
-#define __DBL_HAS_DENORM__ 1
-#define __DBL_HAS_INFINITY__ 1
-#define __DBL_HAS_QUIET_NAN__ 1
-#define __LDBL_MANT_DIG__ 53
-#define __LDBL_DIG__ 15
-#define __LDBL_MIN_EXP__ (-1021)
-#define __LDBL_MIN_10_EXP__ (-307)
-#define __LDBL_MAX_EXP__ 1024
-#define __LDBL_MAX_10_EXP__ 308
-#define __DECIMAL_DIG__ 17
-#define __LDBL_DECIMAL_DIG__ 17
-#define __LDBL_MAX__ 1.7976931348623157e+308L
-#define __LDBL_NORM_MAX__ 1.7976931348623157e+308L
-#define __LDBL_MIN__ 2.2250738585072014e-308L
-#define __LDBL_EPSILON__ 2.2204460492503131e-16L
-#define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
-#define __LDBL_HAS_DENORM__ 1
-#define __LDBL_HAS_INFINITY__ 1
-#define __LDBL_HAS_QUIET_NAN__ 1
-#define __FLT32_MANT_DIG__ 24
-#define __FLT32_DIG__ 6
-#define __FLT32_MIN_EXP__ (-125)
-#define __FLT32_MIN_10_EXP__ (-37)
-#define __FLT32_MAX_EXP__ 128
-#define __FLT32_MAX_10_EXP__ 38
-#define __FLT32_DECIMAL_DIG__ 9
-#define __FLT32_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_NORM_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_MIN__ 1.1754943508222875e-38F32
-#define __FLT32_EPSILON__ 1.1920928955078125e-7F32
-#define __FLT32_DENORM_MIN__ 1.4012984643248171e-45F32
-#define __FLT32_HAS_DENORM__ 1
-#define __FLT32_HAS_INFINITY__ 1
-#define __FLT32_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF32 1
-#define __FLT64_MANT_DIG__ 53
-#define __FLT64_DIG__ 15
-#define __FLT64_MIN_EXP__ (-1021)
-#define __FLT64_MIN_10_EXP__ (-307)
-#define __FLT64_MAX_EXP__ 1024
-#define __FLT64_MAX_10_EXP__ 308
-#define __FLT64_DECIMAL_DIG__ 17
-#define __FLT64_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_NORM_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_MIN__ 2.2250738585072014e-308F64
-#define __FLT64_EPSILON__ 2.2204460492503131e-16F64
-#define __FLT64_DENORM_MIN__ 4.9406564584124654e-324F64
-#define __FLT64_HAS_DENORM__ 1
-#define __FLT64_HAS_INFINITY__ 1
-#define __FLT64_HAS_QUIET_NAN__ 1
-#define __FLT32X_MANT_DIG__ 53
-#define __FLT32X_DIG__ 15
-#define __FLT32X_MIN_EXP__ (-1021)
-#define __FLT32X_MIN_10_EXP__ (-307)
-#define __FLT32X_MAX_EXP__ 1024
-#define __FLT32X_MAX_10_EXP__ 308
-#define __FLT32X_DECIMAL_DIG__ 17
-#define __FLT32X_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_NORM_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_MIN__ 2.2250738585072014e-308F32x
-#define __FLT32X_EPSILON__ 2.2204460492503131e-16F32x
-#define __FLT32X_DENORM_MIN__ 4.9406564584124654e-324F32x
-#define __FLT32X_HAS_DENORM__ 1
-#define __FLT32X_HAS_INFINITY__ 1
-#define __FLT32X_HAS_QUIET_NAN__ 1
-#define __SFRACT_FBIT__ 7
-#define __SFRACT_IBIT__ 0
-#define __SFRACT_MIN__ (-0.5HR-0.5HR)
-#define __SFRACT_MAX__ 0X7FP-7HR
-#define __SFRACT_EPSILON__ 0x1P-7HR
-#define __USFRACT_FBIT__ 8
-#define __USFRACT_IBIT__ 0
-#define __USFRACT_MIN__ 0.0UHR
-#define __USFRACT_MAX__ 0XFFP-8UHR
-#define __USFRACT_EPSILON__ 0x1P-8UHR
-#define __FRACT_FBIT__ 15
-#define __FRACT_IBIT__ 0
-#define __FRACT_MIN__ (-0.5R-0.5R)
-#define __FRACT_MAX__ 0X7FFFP-15R
-#define __FRACT_EPSILON__ 0x1P-15R
-#define __UFRACT_FBIT__ 16
-#define __UFRACT_IBIT__ 0
-#define __UFRACT_MIN__ 0.0UR
-#define __UFRACT_MAX__ 0XFFFFP-16UR
-#define __UFRACT_EPSILON__ 0x1P-16UR
-#define __LFRACT_FBIT__ 31
-#define __LFRACT_IBIT__ 0
-#define __LFRACT_MIN__ (-0.5LR-0.5LR)
-#define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
-#define __LFRACT_EPSILON__ 0x1P-31LR
-#define __ULFRACT_FBIT__ 32
-#define __ULFRACT_IBIT__ 0
-#define __ULFRACT_MIN__ 0.0ULR
-#define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
-#define __ULFRACT_EPSILON__ 0x1P-32ULR
-#define __LLFRACT_FBIT__ 63
-#define __LLFRACT_IBIT__ 0
-#define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
-#define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
-#define __LLFRACT_EPSILON__ 0x1P-63LLR
-#define __ULLFRACT_FBIT__ 64
-#define __ULLFRACT_IBIT__ 0
-#define __ULLFRACT_MIN__ 0.0ULLR
-#define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
-#define __ULLFRACT_EPSILON__ 0x1P-64ULLR
-#define __SACCUM_FBIT__ 7
-#define __SACCUM_IBIT__ 8
-#define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
-#define __SACCUM_MAX__ 0X7FFFP-7HK
-#define __SACCUM_EPSILON__ 0x1P-7HK
-#define __USACCUM_FBIT__ 8
-#define __USACCUM_IBIT__ 8
-#define __USACCUM_MIN__ 0.0UHK
-#define __USACCUM_MAX__ 0XFFFFP-8UHK
-#define __USACCUM_EPSILON__ 0x1P-8UHK
-#define __ACCUM_FBIT__ 15
-#define __ACCUM_IBIT__ 16
-#define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
-#define __ACCUM_MAX__ 0X7FFFFFFFP-15K
-#define __ACCUM_EPSILON__ 0x1P-15K
-#define __UACCUM_FBIT__ 16
-#define __UACCUM_IBIT__ 16
-#define __UACCUM_MIN__ 0.0UK
-#define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
-#define __UACCUM_EPSILON__ 0x1P-16UK
-#define __LACCUM_FBIT__ 31
-#define __LACCUM_IBIT__ 32
-#define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
-#define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
-#define __LACCUM_EPSILON__ 0x1P-31LK
-#define __ULACCUM_FBIT__ 32
-#define __ULACCUM_IBIT__ 32
-#define __ULACCUM_MIN__ 0.0ULK
-#define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
-#define __ULACCUM_EPSILON__ 0x1P-32ULK
-#define __LLACCUM_FBIT__ 31
-#define __LLACCUM_IBIT__ 32
-#define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
-#define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
-#define __LLACCUM_EPSILON__ 0x1P-31LLK
-#define __ULLACCUM_FBIT__ 32
-#define __ULLACCUM_IBIT__ 32
-#define __ULLACCUM_MIN__ 0.0ULLK
-#define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
-#define __ULLACCUM_EPSILON__ 0x1P-32ULLK
-#define __QQ_FBIT__ 7
-#define __QQ_IBIT__ 0
-#define __HQ_FBIT__ 15
-#define __HQ_IBIT__ 0
-#define __SQ_FBIT__ 31
-#define __SQ_IBIT__ 0
-#define __DQ_FBIT__ 63
-#define __DQ_IBIT__ 0
-#define __TQ_FBIT__ 127
-#define __TQ_IBIT__ 0
-#define __UQQ_FBIT__ 8
-#define __UQQ_IBIT__ 0
-#define __UHQ_FBIT__ 16
-#define __UHQ_IBIT__ 0
-#define __USQ_FBIT__ 32
-#define __USQ_IBIT__ 0
-#define __UDQ_FBIT__ 64
-#define __UDQ_IBIT__ 0
-#define __UTQ_FBIT__ 128
-#define __UTQ_IBIT__ 0
-#define __HA_FBIT__ 7
-#define __HA_IBIT__ 8
-#define __SA_FBIT__ 15
-#define __SA_IBIT__ 16
-#define __DA_FBIT__ 31
-#define __DA_IBIT__ 32
-#define __TA_FBIT__ 63
-#define __TA_IBIT__ 64
-#define __UHA_FBIT__ 8
-#define __UHA_IBIT__ 8
-#define __USA_FBIT__ 16
-#define __USA_IBIT__ 16
-#define __UDA_FBIT__ 32
-#define __UDA_IBIT__ 32
-#define __UTA_FBIT__ 64
-#define __UTA_IBIT__ 64
-#define __REGISTER_PREFIX__ 
-#define __USER_LABEL_PREFIX__ 
-#define __GNUC_STDC_INLINE__ 1
-#define __STRICT_ANSI__ 1
-#define __CHAR_UNSIGNED__ 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
-#define __GCC_ATOMIC_BOOL_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
-#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
-#define __GCC_ATOMIC_SHORT_LOCK_FREE 2
-#define __GCC_ATOMIC_INT_LOCK_FREE 2
-#define __GCC_ATOMIC_LONG_LOCK_FREE 2
-#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
-#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
-#define __GCC_ATOMIC_POINTER_LOCK_FREE 2
-#define __HAVE_SPECULATION_SAFE_VALUE 1
-#define __GCC_HAVE_DWARF2_CFI_ASM 1
-#define __PRAGMA_REDEFINE_EXTNAME 1
-#define __SIZEOF_WCHAR_T__ 4
-#define __SIZEOF_WINT_T__ 4
-#define __SIZEOF_PTRDIFF_T__ 4
-#define __ARM_FEATURE_DSP 1
-#define __ARM_FEATURE_QBIT 1
-#define __ARM_FEATURE_SAT 1
-#undef __ARM_FEATURE_CRYPTO
-# 1 "<built-in>"
-#define __ARM_FEATURE_UNALIGNED 1
-#undef __ARM_FEATURE_QRDMX
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CRC32
-# 1 "<built-in>"
-#undef __ARM_FEATURE_DOTPROD
-# 1 "<built-in>"
-#undef __ARM_FEATURE_COMPLEX
-# 1 "<built-in>"
-#define __ARM_32BIT_STATE 1
-#undef __ARM_FEATURE_MVE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CMSE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_LDREX
-# 1 "<built-in>"
-#define __ARM_FEATURE_LDREX 7
-#define __ARM_FEATURE_CLZ 1
-#undef __ARM_FEATURE_NUMERIC_MAXMIN
-# 1 "<built-in>"
-#define __ARM_FEATURE_SIMD32 1
-#define __ARM_SIZEOF_MINIMAL_ENUM 1
-#define __ARM_SIZEOF_WCHAR_T 4
-#undef __ARM_ARCH_PROFILE
-# 1 "<built-in>"
-#define __ARM_ARCH_PROFILE 77
-#define __arm__ 1
-#undef __ARM_ARCH
-# 1 "<built-in>"
-#define __ARM_ARCH 7
-#define __APCS_32__ 1
-#define __GCC_ASM_FLAG_OUTPUTS__ 1
-#define __thumb__ 1
-#define __thumb2__ 1
-#define __THUMBEL__ 1
-#undef __ARM_ARCH_ISA_THUMB
-# 1 "<built-in>"
-#define __ARM_ARCH_ISA_THUMB 2
-#define __ARMEL__ 1
-#define __VFP_FP__ 1
-#undef __ARM_FP
-# 1 "<built-in>"
-#define __ARM_FP 4
-#undef __ARM_FP16_FORMAT_IEEE
-# 1 "<built-in>"
-#undef __ARM_FP16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#undef __ARM_FP16_ARGS
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_FML
-# 1 "<built-in>"
-#define __ARM_FEATURE_FMA 1
-#undef __ARM_NEON__
-# 1 "<built-in>"
-#undef __ARM_NEON
-# 1 "<built-in>"
-#undef __ARM_NEON_FP
-# 1 "<built-in>"
-#define __THUMB_INTERWORK__ 1
-#define __ARM_ARCH_7EM__ 1
-#define __ARM_PCS_VFP 1
-#define __ARM_EABI__ 1
-#undef __FDPIC__
-# 1 "<built-in>"
-#define __ARM_ARCH_EXT_IDIV__ 1
-#define __ARM_FEATURE_IDIV 1
-#define __ARM_ASM_SYNTAX_UNIFIED__ 1
-#undef __ARM_FEATURE_COPROC
-# 1 "<built-in>"
-#define __ARM_FEATURE_COPROC 15
-#undef __ARM_FEATURE_CDE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CDE_COPROC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_MATMUL_INT8
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_BF16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#define __GXX_TYPEINFO_EQUALITY_INLINE 0
-#define __ELF__ 1
-# 1 "<command-line>"
-#define __USES_INITFINI__ 1
-#define apollo3 1
-#define SUPPORT_LORA 1
-#define SUPPORT_LORA_P2P 1
-#define LORA_IO_SPI_PORT 1
-#define SYS_RTC_COUNTER_PORT 2
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WAN_TYPE 0
-#define RAK11720 +RAK5005-O_V1.0 1
-#define rak11720 1
-#define gcc 1
-#define PART_APOLLO3 1
-#define AM_PACKAGE_BGA 1
-#define AM_PART_APOLLO3 1
-#define AM_FREERTOS 1
-#define AM_FREERTOS_STIMER_BACKUP 1
-#define AM_BLE_USE_NVM 1
-#define AM_CUSTOM_BDADDR 1
-#define AM_NUS_ADD 1
-#define AM_CUS_ADD 1
-#define AM_AMOTA_ADD 1
-#define AM_UTIL_FAULTISR_PRINT 1
-#define SEC_ECC_CFG SEC_ECC_CFG_HCI
-#define RTT_LOG_ENABLED 1
-#define DEBUG_ENABLED 1
-#define rak11720 1
-#define SYS_RTC_COUNTER_PORT 2
-#define TWI0_ENABLED 1
-#define SPI0_ENABLED 1
-#define SPI1_ENABLED 1
-#define BLE_SUPPORT 1
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WISBLOCK_BASE_5005_O 1
-#define SX1262_CHIP 1
-#define REGION_AS923 1
-#define REGION_AU915 1
-#define REGION_CN470 1
-#define REGION_CN779 1
-#define REGION_EU433 1
-#define REGION_EU868 1
-#define REGION_KR920 1
-#define REGION_IN865 1
-#define REGION_US915 1
-#define REGION_RU864 1
-#define REGION_LA915 1
-#define SOFT_SE 1
-#define SECURE_ELEMENT_PRE_PROVISIONED 1
-#define LORAMAC_CLASSB_ENABLED 1
-#define BLE_CENTRAL_SUPPORT 1
-#define WISBLOCK_BASE_5005_O 1
-#define SUPPORT_BLE 1
-#define SUPPORT_SPI 1
-#define SUPPORT_AT 1
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 1 3
-
-
-
-
-
-
-
-#define _STDLIB_H_ 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 1 3
-# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
-#define __IEEE_LITTLE_ENDIAN 
-# 473 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 3
-#define __OBSOLETE_MATH_DEFAULT 1
-
-
-#define __OBSOLETE_MATH __OBSOLETE_MATH_DEFAULT
-# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 1 3
-
-
-
-
-
-
-
-#define _ANSIDECL_H_ 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 1 3
-
-
-
-
-
-
-
-#define __NEWLIB_H__ 1
-
-
-
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_newlib_version.h" 1 3
-
-
-
-#define _NEWLIB_VERSION_H__ 1
-
-#define _NEWLIB_VERSION "3.3.0"
-#define __NEWLIB__ 3
-#define __NEWLIB_MINOR__ 3
-#define __NEWLIB_PATCHLEVEL__ 0
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 2 3
-
-
-
-#define _WANT_IO_C99_FORMATS 1
-
-
-#define _WANT_IO_LONG_LONG 1
-
-
-#define _WANT_REGISTER_FINI 1
-# 37 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
-#define _REENT_CHECK_VERIFY 1
-
-
-
-
-
-#define _MB_LEN_MAX 1
-# 53 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
-#define HAVE_INITFINI_ARRAY 1
-
-
-
-#define _ATEXIT_DYNAMIC_ALLOC 1
-
-
-#define _HAVE_LONG_DOUBLE 1
-
-
-#define _HAVE_CC_INHIBIT_LOOP_TO_LIBCALL 1
-
-
-#define _LDBL_EQ_DBL 1
-
-
-#define _FVWRITE_IN_STREAMIO 1
-
-
-#define _FSEEK_OPTIMIZATION 1
-
-
-#define _WIDE_ORIENT 1
-
-
-#define _UNBUF_STREAM_OPT 1
-# 95 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/newlib.h" 3
-#define _RETARGETABLE_LOCKING 1
-# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 1 3
-
-#define __SYS_CONFIG_H__ 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/ieeefp.h" 1 3
-# 5 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 1 3
-# 22 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define _SYS_FEATURES_H 
-# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-
-
-
-
-
-
-#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
-# 249 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define __ATFILE_VISIBLE 0
-
-
-
-
-
-#define __BSD_VISIBLE 0
-
-
-
-
-
-#define __GNU_VISIBLE 0
-
-
-
-
-
-
-
-#define __ISO_C_VISIBLE 1999
-
-
-
-
-
-
-
-#define __LARGEFILE_VISIBLE 0
-
-
-
-
-
-#define __MISC_VISIBLE 0
-# 299 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define __POSIX_VISIBLE 0
-
-
-
-
-
-#define __SVID_VISIBLE 0
-# 319 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define __XSI_VISIBLE 0
-# 330 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3
-#define __SSP_FORTIFY_LEVEL 0
-# 6 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 2 3
-# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
-#define _POINTER_INT long
-
-
-
-
-
-#undef __RAND_MAX
-
-
-
-#define __RAND_MAX 0x7fffffff
-# 250 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/config.h" 3
-#define __EXPORT 
-
-
-
-#define __IMPORT 
-
-
-
-
-
-
-#define _READ_WRITE_RETURN_TYPE int
-
-
-
-
-
-#define _READ_WRITE_BUFSIZE_TYPE int
-# 12 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 2 3
-# 31 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
-#define _BEGIN_STD_C 
-#define _END_STD_C 
-#define _NOTHROW 
-
-
-
-#define _LONG_DOUBLE long double
-
-
-
-
-
-#define _ATTRIBUTE(attrs) __attribute__ (attrs)
-# 69 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 3
-#define _ELIDABLE_INLINE static __inline__
-
-
-
-#define _NOINLINE __attribute__ ((__noinline__))
-#define _NOINLINE_STATIC _NOINLINE static
-# 12 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-
-#define __need_size_t 
-#define __need_wchar_t 
-#define __need_NULL 
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 181 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#define __size_t__ 
-#define __SIZE_T__ 
-#define _SIZE_T 
-#define _SYS_SIZE_T_H 
-#define _T_SIZE_ 
-#define _T_SIZE 
-#define __SIZE_T 
-#define _SIZE_T_ 
-#define _BSD_SIZE_T_ 
-#define _SIZE_T_DEFINED_ 
-#define _SIZE_T_DEFINED 
-#define _BSD_SIZE_T_DEFINED_ 
-#define _SIZE_T_DECLARED 
-#define ___int_size_t_h 
-#define _GCC_SIZE_T 
-#define _SIZET_ 
-
-
-
-
-
-
-#define __size_t 
-
-
-
-
-
-
-# 209 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-typedef unsigned int size_t;
-# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 260 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#define __wchar_t__ 
-#define __WCHAR_T__ 
-#define _WCHAR_T 
-#define _T_WCHAR_ 
-#define _T_WCHAR 
-#define __WCHAR_T 
-#define _WCHAR_T_ 
-#define _BSD_WCHAR_T_ 
-#define _WCHAR_T_DEFINED_ 
-#define _WCHAR_T_DEFINED 
-#define _WCHAR_T_H 
-#define ___int_wchar_t_h 
-#define __INT_WCHAR_T_H 
-#define _GCC_WCHAR_T 
-#define _WCHAR_T_DECLARED 
-# 287 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef _BSD_WCHAR_T_
-# 321 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-typedef unsigned int wchar_t;
-# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-# 17 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 1 3
-# 11 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _SYS_REENT_H_ 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_ansi.h" 1 3
-# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 39 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#define _STDDEF_H 
-#define _STDDEF_H_ 
-
-#define _ANSI_STDDEF_H 
-# 131 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#define _PTRDIFF_T 
-#define _T_PTRDIFF_ 
-#define _T_PTRDIFF 
-#define __PTRDIFF_T 
-#define _PTRDIFF_T_ 
-#define _BSD_PTRDIFF_T_ 
-#define ___int_ptrdiff_t_h 
-#define _GCC_PTRDIFF_T 
-#define _PTRDIFF_T_DECLARED 
-
-
-
-typedef int ptrdiff_t;
-# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 1 3
-# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
-#define _SYS__TYPES_H 
-
-#define __need_size_t 
-#define __need_wint_t 
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-
-
-
-
-#define _WINT_T 
-
-
-
-
-typedef unsigned int wint_t;
-
-#undef __need_wint_t
-# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 25 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_types.h" 1 3
-
-
-
-
-
-#define _MACHINE__TYPES_H 
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 1 3
-
-
-
-
-
-#define _MACHINE__DEFAULT_TYPES_H 
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-#define __EXP(x) __ ##x ##__
-# 26 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-#define __have_longlong64 1
-
-
-
-
-
-
-#define __have_long32 1
-
-
-
-
-
-
-
-typedef signed char __int8_t;
-
-typedef unsigned char __uint8_t;
-
-
-
-#define ___int8_t_defined 1
-
-
-
-
-
-
-
-typedef short int __int16_t;
-
-typedef short unsigned int __uint16_t;
-
-
-
-#define ___int16_t_defined 1
-# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef long int __int32_t;
-
-typedef long unsigned int __uint32_t;
-
-
-
-#define ___int32_t_defined 1
-# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef long long int __int64_t;
-
-typedef long long unsigned int __uint64_t;
-
-
-
-#define ___int64_t_defined 1
-# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef signed char __int_least8_t;
-
-typedef unsigned char __uint_least8_t;
-
-
-
-#define ___int_least8_t_defined 1
-# 160 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef short int __int_least16_t;
-
-typedef short unsigned int __uint_least16_t;
-
-
-
-#define ___int_least16_t_defined 1
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef long int __int_least32_t;
-
-typedef long unsigned int __uint_least32_t;
-
-
-
-#define ___int_least32_t_defined 1
-# 200 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-typedef long long int __int_least64_t;
-
-typedef long long unsigned int __uint_least64_t;
-
-
-
-#define ___int_least64_t_defined 1
-
-
-
-
-
-
-
-typedef long long int __intmax_t;
-
-
-
-
-
-
-
-typedef long long unsigned int __uintmax_t;
-
-
-
-
-
-
-
-typedef int __intptr_t;
-
-typedef unsigned int __uintptr_t;
-# 244 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3
-#undef __EXP
-# 8 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_types.h" 2 3
-# 28 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 2 3
-
-
-typedef long __blkcnt_t;
-
-
-
-typedef long __blksize_t;
-
-
-
-typedef __uint64_t __fsblkcnt_t;
-
-
-
-typedef __uint32_t __fsfilcnt_t;
-
-
-
-typedef long _off_t;
-
-
-
-
-
-typedef int __pid_t;
-
-
-
-typedef short __dev_t;
-
-
-
-typedef unsigned short __uid_t;
-
-
-typedef unsigned short __gid_t;
-
-
-
-typedef __uint32_t __id_t;
-
-
-
-
-
-
-
-typedef unsigned short __ino_t;
-# 90 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
-typedef __uint32_t __mode_t;
-
-
-
-
-
-__extension__ typedef long long _off64_t;
-
-
-
-
-
-typedef _off_t __off_t;
-
-
-typedef _off64_t __loff_t;
-
-
-typedef long __key_t;
-
-
-
-
-
-
-
-typedef long _fpos_t;
-# 127 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
-#undef __size_t
-
-
-
-typedef unsigned int __size_t;
-# 146 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
-#define unsigned signed
-typedef signed int _ssize_t;
-#undef unsigned
-# 158 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_types.h" 3
-typedef _ssize_t __ssize_t;
-
-
-
-typedef struct
-{
-  int __count;
-  union
-  {
-    wint_t __wch;
-    unsigned char __wchb[4];
-  } __value;
-} _mbstate_t;
-
-
-
-
-typedef void *_iconv_t;
-
-
-
-#define _CLOCK_T_ unsigned long
-
-
-typedef unsigned long __clock_t;
-
-
-
-
-#define _TIME_T_ __int_least64_t
-
-typedef __int_least64_t __time_t;
-
-
-#define _CLOCKID_T_ unsigned long
-
-
-typedef unsigned long __clockid_t;
-
-#define _TIMER_T_ unsigned long
-typedef unsigned long __timer_t;
-
-
-typedef __uint8_t __sa_family_t;
-
-
-
-typedef __uint32_t __socklen_t;
-
-
-typedef int __nl_item;
-typedef unsigned short __nlink_t;
-typedef long __suseconds_t;
-typedef unsigned long __useconds_t;
-
-
-
-
-
-
-
-typedef __builtin_va_list __va_list;
-# 16 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
-
-#define _NULL 0
-
-
-
-#define __Long long
-typedef unsigned long __ULong;
-# 34 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 1 3
-
-#define __SYS_LOCK_H__ 
-# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/lock.h" 3
-struct __lock;
-typedef struct __lock * _LOCK_T;
-#define _LOCK_RECURSIVE_T _LOCK_T
-
-#define __LOCK_INIT(class,lock) extern struct __lock __lock_ ## lock; class _LOCK_T lock = &__lock_ ## lock
-
-#define __LOCK_INIT_RECURSIVE(class,lock) __LOCK_INIT(class,lock)
-
-extern void __retarget_lock_init(_LOCK_T *lock);
-#define __lock_init(lock) __retarget_lock_init(&lock)
-extern void __retarget_lock_init_recursive(_LOCK_T *lock);
-#define __lock_init_recursive(lock) __retarget_lock_init_recursive(&lock)
-extern void __retarget_lock_close(_LOCK_T lock);
-#define __lock_close(lock) __retarget_lock_close(lock)
-extern void __retarget_lock_close_recursive(_LOCK_T lock);
-#define __lock_close_recursive(lock) __retarget_lock_close_recursive(lock)
-extern void __retarget_lock_acquire(_LOCK_T lock);
-#define __lock_acquire(lock) __retarget_lock_acquire(lock)
-extern void __retarget_lock_acquire_recursive(_LOCK_T lock);
-#define __lock_acquire_recursive(lock) __retarget_lock_acquire_recursive(lock)
-extern int __retarget_lock_try_acquire(_LOCK_T lock);
-#define __lock_try_acquire(lock) __retarget_lock_try_acquire(lock)
-extern int __retarget_lock_try_acquire_recursive(_LOCK_T lock);
-#define __lock_try_acquire_recursive(lock) __retarget_lock_try_acquire_recursive(lock)
-
-extern void __retarget_lock_release(_LOCK_T lock);
-#define __lock_release(lock) __retarget_lock_release(lock)
-extern void __retarget_lock_release_recursive(_LOCK_T lock);
-#define __lock_release_recursive(lock) __retarget_lock_release_recursive(lock)
-# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 2 3
-typedef _LOCK_T _flock_t;
-
-
-
-
-
-
-
-struct _reent;
-
-struct __locale_t;
-
-
-
-
-
-
-struct _Bigint
-{
-  struct _Bigint *_next;
-  int _k, _maxwds, _sign, _wds;
-  __ULong _x[1];
-};
-
-
-struct __tm
-{
-  int __tm_sec;
-  int __tm_min;
-  int __tm_hour;
-  int __tm_mday;
-  int __tm_mon;
-  int __tm_year;
-  int __tm_wday;
-  int __tm_yday;
-  int __tm_isdst;
-};
-
-
-
-
-
-#define _ATEXIT_SIZE 32
-
-struct _on_exit_args {
- void * _fnargs[32];
- void * _dso_handle[32];
-
- __ULong _fntypes;
-
-
- __ULong _is_cxa;
-};
-# 98 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-struct _atexit {
- struct _atexit *_next;
- int _ind;
-
- void (*_fns[32])(void);
-        struct _on_exit_args _on_exit_args;
-};
-#define _ATEXIT_INIT {_NULL, 0, {_NULL}, {{_NULL}, {_NULL}, 0, 0}}
-
-
-
-
-
-#define _REENT_INIT_ATEXIT _NULL, _ATEXIT_INIT,
-# 122 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-struct __sbuf {
- unsigned char *_base;
- int _size;
-};
-# 183 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _REENT_SMALL_CHECK_INIT(ptr) 
-
-
-struct __sFILE {
-  unsigned char *_p;
-  int _r;
-  int _w;
-  short _flags;
-  short _file;
-  struct __sbuf _bf;
-  int _lbfsize;
-
-
-
-
-
-
-  void * _cookie;
-
-  int (*_read) (struct _reent *, void *,
-        char *, int);
-  int (*_write) (struct _reent *, void *,
-         const char *,
-         int);
-  _fpos_t (*_seek) (struct _reent *, void *, _fpos_t, int);
-  int (*_close) (struct _reent *, void *);
-
-
-  struct __sbuf _ub;
-  unsigned char *_up;
-  int _ur;
-
-
-  unsigned char _ubuf[3];
-  unsigned char _nbuf[1];
-
-
-  struct __sbuf _lb;
-
-
-  int _blksize;
-  _off_t _offset;
-
-
-  struct _reent *_data;
-
-
-
-  _flock_t _lock;
-
-  _mbstate_t _mbstate;
-  int _flags2;
-};
-# 292 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-typedef struct __sFILE __FILE;
-
-
-
-struct _glue
-{
-  struct _glue *_next;
-  int _niobs;
-  __FILE *_iobs;
-};
-# 317 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _RAND48_SEED_0 (0x330e)
-#define _RAND48_SEED_1 (0xabcd)
-#define _RAND48_SEED_2 (0x1234)
-#define _RAND48_MULT_0 (0xe66d)
-#define _RAND48_MULT_1 (0xdeec)
-#define _RAND48_MULT_2 (0x0005)
-#define _RAND48_ADD (0x000b)
-struct _rand48 {
-  unsigned short _seed[3];
-  unsigned short _mult[3];
-  unsigned short _add;
-
-
-
-
-};
-
-
-#define _REENT_EMERGENCY_SIZE 25
-#define _REENT_ASCTIME_SIZE 26
-#define _REENT_SIGNAL_SIZE 24
-# 613 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-struct _reent
-{
-  int _errno;
-
-
-
-
-  __FILE *_stdin, *_stdout, *_stderr;
-
-  int _inc;
-  char _emergency[25];
-
-
-  int _unspecified_locale_info;
-  struct __locale_t *_locale;
-
-  int __sdidinit;
-
-  void (*__cleanup) (struct _reent *);
-
-
-  struct _Bigint *_result;
-  int _result_k;
-  struct _Bigint *_p5s;
-  struct _Bigint **_freelist;
-
-
-  int _cvtlen;
-  char *_cvtbuf;
-
-  union
-    {
-      struct
-        {
-          unsigned int _unused_rand;
-          char * _strtok_last;
-          char _asctime_buf[26];
-          struct __tm _localtime_buf;
-          int _gamma_signgam;
-          __extension__ unsigned long long _rand_next;
-          struct _rand48 _r48;
-          _mbstate_t _mblen_state;
-          _mbstate_t _mbtowc_state;
-          _mbstate_t _wctomb_state;
-          char _l64a_buf[8];
-          char _signal_buf[24];
-          int _getdate_err;
-          _mbstate_t _mbrlen_state;
-          _mbstate_t _mbrtowc_state;
-          _mbstate_t _mbsrtowcs_state;
-          _mbstate_t _wcrtomb_state;
-          _mbstate_t _wcsrtombs_state;
-   int _h_errno;
-        } _reent;
-
-
-
-      struct
-        {
-#define _N_LISTS 30
-          unsigned char * _nextf[30];
-          unsigned int _nmalloc[30];
-        } _unused;
-    } _new;
-
-
-
-  struct _atexit *_atexit;
-  struct _atexit _atexit0;
-
-
-
-  void (**(_sig_func))(int);
-
-
-
-
-  struct _glue __sglue;
-
-  __FILE __sf[3];
-
-};
-
-
-
-
-
-#define _REENT_STDIO_STREAM(var,index) &(var)->__sf[index]
-
-
-#define _REENT_INIT(var) { 0, _REENT_STDIO_STREAM(&(var), 0), _REENT_STDIO_STREAM(&(var), 1), _REENT_STDIO_STREAM(&(var), 2), 0, "", 0, _NULL, 0, _NULL, _NULL, 0, _NULL, _NULL, 0, _NULL, { { 0, _NULL, "", {0, 0, 0, 0, 0, 0, 0, 0, 0}, 0, 1, { {_RAND48_SEED_0, _RAND48_SEED_1, _RAND48_SEED_2}, {_RAND48_MULT_0, _RAND48_MULT_1, _RAND48_MULT_2}, _RAND48_ADD }, {0, {0}}, {0, {0}}, {0, {0}}, "", "", 0, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}}, {0, {0}} } }, _REENT_INIT_ATEXIT _NULL, {_NULL, 0, _NULL} }
-# 751 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _REENT_INIT_PTR_ZEROED(var) { (var)->_stdin = _REENT_STDIO_STREAM(var, 0); (var)->_stdout = _REENT_STDIO_STREAM(var, 1); (var)->_stderr = _REENT_STDIO_STREAM(var, 2); (var)->_new._reent._rand_next = 1; (var)->_new._reent._r48._seed[0] = _RAND48_SEED_0; (var)->_new._reent._r48._seed[1] = _RAND48_SEED_1; (var)->_new._reent._r48._seed[2] = _RAND48_SEED_2; (var)->_new._reent._r48._mult[0] = _RAND48_MULT_0; (var)->_new._reent._r48._mult[1] = _RAND48_MULT_1; (var)->_new._reent._r48._mult[2] = _RAND48_MULT_2; (var)->_new._reent._r48._add = _RAND48_ADD; }
-# 765 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _REENT_CHECK_RAND48(ptr) 
-#define _REENT_CHECK_MP(ptr) 
-#define _REENT_CHECK_TM(ptr) 
-#define _REENT_CHECK_ASCTIME_BUF(ptr) 
-#define _REENT_CHECK_EMERGENCY(ptr) 
-#define _REENT_CHECK_MISC(ptr) 
-#define _REENT_CHECK_SIGNAL_BUF(ptr) 
-
-#define _REENT_SIGNGAM(ptr) ((ptr)->_new._reent._gamma_signgam)
-#define _REENT_RAND_NEXT(ptr) ((ptr)->_new._reent._rand_next)
-#define _REENT_RAND48_SEED(ptr) ((ptr)->_new._reent._r48._seed)
-#define _REENT_RAND48_MULT(ptr) ((ptr)->_new._reent._r48._mult)
-#define _REENT_RAND48_ADD(ptr) ((ptr)->_new._reent._r48._add)
-#define _REENT_MP_RESULT(ptr) ((ptr)->_result)
-#define _REENT_MP_RESULT_K(ptr) ((ptr)->_result_k)
-#define _REENT_MP_P5S(ptr) ((ptr)->_p5s)
-#define _REENT_MP_FREELIST(ptr) ((ptr)->_freelist)
-#define _REENT_ASCTIME_BUF(ptr) ((ptr)->_new._reent._asctime_buf)
-#define _REENT_TM(ptr) (&(ptr)->_new._reent._localtime_buf)
-#define _REENT_EMERGENCY(ptr) ((ptr)->_emergency)
-#define _REENT_STRTOK_LAST(ptr) ((ptr)->_new._reent._strtok_last)
-#define _REENT_MBLEN_STATE(ptr) ((ptr)->_new._reent._mblen_state)
-#define _REENT_MBTOWC_STATE(ptr) ((ptr)->_new._reent._mbtowc_state)
-#define _REENT_WCTOMB_STATE(ptr) ((ptr)->_new._reent._wctomb_state)
-#define _REENT_MBRLEN_STATE(ptr) ((ptr)->_new._reent._mbrlen_state)
-#define _REENT_MBRTOWC_STATE(ptr) ((ptr)->_new._reent._mbrtowc_state)
-#define _REENT_MBSRTOWCS_STATE(ptr) ((ptr)->_new._reent._mbsrtowcs_state)
-#define _REENT_WCRTOMB_STATE(ptr) ((ptr)->_new._reent._wcrtomb_state)
-#define _REENT_WCSRTOMBS_STATE(ptr) ((ptr)->_new._reent._wcsrtombs_state)
-#define _REENT_L64A_BUF(ptr) ((ptr)->_new._reent._l64a_buf)
-#define _REENT_SIGNAL_BUF(ptr) ((ptr)->_new._reent._signal_buf)
-#define _REENT_GETDATE_ERR_P(ptr) (&((ptr)->_new._reent._getdate_err))
-
-
-
-#define _REENT_INIT_PTR(var) { memset((var), 0, sizeof(*(var))); _REENT_INIT_PTR_ZEROED(var); }
-
-
-
-
-
-
-
-#define _Kmax (sizeof (size_t) << 3)
-
-
-
-
-
-
-
-#define __ATTRIBUTE_IMPURE_PTR__ 
-
-
-extern struct _reent *_impure_ptr ;
-extern struct _reent *const _global_impure_ptr ;
-
-void _reclaim_reent (struct _reent *);
-# 832 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/reent.h" 3
-#define _REENT _impure_ptr
-
-
-#define _GLOBAL_REENT _global_impure_ptr
-
-
-
-
-
-#define _GLOBAL_ATEXIT (_GLOBAL_REENT->_atexit)
-# 19 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 1 3
-# 43 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define _SYS_CDEFS_H_ 
-
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 48 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 2 3
-
-#define __PMT(args) args
-#define __DOTS , ...
-#define __THROW 
-
-
-#define __ASMNAME(cname) __XSTRING (__USER_LABEL_PREFIX__) cname
-
-
-#define __ptr_t void *
-#define __long_double_t long double
-
-#define __attribute_malloc__ 
-#define __attribute_pure__ 
-#define __attribute_format_strfmon__(a,b) 
-#define __flexarr [0]
-
-
-#define __bounded 
-#define __unbounded 
-#define __ptrvalue 
-# 78 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __has_extension __has_feature
-
-
-#define __has_feature(x) 0
-# 94 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __BEGIN_DECLS 
-#define __END_DECLS 
-# 107 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __GNUCLIKE_ASM 3
-#define __GNUCLIKE_MATH_BUILTIN_CONSTANTS 
-
-
-
-#define __GNUCLIKE___TYPEOF 1
-#define __GNUCLIKE___OFFSETOF 1
-#define __GNUCLIKE___SECTION 1
-
-
-#define __GNUCLIKE_CTOR_SECTION_HANDLING 1
-
-
-#define __GNUCLIKE_BUILTIN_CONSTANT_P 1
-
-
-
-
-
-
-#define __GNUCLIKE_BUILTIN_VARARGS 1
-#define __GNUCLIKE_BUILTIN_STDARG 1
-#define __GNUCLIKE_BUILTIN_VAALIST 1
-
-
-
-#define __GNUC_VA_LIST_COMPATIBILITY 1
-
-
-
-
-
-
-#define __compiler_membar() __asm __volatile(" " : : : "memory")
-
-
-
-#define __GNUCLIKE_BUILTIN_NEXT_ARG 1
-#define __GNUCLIKE_MATH_BUILTIN_RELOPS 
-
-
-#define __GNUCLIKE_BUILTIN_MEMCPY 1
-
-
-#define __CC_SUPPORTS_INLINE 1
-#define __CC_SUPPORTS___INLINE 1
-#define __CC_SUPPORTS___INLINE__ 1
-
-#define __CC_SUPPORTS___FUNC__ 1
-#define __CC_SUPPORTS_WARNING 1
-
-#define __CC_SUPPORTS_VARADIC_XXX 1
-
-#define __CC_SUPPORTS_DYNAMIC_ARRAY_INIT 1
-# 177 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __P(protos) protos
-#define __CONCAT1(x,y) x ## y
-#define __CONCAT(x,y) __CONCAT1(x,y)
-#define __STRING(x) #x
-#define __XSTRING(x) __STRING(x)
-
-#define __const const
-#define __signed signed
-#define __volatile volatile
-# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __weak_symbol __attribute__((__weak__))
-# 243 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __dead2 __attribute__((__noreturn__))
-#define __pure2 __attribute__((__const__))
-#define __unused __attribute__((__unused__))
-#define __used __attribute__((__used__))
-#define __packed __attribute__((__packed__))
-#define __aligned(x) __attribute__((__aligned__(x)))
-#define __section(x) __attribute__((__section__(x)))
-
-
-#define __alloc_size(x) __attribute__((__alloc_size__(x)))
-#define __alloc_size2(n,x) __attribute__((__alloc_size__(n, x)))
-
-
-
-
-
-#define __alloc_align(x) __attribute__((__alloc_align__(x)))
-# 280 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define _Alignas(x) __aligned(x)
-
-
-
-
-
-
-#define _Alignof(x) __alignof(x)
-# 296 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define _Atomic(T) struct { T volatile __val; }
-
-
-
-
-
-#define _Noreturn __dead2
-# 331 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define _Thread_local __thread
-# 351 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __generic(expr,t,yes,no) __builtin_choose_expr( __builtin_types_compatible_p(__typeof(expr), t), yes, no)
-# 366 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __min_size(x) static (x)
-
-
-
-
-
-#define __malloc_like __attribute__((__malloc__))
-#define __pure __attribute__((__pure__))
-
-
-
-
-
-
-#define __always_inline __inline__ __attribute__((__always_inline__))
-
-
-
-
-
-#define __noinline __attribute__ ((__noinline__))
-
-
-
-
-
-#define __nonnull(x) __attribute__((__nonnull__ x))
-#define __nonnull_all __attribute__((__nonnull__))
-
-
-
-
-
-
-#define __fastcall __attribute__((__fastcall__))
-#define __result_use_check __attribute__((__warn_unused_result__))
-
-
-
-
-
-
-#define __returns_twice __attribute__((__returns_twice__))
-
-
-
-
-
-#define __unreachable() __builtin_unreachable()
-# 434 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __restrict restrict
-# 467 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __predict_true(exp) __builtin_expect((exp), 1)
-#define __predict_false(exp) __builtin_expect((exp), 0)
-
-
-
-
-
-
-#define __null_sentinel __attribute__((__sentinel__))
-#define __exported __attribute__((__visibility__("default")))
-
-
-#define __hidden __attribute__((__visibility__("hidden")))
-# 489 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __offsetof(type,field) offsetof(type, field)
-#define __rangeof(type,start,end) (__offsetof(type, end) - __offsetof(type, start))
-# 500 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __containerof(x,s,m) ({ const volatile __typeof(((s *)0)->m) *__x = (x); __DEQUALIFY(s *, (const volatile char *)__x - __offsetof(s, m));})
-# 522 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __printflike(fmtarg,firstvararg) __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
-
-#define __scanflike(fmtarg,firstvararg) __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
-
-#define __format_arg(fmtarg) __attribute__((__format_arg__ (fmtarg)))
-#define __strfmonlike(fmtarg,firstvararg) __attribute__((__format__ (__strfmon__, fmtarg, firstvararg)))
-
-#define __strftimelike(fmtarg,firstvararg) __attribute__((__format__ (__strftime__, fmtarg, firstvararg)))
-# 539 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __printf0like(fmtarg,firstvararg) 
-
-
-
-
-#define __strong_reference(sym,aliassym) extern __typeof (sym) aliassym __attribute__ ((__alias__ (#sym)))
-
-
-
-
-#define __weak_reference(sym,alias) __asm__(".weak " #alias); __asm__(".equ " #alias ", " #sym)
-
-
-#define __warn_references(sym,msg) __asm__(".section .gnu.warning." #sym); __asm__(".asciz \"" msg "\""); __asm__(".previous")
-
-
-
-#define __sym_compat(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@" #verid)
-
-#define __sym_default(sym,impl,verid) __asm__(".symver " #impl ", " #sym "@@" #verid)
-# 593 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __FBSDID(s) struct __hack
-
-
-
-#define __RCSID(s) struct __hack
-
-
-
-#define __RCSID_SOURCE(s) struct __hack
-
-
-
-#define __SCCSID(s) struct __hack
-
-
-
-#define __COPYRIGHT(s) struct __hack
-
-
-
-#define __DECONST(type,var) ((type)(__uintptr_t)(const void *)(var))
-
-
-
-#define __DEVOLATILE(type,var) ((type)(__uintptr_t)(volatile void *)(var))
-
-
-
-#define __DEQUALIFY(type,var) ((type)(__uintptr_t)(const volatile void *)(var))
-
-
-
-
-
-
-#define _Nonnull 
-#define _Nullable 
-#define _Null_unspecified 
-#define __NULLABILITY_PRAGMA_PUSH 
-#define __NULLABILITY_PRAGMA_POP 
-# 653 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __arg_type_tag(arg_kind,arg_idx,type_tag_idx) 
-#define __datatype_type_tag(kind,type) 
-# 672 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/cdefs.h" 3
-#define __lock_annotate(x) 
-
-
-
-
-
-#define __lockable __lock_annotate(lockable)
-
-
-#define __locks_exclusive(...) __lock_annotate(exclusive_lock_function(__VA_ARGS__))
-
-#define __locks_shared(...) __lock_annotate(shared_lock_function(__VA_ARGS__))
-
-
-
-#define __trylocks_exclusive(...) __lock_annotate(exclusive_trylock_function(__VA_ARGS__))
-
-#define __trylocks_shared(...) __lock_annotate(shared_trylock_function(__VA_ARGS__))
-
-
-
-#define __unlocks(...) __lock_annotate(unlock_function(__VA_ARGS__))
-
-
-#define __asserts_exclusive(...) __lock_annotate(assert_exclusive_lock(__VA_ARGS__))
-
-#define __asserts_shared(...) __lock_annotate(assert_shared_lock(__VA_ARGS__))
-
-
-
-#define __requires_exclusive(...) __lock_annotate(exclusive_locks_required(__VA_ARGS__))
-
-#define __requires_shared(...) __lock_annotate(shared_locks_required(__VA_ARGS__))
-
-#define __requires_unlocked(...) __lock_annotate(locks_excluded(__VA_ARGS__))
-
-
-
-#define __no_lock_analysis __lock_annotate(no_thread_safety_analysis)
-
-
-#define __guarded_by(x) __lock_annotate(guarded_by(x))
-#define __pt_guarded_by(x) __lock_annotate(pt_guarded_by(x))
-# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/stdlib.h" 1 3
-
-#define _MACHSTDLIB_H_ 
-# 21 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 2 3
-# 33 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-
-
-typedef struct
-{
-  int quot;
-  int rem;
-} div_t;
-
-typedef struct
-{
-  long quot;
-  long rem;
-} ldiv_t;
-
-
-typedef struct
-{
-  long long int quot;
-  long long int rem;
-} lldiv_t;
-
-
-
-#define __compar_fn_t_defined 
-typedef int (*__compar_fn_t) (const void *, const void *);
-
-
-#define EXIT_FAILURE 1
-#define EXIT_SUCCESS 0
-
-#define RAND_MAX __RAND_MAX
-
-int __locale_mb_cur_max (void);
-
-#define MB_CUR_MAX __locale_mb_cur_max()
-
-void abort (void) __attribute__ ((__noreturn__));
-int abs (int);
-
-
-
-
-
-int atexit (void (*__func)(void));
-double atof (const char *__nptr);
-
-
-
-int atoi (const char *__nptr);
-int _atoi_r (struct _reent *, const char *__nptr);
-long atol (const char *__nptr);
-long _atol_r (struct _reent *, const char *__nptr);
-void * bsearch (const void *__key,
-         const void *__base,
-         size_t __nmemb,
-         size_t __size,
-         __compar_fn_t _compar);
-void *calloc(size_t, size_t) __attribute__((__malloc__)) __attribute__((__warn_unused_result__))
-      __attribute__((__alloc_size__(1, 2))) ;
-div_t div (int __numer, int __denom);
-void exit (int __status) __attribute__ ((__noreturn__));
-void free (void *) ;
-char * getenv (const char *__string);
-char * _getenv_r (struct _reent *, const char *__string);
-
-
-
-char * _findenv (const char *, int *);
-char * _findenv_r (struct _reent *, const char *, int *);
-
-
-
-
-long labs (long);
-ldiv_t ldiv (long __numer, long __denom);
-void *malloc(size_t) __attribute__((__malloc__)) __attribute__((__warn_unused_result__)) __attribute__((__alloc_size__(1))) ;
-int mblen (const char *, size_t);
-int _mblen_r (struct _reent *, const char *, size_t, _mbstate_t *);
-int mbtowc (wchar_t *restrict, const char *restrict, size_t);
-int _mbtowc_r (struct _reent *, wchar_t *restrict, const char *restrict, size_t, _mbstate_t *);
-int wctomb (char *, wchar_t);
-int _wctomb_r (struct _reent *, char *, wchar_t, _mbstate_t *);
-size_t mbstowcs (wchar_t *restrict, const char *restrict, size_t);
-size_t _mbstowcs_r (struct _reent *, wchar_t *restrict, const char *restrict, size_t, _mbstate_t *);
-size_t wcstombs (char *restrict, const wchar_t *restrict, size_t);
-size_t _wcstombs_r (struct _reent *, char *restrict, const wchar_t *restrict, size_t, _mbstate_t *);
-# 137 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-char * _mkdtemp_r (struct _reent *, char *);
-int _mkostemp_r (struct _reent *, char *, int);
-int _mkostemps_r (struct _reent *, char *, int, int);
-int _mkstemp_r (struct _reent *, char *);
-int _mkstemps_r (struct _reent *, char *, int);
-char * _mktemp_r (struct _reent *, char *) __attribute__ ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")));
-void qsort (void *__base, size_t __nmemb, size_t __size, __compar_fn_t _compar);
-int rand (void);
-void *realloc(void *, size_t) __attribute__((__warn_unused_result__)) __attribute__((__alloc_size__(2))) ;
-# 159 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-void srand (unsigned __seed);
-double strtod (const char *restrict __n, char **restrict __end_PTR);
-double _strtod_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR);
-
-float strtof (const char *restrict __n, char **restrict __end_PTR);
-
-
-
-
-
-
-
-long strtol (const char *restrict __n, char **restrict __end_PTR, int __base);
-long _strtol_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR, int __base);
-unsigned long strtoul (const char *restrict __n, char **restrict __end_PTR, int __base);
-unsigned long _strtoul_r (struct _reent *,const char *restrict __n, char **restrict __end_PTR, int __base);
-# 191 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-int system (const char *__string);
-# 202 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-void _Exit (int __status) __attribute__ ((__noreturn__));
-
-
-
-
-int _putenv_r (struct _reent *, char *__string);
-void * _reallocf_r (struct _reent *, void *, size_t);
-
-
-
-int _setenv_r (struct _reent *, const char *__string, const char *__value, int __overwrite);
-# 224 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-char * __itoa (int, char *, int);
-char * __utoa (unsigned, char *, int);
-# 263 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-long long atoll (const char *__nptr);
-
-long long _atoll_r (struct _reent *, const char *__nptr);
-
-long long llabs (long long);
-lldiv_t lldiv (long long __numer, long long __denom);
-long long strtoll (const char *restrict __n, char **restrict __end_PTR, int __base);
-
-long long _strtoll_r (struct _reent *, const char *restrict __n, char **restrict __end_PTR, int __base);
-
-unsigned long long strtoull (const char *restrict __n, char **restrict __end_PTR, int __base);
-
-unsigned long long _strtoull_r (struct _reent *, const char *restrict __n, char **restrict __end_PTR, int __base);
-# 284 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-int _unsetenv_r (struct _reent *, const char *__string);
-
-
-
-
-
-
-
-char * _dtoa_r (struct _reent *, double, int, int, int *, int*, char**);
-
-void * _malloc_r (struct _reent *, size_t) ;
-void * _calloc_r (struct _reent *, size_t, size_t) ;
-void _free_r (struct _reent *, void *) ;
-void * _realloc_r (struct _reent *, void *, size_t) ;
-void _mstats_r (struct _reent *, char *);
-
-int _system_r (struct _reent *, const char *);
-
-void __eprintf (const char *, const char *, unsigned int, const char *);
-# 322 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-extern long double _strtold_r (struct _reent *, const char *restrict, char **restrict);
-
-extern long double strtold (const char *restrict, char **restrict);
-# 339 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdlib.h" 3
-
-# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 1 3
-
-
-
-
-
-
-
-#define _STRING_H_ 
-
-
-
-
-
-
-#define __need_size_t 
-#define __need_NULL 
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 18 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
-# 27 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
-
-
-void * memchr (const void *, int, size_t);
-int memcmp (const void *, const void *, size_t);
-void * memcpy (void *restrict, const void *restrict, size_t);
-void * memmove (void *, const void *, size_t);
-void * memset (void *, int, size_t);
-char *strcat (char *restrict, const char *restrict);
-char *strchr (const char *, int);
-int strcmp (const char *, const char *);
-int strcoll (const char *, const char *);
-char *strcpy (char *restrict, const char *restrict);
-size_t strcspn (const char *, const char *);
-char *strerror (int);
-size_t strlen (const char *);
-char *strncat (char *restrict, const char *restrict, size_t);
-int strncmp (const char *, const char *, size_t);
-char *strncpy (char *restrict, const char *restrict, size_t);
-char *strpbrk (const char *, const char *);
-char *strrchr (const char *, int);
-size_t strspn (const char *, const char *);
-char *strstr (const char *, const char *);
-
-char *strtok (char *restrict, const char *restrict);
-
-size_t strxfrm (char *restrict, const char *restrict, size_t);
-# 86 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
-char *_strdup_r (struct _reent *, const char *);
-
-
-
-char *_strndup_r (struct _reent *, const char *, size_t);
-# 112 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
-char * _strerror_r (struct _reent *, int, int, int *);
-# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
-char *strsignal (int __signo);
-# 175 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 3
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/string.h" 1 3
-# 176 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/string.h" 2 3
-
-
-# 31 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-
-
-
-
-#define MPU_WRAPPERS_INCLUDED_FROM_API_FILE 
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 1
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define INC_FREERTOS_H 
-
-
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 35 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-# 49 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 1 3 4
-# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define _STDINT_H 
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _SYS__INTSUP_H 
-
-
-
-
-
-#define __STDINT_EXP(x) __ ##x ##__
-# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-       
-       
-       
-       
-       
-       
-       
-       
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef __int20
-#undef __int20__
-#undef long
-#define signed +0
-#define unsigned +0
-#define char +0
-#define short +1
-#define __int20 +2
-#define __int20__ +2
-#define int +2
-#define long +4
-# 67 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _INTPTR_EQ_INT 
-
-
-
-
-
-
-#define _INT32_EQ_LONG 
-
-
-
-
-
-
-
-#define __INT8 "hh"
-# 93 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT16 "h"
-# 104 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT32 "l"
-# 113 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT64 "ll"
-
-
-
-
-
-
-#define __FAST8 
-# 129 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST16 
-
-
-
-
-
-
-#define __FAST32 
-# 147 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST64 "ll"
-
-
-
-#define __LEAST8 "hh"
-# 162 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST16 "h"
-# 173 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST32 "l"
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST64 "ll"
-
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef long
-       
-       
-       
-       
-       
-# 194 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20
-       
-# 195 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20__
-       
-       
-# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-#define _SYS__STDINT_H 
-# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-typedef __int8_t int8_t ;
-#define _INT8_T_DECLARED 
-
-
-typedef __uint8_t uint8_t ;
-#define _UINT8_T_DECLARED 
-
-#define __int8_t_defined 1
-
-
-
-
-typedef __int16_t int16_t ;
-#define _INT16_T_DECLARED 
-
-
-typedef __uint16_t uint16_t ;
-#define _UINT16_T_DECLARED 
-
-#define __int16_t_defined 1
-
-
-
-
-typedef __int32_t int32_t ;
-#define _INT32_T_DECLARED 
-
-
-typedef __uint32_t uint32_t ;
-#define _UINT32_T_DECLARED 
-
-#define __int32_t_defined 1
-
-
-
-
-typedef __int64_t int64_t ;
-#define _INT64_T_DECLARED 
-
-
-typedef __uint64_t uint64_t ;
-#define _UINT64_T_DECLARED 
-
-#define __int64_t_defined 1
-
-
-
-typedef __intmax_t intmax_t;
-#define _INTMAX_T_DECLARED 
-
-
-
-typedef __uintmax_t uintmax_t;
-#define _UINTMAX_T_DECLARED 
-
-
-
-typedef __intptr_t intptr_t;
-#define _INTPTR_T_DECLARED 
-
-
-
-typedef __uintptr_t uintptr_t;
-#define _UINTPTR_T_DECLARED 
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-
-
-
-
-
-
-typedef __int_least8_t int_least8_t;
-typedef __uint_least8_t uint_least8_t;
-#define __int_least8_t_defined 1
-
-
-
-typedef __int_least16_t int_least16_t;
-typedef __uint_least16_t uint_least16_t;
-#define __int_least16_t_defined 1
-
-
-
-typedef __int_least32_t int_least32_t;
-typedef __uint_least32_t uint_least32_t;
-#define __int_least32_t_defined 1
-
-
-
-typedef __int_least64_t int_least64_t;
-typedef __uint_least64_t uint_least64_t;
-#define __int_least64_t_defined 1
-# 51 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-  typedef int int_fast8_t;
-  typedef unsigned int uint_fast8_t;
-#define __int_fast8_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast16_t;
-  typedef unsigned int uint_fast16_t;
-#define __int_fast16_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast32_t;
-  typedef unsigned int uint_fast32_t;
-#define __int_fast32_t_defined 1
-
-
-
-
-
-
-
-  typedef long long int int_fast64_t;
-  typedef long long unsigned int uint_fast64_t;
-#define __int_fast64_t_defined 1
-# 128 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTPTR_MIN (-__INTPTR_MAX__ - 1)
-#define INTPTR_MAX (__INTPTR_MAX__)
-#define UINTPTR_MAX (__UINTPTR_MAX__)
-# 152 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT8_MIN (-__INT8_MAX__ - 1)
-#define INT8_MAX (__INT8_MAX__)
-#define UINT8_MAX (__UINT8_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
-#define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
-#define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
-# 174 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_MIN (-__INT16_MAX__ - 1)
-#define INT16_MAX (__INT16_MAX__)
-#define UINT16_MAX (__UINT16_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
-#define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
-#define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
-# 196 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_MIN (-__INT32_MAX__ - 1)
-#define INT32_MAX (__INT32_MAX__)
-#define UINT32_MAX (__UINT32_MAX__)
-# 212 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
-#define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
-#define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
-# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_MIN (-__INT64_MAX__ - 1)
-#define INT64_MAX (__INT64_MAX__)
-#define UINT64_MAX (__UINT64_MAX__)
-# 246 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
-#define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
-#define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
-# 262 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
-#define INT_FAST8_MAX (__INT_FAST8_MAX__)
-#define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
-# 278 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
-#define INT_FAST16_MAX (__INT_FAST16_MAX__)
-#define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
-# 294 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
-#define INT_FAST32_MAX (__INT_FAST32_MAX__)
-#define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
-# 310 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
-#define INT_FAST64_MAX (__INT_FAST64_MAX__)
-#define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
-# 326 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_MAX (__INTMAX_MAX__)
-#define INTMAX_MIN (-INTMAX_MAX - 1)
-
-
-
-
-
-
-
-#define UINTMAX_MAX (__UINTMAX_MAX__)
-
-
-
-
-
-
-
-#define SIZE_MAX (__SIZE_MAX__)
-
-
-
-
-
-#define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
-#define SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))
-
-
-
-#define PTRDIFF_MAX (__PTRDIFF_MAX__)
-
-
-
-#define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
-
-
-
-
-#define WCHAR_MIN (__WCHAR_MIN__)
-# 374 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WCHAR_MAX (__WCHAR_MAX__)
-# 384 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WINT_MAX (__WINT_MAX__)
-
-
-
-
-#define WINT_MIN (__WINT_MIN__)
-
-
-
-
-
-
-#define INT8_C(x) __INT8_C(x)
-#define UINT8_C(x) __UINT8_C(x)
-# 408 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_C(x) __INT16_C(x)
-#define UINT16_C(x) __UINT16_C(x)
-# 420 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_C(x) __INT32_C(x)
-#define UINT32_C(x) __UINT32_C(x)
-# 433 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_C(x) __INT64_C(x)
-#define UINT64_C(x) __UINT64_C(x)
-# 449 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_C(x) __INTMAX_C(x)
-#define UINTMAX_C(x) __UINTMAX_C(x)
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 2 3 4
-
-
-
-#define _GCC_WRAP_STDINT_H 
-# 50 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-
-
-
-
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/FreeRTOSConfig.h" 1
-# 47 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/FreeRTOSConfig.h"
-#define FREERTOS_CONFIG_H 
-
-
-
-
-
-
-#define configUSE_PREEMPTION 1
-#define configUSE_PORT_OPTIMISED_TASK_SELECTION 0
-
-
-#define configCPU_CLOCK_HZ 48000000UL
-
-
-
-#define configTICK_RATE_HZ 1000
-#define configMAX_PRIORITIES 5
-#define configMINIMAL_STACK_SIZE (256)
-#define configTOTAL_HEAP_SIZE (66 * 1024)
-#define configMAX_TASK_NAME_LEN 16
-#define configUSE_16_BIT_TICKS 0
-#define configIDLE_SHOULD_YIELD 1
-
-#define configUSE_MUTEXES 1
-#define configUSE_RECURSIVE_MUTEXES 0
-#define configUSE_COUNTING_SEMAPHORES 1
-#define configUSE_ALTERNATIVE_API 0
-#define configQUEUE_REGISTRY_SIZE 0
-#define configUSE_QUEUE_SETS 0
-#define configUSE_TIME_SLICING 0
-#define configUSE_NEWLIB_REENTRANT 1
-#define configENABLE_BACKWARD_COMPATIBILITY 0
-
-
-#define configUSE_IDLE_HOOK 0
-#define configUSE_TICK_HOOK 0
-#define configCHECK_FOR_STACK_OVERFLOW 2
-#define configUSE_MALLOC_FAILED_HOOK 1
-
-
-#define configGENERATE_RUN_TIME_STATS 0
-#define configUSE_TRACE_FACILITY 0
-#define configUSE_STATS_FORMATTING_FUNCTIONS 0
-
-
-#define configUSE_TIMERS 1
-#define configTIMER_TASK_PRIORITY 3
-#define configTIMER_QUEUE_LENGTH 15
-#define configTIMER_TASK_STACK_DEPTH configMINIMAL_STACK_SIZE*8
-
-
-#define configKERNEL_INTERRUPT_PRIORITY (0x7 << 5)
-#define configMAX_SYSCALL_INTERRUPT_PRIORITY (0x4 << 5)
-#define NVIC_configKERNEL_INTERRUPT_PRIORITY (0x7)
-#define NVIC_configMAX_SYSCALL_INTERRUPT_PRIORITY (0x4)
-
-
-#define configASSERT(x) if (( x ) == 0) while(1);
-
-
-#define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0
-
-
-#define INCLUDE_vTaskPrioritySet 0
-#define INCLUDE_uxTaskPriorityGet 0
-#define INCLUDE_vTaskDelete 1
-#define INCLUDE_vTaskSuspend 1
-#define INCLUDE_xResumeFromISR 0
-#define INCLUDE_vTaskDelayUntil 1
-#define INCLUDE_vTaskDelay 1
-#define INCLUDE_xTaskGetSchedulerState 0
-#define INCLUDE_xTaskGetCurrentTaskHandle 0
-#define INCLUDE_uxTaskGetStackHighWaterMark 0
-#define INCLUDE_xTaskGetIdleTaskHandle 0
-#define INCLUDE_xTimerGetTimerDaemonTaskHandle 0
-#define INCLUDE_pcTaskGetTaskName 0
-#define INCLUDE_eTaskGetState 0
-#define INCLUDE_xEventGroupSetBitFromISR 1
-#define INCLUDE_xTimerPendFunctionCall 1
-
-#define vPortSVCHandler SVC_Handler
-#define xPortPendSVHandler PendSV_Handler
-#define xPortSysTickHandler SysTick_Handler
-
-#define configOVERRIDE_DEFAULT_TICK_CONFIGURATION 1
-#define configUSE_TICKLESS_IDLE 2
-
-
-
-# 135 "/home/jenkins/workspace/RUI_Release/rui-v3/component/core/board/rak11720/FreeRTOSConfig.h"
-extern uint32_t am_freertos_sleep(uint32_t);
-extern void am_freertos_wakeup(uint32_t);
-
-#define configPRE_SLEEP_PROCESSING(time) do { (time) = am_freertos_sleep(time); } while (0);
-
-
-
-
-#define configPOST_SLEEP_PROCESSING(time) am_freertos_wakeup(time)
-
-
-
-#define AM_FREERTOS_USE_STIMER_FOR_TICK 
-
-
-
-#define configSTIMER_CLOCK_HZ 32768
-#define configSTIMER_CLOCK AM_HAL_STIMER_XTAL_32KHZ
-# 57 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/projdefs.h" 1
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/projdefs.h"
-#define PROJDEFS_H 
-
-
-
-
-
-typedef void (*TaskFunction_t)( void * );
-
-
-
-
-
-#define pdMS_TO_TICKS(xTimeInMs) ( ( TickType_t ) ( ( ( TickType_t ) ( xTimeInMs ) * ( TickType_t ) configTICK_RATE_HZ ) / ( TickType_t ) 1000 ) )
-
-
-#define pdFALSE ( ( BaseType_t ) 0 )
-#define pdTRUE ( ( BaseType_t ) 1 )
-
-#define pdPASS ( pdTRUE )
-#define pdFAIL ( pdFALSE )
-#define errQUEUE_EMPTY ( ( BaseType_t ) 0 )
-#define errQUEUE_FULL ( ( BaseType_t ) 0 )
-
-
-#define errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY ( -1 )
-#define errQUEUE_BLOCKED ( -4 )
-#define errQUEUE_YIELD ( -5 )
-
-
-
-#define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES 0
-
-
-
-
-
-#define pdINTEGRITY_CHECK_VALUE 0x5a5a5a5aUL
-
-
-
-
-#define pdFREERTOS_ERRNO_NONE 0
-#define pdFREERTOS_ERRNO_ENOENT 2
-#define pdFREERTOS_ERRNO_EINTR 4
-#define pdFREERTOS_ERRNO_EIO 5
-#define pdFREERTOS_ERRNO_ENXIO 6
-#define pdFREERTOS_ERRNO_EBADF 9
-#define pdFREERTOS_ERRNO_EAGAIN 11
-#define pdFREERTOS_ERRNO_EWOULDBLOCK 11
-#define pdFREERTOS_ERRNO_ENOMEM 12
-#define pdFREERTOS_ERRNO_EACCES 13
-#define pdFREERTOS_ERRNO_EFAULT 14
-#define pdFREERTOS_ERRNO_EBUSY 16
-#define pdFREERTOS_ERRNO_EEXIST 17
-#define pdFREERTOS_ERRNO_EXDEV 18
-#define pdFREERTOS_ERRNO_ENODEV 19
-#define pdFREERTOS_ERRNO_ENOTDIR 20
-#define pdFREERTOS_ERRNO_EISDIR 21
-#define pdFREERTOS_ERRNO_EINVAL 22
-#define pdFREERTOS_ERRNO_ENOSPC 28
-#define pdFREERTOS_ERRNO_ESPIPE 29
-#define pdFREERTOS_ERRNO_EROFS 30
-#define pdFREERTOS_ERRNO_EUNATCH 42
-#define pdFREERTOS_ERRNO_EBADE 50
-#define pdFREERTOS_ERRNO_EFTYPE 79
-#define pdFREERTOS_ERRNO_ENMFILE 89
-#define pdFREERTOS_ERRNO_ENOTEMPTY 90
-#define pdFREERTOS_ERRNO_ENAMETOOLONG 91
-#define pdFREERTOS_ERRNO_EOPNOTSUPP 95
-#define pdFREERTOS_ERRNO_ENOBUFS 105
-#define pdFREERTOS_ERRNO_ENOPROTOOPT 109
-#define pdFREERTOS_ERRNO_EADDRINUSE 112
-#define pdFREERTOS_ERRNO_ETIMEDOUT 116
-#define pdFREERTOS_ERRNO_EINPROGRESS 119
-#define pdFREERTOS_ERRNO_EALREADY 120
-#define pdFREERTOS_ERRNO_EADDRNOTAVAIL 125
-#define pdFREERTOS_ERRNO_EISCONN 127
-#define pdFREERTOS_ERRNO_ENOTCONN 128
-#define pdFREERTOS_ERRNO_ENOMEDIUM 135
-#define pdFREERTOS_ERRNO_EILSEQ 138
-#define pdFREERTOS_ERRNO_ECANCELED 140
-
-
-
-#define pdFREERTOS_LITTLE_ENDIAN 0
-#define pdFREERTOS_BIG_ENDIAN 1
-
-
-#define pdLITTLE_ENDIAN pdFREERTOS_LITTLE_ENDIAN
-#define pdBIG_ENDIAN pdFREERTOS_BIG_ENDIAN
-# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h" 1
-# 33 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
-#define PORTABLE_H 
-# 45 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/deprecated_definitions.h" 1
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/deprecated_definitions.h"
-#define DEPRECATED_DEFINITIONS_H 
-# 46 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h" 2
-
-
-
-
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2/portmacro.h" 1
-# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2/portmacro.h"
-#define PORTMACRO_H 
-# 47 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2/portmacro.h"
-#define portCHAR char
-#define portFLOAT float
-#define portDOUBLE double
-#define portLONG long
-#define portSHORT short
-#define portSTACK_TYPE uint32_t
-#define portBASE_TYPE long
-
-typedef uint32_t StackType_t;
-typedef long BaseType_t;
-typedef unsigned long UBaseType_t;
-
-
-
-
-
- typedef uint32_t TickType_t;
-#define portMAX_DELAY ( TickType_t ) 0xffffffffUL
-
-
-
-#define portTICK_TYPE_IS_ATOMIC 1
-
-
-
-
-#define portSTACK_GROWTH ( -1 )
-#define portTICK_PERIOD_MS ( ( TickType_t ) 1000 / configTICK_RATE_HZ )
-#define portBYTE_ALIGNMENT 8
-
-
-
-#define portYIELD() { portNVIC_INT_CTRL_REG = portNVIC_PENDSVSET_BIT; __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); }
-# 90 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2/portmacro.h"
-#define portNVIC_INT_CTRL_REG ( * ( ( volatile uint32_t * ) 0xe000ed04 ) )
-#define portNVIC_PENDSVSET_BIT ( 1UL << 28UL )
-#define portEND_SWITCHING_ISR(xSwitchRequired) if( xSwitchRequired != pdFALSE ) portYIELD()
-#define portYIELD_FROM_ISR(x) portEND_SWITCHING_ISR( x )
-
-
-
-extern void vPortEnterCritical( void );
-extern void vPortExitCritical( void );
-#define portSET_INTERRUPT_MASK_FROM_ISR() ulPortRaiseBASEPRI()
-#define portCLEAR_INTERRUPT_MASK_FROM_ISR(x) vPortSetBASEPRI(x)
-#define portDISABLE_INTERRUPTS() vPortRaiseBASEPRI()
-#define portENABLE_INTERRUPTS() vPortSetBASEPRI(0)
-#define portENTER_CRITICAL() vPortEnterCritical()
-#define portEXIT_CRITICAL() vPortExitCritical()
-
-
-
-
-
-
-#define portTASK_FUNCTION_PROTO(vFunction,pvParameters) void vFunction( void *pvParameters )
-#define portTASK_FUNCTION(vFunction,pvParameters) void vFunction( void *pvParameters )
-
-
-
-
- extern void vPortSuppressTicksAndSleep( TickType_t xExpectedIdleTime );
-#define portSUPPRESS_TICKS_AND_SLEEP(xExpectedIdleTime) vPortSuppressTicksAndSleep( xExpectedIdleTime )
-# 156 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2/portmacro.h"
- void vPortValidateInterruptPriority( void );
-#define portASSERT_IF_INTERRUPT_PRIORITY_INVALID() vPortValidateInterruptPriority()
-
-
-
-#define portNOP() 
-
-#define portINLINE __inline
-
-
-#define portFORCE_INLINE inline __attribute__(( always_inline))
-
-
-inline __attribute__(( always_inline)) static BaseType_t xPortIsInsideInterrupt( void )
-{
-uint32_t ulCurrentInterrupt;
-BaseType_t xReturn;
-
-
- __asm volatile( "mrs %0, ipsr" : "=r"( ulCurrentInterrupt ) :: "memory" );
-
- if( ulCurrentInterrupt == 0 )
- {
-  xReturn = ( ( BaseType_t ) 0 );
- }
- else
- {
-  xReturn = ( ( BaseType_t ) 1 );
- }
-
- return xReturn;
+/*
+ * FreeRTOS Kernel V10.1.1
+ * Copyright (C) 2018 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * http://www.FreeRTOS.org
+ * http://aws.amazon.com/freertos
+ *
+ * 1 tab == 4 spaces!
+ */
+
+/* Standard includes. */
+#include <stdlib.h>
+#include <string.h>
+
+/* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
+all the API functions to use the MPU wrappers.  That should only be done when
+task.h is included from an application file. */
+#define MPU_WRAPPERS_INCLUDED_FROM_API_FILE
+
+/* FreeRTOS includes. */
+#include "FreeRTOS.h"
+#include "task.h"
+#include "timers.h"
+#include "stack_macros.h"
+
+/* Lint e9021, e961 and e750 are suppressed as a MISRA exception justified
+because the MPU ports require MPU_WRAPPERS_INCLUDED_FROM_API_FILE to be defined
+for the header files above, but not in this file, in order to generate the
+correct privileged Vs unprivileged linkage and placement. */
+#undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE /*lint !e961 !e750 !e9021. */
+
+/* Set configUSE_STATS_FORMATTING_FUNCTIONS to 2 to include the stats formatting
+functions but without including stdio.h here. */
+#if ( configUSE_STATS_FORMATTING_FUNCTIONS == 1 )
+	/* At the bottom of this file are two optional functions that can be used
+	to generate human readable text from the raw data generated by the
+	uxTaskGetSystemState() function.  Note the formatting functions are provided
+	for convenience only, and are NOT considered part of the kernel. */
+	#include <stdio.h>
+#endif /* configUSE_STATS_FORMATTING_FUNCTIONS == 1 ) */
+
+#if( configUSE_PREEMPTION == 0 )
+	/* If the cooperative scheduler is being used then a yield should not be
+	performed just because a higher priority task has been woken. */
+	#define taskYIELD_IF_USING_PREEMPTION()
+#else
+	#define taskYIELD_IF_USING_PREEMPTION() portYIELD_WITHIN_API()
+#endif
+
+/* Values that can be assigned to the ucNotifyState member of the TCB. */
+#define taskNOT_WAITING_NOTIFICATION	( ( uint8_t ) 0 )
+#define taskWAITING_NOTIFICATION		( ( uint8_t ) 1 )
+#define taskNOTIFICATION_RECEIVED		( ( uint8_t ) 2 )
+
+/*
+ * The value used to fill the stack of a task when the task is created.  This
+ * is used purely for checking the high water mark for tasks.
+ */
+#define tskSTACK_FILL_BYTE	( 0xa5U )
+
+/* Sometimes the FreeRTOSConfig.h settings only allow a task to be created using
+dynamically allocated RAM, in which case when any task is deleted it is known
+that both the task's stack and TCB need to be freed.  Sometimes the
+FreeRTOSConfig.h settings only allow a task to be created using statically
+allocated RAM, in which case when any task is deleted it is known that neither
+the task's stack or TCB should be freed.  Sometimes the FreeRTOSConfig.h
+settings allow a task to be created using either statically or dynamically
+allocated RAM, in which case a member of the TCB is used to record whether the
+stack and/or TCB were allocated statically or dynamically, so when a task is
+deleted the RAM that was allocated dynamically is freed again and no attempt is
+made to free the RAM that was allocated statically.
+tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE is only true if it is possible for a
+task to be created using either statically or dynamically allocated RAM.  Note
+that if portUSING_MPU_WRAPPERS is 1 then a protected task can be created with
+a statically allocated stack and a dynamically allocated TCB.
+!!!NOTE!!! If the definition of tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE is
+changed then the definition of StaticTask_t must also be updated. */
+#define tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE	( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+#define tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB 		( ( uint8_t ) 0 )
+#define tskSTATICALLY_ALLOCATED_STACK_ONLY 			( ( uint8_t ) 1 )
+#define tskSTATICALLY_ALLOCATED_STACK_AND_TCB		( ( uint8_t ) 2 )
+
+/* If any of the following are set then task stacks are filled with a known
+value so the high water mark can be determined.  If none of the following are
+set then don't fill the stack so there is no unnecessary dependency on memset. */
+#if( ( configCHECK_FOR_STACK_OVERFLOW > 1 ) || ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) )
+	#define tskSET_NEW_STACKS_TO_KNOWN_VALUE	1
+#else
+	#define tskSET_NEW_STACKS_TO_KNOWN_VALUE	0
+#endif
+
+/*
+ * Macros used by vListTask to indicate which state a task is in.
+ */
+#define tskRUNNING_CHAR		( 'X' )
+#define tskBLOCKED_CHAR		( 'B' )
+#define tskREADY_CHAR		( 'R' )
+#define tskDELETED_CHAR		( 'D' )
+#define tskSUSPENDED_CHAR	( 'S' )
+
+/*
+ * Some kernel aware debuggers require the data the debugger needs access to be
+ * global, rather than file scope.
+ */
+#ifdef portREMOVE_STATIC_QUALIFIER
+	#define static
+#endif
+
+/* The name allocated to the Idle task.  This can be overridden by defining
+configIDLE_TASK_NAME in FreeRTOSConfig.h. */
+#ifndef configIDLE_TASK_NAME
+	#define configIDLE_TASK_NAME "IDLE"
+#endif
+
+#if ( configUSE_PORT_OPTIMISED_TASK_SELECTION == 0 )
+
+	/* If configUSE_PORT_OPTIMISED_TASK_SELECTION is 0 then task selection is
+	performed in a generic way that is not optimised to any particular
+	microcontroller architecture. */
+
+	/* uxTopReadyPriority holds the priority of the highest priority ready
+	state task. */
+	#define taskRECORD_READY_PRIORITY( uxPriority )														\
+	{																									\
+		if( ( uxPriority ) > uxTopReadyPriority )														\
+		{																								\
+			uxTopReadyPriority = ( uxPriority );														\
+		}																								\
+	} /* taskRECORD_READY_PRIORITY */
+
+	/*-----------------------------------------------------------*/
+
+	#define taskSELECT_HIGHEST_PRIORITY_TASK()															\
+	{																									\
+	UBaseType_t uxTopPriority = uxTopReadyPriority;														\
+																										\
+		/* Find the highest priority queue that contains ready tasks. */								\
+		while( listLIST_IS_EMPTY( &( pxReadyTasksLists[ uxTopPriority ] ) ) )							\
+		{																								\
+			configASSERT( uxTopPriority );																\
+			--uxTopPriority;																			\
+		}																								\
+																										\
+		/* listGET_OWNER_OF_NEXT_ENTRY indexes through the list, so the tasks of						\
+		the	same priority get an equal share of the processor time. */									\
+		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );			\
+		uxTopReadyPriority = uxTopPriority;																\
+	} /* taskSELECT_HIGHEST_PRIORITY_TASK */
+
+	/*-----------------------------------------------------------*/
+
+	/* Define away taskRESET_READY_PRIORITY() and portRESET_READY_PRIORITY() as
+	they are only required when a port optimised method of task selection is
+	being used. */
+	#define taskRESET_READY_PRIORITY( uxPriority )
+	#define portRESET_READY_PRIORITY( uxPriority, uxTopReadyPriority )
+
+#else /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
+
+	/* If configUSE_PORT_OPTIMISED_TASK_SELECTION is 1 then task selection is
+	performed in a way that is tailored to the particular microcontroller
+	architecture being used. */
+
+	/* A port optimised version is provided.  Call the port defined macros. */
+	#define taskRECORD_READY_PRIORITY( uxPriority )	portRECORD_READY_PRIORITY( uxPriority, uxTopReadyPriority )
+
+	/*-----------------------------------------------------------*/
+
+	#define taskSELECT_HIGHEST_PRIORITY_TASK()														\
+	{																								\
+	UBaseType_t uxTopPriority;																		\
+																									\
+		/* Find the highest priority list that contains ready tasks. */								\
+		portGET_HIGHEST_PRIORITY( uxTopPriority, uxTopReadyPriority );								\
+		configASSERT( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ uxTopPriority ] ) ) > 0 );		\
+		listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) );		\
+	} /* taskSELECT_HIGHEST_PRIORITY_TASK() */
+
+	/*-----------------------------------------------------------*/
+
+	/* A port optimised version is provided, call it only if the TCB being reset
+	is being referenced from a ready list.  If it is referenced from a delayed
+	or suspended list then it won't be in a ready list. */
+	#define taskRESET_READY_PRIORITY( uxPriority )														\
+	{																									\
+		if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ ( uxPriority ) ] ) ) == ( UBaseType_t ) 0 )	\
+		{																								\
+			portRESET_READY_PRIORITY( ( uxPriority ), ( uxTopReadyPriority ) );							\
+		}																								\
+	}
+
+#endif /* configUSE_PORT_OPTIMISED_TASK_SELECTION */
+
+/*-----------------------------------------------------------*/
+
+/* pxDelayedTaskList and pxOverflowDelayedTaskList are switched when the tick
+count overflows. */
+#define taskSWITCH_DELAYED_LISTS()																	\
+{																									\
+	List_t *pxTemp;																					\
+																									\
+	/* The delayed tasks list should be empty when the lists are switched. */						\
+	configASSERT( ( listLIST_IS_EMPTY( pxDelayedTaskList ) ) );										\
+																									\
+	pxTemp = pxDelayedTaskList;																		\
+	pxDelayedTaskList = pxOverflowDelayedTaskList;													\
+	pxOverflowDelayedTaskList = pxTemp;																\
+	xNumOfOverflows++;																				\
+	prvResetNextTaskUnblockTime();																	\
 }
 
+/*-----------------------------------------------------------*/
 
+/*
+ * Place the task represented by pxTCB into the appropriate ready list for
+ * the task.  It is inserted at the end of the list.
+ */
+#define prvAddTaskToReadyList( pxTCB )																\
+	traceMOVED_TASK_TO_READY_STATE( pxTCB );														\
+	taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority );												\
+	vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); \
+	tracePOST_MOVED_TASK_TO_READY_STATE( pxTCB )
+/*-----------------------------------------------------------*/
 
-inline __attribute__(( always_inline)) static void vPortRaiseBASEPRI( void )
+/*
+ * Several functions take an TaskHandle_t parameter that can optionally be NULL,
+ * where NULL is used to indicate that the handle of the currently executing
+ * task should be used in place of the parameter.  This macro simply checks to
+ * see if the parameter is NULL and returns a pointer to the appropriate TCB.
+ */
+#define prvGetTCBFromHandle( pxHandle ) ( ( ( pxHandle ) == NULL ) ? pxCurrentTCB : ( pxHandle ) )
+
+/* The item value of the event list item is normally used to hold the priority
+of the task to which it belongs (coded to allow it to be held in reverse
+priority order).  However, it is occasionally borrowed for other purposes.  It
+is important its value is not updated due to a task priority change while it is
+being used for another purpose.  The following bit definition is used to inform
+the scheduler that the value should not be changed - in which case it is the
+responsibility of whichever module is using the value to ensure it gets set back
+to its original value when it is released. */
+#if( configUSE_16_BIT_TICKS == 1 )
+	#define taskEVENT_LIST_ITEM_VALUE_IN_USE	0x8000U
+#else
+	#define taskEVENT_LIST_ITEM_VALUE_IN_USE	0x80000000UL
+#endif
+
+/*
+ * Task control block.  A task control block (TCB) is allocated for each task,
+ * and stores task state information, including a pointer to the task's context
+ * (the task's run time environment, including register values)
+ */
+typedef struct tskTaskControlBlock /* The old naming convention is used to prevent breaking kernel aware debuggers. */
 {
-uint32_t ulNewBASEPRI;
+	volatile StackType_t	*pxTopOfStack;	/*< Points to the location of the last item placed on the tasks stack.  THIS MUST BE THE FIRST MEMBER OF THE TCB STRUCT. */
+
+	#if ( portUSING_MPU_WRAPPERS == 1 )
+		xMPU_SETTINGS	xMPUSettings;		/*< The MPU settings are defined as part of the port layer.  THIS MUST BE THE SECOND MEMBER OF THE TCB STRUCT. */
+	#endif
+
+	ListItem_t			xStateListItem;	/*< The list that the state list item of a task is reference from denotes the state of that task (Ready, Blocked, Suspended ). */
+	ListItem_t			xEventListItem;		/*< Used to reference a task from an event list. */
+	UBaseType_t			uxPriority;			/*< The priority of the task.  0 is the lowest priority. */
+	StackType_t			*pxStack;			/*< Points to the start of the stack. */
+	char				pcTaskName[ configMAX_TASK_NAME_LEN ];/*< Descriptive name given to the task when created.  Facilitates debugging only. */ /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+
+	#if ( ( portSTACK_GROWTH > 0 ) || ( configRECORD_STACK_HIGH_ADDRESS == 1 ) )
+		StackType_t		*pxEndOfStack;		/*< Points to the highest valid address for the stack. */
+	#endif
+
+	#if ( portCRITICAL_NESTING_IN_TCB == 1 )
+		UBaseType_t		uxCriticalNesting;	/*< Holds the critical section nesting depth for ports that do not maintain their own count in the port layer. */
+	#endif
+
+	#if ( configUSE_TRACE_FACILITY == 1 )
+		UBaseType_t		uxTCBNumber;		/*< Stores a number that increments each time a TCB is created.  It allows debuggers to determine when a task has been deleted and then recreated. */
+		UBaseType_t		uxTaskNumber;		/*< Stores a number specifically for use by third party trace code. */
+	#endif
+
+	#if ( configUSE_MUTEXES == 1 )
+		UBaseType_t		uxBasePriority;		/*< The priority last assigned to the task - used by the priority inheritance mechanism. */
+		UBaseType_t		uxMutexesHeld;
+	#endif
+
+	#if ( configUSE_APPLICATION_TASK_TAG == 1 )
+		TaskHookFunction_t pxTaskTag;
+	#endif
+
+	#if( configNUM_THREAD_LOCAL_STORAGE_POINTERS > 0 )
+		void			*pvThreadLocalStoragePointers[ configNUM_THREAD_LOCAL_STORAGE_POINTERS ];
+	#endif
+
+	#if( configGENERATE_RUN_TIME_STATS == 1 )
+		uint32_t		ulRunTimeCounter;	/*< Stores the amount of time the task has spent in the Running state. */
+	#endif
+
+	#if ( configUSE_NEWLIB_REENTRANT == 1 )
+		/* Allocate a Newlib reent structure that is specific to this task.
+		Note Newlib support has been included by popular demand, but is not
+		used by the FreeRTOS maintainers themselves.  FreeRTOS is not
+		responsible for resulting newlib operation.  User must be familiar with
+		newlib and must provide system-wide implementations of the necessary
+		stubs. Be warned that (at the time of writing) the current newlib design
+		implements a system-wide malloc() that must be provided with locks. */
+		struct	_reent xNewLib_reent;
+	#endif
+
+	#if( configUSE_TASK_NOTIFICATIONS == 1 )
+		volatile uint32_t ulNotifiedValue;
+		volatile uint8_t ucNotifyState;
+	#endif
+
+	/* See the comments above the definition of
+	tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE. */
+	#if( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 ) /*lint !e731 !e9029 Macro has been consolidated for readability reasons. */
+		uint8_t	ucStaticallyAllocated; 		/*< Set to pdTRUE if the task is a statically allocated to ensure no attempt is made to free the memory. */
+	#endif
+
+	#if( INCLUDE_xTaskAbortDelay == 1 )
+		uint8_t ucDelayAborted;
+	#endif
+
+	#if( configUSE_POSIX_ERRNO == 1 )
+		int iTaskErrno;
+	#endif
 
- __asm volatile
- (
-  "	mov %0, %1												\n"
-  "	msr basepri, %0											\n"
-  "	isb														\n"
-  "	dsb														\n"
-  :"=r" (ulNewBASEPRI) : "i" ( (0x4 << 5) ) : "memory"
- );
-}
-
-
-
-inline __attribute__(( always_inline)) static uint32_t ulPortRaiseBASEPRI( void )
-{
-uint32_t ulOriginalBASEPRI, ulNewBASEPRI;
-
- __asm volatile
- (
-  "	mrs %0, basepri											\n"
-  "	mov %1, %2												\n"
-  "	msr basepri, %1											\n"
-  "	isb														\n"
-  "	dsb														\n"
-  :"=r" (ulOriginalBASEPRI), "=r" (ulNewBASEPRI) : "i" ( (0x4 << 5) ) : "memory"
- );
-
-
-
- return ulOriginalBASEPRI;
-}
-
-
-inline __attribute__(( always_inline)) static void vPortSetBASEPRI( uint32_t ulNewMaskValue )
-{
- __asm volatile
- (
-  "	msr basepri, %0	" :: "r" ( ulNewMaskValue ) : "memory"
- );
-}
-# 53 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h" 2
-# 64 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
-#define portBYTE_ALIGNMENT_MASK ( 0x0007 )
-# 84 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
-#define portNUM_CONFIGURABLE_REGIONS 1
-
-
-
-
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/mpu_wrappers.h" 1
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/mpu_wrappers.h"
-#define MPU_WRAPPERS_H 
-# 174 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/mpu_wrappers.h"
-#define PRIVILEGED_FUNCTION 
-#define PRIVILEGED_DATA 
-#define portUSING_MPU_WRAPPERS 0
-# 92 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h" 2
-# 102 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
- StackType_t *pxPortInitialiseStack( StackType_t *pxTopOfStack, TaskFunction_t pxCode, void *pvParameters ) ;
-
-
-
-typedef struct HeapRegion
-{
- uint8_t *pucStartAddress;
- size_t xSizeInBytes;
-} HeapRegion_t;
-# 123 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/portable.h"
-void vPortDefineHeapRegions( const HeapRegion_t * const pxHeapRegions ) ;
-
-
-
-
-
-void *pvPortMalloc( size_t xSize ) ;
-void vPortFree( void *pv ) ;
-void vPortInitialiseBlocks( void ) ;
-size_t xPortGetFreeHeapSize( void ) ;
-size_t xPortGetMinimumEverFreeHeapSize( void ) ;
-
-
-
-
-
-BaseType_t xPortStartScheduler( void ) ;
-
-
-
-
-
-
-void vPortEndScheduler( void ) ;
-# 63 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-# 71 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 1 3
-# 91 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
-#define _REENT_H_ 
-
-
-
-
-#define __need_size_t 
-#define __need_ptrdiff_t 
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 1 3 4
-# 155 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_ptrdiff_t
-# 231 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 340 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef __need_wchar_t
-# 390 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-
-
-
-
-#define offsetof(TYPE,MEMBER) __builtin_offsetof (TYPE, MEMBER)
-# 99 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 2 3
-
-
-
-# 101 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
-struct stat;
-struct tms;
-struct timeval;
-struct timezone;
-# 139 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/reent.h" 3
-extern int _close_r (struct _reent *, int);
-extern int _execve_r (struct _reent *, const char *, char *const *, char *const *);
-extern int _fcntl_r (struct _reent *, int, int, int);
-extern int _fork_r (struct _reent *);
-extern int _fstat_r (struct _reent *, int, struct stat *);
-extern int _getpid_r (struct _reent *);
-extern int _isatty_r (struct _reent *, int);
-extern int _kill_r (struct _reent *, int, int);
-extern int _link_r (struct _reent *, const char *, const char *);
-extern _off_t _lseek_r (struct _reent *, int, _off_t, int);
-extern int _mkdir_r (struct _reent *, const char *, int);
-extern int _open_r (struct _reent *, const char *, int, int);
-extern _ssize_t _read_r (struct _reent *, int, void *, size_t);
-extern int _rename_r (struct _reent *, const char *, const char *);
-extern void *_sbrk_r (struct _reent *, ptrdiff_t);
-extern int _stat_r (struct _reent *, const char *, struct stat *);
-extern unsigned long _times_r (struct _reent *, struct tms *);
-extern int _unlink_r (struct _reent *, const char *);
-extern int _wait_r (struct _reent *, int *);
-extern _ssize_t _write_r (struct _reent *, int, const void *, size_t);
-
-
-extern int _gettimeofday_r (struct _reent *, struct timeval *__tp, void *__tzp);
-# 72 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h" 2
-# 108 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configUSE_CO_ROUTINES 0
-# 140 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define INCLUDE_xTaskAbortDelay 0
-
-
-
-#define INCLUDE_xQueueGetMutexHolder 0
-
-
-
-#define INCLUDE_xSemaphoreGetMutexHolder INCLUDE_xQueueGetMutexHolder
-
-
-
-#define INCLUDE_xTaskGetHandle 0
-# 164 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define INCLUDE_xTaskResumeFromISR 1
-# 186 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configUSE_DAEMON_TASK_STARTUP_HOOK 0
-
-
-
-#define configUSE_APPLICATION_TASK_TAG 0
-
-
-
-#define configNUM_THREAD_LOCAL_STORAGE_POINTERS 0
-# 218 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define portCRITICAL_NESTING_IN_TCB 0
-# 237 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configASSERT_DEFINED 1
-# 266 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define portCLEAN_UP_TCB(pxTCB) ( void ) pxTCB
-
-
-
-#define portPRE_TASK_DELETE_HOOK(pvTaskToDelete,pxYieldPending) 
-
-
-
-#define portSETUP_TCB(pxTCB) ( void ) pxTCB
-
-
-
-
-
-
-
-#define vQueueAddToRegistry(xQueue,pcName) 
-#define vQueueUnregisterQueue(xQueue) 
-#define pcQueueGetName(xQueue) 
-
-
-
-#define portPOINTER_SIZE_TYPE uint32_t
-
-
-
-
-
-
-#define traceSTART() 
-
-
-
-
-
-#define traceEND() 
-
-
-
-
-
-#define traceTASK_SWITCHED_IN() 
-
-
-
-
-
-#define traceINCREASE_TICK_COUNT(x) 
-
-
-
-
-#define traceLOW_POWER_IDLE_BEGIN() 
-
-
-
-
-#define traceLOW_POWER_IDLE_END() 
-
-
-
-
-
-#define traceTASK_SWITCHED_OUT() 
-# 338 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define traceTASK_PRIORITY_INHERIT(pxTCBOfMutexHolder,uxInheritedPriority) 
-
-
-
-
-
-
-
-#define traceTASK_PRIORITY_DISINHERIT(pxTCBOfMutexHolder,uxOriginalPriority) 
-
-
-
-
-
-
-
-#define traceBLOCKING_ON_QUEUE_RECEIVE(pxQueue) 
-
-
-
-
-
-
-
-#define traceBLOCKING_ON_QUEUE_PEEK(pxQueue) 
-
-
-
-
-
-
-
-#define traceBLOCKING_ON_QUEUE_SEND(pxQueue) 
-
-
-
-
-
-
-
-#define configRECORD_STACK_HIGH_ADDRESS 0
-
-
-
-#define configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H 0
-
-
-
-
-
-#define traceMOVED_TASK_TO_READY_STATE(pxTCB) 
-
-
-
-#define tracePOST_MOVED_TASK_TO_READY_STATE(pxTCB) 
-
-
-
-#define traceQUEUE_CREATE(pxNewQueue) 
-
-
-
-#define traceQUEUE_CREATE_FAILED(ucQueueType) 
-
-
-
-#define traceCREATE_MUTEX(pxNewQueue) 
-
-
-
-#define traceCREATE_MUTEX_FAILED() 
-
-
-
-#define traceGIVE_MUTEX_RECURSIVE(pxMutex) 
-
-
-
-#define traceGIVE_MUTEX_RECURSIVE_FAILED(pxMutex) 
-
-
-
-#define traceTAKE_MUTEX_RECURSIVE(pxMutex) 
-
-
-
-#define traceTAKE_MUTEX_RECURSIVE_FAILED(pxMutex) 
-
-
-
-#define traceCREATE_COUNTING_SEMAPHORE() 
-
-
-
-#define traceCREATE_COUNTING_SEMAPHORE_FAILED() 
-
-
-
-#define traceQUEUE_SEND(pxQueue) 
-
-
-
-#define traceQUEUE_SEND_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_RECEIVE(pxQueue) 
-
-
-
-#define traceQUEUE_PEEK(pxQueue) 
-
-
-
-#define traceQUEUE_PEEK_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_PEEK_FROM_ISR(pxQueue) 
-
-
-
-#define traceQUEUE_RECEIVE_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_SEND_FROM_ISR(pxQueue) 
-
-
-
-#define traceQUEUE_SEND_FROM_ISR_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_RECEIVE_FROM_ISR(pxQueue) 
-
-
-
-#define traceQUEUE_RECEIVE_FROM_ISR_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_PEEK_FROM_ISR_FAILED(pxQueue) 
-
-
-
-#define traceQUEUE_DELETE(pxQueue) 
-
-
-
-#define traceTASK_CREATE(pxNewTCB) 
-
-
-
-#define traceTASK_CREATE_FAILED() 
-
-
-
-#define traceTASK_DELETE(pxTaskToDelete) 
-
-
-
-#define traceTASK_DELAY_UNTIL(x) 
-
-
-
-#define traceTASK_DELAY() 
-
-
-
-#define traceTASK_PRIORITY_SET(pxTask,uxNewPriority) 
-
-
-
-#define traceTASK_SUSPEND(pxTaskToSuspend) 
-
-
-
-#define traceTASK_RESUME(pxTaskToResume) 
-
-
-
-#define traceTASK_RESUME_FROM_ISR(pxTaskToResume) 
-
-
-
-#define traceTASK_INCREMENT_TICK(xTickCount) 
-
-
-
-#define traceTIMER_CREATE(pxNewTimer) 
-
-
-
-#define traceTIMER_CREATE_FAILED() 
-
-
-
-#define traceTIMER_COMMAND_SEND(xTimer,xMessageID,xMessageValueValue,xReturn) 
-
-
-
-#define traceTIMER_EXPIRED(pxTimer) 
-
-
-
-#define traceTIMER_COMMAND_RECEIVED(pxTimer,xMessageID,xMessageValue) 
-
-
-
-#define traceMALLOC(pvAddress,uiSize) 
-
-
-
-#define traceFREE(pvAddress,uiSize) 
-
-
-
-#define traceEVENT_GROUP_CREATE(xEventGroup) 
-
-
-
-#define traceEVENT_GROUP_CREATE_FAILED() 
-
-
-
-#define traceEVENT_GROUP_SYNC_BLOCK(xEventGroup,uxBitsToSet,uxBitsToWaitFor) 
-
-
-
-#define traceEVENT_GROUP_SYNC_END(xEventGroup,uxBitsToSet,uxBitsToWaitFor,xTimeoutOccurred) ( void ) xTimeoutOccurred
-
-
-
-#define traceEVENT_GROUP_WAIT_BITS_BLOCK(xEventGroup,uxBitsToWaitFor) 
-
-
-
-#define traceEVENT_GROUP_WAIT_BITS_END(xEventGroup,uxBitsToWaitFor,xTimeoutOccurred) ( void ) xTimeoutOccurred
-
-
-
-#define traceEVENT_GROUP_CLEAR_BITS(xEventGroup,uxBitsToClear) 
-
-
-
-#define traceEVENT_GROUP_CLEAR_BITS_FROM_ISR(xEventGroup,uxBitsToClear) 
-
-
-
-#define traceEVENT_GROUP_SET_BITS(xEventGroup,uxBitsToSet) 
-
-
-
-#define traceEVENT_GROUP_SET_BITS_FROM_ISR(xEventGroup,uxBitsToSet) 
-
-
-
-#define traceEVENT_GROUP_DELETE(xEventGroup) 
-
-
-
-#define tracePEND_FUNC_CALL(xFunctionToPend,pvParameter1,ulParameter2,ret) 
-
-
-
-#define tracePEND_FUNC_CALL_FROM_ISR(xFunctionToPend,pvParameter1,ulParameter2,ret) 
-
-
-
-#define traceQUEUE_REGISTRY_ADD(xQueue,pcQueueName) 
-
-
-
-#define traceTASK_NOTIFY_TAKE_BLOCK() 
-
-
-
-#define traceTASK_NOTIFY_TAKE() 
-
-
-
-#define traceTASK_NOTIFY_WAIT_BLOCK() 
-
-
-
-#define traceTASK_NOTIFY_WAIT() 
-
-
-
-#define traceTASK_NOTIFY() 
-
-
-
-#define traceTASK_NOTIFY_FROM_ISR() 
-
-
-
-#define traceTASK_NOTIFY_GIVE_FROM_ISR() 
-
-
-
-#define traceSTREAM_BUFFER_CREATE_FAILED(xIsMessageBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_CREATE_STATIC_FAILED(xReturn,xIsMessageBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_CREATE(pxStreamBuffer,xIsMessageBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_DELETE(xStreamBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_RESET(xStreamBuffer) 
-
-
-
-#define traceBLOCKING_ON_STREAM_BUFFER_SEND(xStreamBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_SEND(xStreamBuffer,xBytesSent) 
-
-
-
-#define traceSTREAM_BUFFER_SEND_FAILED(xStreamBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_SEND_FROM_ISR(xStreamBuffer,xBytesSent) 
-
-
-
-#define traceBLOCKING_ON_STREAM_BUFFER_RECEIVE(xStreamBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_RECEIVE(xStreamBuffer,xReceivedLength) 
-
-
-
-#define traceSTREAM_BUFFER_RECEIVE_FAILED(xStreamBuffer) 
-
-
-
-#define traceSTREAM_BUFFER_RECEIVE_FROM_ISR(xStreamBuffer,xReceivedLength) 
-# 710 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() 
-
-
-
-
-
-
-
-#define portPRIVILEGE_BIT ( ( UBaseType_t ) 0x00 )
-
-
-
-#define portYIELD_WITHIN_API portYIELD
-
-
-
-
-
-
-
-#define configEXPECTED_IDLE_TIME_BEFORE_SLEEP 2
-# 742 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configPRE_SUPPRESS_TICKS_AND_SLEEP_PROCESSING(x) 
-# 758 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define portTASK_USES_FLOATING_POINT() 
-
-
-
-#define portTASK_CALLS_SECURE_FUNCTIONS() 
-# 786 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define mtCOVERAGE_TEST_MARKER() 
-
-
-
-#define mtCOVERAGE_TEST_DELAY() 
-
-
-
-#define portASSERT_IF_IN_ISR() 
-
-
-
-
-
-
-
-#define configAPPLICATION_ALLOCATED_HEAP 0
-
-
-
-#define configUSE_TASK_NOTIFICATIONS 1
-
-
-
-#define configUSE_POSIX_ERRNO 0
-# 819 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configSUPPORT_STATIC_ALLOCATION 0
-
-
-
-
-#define configSUPPORT_DYNAMIC_ALLOCATION 1
-
-
-
-
-
-#define configSTACK_DEPTH_TYPE uint16_t
-
-
-
-
-
-
-#define configMESSAGE_BUFFER_LENGTH_TYPE size_t
-# 856 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configINITIAL_TICK_COUNT 0
-# 870 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define portTICK_TYPE_ENTER_CRITICAL() 
-#define portTICK_TYPE_EXIT_CRITICAL() 
-#define portTICK_TYPE_SET_INTERRUPT_MASK_FROM_ISR() 0
-#define portTICK_TYPE_CLEAR_INTERRUPT_MASK_FROM_ISR(x) ( void ) x
-# 893 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configPRINTF(X) 
-
-
-
-
-
-#define configMAX(a,b) ( ( ( a ) > ( b ) ) ? ( a ) : ( b ) )
-
-
-
-
-
-#define configMIN(a,b) ( ( ( a ) < ( b ) ) ? ( a ) : ( b ) )
-# 950 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-#define configUSE_TASK_FPU_SUPPORT 1
-# 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-
-# 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-struct xSTATIC_LIST_ITEM
-{
- TickType_t xDummy1;
- void *pvDummy2[ 4 ];
-};
-typedef struct xSTATIC_LIST_ITEM StaticListItem_t;
-
-
-struct xSTATIC_MINI_LIST_ITEM
-{
- TickType_t xDummy1;
- void *pvDummy2[ 2 ];
-};
-typedef struct xSTATIC_MINI_LIST_ITEM StaticMiniListItem_t;
-
-
-typedef struct xSTATIC_LIST
-{
- UBaseType_t uxDummy1;
- void *pvDummy2;
- StaticMiniListItem_t xDummy3;
-} StaticList_t;
-# 999 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-typedef struct xSTATIC_TCB
-{
- void *pxDummy1;
-
-
-
- StaticListItem_t xDummy3[ 2 ];
- UBaseType_t uxDummy5;
- void *pxDummy6;
- uint8_t ucDummy7[ 16 ];
-# 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-  UBaseType_t uxDummy12[ 2 ];
-# 1031 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-  struct _reent xDummy17;
-
-
-  uint32_t ulDummy18;
-  uint8_t ucDummy19;
-# 1047 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-} StaticTask_t;
-# 1063 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-typedef struct xSTATIC_QUEUE
-{
- void *pvDummy1[ 3 ];
-
- union
- {
-  void *pvDummy2;
-  UBaseType_t uxDummy2;
- } u;
-
- StaticList_t xDummy3[ 2 ];
- UBaseType_t uxDummy4[ 3 ];
- uint8_t ucDummy5[ 2 ];
-# 1090 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-} StaticQueue_t;
-typedef StaticQueue_t StaticSemaphore_t;
-# 1107 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-typedef struct xSTATIC_EVENT_GROUP
-{
- TickType_t xDummy1;
- StaticList_t xDummy2;
-# 1120 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-} StaticEventGroup_t;
-# 1136 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-typedef struct xSTATIC_TIMER
-{
- void *pvDummy1;
- StaticListItem_t xDummy2;
- TickType_t xDummy3;
- UBaseType_t uxDummy4;
- void *pvDummy5;
- TaskFunction_t pvDummy6;
-# 1152 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-} StaticTimer_t;
-# 1168 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/FreeRTOS.h"
-typedef struct xSTATIC_STREAM_BUFFER
-{
- size_t uxDummy1[ 4 ];
- void * pvDummy2[ 3 ];
- uint8_t ucDummy3;
-
-
-
-} StaticStreamBuffer_t;
-
-
-typedef StaticStreamBuffer_t StaticMessageBuffer_t;
-# 39 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h" 1
-# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define INC_TASK_H 
-
-
-
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h" 1
-# 61 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define LIST_H 
-# 92 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define configLIST_VOLATILE 
-# 106 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE 
-#define listSECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE 
-#define listFIRST_LIST_INTEGRITY_CHECK_VALUE 
-#define listSECOND_LIST_INTEGRITY_CHECK_VALUE 
-#define listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) 
-#define listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE(pxItem) 
-#define listSET_LIST_INTEGRITY_CHECK_1_VALUE(pxList) 
-#define listSET_LIST_INTEGRITY_CHECK_2_VALUE(pxList) 
-#define listTEST_LIST_ITEM_INTEGRITY(pxItem) 
-#define listTEST_LIST_INTEGRITY(pxList) 
-# 139 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-struct xLIST;
-struct xLIST_ITEM
-{
-
- TickType_t xItemValue;
- struct xLIST_ITEM * pxNext;
- struct xLIST_ITEM * pxPrevious;
- void * pvOwner;
- struct xLIST * pxContainer;
-
-};
-typedef struct xLIST_ITEM ListItem_t;
-
-struct xMINI_LIST_ITEM
-{
-
- TickType_t xItemValue;
- struct xLIST_ITEM * pxNext;
- struct xLIST_ITEM * pxPrevious;
-};
-typedef struct xMINI_LIST_ITEM MiniListItem_t;
-
-
-
-
-typedef struct xLIST
-{
-
- volatile UBaseType_t uxNumberOfItems;
- ListItem_t * pxIndex;
- MiniListItem_t xListEnd;
-
-} List_t;
-# 180 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listSET_LIST_ITEM_OWNER(pxListItem,pxOwner) ( ( pxListItem )->pvOwner = ( void * ) ( pxOwner ) )
-# 189 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listGET_LIST_ITEM_OWNER(pxListItem) ( ( pxListItem )->pvOwner )
-# 198 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listSET_LIST_ITEM_VALUE(pxListItem,xValue) ( ( pxListItem )->xItemValue = ( xValue ) )
-# 208 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listGET_LIST_ITEM_VALUE(pxListItem) ( ( pxListItem )->xItemValue )
-# 217 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listGET_ITEM_VALUE_OF_HEAD_ENTRY(pxList) ( ( ( pxList )->xListEnd ).pxNext->xItemValue )
-
-
-
-
-
-
-
-#define listGET_HEAD_ENTRY(pxList) ( ( ( pxList )->xListEnd ).pxNext )
-
-
-
-
-
-
-
-#define listGET_NEXT(pxListItem) ( ( pxListItem )->pxNext )
-
-
-
-
-
-
-
-#define listGET_END_MARKER(pxList) ( ( ListItem_t const * ) ( &( ( pxList )->xListEnd ) ) )
-# 250 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listLIST_IS_EMPTY(pxList) ( ( ( pxList )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? pdTRUE : pdFALSE )
-
-
-
-
-#define listCURRENT_LIST_LENGTH(pxList) ( ( pxList )->uxNumberOfItems )
-# 277 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listGET_OWNER_OF_NEXT_ENTRY(pxTCB,pxList) { List_t * const pxConstList = ( pxList ); ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; if( ( void * ) ( pxConstList )->pxIndex == ( void * ) &( ( pxConstList )->xListEnd ) ) { ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; } ( pxTCB ) = ( pxConstList )->pxIndex->pvOwner; }
-# 307 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listGET_OWNER_OF_HEAD_ENTRY(pxList) ( (&( ( pxList )->xListEnd ))->pxNext->pvOwner )
-# 318 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-#define listIS_CONTAINED_WITHIN(pxList,pxListItem) ( ( ( pxListItem )->pxContainer == ( pxList ) ) ? ( pdTRUE ) : ( pdFALSE ) )
-
-
-
-
-
-
-
-#define listLIST_ITEM_CONTAINER(pxListItem) ( ( pxListItem )->pxContainer )
-
-
-
-
-
-
-#define listLIST_IS_INITIALISED(pxList) ( ( pxList )->xListEnd.xItemValue == portMAX_DELAY )
-# 345 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-void vListInitialise( List_t * const pxList ) ;
-# 356 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-void vListInitialiseItem( ListItem_t * const pxItem ) ;
-# 369 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-void vListInsert( List_t * const pxList, ListItem_t * const pxNewListItem ) ;
-# 390 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem ) ;
-# 405 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/list.h"
-UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove ) ;
-# 37 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h" 2
-# 46 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define tskKERNEL_VERSION_NUMBER "V10.1.1"
-#define tskKERNEL_VERSION_MAJOR 10
-#define tskKERNEL_VERSION_MINOR 1
-#define tskKERNEL_VERSION_BUILD 1
-# 61 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-struct tskTaskControlBlock;
-typedef struct tskTaskControlBlock* TaskHandle_t;
-
-
-
-
-
-typedef BaseType_t (*TaskHookFunction_t)( void * );
-
-
-typedef enum
-{
- eRunning = 0,
- eReady,
- eBlocked,
- eSuspended,
- eDeleted,
- eInvalid
-} eTaskState;
-
-
-typedef enum
-{
- eNoAction = 0,
- eSetBits,
- eIncrement,
- eSetValueWithOverwrite,
- eSetValueWithoutOverwrite
-} eNotifyAction;
-
-
-
-
-typedef struct xTIME_OUT
-{
- BaseType_t xOverflowCount;
- TickType_t xTimeOnEntering;
-} TimeOut_t;
-
-
-
-
-typedef struct xMEMORY_REGION
-{
- void *pvBaseAddress;
- uint32_t ulLengthInBytes;
- uint32_t ulParameters;
-} MemoryRegion_t;
-
-
-
-
-typedef struct xTASK_PARAMETERS
-{
- TaskFunction_t pvTaskCode;
- const char * const pcName;
- uint16_t usStackDepth;
- void *pvParameters;
- UBaseType_t uxPriority;
- StackType_t *puxStackBuffer;
- MemoryRegion_t xRegions[ 1 ];
-
-
-
-} TaskParameters_t;
-
-
-
-typedef struct xTASK_STATUS
-{
- TaskHandle_t xHandle;
- const char *pcTaskName;
- UBaseType_t xTaskNumber;
- eTaskState eCurrentState;
- UBaseType_t uxCurrentPriority;
- UBaseType_t uxBasePriority;
- uint32_t ulRunTimeCounter;
- StackType_t *pxStackBase;
- uint16_t usStackHighWaterMark;
-} TaskStatus_t;
-
-
-typedef enum
-{
- eAbortSleep = 0,
- eStandardSleep,
- eNoTasksWaitingTimeout
-} eSleepModeStatus;
-
-
-
-
-
-
-#define tskIDLE_PRIORITY ( ( UBaseType_t ) 0U )
-# 165 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define taskYIELD() portYIELD()
-# 179 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define taskENTER_CRITICAL() portENTER_CRITICAL()
-#define taskENTER_CRITICAL_FROM_ISR() portSET_INTERRUPT_MASK_FROM_ISR()
-# 194 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define taskEXIT_CRITICAL() portEXIT_CRITICAL()
-#define taskEXIT_CRITICAL_FROM_ISR(x) portCLEAR_INTERRUPT_MASK_FROM_ISR( x )
-# 204 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define taskDISABLE_INTERRUPTS() portDISABLE_INTERRUPTS()
-# 214 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define taskENABLE_INTERRUPTS() portENABLE_INTERRUPTS()
-
-
-
-
-#define taskSCHEDULER_SUSPENDED ( ( BaseType_t ) 0 )
-#define taskSCHEDULER_NOT_STARTED ( ( BaseType_t ) 1 )
-#define taskSCHEDULER_RUNNING ( ( BaseType_t ) 2 )
-# 322 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
- BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,
-       const char * const pcName,
-       const uint16_t usStackDepth,
-       void * const pvParameters,
-       UBaseType_t uxPriority,
-       TaskHandle_t * const pxCreatedTask ) ;
-# 657 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions ) ;
-# 698 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskDelete( TaskHandle_t xTaskToDelete ) ;
-# 750 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskDelay( const TickType_t xTicksToDelay ) ;
-# 809 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement ) ;
-# 834 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskAbortDelay( TaskHandle_t xTask ) ;
-# 881 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-UBaseType_t uxTaskPriorityGet( const TaskHandle_t xTask ) ;
-
-
-
-
-
-
-
-UBaseType_t uxTaskPriorityGetFromISR( const TaskHandle_t xTask ) ;
-# 907 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-eTaskState eTaskGetState( TaskHandle_t xTask ) ;
-# 963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskGetInfo( TaskHandle_t xTask, TaskStatus_t *pxTaskStatus, BaseType_t xGetFreeStackSpace, eTaskState eState ) ;
-# 1005 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskPrioritySet( TaskHandle_t xTask, UBaseType_t uxNewPriority ) ;
-# 1056 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskSuspend( TaskHandle_t xTaskToSuspend ) ;
-# 1105 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskResume( TaskHandle_t xTaskToResume ) ;
-# 1134 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskResumeFromISR( TaskHandle_t xTaskToResume ) ;
-# 1167 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskStartScheduler( void ) ;
-# 1223 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskEndScheduler( void ) ;
-# 1274 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskSuspendAll( void ) ;
-# 1328 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskResumeAll( void ) ;
-# 1343 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-TickType_t xTaskGetTickCount( void ) ;
-# 1359 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-TickType_t xTaskGetTickCountFromISR( void ) ;
-# 1373 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-UBaseType_t uxTaskGetNumberOfTasks( void ) ;
-# 1386 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-char *pcTaskGetName( TaskHandle_t xTaskToQuery ) ;
-# 1402 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-TaskHandle_t xTaskGetHandle( const char *pcNameToQuery ) ;
-# 1423 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask ) ;
-# 1476 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskCallApplicationTaskHook( TaskHandle_t xTask, void *pvParameter ) ;
-# 1485 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-TaskHandle_t xTaskGetIdleTaskHandle( void ) ;
-# 1584 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-UBaseType_t uxTaskGetSystemState( TaskStatus_t * const pxTaskStatusArray, const UBaseType_t uxArraySize, uint32_t * const pulTotalRunTime ) ;
-# 1631 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskList( char * pcWriteBuffer ) ;
-# 1685 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskGetRunTimeStats( char *pcWriteBuffer ) ;
-# 1766 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue ) ;
-#define xTaskNotify(xTaskToNotify,ulValue,eAction) xTaskGenericNotify( ( xTaskToNotify ), ( ulValue ), ( eAction ), NULL )
-#define xTaskNotifyAndQuery(xTaskToNotify,ulValue,eAction,pulPreviousNotifyValue) xTaskGenericNotify( ( xTaskToNotify ), ( ulValue ), ( eAction ), ( pulPreviousNotifyValue ) )
-# 1857 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue, BaseType_t *pxHigherPriorityTaskWoken ) ;
-#define xTaskNotifyFromISR(xTaskToNotify,ulValue,eAction,pxHigherPriorityTaskWoken) xTaskGenericNotifyFromISR( ( xTaskToNotify ), ( ulValue ), ( eAction ), NULL, ( pxHigherPriorityTaskWoken ) )
-#define xTaskNotifyAndQueryFromISR(xTaskToNotify,ulValue,eAction,pulPreviousNotificationValue,pxHigherPriorityTaskWoken) xTaskGenericNotifyFromISR( ( xTaskToNotify ), ( ulValue ), ( eAction ), ( pulPreviousNotificationValue ), ( pxHigherPriorityTaskWoken ) )
-# 1934 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait ) ;
-# 1980 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-#define xTaskNotifyGive(xTaskToNotify) xTaskGenericNotify( ( xTaskToNotify ), ( 0 ), eIncrement, NULL )
-# 2035 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskNotifyGiveFromISR( TaskHandle_t xTaskToNotify, BaseType_t *pxHigherPriorityTaskWoken ) ;
-# 2104 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait ) ;
-# 2120 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskNotifyStateClear( TaskHandle_t xTask );
-# 2141 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskIncrementTick( void ) ;
-# 2174 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskPlaceOnEventList( List_t * const pxEventList, const TickType_t xTicksToWait ) ;
-void vTaskPlaceOnUnorderedEventList( List_t * pxEventList, const TickType_t xItemValue, const TickType_t xTicksToWait ) ;
-# 2188 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTicksToWait, const BaseType_t xWaitIndefinitely ) ;
-# 2214 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-BaseType_t xTaskRemoveFromEventList( const List_t * const pxEventList ) ;
-void vTaskRemoveFromUnorderedEventList( ListItem_t * pxEventListItem, const TickType_t xItemValue ) ;
-# 2225 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskSwitchContext( void ) ;
-
-
-
-
-
-TickType_t uxTaskResetEventItemValue( void ) ;
-
-
-
-
-TaskHandle_t xTaskGetCurrentTaskHandle( void ) ;
-
-
-
-
-void vTaskSetTimeOutState( TimeOut_t * const pxTimeOut ) ;
-
-
-
-
-
-BaseType_t xTaskCheckForTimeOut( TimeOut_t * const pxTimeOut, TickType_t * const pxTicksToWait ) ;
-
-
-
-
-
-void vTaskMissedYield( void ) ;
-
-
-
-
-
-BaseType_t xTaskGetSchedulerState( void ) ;
-
-
-
-
-
-BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder ) ;
-
-
-
-
-
-BaseType_t xTaskPriorityDisinherit( TaskHandle_t const pxMutexHolder ) ;
-# 2281 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskPriorityDisinheritAfterTimeout( TaskHandle_t const pxMutexHolder, UBaseType_t uxHighestPriorityWaitingTask ) ;
-
-
-
-
-UBaseType_t uxTaskGetTaskNumber( TaskHandle_t xTask ) ;
-
-
-
-
-
-void vTaskSetTaskNumber( TaskHandle_t xTask, const UBaseType_t uxHandle ) ;
-# 2302 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-void vTaskStepTick( const TickType_t xTicksToJump ) ;
-# 2318 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h"
-eSleepModeStatus eTaskConfirmSleepModeStatus( void ) ;
-
-
-
-
-
-TaskHandle_t pvTaskIncrementMutexHeldCount( void ) ;
-
-
-
-
-
-void vTaskInternalSetTimeOutState( TimeOut_t * const pxTimeOut ) ;
-# 40 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h" 1
-# 30 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define TIMERS_H 
-
-
-
-
-
-
-
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/task.h" 1
-# 39 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h" 2
-# 54 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define tmrCOMMAND_EXECUTE_CALLBACK_FROM_ISR ( ( BaseType_t ) -2 )
-#define tmrCOMMAND_EXECUTE_CALLBACK ( ( BaseType_t ) -1 )
-#define tmrCOMMAND_START_DONT_TRACE ( ( BaseType_t ) 0 )
-#define tmrCOMMAND_START ( ( BaseType_t ) 1 )
-#define tmrCOMMAND_RESET ( ( BaseType_t ) 2 )
-#define tmrCOMMAND_STOP ( ( BaseType_t ) 3 )
-#define tmrCOMMAND_CHANGE_PERIOD ( ( BaseType_t ) 4 )
-#define tmrCOMMAND_DELETE ( ( BaseType_t ) 5 )
-
-#define tmrFIRST_FROM_ISR_COMMAND ( ( BaseType_t ) 6 )
-#define tmrCOMMAND_START_FROM_ISR ( ( BaseType_t ) 6 )
-#define tmrCOMMAND_RESET_FROM_ISR ( ( BaseType_t ) 7 )
-#define tmrCOMMAND_STOP_FROM_ISR ( ( BaseType_t ) 8 )
-#define tmrCOMMAND_CHANGE_PERIOD_FROM_ISR ( ( BaseType_t ) 9 )
-# 76 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-struct tmrTimerControl;
-typedef struct tmrTimerControl * TimerHandle_t;
-
-
-
-
-typedef void (*TimerCallbackFunction_t)( TimerHandle_t xTimer );
-
-
-
-
-
-typedef void (*PendedFunction_t)( void *, uint32_t );
-# 228 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
- TimerHandle_t xTimerCreate( const char * const pcTimerName,
-        const TickType_t xTimerPeriodInTicks,
-        const UBaseType_t uxAutoReload,
-        void * const pvTimerID,
-        TimerCallbackFunction_t pxCallbackFunction ) ;
-# 386 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-void *pvTimerGetTimerID( const TimerHandle_t xTimer ) ;
-# 407 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-void vTimerSetTimerID( TimerHandle_t xTimer, void *pvNewID ) ;
-# 444 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-BaseType_t xTimerIsTimerActive( TimerHandle_t xTimer ) ;
-
-
-
-
-
-
-
-TaskHandle_t xTimerGetTimerDaemonTaskHandle( void ) ;
-# 504 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerStart(xTimer,xTicksToWait) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START, ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
-# 546 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerStop(xTimer,xTicksToWait) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP, 0U, NULL, ( xTicksToWait ) )
-# 626 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerChangePeriod(xTimer,xNewPeriod,xTicksToWait) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_CHANGE_PERIOD, ( xNewPeriod ), NULL, ( xTicksToWait ) )
-# 664 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerDelete(xTimer,xTicksToWait) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_DELETE, 0U, NULL, ( xTicksToWait ) )
-# 788 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerReset(xTimer,xTicksToWait) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_RESET, ( xTaskGetTickCount() ), NULL, ( xTicksToWait ) )
-# 874 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerStartFromISR(xTimer,pxHigherPriorityTaskWoken) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_START_FROM_ISR, ( xTaskGetTickCountFromISR() ), ( pxHigherPriorityTaskWoken ), 0U )
-# 937 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerStopFromISR(xTimer,pxHigherPriorityTaskWoken) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_STOP_FROM_ISR, 0, ( pxHigherPriorityTaskWoken ), 0U )
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerChangePeriodFromISR(xTimer,xNewPeriod,pxHigherPriorityTaskWoken) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_CHANGE_PERIOD_FROM_ISR, ( xNewPeriod ), ( pxHigherPriorityTaskWoken ), 0U )
-# 1096 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-#define xTimerResetFromISR(xTimer,pxHigherPriorityTaskWoken) xTimerGenericCommand( ( xTimer ), tmrCOMMAND_RESET_FROM_ISR, ( xTaskGetTickCountFromISR() ), ( pxHigherPriorityTaskWoken ), 0U )
-# 1187 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-BaseType_t xTimerPendFunctionCallFromISR( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, BaseType_t *pxHigherPriorityTaskWoken ) ;
-# 1221 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-BaseType_t xTimerPendFunctionCall( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, TickType_t xTicksToWait ) ;
-# 1232 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-const char * pcTimerGetName( TimerHandle_t xTimer ) ;
-# 1243 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-TickType_t xTimerGetPeriod( TimerHandle_t xTimer ) ;
-# 1258 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/timers.h"
-TickType_t xTimerGetExpiryTime( TimerHandle_t xTimer ) ;
-
-
-
-
-
-BaseType_t xTimerCreateTimerTask( void ) ;
-BaseType_t xTimerGenericCommand( TimerHandle_t xTimer, const BaseType_t xCommandID, const TickType_t xOptionalValue, BaseType_t * const pxHigherPriorityTaskWoken, const TickType_t xTicksToWait ) ;
-# 41 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/stack_macros.h" 1
-# 29 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/stack_macros.h"
-#define STACK_MACROS_H 
-# 80 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/include/stack_macros.h"
-#define taskCHECK_FOR_STACK_OVERFLOW() { const uint32_t * const pulStack = ( uint32_t * ) pxCurrentTCB->pxStack; const uint32_t ulCheckValue = ( uint32_t ) 0xa5a5a5a5; if( ( pulStack[ 0 ] != ulCheckValue ) || ( pulStack[ 1 ] != ulCheckValue ) || ( pulStack[ 2 ] != ulCheckValue ) || ( pulStack[ 3 ] != ulCheckValue ) ) { vApplicationStackOverflowHook( ( TaskHandle_t ) pxCurrentTCB, pxCurrentTCB->pcTaskName ); } }
-# 42 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 2
-
-
-
-
-
-#undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
-# 64 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskYIELD_IF_USING_PREEMPTION() portYIELD_WITHIN_API()
-
-
-
-#define taskNOT_WAITING_NOTIFICATION ( ( uint8_t ) 0 )
-#define taskWAITING_NOTIFICATION ( ( uint8_t ) 1 )
-#define taskNOTIFICATION_RECEIVED ( ( uint8_t ) 2 )
-
-
-
-
-
-#define tskSTACK_FILL_BYTE ( 0xa5U )
-# 95 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
-#define tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB ( ( uint8_t ) 0 )
-#define tskSTATICALLY_ALLOCATED_STACK_ONLY ( ( uint8_t ) 1 )
-#define tskSTATICALLY_ALLOCATED_STACK_AND_TCB ( ( uint8_t ) 2 )
-
-
-
-
-
-#define tskSET_NEW_STACKS_TO_KNOWN_VALUE 1
-
-
-
-
-
-
-
-#define tskRUNNING_CHAR ( 'X' )
-#define tskBLOCKED_CHAR ( 'B' )
-#define tskREADY_CHAR ( 'R' )
-#define tskDELETED_CHAR ( 'D' )
-#define tskSUSPENDED_CHAR ( 'S' )
-# 129 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define configIDLE_TASK_NAME "IDLE"
-# 140 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskRECORD_READY_PRIORITY(uxPriority) { if( ( uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( uxPriority ); } }
-# 150 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskSELECT_HIGHEST_PRIORITY_TASK() { UBaseType_t uxTopPriority = uxTopReadyPriority; while( listLIST_IS_EMPTY( &( pxReadyTasksLists[ uxTopPriority ] ) ) ) { configASSERT( uxTopPriority ); --uxTopPriority; } listGET_OWNER_OF_NEXT_ENTRY( pxCurrentTCB, &( pxReadyTasksLists[ uxTopPriority ] ) ); uxTopReadyPriority = uxTopPriority; }
-# 172 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskRESET_READY_PRIORITY(uxPriority) 
-#define portRESET_READY_PRIORITY(uxPriority,uxTopReadyPriority) 
-# 215 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskSWITCH_DELAYED_LISTS() { List_t *pxTemp; configASSERT( ( listLIST_IS_EMPTY( pxDelayedTaskList ) ) ); pxTemp = pxDelayedTaskList; pxDelayedTaskList = pxOverflowDelayedTaskList; pxOverflowDelayedTaskList = pxTemp; xNumOfOverflows++; prvResetNextTaskUnblockTime(); }
-# 235 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define prvAddTaskToReadyList(pxTCB) traceMOVED_TASK_TO_READY_STATE( pxTCB ); taskRECORD_READY_PRIORITY( ( pxTCB )->uxPriority ); vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); tracePOST_MOVED_TASK_TO_READY_STATE( pxTCB )
-# 248 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define prvGetTCBFromHandle(pxHandle) ( ( ( pxHandle ) == NULL ) ? pxCurrentTCB : ( pxHandle ) )
-# 261 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-#define taskEVENT_LIST_ITEM_VALUE_IN_USE 0x80000000UL
-
-
-
-
-
-
-
-typedef struct tskTaskControlBlock
-{
- volatile StackType_t *pxTopOfStack;
-
-
-
-
-
- ListItem_t xStateListItem;
- ListItem_t xEventListItem;
- UBaseType_t uxPriority;
- StackType_t *pxStack;
- char pcTaskName[ 16 ];
-# 297 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  UBaseType_t uxBasePriority;
-  UBaseType_t uxMutexesHeld;
-# 321 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  struct _reent xNewLib_reent;
-
-
-
-  volatile uint32_t ulNotifiedValue;
-  volatile uint8_t ucNotifyState;
-# 343 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
 } tskTCB;
 
-
-
+/* The old tskTCB name is maintained above then typedefed to the new TCB_t name
+below to enable the use of older kernel aware debuggers. */
 typedef tskTCB TCB_t;
 
+/*lint -save -e956 A manual analysis and inspection has been used to determine
+which static variables must be declared volatile. */
+PRIVILEGED_DATA TCB_t * volatile pxCurrentTCB = NULL;
 
+/* Lists for ready and blocked tasks. --------------------
+xDelayedTaskList1 and xDelayedTaskList2 could be move to function scople but
+doing so breaks some kernel aware debuggers and debuggers that rely on removing
+the static qualifier. */
+PRIVILEGED_DATA static List_t pxReadyTasksLists[ configMAX_PRIORITIES ];/*< Prioritised ready tasks. */
+PRIVILEGED_DATA static List_t xDelayedTaskList1;						/*< Delayed tasks. */
+PRIVILEGED_DATA static List_t xDelayedTaskList2;						/*< Delayed tasks (two lists are used - one for delays that have overflowed the current tick count. */
+PRIVILEGED_DATA static List_t * volatile pxDelayedTaskList;				/*< Points to the delayed task list currently being used. */
+PRIVILEGED_DATA static List_t * volatile pxOverflowDelayedTaskList;		/*< Points to the delayed task list currently being used to hold tasks that have overflowed the current tick count. */
+PRIVILEGED_DATA static List_t xPendingReadyList;						/*< Tasks that have been readied while the scheduler was suspended.  They will be moved to the ready list when the scheduler is resumed. */
 
- TCB_t * volatile pxCurrentTCB = 
-# 351 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                               ((void *)0)
-# 351 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                   ;
+#if( INCLUDE_vTaskDelete == 1 )
 
+	PRIVILEGED_DATA static List_t xTasksWaitingTermination;				/*< Tasks that have been deleted - but their memory not yet freed. */
+	PRIVILEGED_DATA static volatile UBaseType_t uxDeletedTasksWaitingCleanUp = ( UBaseType_t ) 0U;
 
+#endif
 
+#if ( INCLUDE_vTaskSuspend == 1 )
 
+	PRIVILEGED_DATA static List_t xSuspendedTaskList;					/*< Tasks that are currently suspended. */
 
- static List_t pxReadyTasksLists[ 5 ];
- static List_t xDelayedTaskList1;
- static List_t xDelayedTaskList2;
- static List_t * volatile pxDelayedTaskList;
- static List_t * volatile pxOverflowDelayedTaskList;
- static List_t xPendingReadyList;
+#endif
 
+/* Global POSIX errno. Its value is changed upon context switching to match
+the errno of the currently running task. */
+#if ( configUSE_POSIX_ERRNO == 1 )
+	int FreeRTOS_errno = 0;
+#endif
 
+/* Other file private variables. --------------------------------*/
+PRIVILEGED_DATA static volatile UBaseType_t uxCurrentNumberOfTasks 	= ( UBaseType_t ) 0U;
+PRIVILEGED_DATA static volatile TickType_t xTickCount 				= ( TickType_t ) configINITIAL_TICK_COUNT;
+PRIVILEGED_DATA static volatile UBaseType_t uxTopReadyPriority 		= tskIDLE_PRIORITY;
+PRIVILEGED_DATA static volatile BaseType_t xSchedulerRunning 		= pdFALSE;
+PRIVILEGED_DATA static volatile UBaseType_t uxPendedTicks 			= ( UBaseType_t ) 0U;
+PRIVILEGED_DATA static volatile BaseType_t xYieldPending 			= pdFALSE;
+PRIVILEGED_DATA static volatile BaseType_t xNumOfOverflows 			= ( BaseType_t ) 0;
+PRIVILEGED_DATA static UBaseType_t uxTaskNumber 					= ( UBaseType_t ) 0U;
+PRIVILEGED_DATA static volatile TickType_t xNextTaskUnblockTime		= ( TickType_t ) 0U; /* Initialised to portMAX_DELAY before the scheduler starts. */
+PRIVILEGED_DATA static TaskHandle_t xIdleTaskHandle					= NULL;			/*< Holds the handle of the idle task.  The idle task is created automatically when the scheduler is started. */
 
- static List_t xTasksWaitingTermination;
- static volatile UBaseType_t uxDeletedTasksWaitingCleanUp = ( UBaseType_t ) 0U;
+/* Context switches are held pending while the scheduler is suspended.  Also,
+interrupts must not manipulate the xStateListItem of a TCB, or any of the
+lists the xStateListItem can be referenced from, if the scheduler is suspended.
+If an interrupt needs to unblock a task while the scheduler is suspended then it
+moves the task's event list item into the xPendingReadyList, ready for the
+kernel to move the task from the pending ready list into the real ready list
+when the scheduler is unsuspended.  The pending ready list itself can only be
+accessed from a critical section. */
+PRIVILEGED_DATA static volatile UBaseType_t uxSchedulerSuspended	= ( UBaseType_t ) pdFALSE;
 
+#if ( configGENERATE_RUN_TIME_STATS == 1 )
 
+	/* Do not move these variables to function scope as doing so prevents the
+	code working with debuggers that need to remove the static qualifier. */
+	PRIVILEGED_DATA static uint32_t ulTaskSwitchedInTime = 0UL;	/*< Holds the value of a timer/counter the last time a task was switched in. */
+	PRIVILEGED_DATA static uint32_t ulTotalRunTime = 0UL;		/*< Holds the total amount of execution time as defined by the run time counter clock. */
 
+#endif
 
+/*lint -restore */
 
- static List_t xSuspendedTaskList;
-# 384 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static volatile UBaseType_t uxCurrentNumberOfTasks = ( UBaseType_t ) 0U;
- static volatile TickType_t xTickCount = ( TickType_t ) 0;
- static volatile UBaseType_t uxTopReadyPriority = ( ( UBaseType_t ) 0U );
- static volatile BaseType_t xSchedulerRunning = ( ( BaseType_t ) 0 );
- static volatile UBaseType_t uxPendedTicks = ( UBaseType_t ) 0U;
- static volatile BaseType_t xYieldPending = ( ( BaseType_t ) 0 );
- static volatile BaseType_t xNumOfOverflows = ( BaseType_t ) 0;
- static UBaseType_t uxTaskNumber = ( UBaseType_t ) 0U;
- static volatile TickType_t xNextTaskUnblockTime = ( TickType_t ) 0U;
- static TaskHandle_t xIdleTaskHandle = 
-# 393 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                                         ((void *)0)
-# 393 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                             ;
-# 403 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static volatile UBaseType_t uxSchedulerSuspended = ( UBaseType_t ) ( ( BaseType_t ) 0 );
-# 421 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- extern void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName );
-# 446 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask ) ;
+/*-----------------------------------------------------------*/
 
+/* Callback function prototypes. --------------------------*/
+#if(  configCHECK_FOR_STACK_OVERFLOW > 0 )
 
+	extern void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName );
 
+#endif
 
+#if( configUSE_TICK_HOOK > 0 )
 
+	extern void vApplicationTickHook( void ); /*lint !e526 Symbol not defined as it is an application callback. */
 
+#endif
 
-static void prvInitialiseTaskLists( void ) ;
-# 467 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-static void prvIdleTask( void *pvParameters );
-# 478 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static void prvDeleteTCB( TCB_t *pxTCB ) ;
-# 487 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-static void prvCheckTasksWaitingTermination( void ) ;
+#if( configSUPPORT_STATIC_ALLOCATION == 1 )
 
+	extern void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize ); /*lint !e526 Symbol not defined as it is an application callback. */
 
+#endif
 
+/* File private functions. --------------------------------*/
 
+/**
+ * Utility task that simply returns pdTRUE if the task referenced by xTask is
+ * currently in the Suspended state, or pdFALSE if the task referenced by xTask
+ * is in any other state.
+ */
+#if ( INCLUDE_vTaskSuspend == 1 )
 
-static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait, const BaseType_t xCanBlockIndefinitely ) ;
-# 541 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static TickType_t prvGetExpectedIdleTime( void ) ;
+	static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
 
+#endif /* INCLUDE_vTaskSuspend */
 
+/*
+ * Utility to ready all the lists used by the scheduler.  This is called
+ * automatically upon the creation of the first task.
+ */
+static void prvInitialiseTaskLists( void ) PRIVILEGED_FUNCTION;
 
+/*
+ * The idle task, which as all tasks is implemented as a never ending loop.
+ * The idle task is automatically created and added to the ready lists upon
+ * creation of the first user task.
+ *
+ * The portTASK_FUNCTION_PROTO() macro is used to allow port/compiler specific
+ * language extensions.  The equivalent prototype for this function is:
+ *
+ * void prvIdleTask( void *pvParameters );
+ *
+ */
+static portTASK_FUNCTION_PROTO( prvIdleTask, pvParameters );
 
+/*
+ * Utility to free all memory allocated by the scheduler to hold a TCB,
+ * including the stack pointed to by the TCB.
+ *
+ * This does not free memory allocated by the task itself (i.e. memory
+ * allocated by calls to pvPortMalloc from within the tasks application code).
+ */
+#if ( INCLUDE_vTaskDelete == 1 )
 
+	static void prvDeleteTCB( TCB_t *pxTCB ) PRIVILEGED_FUNCTION;
 
+#endif
 
+/*
+ * Used only by the idle task.  This checks to see if anything has been placed
+ * in the list of tasks waiting to be deleted.  If so the task is cleaned up
+ * and its TCB deleted.
+ */
+static void prvCheckTasksWaitingTermination( void ) PRIVILEGED_FUNCTION;
+
+/*
+ * The currently executing task is entering the Blocked state.  Add the task to
+ * either the current or the overflow delayed task list.
+ */
+static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait, const BaseType_t xCanBlockIndefinitely ) PRIVILEGED_FUNCTION;
+
+/*
+ * Fills an TaskStatus_t structure with information on each task that is
+ * referenced from the pxList list (which may be a ready list, a delayed list,
+ * a suspended list, etc.).
+ *
+ * THIS FUNCTION IS INTENDED FOR DEBUGGING ONLY, AND SHOULD NOT BE CALLED FROM
+ * NORMAL APPLICATION CODE.
+ */
+#if ( configUSE_TRACE_FACILITY == 1 )
+
+	static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*
+ * Searches pxList for a task with name pcNameToQuery - returning a handle to
+ * the task if it is found, or NULL if the task is not found.
+ */
+#if ( INCLUDE_xTaskGetHandle == 1 )
+
+	static TCB_t *prvSearchForNameWithinSingleList( List_t *pxList, const char pcNameToQuery[] ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*
+ * When a task is created, the stack of the task is filled with a known value.
+ * This function determines the 'high water mark' of the task stack by
+ * determining how much of the stack remains at the original preset value.
+ */
+#if ( ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) )
+
+	static configSTACK_DEPTH_TYPE prvTaskCheckFreeStackSpace( const uint8_t * pucStackByte ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*
+ * Return the amount of time, in ticks, that will pass before the kernel will
+ * next move a task from the Blocked state to the Running state.
+ *
+ * This conditional compilation should use inequality to 0, not equality to 1.
+ * This is to ensure portSUPPRESS_TICKS_AND_SLEEP() can be called when user
+ * defined low power mode implementations require configUSE_TICKLESS_IDLE to be
+ * set to a value other than 1.
+ */
+#if ( configUSE_TICKLESS_IDLE != 0 )
+
+	static TickType_t prvGetExpectedIdleTime( void ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*
+ * Set xNextTaskUnblockTime to the time at which the next Blocked state task
+ * will exit the Blocked state.
+ */
 static void prvResetNextTaskUnblockTime( void );
-# 565 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
-         const char * const pcName,
-         const uint32_t ulStackDepth,
-         void * const pvParameters,
-         UBaseType_t uxPriority,
-         TaskHandle_t * const pxCreatedTask,
-         TCB_t *pxNewTCB,
-         const MemoryRegion_t * const xRegions ) ;
+
+#if ( ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) )
+
+	/*
+	 * Helper function used to pad task names with spaces when printing out
+	 * human readable tables of task information.
+	 */
+	static char *prvWriteNameToBuffer( char *pcBuffer, const char *pcTaskName ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*
+ * Called after a Task_t structure has been allocated either statically or
+ * dynamically to fill in the structure's members.
+ */
+static void prvInitialiseNewTask( 	TaskFunction_t pxTaskCode,
+									const char * const pcName, 		/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+									const uint32_t ulStackDepth,
+									void * const pvParameters,
+									UBaseType_t uxPriority,
+									TaskHandle_t * const pxCreatedTask,
+									TCB_t *pxNewTCB,
+									const MemoryRegion_t * const xRegions ) PRIVILEGED_FUNCTION;
+
+/*
+ * Called after a new task has been created and initialised to place the task
+ * under the control of the scheduler.
+ */
+static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) PRIVILEGED_FUNCTION;
+
+/*
+ * freertos_tasks_c_additions_init() should only be called if the user definable
+ * macro FREERTOS_TASKS_C_ADDITIONS_INIT() is defined, as that is the only macro
+ * called by the function.
+ */
+#ifdef FREERTOS_TASKS_C_ADDITIONS_INIT
+
+	static void freertos_tasks_c_additions_init( void ) PRIVILEGED_FUNCTION;
+
+#endif
+
+/*-----------------------------------------------------------*/
+
+#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+
+	TaskHandle_t xTaskCreateStatic(	TaskFunction_t pxTaskCode,
+									const char * const pcName,		/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+									const uint32_t ulStackDepth,
+									void * const pvParameters,
+									UBaseType_t uxPriority,
+									StackType_t * const puxStackBuffer,
+									StaticTask_t * const pxTaskBuffer )
+	{
+	TCB_t *pxNewTCB;
+	TaskHandle_t xReturn;
+
+		configASSERT( puxStackBuffer != NULL );
+		configASSERT( pxTaskBuffer != NULL );
+
+		#if( configASSERT_DEFINED == 1 )
+		{
+			/* Sanity check that the size of the structure used to declare a
+			variable of type StaticTask_t equals the size of the real task
+			structure. */
+			volatile size_t xSize = sizeof( StaticTask_t );
+			configASSERT( xSize == sizeof( TCB_t ) );
+			( void ) xSize; /* Prevent lint warning when configASSERT() is not used. */
+		}
+		#endif /* configASSERT_DEFINED */
 
 
+		if( ( pxTaskBuffer != NULL ) && ( puxStackBuffer != NULL ) )
+		{
+			/* The memory used for the task's TCB and stack are passed into this
+			function - use them. */
+			pxNewTCB = ( TCB_t * ) pxTaskBuffer; /*lint !e740 !e9087 Unusual cast is ok as the structures are designed to have the same alignment, and the size is checked by an assert. */
+			pxNewTCB->pxStack = ( StackType_t * ) puxStackBuffer;
 
+			#if( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 ) /*lint !e731 !e9029 Macro has been consolidated for readability reasons. */
+			{
+				/* Tasks can be created statically or dynamically, so note this
+				task was created statically in case the task is later deleted. */
+				pxNewTCB->ucStaticallyAllocated = tskSTATICALLY_ALLOCATED_STACK_AND_TCB;
+			}
+			#endif /* configSUPPORT_DYNAMIC_ALLOCATION */
 
+			prvInitialiseNewTask( pxTaskCode, pcName, ulStackDepth, pvParameters, uxPriority, &xReturn, pxNewTCB, NULL );
+			prvAddNewTaskToReadyList( pxNewTCB );
+		}
+		else
+		{
+			xReturn = NULL;
+		}
 
-static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB ) ;
-# 747 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,
-       const char * const pcName,
-       const uint16_t usStackDepth,
-       void * const pvParameters,
-       UBaseType_t uxPriority,
-       TaskHandle_t * const pxCreatedTask )
- {
- TCB_t *pxNewTCB;
- BaseType_t xReturn;
-# 783 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  {
-  StackType_t *pxStack;
+		return xReturn;
+	}
 
+#endif /* SUPPORT_STATIC_ALLOCATION */
+/*-----------------------------------------------------------*/
 
-   pxStack = pvPortMalloc( ( ( ( size_t ) usStackDepth ) * sizeof( StackType_t ) ) );
+#if( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
 
-   if( pxStack != 
-# 789 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                 ((void *)0) 
-# 789 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                      )
-   {
+	BaseType_t xTaskCreateRestrictedStatic( const TaskParameters_t * const pxTaskDefinition, TaskHandle_t *pxCreatedTask )
+	{
+	TCB_t *pxNewTCB;
+	BaseType_t xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
 
-    pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) );
+		configASSERT( pxTaskDefinition->puxStackBuffer != NULL );
+		configASSERT( pxTaskDefinition->pxTaskBuffer != NULL );
 
-    if( pxNewTCB != 
-# 794 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                   ((void *)0) 
-# 794 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                        )
-    {
+		if( ( pxTaskDefinition->puxStackBuffer != NULL ) && ( pxTaskDefinition->pxTaskBuffer != NULL ) )
+		{
+			/* Allocate space for the TCB.  Where the memory comes from depends
+			on the implementation of the port malloc function and whether or
+			not static allocation is being used. */
+			pxNewTCB = ( TCB_t * ) pxTaskDefinition->pxTaskBuffer;
 
-     pxNewTCB->pxStack = pxStack;
-    }
-    else
-    {
+			/* Store the stack location in the TCB. */
+			pxNewTCB->pxStack = pxTaskDefinition->puxStackBuffer;
 
+			#if( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 )
+			{
+				/* Tasks can be created statically or dynamically, so note this
+				task was created statically in case the task is later deleted. */
+				pxNewTCB->ucStaticallyAllocated = tskSTATICALLY_ALLOCATED_STACK_AND_TCB;
+			}
+			#endif /* configSUPPORT_DYNAMIC_ALLOCATION */
 
-     vPortFree( pxStack );
-    }
-   }
-   else
-   {
-    pxNewTCB = 
-# 808 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-              ((void *)0)
-# 808 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                  ;
-   }
-  }
+			prvInitialiseNewTask(	pxTaskDefinition->pvTaskCode,
+									pxTaskDefinition->pcName,
+									( uint32_t ) pxTaskDefinition->usStackDepth,
+									pxTaskDefinition->pvParameters,
+									pxTaskDefinition->uxPriority,
+									pxCreatedTask, pxNewTCB,
+									pxTaskDefinition->xRegions );
 
+			prvAddNewTaskToReadyList( pxNewTCB );
+			xReturn = pdPASS;
+		}
 
-  if( pxNewTCB != 
-# 813 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                 ((void *)0) 
-# 813 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                      )
-  {
-# 823 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   prvInitialiseNewTask( pxTaskCode, pcName, ( uint32_t ) usStackDepth, pvParameters, uxPriority, pxCreatedTask, pxNewTCB, 
-# 823 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                                                                                                          ((void *)0) 
-# 823 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                                                                                               );
-   prvAddNewTaskToReadyList( pxNewTCB );
-   xReturn = ( ( ( BaseType_t ) 1 ) );
-  }
-  else
-  {
-   xReturn = ( -1 );
-  }
+		return xReturn;
+	}
 
-  return xReturn;
- }
+#endif /* ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) */
+/*-----------------------------------------------------------*/
 
+#if( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 
+	BaseType_t xTaskCreateRestricted( const TaskParameters_t * const pxTaskDefinition, TaskHandle_t *pxCreatedTask )
+	{
+	TCB_t *pxNewTCB;
+	BaseType_t xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
 
+		configASSERT( pxTaskDefinition->puxStackBuffer );
 
-static void prvInitialiseNewTask( TaskFunction_t pxTaskCode,
-         const char * const pcName,
-         const uint32_t ulStackDepth,
-         void * const pvParameters,
-         UBaseType_t uxPriority,
-         TaskHandle_t * const pxCreatedTask,
-         TCB_t *pxNewTCB,
-         const MemoryRegion_t * const xRegions )
+		if( pxTaskDefinition->puxStackBuffer != NULL )
+		{
+			/* Allocate space for the TCB.  Where the memory comes from depends
+			on the implementation of the port malloc function and whether or
+			not static allocation is being used. */
+			pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) );
+
+			if( pxNewTCB != NULL )
+			{
+				/* Store the stack location in the TCB. */
+				pxNewTCB->pxStack = pxTaskDefinition->puxStackBuffer;
+
+				#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+				{
+					/* Tasks can be created statically or dynamically, so note
+					this task had a statically allocated stack in case it is
+					later deleted.  The TCB was allocated dynamically. */
+					pxNewTCB->ucStaticallyAllocated = tskSTATICALLY_ALLOCATED_STACK_ONLY;
+				}
+				#endif
+
+				prvInitialiseNewTask(	pxTaskDefinition->pvTaskCode,
+										pxTaskDefinition->pcName,
+										( uint32_t ) pxTaskDefinition->usStackDepth,
+										pxTaskDefinition->pvParameters,
+										pxTaskDefinition->uxPriority,
+										pxCreatedTask, pxNewTCB,
+										pxTaskDefinition->xRegions );
+
+				prvAddNewTaskToReadyList( pxNewTCB );
+				xReturn = pdPASS;
+			}
+		}
+
+		return xReturn;
+	}
+
+#endif /* portUSING_MPU_WRAPPERS */
+/*-----------------------------------------------------------*/
+
+#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+
+	BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
+							const char * const pcName,		/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+							const configSTACK_DEPTH_TYPE usStackDepth,
+							void * const pvParameters,
+							UBaseType_t uxPriority,
+							TaskHandle_t * const pxCreatedTask )
+	{
+	TCB_t *pxNewTCB;
+	BaseType_t xReturn;
+
+		/* If the stack grows down then allocate the stack then the TCB so the stack
+		does not grow into the TCB.  Likewise if the stack grows up then allocate
+		the TCB then the stack. */
+		#if( portSTACK_GROWTH > 0 )
+		{
+			/* Allocate space for the TCB.  Where the memory comes from depends on
+			the implementation of the port malloc function and whether or not static
+			allocation is being used. */
+			pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) );
+
+			if( pxNewTCB != NULL )
+			{
+				/* Allocate space for the stack used by the task being created.
+				The base of the stack memory stored in the TCB so the task can
+				be deleted later if required. */
+				pxNewTCB->pxStack = ( StackType_t * ) pvPortMalloc( ( ( ( size_t ) usStackDepth ) * sizeof( StackType_t ) ) ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+
+				if( pxNewTCB->pxStack == NULL )
+				{
+					/* Could not allocate the stack.  Delete the allocated TCB. */
+					vPortFree( pxNewTCB );
+					pxNewTCB = NULL;
+				}
+			}
+		}
+		#else /* portSTACK_GROWTH */
+		{
+		StackType_t *pxStack;
+
+			/* Allocate space for the stack used by the task being created. */
+			pxStack = pvPortMalloc( ( ( ( size_t ) usStackDepth ) * sizeof( StackType_t ) ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation is the stack. */
+
+			if( pxStack != NULL )
+			{
+				/* Allocate space for the TCB. */
+				pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) ); /*lint !e9087 !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack, and the first member of TCB_t is always a pointer to the task's stack. */
+
+				if( pxNewTCB != NULL )
+				{
+					/* Store the stack location in the TCB. */
+					pxNewTCB->pxStack = pxStack;
+				}
+				else
+				{
+					/* The stack cannot be used as the TCB was not created.  Free
+					it again. */
+					vPortFree( pxStack );
+				}
+			}
+			else
+			{
+				pxNewTCB = NULL;
+			}
+		}
+		#endif /* portSTACK_GROWTH */
+
+		if( pxNewTCB != NULL )
+		{
+			#if( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 ) /*lint !e9029 !e731 Macro has been consolidated for readability reasons. */
+			{
+				/* Tasks can be created statically or dynamically, so note this
+				task was created dynamically in case it is later deleted. */
+				pxNewTCB->ucStaticallyAllocated = tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB;
+			}
+			#endif /* configSUPPORT_STATIC_ALLOCATION */
+
+			prvInitialiseNewTask( pxTaskCode, pcName, ( uint32_t ) usStackDepth, pvParameters, uxPriority, pxCreatedTask, pxNewTCB, NULL );
+			prvAddNewTaskToReadyList( pxNewTCB );
+			xReturn = pdPASS;
+		}
+		else
+		{
+			xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
+		}
+
+		return xReturn;
+	}
+
+#endif /* configSUPPORT_DYNAMIC_ALLOCATION */
+/*-----------------------------------------------------------*/
+
+static void prvInitialiseNewTask( 	TaskFunction_t pxTaskCode,
+									const char * const pcName,		/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+									const uint32_t ulStackDepth,
+									void * const pvParameters,
+									UBaseType_t uxPriority,
+									TaskHandle_t * const pxCreatedTask,
+									TCB_t *pxNewTCB,
+									const MemoryRegion_t * const xRegions )
 {
 StackType_t *pxTopOfStack;
 UBaseType_t x;
-# 864 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- if (( pcName ) == 0) while(1);;
 
+	#if( portUSING_MPU_WRAPPERS == 1 )
+		/* Should the task be created in privileged mode? */
+		BaseType_t xRunPrivileged;
+		if( ( uxPriority & portPRIVILEGE_BIT ) != 0U )
+		{
+			xRunPrivileged = pdTRUE;
+		}
+		else
+		{
+			xRunPrivileged = pdFALSE;
+		}
+		uxPriority &= ~portPRIVILEGE_BIT;
+	#endif /* portUSING_MPU_WRAPPERS == 1 */
 
+	configASSERT( pcName );
 
- {
+	/* Avoid dependency on memset() if it is not required. */
+	#if( tskSET_NEW_STACKS_TO_KNOWN_VALUE == 1 )
+	{
+		/* Fill the stack with a known value to assist debugging. */
+		( void ) memset( pxNewTCB->pxStack, ( int ) tskSTACK_FILL_BYTE, ( size_t ) ulStackDepth * sizeof( StackType_t ) );
+	}
+	#endif /* tskSET_NEW_STACKS_TO_KNOWN_VALUE */
 
-  ( void ) memset( pxNewTCB->pxStack, ( int ) ( 0xa5U ), ( size_t ) ulStackDepth * sizeof( StackType_t ) );
- }
+	/* Calculate the top of stack address.  This depends on whether the stack
+	grows from high memory to low (as per the 80x86) or vice versa.
+	portSTACK_GROWTH is used to make the result positive or negative as required
+	by the port. */
+	#if( portSTACK_GROWTH < 0 )
+	{
+		pxTopOfStack = &( pxNewTCB->pxStack[ ulStackDepth - ( uint32_t ) 1 ] );
+		pxTopOfStack = ( StackType_t * ) ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack ) & ( ~( ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) ) ); /*lint !e923 !e9033 !e9078 MISRA exception.  Avoiding casts between pointers and integers is not practical.  Size differences accounted for using portPOINTER_SIZE_TYPE type.  Checked by assert(). */
 
+		/* Check the alignment of the calculated top of stack is correct. */
+		configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxTopOfStack & ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == 0UL ) );
 
+		#if( configRECORD_STACK_HIGH_ADDRESS == 1 )
+		{
+			/* Also record the stack's high address, which may assist
+			debugging. */
+			pxNewTCB->pxEndOfStack = pxTopOfStack;
+		}
+		#endif /* configRECORD_STACK_HIGH_ADDRESS */
+	}
+	#else /* portSTACK_GROWTH */
+	{
+		pxTopOfStack = pxNewTCB->pxStack;
 
+		/* Check the alignment of the stack buffer is correct. */
+		configASSERT( ( ( ( portPOINTER_SIZE_TYPE ) pxNewTCB->pxStack & ( portPOINTER_SIZE_TYPE ) portBYTE_ALIGNMENT_MASK ) == 0UL ) );
 
+		/* The other extreme of the stack space is required if stack checking is
+		performed. */
+		pxNewTCB->pxEndOfStack = pxNewTCB->pxStack + ( ulStackDepth - ( uint32_t ) 1 );
+	}
+	#endif /* portSTACK_GROWTH */
 
+	/* Store the task name in the TCB. */
+	for( x = ( UBaseType_t ) 0; x < ( UBaseType_t ) configMAX_TASK_NAME_LEN; x++ )
+	{
+		pxNewTCB->pcTaskName[ x ] = pcName[ x ];
 
+		/* Don't copy all configMAX_TASK_NAME_LEN if the string is shorter than
+		configMAX_TASK_NAME_LEN characters just in case the memory after the
+		string is not accessible (extremely unlikely). */
+		if( pcName[ x ] == ( char ) 0x00 )
+		{
+			break;
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
 
- {
-  pxTopOfStack = &( pxNewTCB->pxStack[ ulStackDepth - ( uint32_t ) 1 ] );
-  pxTopOfStack = ( StackType_t * ) ( ( ( uint32_t ) pxTopOfStack ) & ( ~( ( uint32_t ) ( 0x0007 ) ) ) );
+	/* Ensure the name string is terminated in the case that the string length
+	was greater or equal to configMAX_TASK_NAME_LEN. */
+	pxNewTCB->pcTaskName[ configMAX_TASK_NAME_LEN - 1 ] = '\0';
 
+	/* This is used as an array index so must ensure it's not too large.  First
+	remove the privilege bit if one is present. */
+	if( uxPriority >= ( UBaseType_t ) configMAX_PRIORITIES )
+	{
+		uxPriority = ( UBaseType_t ) configMAX_PRIORITIES - ( UBaseType_t ) 1U;
+	}
+	else
+	{
+		mtCOVERAGE_TEST_MARKER();
+	}
 
-  if (( ( ( ( uint32_t ) pxTopOfStack & ( uint32_t ) ( 0x0007 ) ) == 0UL ) ) == 0) while(1);;
-# 893 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- }
-# 908 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- for( x = ( UBaseType_t ) 0; x < ( UBaseType_t ) 16; x++ )
- {
-  pxNewTCB->pcTaskName[ x ] = pcName[ x ];
+	pxNewTCB->uxPriority = uxPriority;
+	#if ( configUSE_MUTEXES == 1 )
+	{
+		pxNewTCB->uxBasePriority = uxPriority;
+		pxNewTCB->uxMutexesHeld = 0;
+	}
+	#endif /* configUSE_MUTEXES */
 
+	vListInitialiseItem( &( pxNewTCB->xStateListItem ) );
+	vListInitialiseItem( &( pxNewTCB->xEventListItem ) );
 
+	/* Set the pxNewTCB as a link back from the ListItem_t.  This is so we can get
+	back to	the containing TCB from a generic item in a list. */
+	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xStateListItem ), pxNewTCB );
 
+	/* Event lists are always in priority order. */
+	listSET_LIST_ITEM_VALUE( &( pxNewTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxPriority ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xEventListItem ), pxNewTCB );
 
-  if( pcName[ x ] == ( char ) 0x00 )
-  {
-   break;
-  }
-  else
-  {
-   ;
-  }
- }
+	#if ( portCRITICAL_NESTING_IN_TCB == 1 )
+	{
+		pxNewTCB->uxCriticalNesting = ( UBaseType_t ) 0U;
+	}
+	#endif /* portCRITICAL_NESTING_IN_TCB */
 
+	#if ( configUSE_APPLICATION_TASK_TAG == 1 )
+	{
+		pxNewTCB->pxTaskTag = NULL;
+	}
+	#endif /* configUSE_APPLICATION_TASK_TAG */
 
+	#if ( configGENERATE_RUN_TIME_STATS == 1 )
+	{
+		pxNewTCB->ulRunTimeCounter = 0UL;
+	}
+	#endif /* configGENERATE_RUN_TIME_STATS */
 
- pxNewTCB->pcTaskName[ 16 - 1 ] = '\0';
+	#if ( portUSING_MPU_WRAPPERS == 1 )
+	{
+		vPortStoreTaskMPUSettings( &( pxNewTCB->xMPUSettings ), xRegions, pxNewTCB->pxStack, ulStackDepth );
+	}
+	#else
+	{
+		/* Avoid compiler warning about unreferenced parameter. */
+		( void ) xRegions;
+	}
+	#endif
 
+	#if( configNUM_THREAD_LOCAL_STORAGE_POINTERS != 0 )
+	{
+		for( x = 0; x < ( UBaseType_t ) configNUM_THREAD_LOCAL_STORAGE_POINTERS; x++ )
+		{
+			pxNewTCB->pvThreadLocalStoragePointers[ x ] = NULL;
+		}
+	}
+	#endif
 
+	#if ( configUSE_TASK_NOTIFICATIONS == 1 )
+	{
+		pxNewTCB->ulNotifiedValue = 0;
+		pxNewTCB->ucNotifyState = taskNOT_WAITING_NOTIFICATION;
+	}
+	#endif
 
- if( uxPriority >= ( UBaseType_t ) 5 )
- {
-  uxPriority = ( UBaseType_t ) 5 - ( UBaseType_t ) 1U;
- }
- else
- {
-  ;
- }
+	#if ( configUSE_NEWLIB_REENTRANT == 1 )
+	{
+		/* Initialise this task's Newlib reent structure. */
+		_REENT_INIT_PTR( ( &( pxNewTCB->xNewLib_reent ) ) );
+	}
+	#endif
 
- pxNewTCB->uxPriority = uxPriority;
+	#if( INCLUDE_xTaskAbortDelay == 1 )
+	{
+		pxNewTCB->ucDelayAborted = pdFALSE;
+	}
+	#endif
 
- {
-  pxNewTCB->uxBasePriority = uxPriority;
-  pxNewTCB->uxMutexesHeld = 0;
- }
+	/* Initialize the TCB stack to look as if the task was already running,
+	but had been interrupted by the scheduler.  The return address is set
+	to the start of the task function. Once the stack has been initialised
+	the top of stack variable is updated. */
+	#if( portUSING_MPU_WRAPPERS == 1 )
+	{
+		pxNewTCB->pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters, xRunPrivileged );
+	}
+	#else /* portUSING_MPU_WRAPPERS */
+	{
+		pxNewTCB->pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters );
+	}
+	#endif /* portUSING_MPU_WRAPPERS */
 
-
- vListInitialiseItem( &( pxNewTCB->xStateListItem ) );
- vListInitialiseItem( &( pxNewTCB->xEventListItem ) );
-
-
-
- ( ( &( pxNewTCB->xStateListItem ) )->pvOwner = ( void * ) ( pxNewTCB ) );
-
-
- ( ( &( pxNewTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) 5 - ( TickType_t ) uxPriority ) );
- ( ( &( pxNewTCB->xEventListItem ) )->pvOwner = ( void * ) ( pxNewTCB ) );
-# 982 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- {
-
-  ( void ) xRegions;
- }
-# 998 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- {
-  pxNewTCB->ulNotifiedValue = 0;
-  pxNewTCB->ucNotifyState = ( ( uint8_t ) 0 );
- }
-
-
-
- {
-
-  
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- { memset((
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- ), 0, sizeof(*(
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- ))); { (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_stdin = &(
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->__sf[0]; (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_stdout = &(
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->__sf[1]; (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_stderr = &(
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->__sf[2]; (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._rand_next = 1; (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._seed[0] = (0x330e); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._seed[1] = (0xabcd); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._seed[2] = (0x1234); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._mult[0] = (0xe66d); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._mult[1] = (0xdeec); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._mult[2] = (0x0005); (
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- ( &( pxNewTCB->xNewLib_reent ) )
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3
- )->_new._reent._r48._add = (0x000b); }; }
-# 1007 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                    ;
- }
-# 1026 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- {
-  pxNewTCB->pxTopOfStack = pxPortInitialiseStack( pxTopOfStack, pxTaskCode, pvParameters );
- }
-
-
- if( pxCreatedTask != 
-# 1031 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                     ((void *)0) 
-# 1031 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                          )
- {
-
-
-  *pxCreatedTask = ( TaskHandle_t ) pxNewTCB;
- }
- else
- {
-  ;
- }
+	if( pxCreatedTask != NULL )
+	{
+		/* Pass the handle out in an anonymous way.  The handle can be used to
+		change the created task's priority, delete the created task, etc.*/
+		*pxCreatedTask = ( TaskHandle_t ) pxNewTCB;
+	}
+	else
+	{
+		mtCOVERAGE_TEST_MARKER();
+	}
 }
-
+/*-----------------------------------------------------------*/
 
 static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )
 {
+	/* Ensure interrupts don't access the task lists while the lists are being
+	updated. */
+	taskENTER_CRITICAL();
+	{
+		uxCurrentNumberOfTasks++;
+		if( pxCurrentTCB == NULL )
+		{
+			/* There are no other tasks, or all the other tasks are in
+			the suspended state - make this the current task. */
+			pxCurrentTCB = pxNewTCB;
 
+			if( uxCurrentNumberOfTasks == ( UBaseType_t ) 1 )
+			{
+				/* This is the first task to be created so do the preliminary
+				initialisation required.  We will not recover if this call
+				fails, but we will report the failure. */
+				prvInitialiseTaskLists();
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		else
+		{
+			/* If the scheduler is not already running, make this task the
+			current task if it is the highest priority task to be created
+			so far. */
+			if( xSchedulerRunning == pdFALSE )
+			{
+				if( pxCurrentTCB->uxPriority <= pxNewTCB->uxPriority )
+				{
+					pxCurrentTCB = pxNewTCB;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
 
- vPortEnterCritical();
- {
-  uxCurrentNumberOfTasks++;
-  if( pxCurrentTCB == 
-# 1051 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                     ((void *)0) 
-# 1051 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                          )
-  {
+		uxTaskNumber++;
 
+		#if ( configUSE_TRACE_FACILITY == 1 )
+		{
+			/* Add a counter into the TCB for tracing only. */
+			pxNewTCB->uxTCBNumber = uxTaskNumber;
+		}
+		#endif /* configUSE_TRACE_FACILITY */
+		traceTASK_CREATE( pxNewTCB );
 
-   pxCurrentTCB = pxNewTCB;
+		prvAddTaskToReadyList( pxNewTCB );
 
-   if( uxCurrentNumberOfTasks == ( UBaseType_t ) 1 )
-   {
+		portSETUP_TCB( pxNewTCB );
+	}
+	taskEXIT_CRITICAL();
 
-
-
-    prvInitialiseTaskLists();
-   }
-   else
-   {
-    ;
-   }
-  }
-  else
-  {
-
-
-
-   if( xSchedulerRunning == ( ( BaseType_t ) 0 ) )
-   {
-    if( pxCurrentTCB->uxPriority <= pxNewTCB->uxPriority )
-    {
-     pxCurrentTCB = pxNewTCB;
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-
-  uxTaskNumber++;
-
-
-
-
-
-
-
-  ;
-
-  ; { if( ( ( pxNewTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxNewTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxNewTCB )->uxPriority ] ), &( ( pxNewTCB )->xStateListItem ) ); ;
-
-  ( void ) pxNewTCB;
- }
- vPortExitCritical();
-
- if( xSchedulerRunning != ( ( BaseType_t ) 0 ) )
- {
-
-
-  if( pxCurrentTCB->uxPriority < pxNewTCB->uxPriority )
-  {
-   { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-  }
-  else
-  {
-   ;
-  }
- }
- else
- {
-  ;
- }
+	if( xSchedulerRunning != pdFALSE )
+	{
+		/* If the created task is of a higher priority than the current task
+		then it should run now. */
+		if( pxCurrentTCB->uxPriority < pxNewTCB->uxPriority )
+		{
+			taskYIELD_IF_USING_PREEMPTION();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+	else
+	{
+		mtCOVERAGE_TEST_MARKER();
+	}
 }
-
-
-
-
- void vTaskDelete( TaskHandle_t xTaskToDelete )
- {
- TCB_t *pxTCB;
-
-  vPortEnterCritical();
-  {
-
-
-   pxTCB = ( ( ( xTaskToDelete ) == 
-# 1137 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-          ((void *)0) 
-# 1137 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-          ) ? pxCurrentTCB : ( xTaskToDelete ) );
-
-
-   if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
-   {
-    ;
-   }
-   else
-   {
-    ;
-   }
-
-
-   if( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) != 
-# 1150 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                                               ((void *)0) 
-# 1150 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                                    )
-   {
-    ( void ) uxListRemove( &( pxTCB->xEventListItem ) );
-   }
-   else
-   {
-    ;
-   }
-
-
-
-
-
-   uxTaskNumber++;
-
-   if( pxTCB == pxCurrentTCB )
-   {
-
-
-
-
-
-    vListInsertEnd( &xTasksWaitingTermination, &( pxTCB->xStateListItem ) );
-
-
-
-
-    ++uxDeletedTasksWaitingCleanUp;
-
-
-
-
-
-
-    ;
-   }
-   else
-   {
-    --uxCurrentNumberOfTasks;
-    prvDeleteTCB( pxTCB );
-
-
-
-    prvResetNextTaskUnblockTime();
-   }
-
-   ;
-  }
-  vPortExitCritical();
-
-
-
-  if( xSchedulerRunning != ( ( BaseType_t ) 0 ) )
-  {
-   if( pxTCB == pxCurrentTCB )
-   {
-    if (( uxSchedulerSuspended == 0 ) == 0) while(1);;
-    { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-   }
-   else
-   {
-    ;
-   }
-  }
- }
-
-
-
-
-
-
- void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement )
- {
- TickType_t xTimeToWake;
- BaseType_t xAlreadyYielded, xShouldDelay = ( ( BaseType_t ) 0 );
-
-  if (( pxPreviousWakeTime ) == 0) while(1);;
-  if (( ( xTimeIncrement > 0U ) ) == 0) while(1);;
-  if (( uxSchedulerSuspended == 0 ) == 0) while(1);;
-
-  vTaskSuspendAll();
-  {
-
-
-   const TickType_t xConstTickCount = xTickCount;
-
-
-   xTimeToWake = *pxPreviousWakeTime + xTimeIncrement;
-
-   if( xConstTickCount < *pxPreviousWakeTime )
-   {
-
-
-
-
-
-    if( ( xTimeToWake < *pxPreviousWakeTime ) && ( xTimeToWake > xConstTickCount ) )
-    {
-     xShouldDelay = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-
-
-
-    if( ( xTimeToWake < *pxPreviousWakeTime ) || ( xTimeToWake > xConstTickCount ) )
-    {
-     xShouldDelay = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-
-
-   *pxPreviousWakeTime = xTimeToWake;
-
-   if( xShouldDelay != ( ( BaseType_t ) 0 ) )
-   {
-    ;
-
-
-
-    prvAddCurrentTaskToDelayedList( xTimeToWake - xConstTickCount, ( ( BaseType_t ) 0 ) );
-   }
-   else
-   {
-    ;
-   }
-  }
-  xAlreadyYielded = xTaskResumeAll();
-
-
-
-  if( xAlreadyYielded == ( ( BaseType_t ) 0 ) )
-  {
-   { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-  }
-  else
-  {
-   ;
-  }
- }
-
-
-
-
-
-
- void vTaskDelay( const TickType_t xTicksToDelay )
- {
- BaseType_t xAlreadyYielded = ( ( BaseType_t ) 0 );
-
-
-  if( xTicksToDelay > ( TickType_t ) 0U )
-  {
-   if (( uxSchedulerSuspended == 0 ) == 0) while(1);;
-   vTaskSuspendAll();
-   {
-    ;
-# 1324 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-    prvAddCurrentTaskToDelayedList( xTicksToDelay, ( ( BaseType_t ) 0 ) );
-   }
-   xAlreadyYielded = xTaskResumeAll();
-  }
-  else
-  {
-   ;
-  }
-
-
-
-  if( xAlreadyYielded == ( ( BaseType_t ) 0 ) )
-  {
-   { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-  }
-  else
-  {
-   ;
-  }
- }
-# 1668 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- void vTaskSuspend( TaskHandle_t xTaskToSuspend )
- {
- TCB_t *pxTCB;
-
-  vPortEnterCritical();
-  {
-
-
-   pxTCB = ( ( ( xTaskToSuspend ) == 
-# 1676 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-          ((void *)0) 
-# 1676 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-          ) ? pxCurrentTCB : ( xTaskToSuspend ) );
-
-   ;
-
-
-
-   if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
-   {
-    ;
-   }
-   else
-   {
-    ;
-   }
-
-
-   if( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) != 
-# 1692 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                                               ((void *)0) 
-# 1692 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                                    )
-   {
-    ( void ) uxListRemove( &( pxTCB->xEventListItem ) );
-   }
-   else
-   {
-    ;
-   }
-
-   vListInsertEnd( &xSuspendedTaskList, &( pxTCB->xStateListItem ) );
-
-
-   {
-    if( pxTCB->ucNotifyState == ( ( uint8_t ) 1 ) )
-    {
-
-
-     pxTCB->ucNotifyState = ( ( uint8_t ) 0 );
-    }
-   }
-
-  }
-  vPortExitCritical();
-
-  if( xSchedulerRunning != ( ( BaseType_t ) 0 ) )
-  {
-
-
-   vPortEnterCritical();
-   {
-    prvResetNextTaskUnblockTime();
-   }
-   vPortExitCritical();
-  }
-  else
-  {
-   ;
-  }
-
-  if( pxTCB == pxCurrentTCB )
-  {
-   if( xSchedulerRunning != ( ( BaseType_t ) 0 ) )
-   {
-
-    if (( uxSchedulerSuspended == 0 ) == 0) while(1);;
-    { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-   }
-   else
-   {
-
-
-
-    if( ( ( &xSuspendedTaskList )->uxNumberOfItems ) == uxCurrentNumberOfTasks )
-    {
-
-
-
-
-     pxCurrentTCB = 
-# 1750 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                   ((void *)0)
-# 1750 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                       ;
-    }
-    else
-    {
-     vTaskSwitchContext();
-    }
-   }
-  }
-  else
-  {
-   ;
-  }
- }
-
-
-
-
-
-
- static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask )
- {
- BaseType_t xReturn = ( ( BaseType_t ) 0 );
- const TCB_t * const pxTCB = xTask;
-
-
-
-
-
-  if (( xTask ) == 0) while(1);;
-
-
-  if( ( ( ( &( pxTCB->xStateListItem ) )->pxContainer == ( &xSuspendedTaskList ) ) ? ( ( ( BaseType_t ) 1 ) ) : ( ( ( BaseType_t ) 0 ) ) ) != ( ( BaseType_t ) 0 ) )
-  {
-
-   if( ( ( ( &( pxTCB->xEventListItem ) )->pxContainer == ( &xPendingReadyList ) ) ? ( ( ( BaseType_t ) 1 ) ) : ( ( ( BaseType_t ) 0 ) ) ) == ( ( BaseType_t ) 0 ) )
-   {
-
-
-    if( ( ( ( &( pxTCB->xEventListItem ) )->pxContainer == ( 
-# 1788 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-       ((void *)0) 
-# 1788 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-       ) ) ? ( ( ( BaseType_t ) 1 ) ) : ( ( ( BaseType_t ) 0 ) ) ) != ( ( BaseType_t ) 0 ) )
-    {
-     xReturn = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  else
-  {
-   ;
-  }
-
-  return xReturn;
- }
-
-
-
-
-
-
- void vTaskResume( TaskHandle_t xTaskToResume )
- {
- TCB_t * const pxTCB = xTaskToResume;
-
-
-  if (( xTaskToResume ) == 0) while(1);;
-
-
-
-  if( ( pxTCB != pxCurrentTCB ) && ( pxTCB != 
-# 1824 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                             ((void *)0) 
-# 1824 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                  ) )
-  {
-   vPortEnterCritical();
-   {
-    if( prvTaskIsTaskSuspended( pxTCB ) != ( ( BaseType_t ) 0 ) )
-    {
-     ;
-
-
-
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-
-
-     if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
-     {
-
-
-
-      { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-     }
-     else
-     {
-      ;
-     }
-    }
-    else
-    {
-     ;
-    }
-   }
-   vPortExitCritical();
-  }
-  else
-  {
-   ;
-  }
- }
-
-
-
-
-
-
-
- BaseType_t xTaskResumeFromISR( TaskHandle_t xTaskToResume )
- {
- BaseType_t xYieldRequired = ( ( BaseType_t ) 0 );
- TCB_t * const pxTCB = xTaskToResume;
- UBaseType_t uxSavedInterruptStatus;
-
-  if (( xTaskToResume ) == 0) while(1);;
-# 1893 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  vPortValidateInterruptPriority();
-
-  uxSavedInterruptStatus = ulPortRaiseBASEPRI();
-  {
-   if( prvTaskIsTaskSuspended( pxTCB ) != ( ( BaseType_t ) 0 ) )
-   {
-    ;
-
-
-    if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
-    {
-
-
-     if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
-     {
-      xYieldRequired = ( ( BaseType_t ) 1 );
-     }
-     else
-     {
-      ;
-     }
-
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-    }
-    else
-    {
-
-
-
-     vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  vPortSetBASEPRI(uxSavedInterruptStatus);
-
-  return xYieldRequired;
- }
-
-
-
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskDelete == 1 )
+
+	void vTaskDelete( TaskHandle_t xTaskToDelete )
+	{
+	TCB_t *pxTCB;
+
+		taskENTER_CRITICAL();
+		{
+			/* If null is passed in here then it is the calling task that is
+			being deleted. */
+			pxTCB = prvGetTCBFromHandle( xTaskToDelete );
+
+			/* Remove task from the ready list. */
+			if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+			{
+				taskRESET_READY_PRIORITY( pxTCB->uxPriority );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			/* Is the task waiting on an event also? */
+			if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
+			{
+				( void ) uxListRemove( &( pxTCB->xEventListItem ) );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			/* Increment the uxTaskNumber also so kernel aware debuggers can
+			detect that the task lists need re-generating.  This is done before
+			portPRE_TASK_DELETE_HOOK() as in the Windows port that macro will
+			not return. */
+			uxTaskNumber++;
+
+			if( pxTCB == pxCurrentTCB )
+			{
+				/* A task is deleting itself.  This cannot complete within the
+				task itself, as a context switch to another task is required.
+				Place the task in the termination list.  The idle task will
+				check the termination list and free up any memory allocated by
+				the scheduler for the TCB and stack of the deleted task. */
+				vListInsertEnd( &xTasksWaitingTermination, &( pxTCB->xStateListItem ) );
+
+				/* Increment the ucTasksDeleted variable so the idle task knows
+				there is a task that has been deleted and that it should therefore
+				check the xTasksWaitingTermination list. */
+				++uxDeletedTasksWaitingCleanUp;
+
+				/* The pre-delete hook is primarily for the Windows simulator,
+				in which Windows specific clean up operations are performed,
+				after which it is not possible to yield away from this task -
+				hence xYieldPending is used to latch that a context switch is
+				required. */
+				portPRE_TASK_DELETE_HOOK( pxTCB, &xYieldPending );
+			}
+			else
+			{
+				--uxCurrentNumberOfTasks;
+				prvDeleteTCB( pxTCB );
+
+				/* Reset the next expected unblock time in case it referred to
+				the task that has just been deleted. */
+				prvResetNextTaskUnblockTime();
+			}
+
+			traceTASK_DELETE( pxTCB );
+		}
+		taskEXIT_CRITICAL();
+
+		/* Force a reschedule if it is the currently running task that has just
+		been deleted. */
+		if( xSchedulerRunning != pdFALSE )
+		{
+			if( pxTCB == pxCurrentTCB )
+			{
+				configASSERT( uxSchedulerSuspended == 0 );
+				portYIELD_WITHIN_API();
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+	}
+
+#endif /* INCLUDE_vTaskDelete */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskDelayUntil == 1 )
+
+	void vTaskDelayUntil( TickType_t * const pxPreviousWakeTime, const TickType_t xTimeIncrement )
+	{
+	TickType_t xTimeToWake;
+	BaseType_t xAlreadyYielded, xShouldDelay = pdFALSE;
+
+		configASSERT( pxPreviousWakeTime );
+		configASSERT( ( xTimeIncrement > 0U ) );
+		configASSERT( uxSchedulerSuspended == 0 );
+
+		vTaskSuspendAll();
+		{
+			/* Minor optimisation.  The tick count cannot change in this
+			block. */
+			const TickType_t xConstTickCount = xTickCount;
+
+			/* Generate the tick time at which the task wants to wake. */
+			xTimeToWake = *pxPreviousWakeTime + xTimeIncrement;
+
+			if( xConstTickCount < *pxPreviousWakeTime )
+			{
+				/* The tick count has overflowed since this function was
+				lasted called.  In this case the only time we should ever
+				actually delay is if the wake time has also	overflowed,
+				and the wake time is greater than the tick time.  When this
+				is the case it is as if neither time had overflowed. */
+				if( ( xTimeToWake < *pxPreviousWakeTime ) && ( xTimeToWake > xConstTickCount ) )
+				{
+					xShouldDelay = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				/* The tick time has not overflowed.  In this case we will
+				delay if either the wake time has overflowed, and/or the
+				tick time is less than the wake time. */
+				if( ( xTimeToWake < *pxPreviousWakeTime ) || ( xTimeToWake > xConstTickCount ) )
+				{
+					xShouldDelay = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+
+			/* Update the wake time ready for the next call. */
+			*pxPreviousWakeTime = xTimeToWake;
+
+			if( xShouldDelay != pdFALSE )
+			{
+				traceTASK_DELAY_UNTIL( xTimeToWake );
+
+				/* prvAddCurrentTaskToDelayedList() needs the block time, not
+				the time to wake, so subtract the current tick count. */
+				prvAddCurrentTaskToDelayedList( xTimeToWake - xConstTickCount, pdFALSE );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		xAlreadyYielded = xTaskResumeAll();
+
+		/* Force a reschedule if xTaskResumeAll has not already done so, we may
+		have put ourselves to sleep. */
+		if( xAlreadyYielded == pdFALSE )
+		{
+			portYIELD_WITHIN_API();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* INCLUDE_vTaskDelayUntil */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskDelay == 1 )
+
+	void vTaskDelay( const TickType_t xTicksToDelay )
+	{
+	BaseType_t xAlreadyYielded = pdFALSE;
+
+		/* A delay time of zero just forces a reschedule. */
+		if( xTicksToDelay > ( TickType_t ) 0U )
+		{
+			configASSERT( uxSchedulerSuspended == 0 );
+			vTaskSuspendAll();
+			{
+				traceTASK_DELAY();
+
+				/* A task that is removed from the event list while the
+				scheduler is suspended will not get placed in the ready
+				list or removed from the blocked list until the scheduler
+				is resumed.
+
+				This task cannot be in an event list as it is the currently
+				executing task. */
+				prvAddCurrentTaskToDelayedList( xTicksToDelay, pdFALSE );
+			}
+			xAlreadyYielded = xTaskResumeAll();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		/* Force a reschedule if xTaskResumeAll has not already done so, we may
+		have put ourselves to sleep. */
+		if( xAlreadyYielded == pdFALSE )
+		{
+			portYIELD_WITHIN_API();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* INCLUDE_vTaskDelay */
+/*-----------------------------------------------------------*/
+
+#if( ( INCLUDE_eTaskGetState == 1 ) || ( configUSE_TRACE_FACILITY == 1 ) )
+
+	eTaskState eTaskGetState( TaskHandle_t xTask )
+	{
+	eTaskState eReturn;
+	List_t const * pxStateList, *pxDelayedList, *pxOverflowedDelayedList;
+	const TCB_t * const pxTCB = xTask;
+
+		configASSERT( pxTCB );
+
+		if( pxTCB == pxCurrentTCB )
+		{
+			/* The task calling this function is querying its own state. */
+			eReturn = eRunning;
+		}
+		else
+		{
+			taskENTER_CRITICAL();
+			{
+				pxStateList = listLIST_ITEM_CONTAINER( &( pxTCB->xStateListItem ) );
+				pxDelayedList = pxDelayedTaskList;
+				pxOverflowedDelayedList = pxOverflowDelayedTaskList;
+			}
+			taskEXIT_CRITICAL();
+
+			if( ( pxStateList == pxDelayedList ) || ( pxStateList == pxOverflowedDelayedList ) )
+			{
+				/* The task being queried is referenced from one of the Blocked
+				lists. */
+				eReturn = eBlocked;
+			}
+
+			#if ( INCLUDE_vTaskSuspend == 1 )
+				else if( pxStateList == &xSuspendedTaskList )
+				{
+					/* The task being queried is referenced from the suspended
+					list.  Is it genuinely suspended or is it blocked
+					indefinitely? */
+					if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) == NULL )
+					{
+						#if( configUSE_TASK_NOTIFICATIONS == 1 )
+						{
+							/* The task does not appear on the event list item of
+							and of the RTOS objects, but could still be in the
+							blocked state if it is waiting on its notification
+							rather than waiting on an object. */
+							if( pxTCB->ucNotifyState == taskWAITING_NOTIFICATION )
+							{
+								eReturn = eBlocked;
+							}
+							else
+							{
+								eReturn = eSuspended;
+							}
+						}
+						#else
+						{
+							eReturn = eSuspended;
+						}
+						#endif
+					}
+					else
+					{
+						eReturn = eBlocked;
+					}
+				}
+			#endif
+
+			#if ( INCLUDE_vTaskDelete == 1 )
+				else if( ( pxStateList == &xTasksWaitingTermination ) || ( pxStateList == NULL ) )
+				{
+					/* The task being queried is referenced from the deleted
+					tasks list, or it is not referenced from any lists at
+					all. */
+					eReturn = eDeleted;
+				}
+			#endif
+
+			else /*lint !e525 Negative indentation is intended to make use of pre-processor clearer. */
+			{
+				/* If the task is not in any other state, it must be in the
+				Ready (including pending ready) state. */
+				eReturn = eReady;
+			}
+		}
+
+		return eReturn;
+	} /*lint !e818 xTask cannot be a pointer to const because it is a typedef. */
+
+#endif /* INCLUDE_eTaskGetState */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_uxTaskPriorityGet == 1 )
+
+	UBaseType_t uxTaskPriorityGet( const TaskHandle_t xTask )
+	{
+	TCB_t const *pxTCB;
+	UBaseType_t uxReturn;
+
+		taskENTER_CRITICAL();
+		{
+			/* If null is passed in here then it is the priority of the task
+			that called uxTaskPriorityGet() that is being queried. */
+			pxTCB = prvGetTCBFromHandle( xTask );
+			uxReturn = pxTCB->uxPriority;
+		}
+		taskEXIT_CRITICAL();
+
+		return uxReturn;
+	}
+
+#endif /* INCLUDE_uxTaskPriorityGet */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_uxTaskPriorityGet == 1 )
+
+	UBaseType_t uxTaskPriorityGetFromISR( const TaskHandle_t xTask )
+	{
+	TCB_t const *pxTCB;
+	UBaseType_t uxReturn, uxSavedInterruptState;
+
+		/* RTOS ports that support interrupt nesting have the concept of a
+		maximum	system call (or maximum API call) interrupt priority.
+		Interrupts that are	above the maximum system call priority are keep
+		permanently enabled, even when the RTOS kernel is in a critical section,
+		but cannot make any calls to FreeRTOS API functions.  If configASSERT()
+		is defined in FreeRTOSConfig.h then
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID() will result in an assertion
+		failure if a FreeRTOS API function is called from an interrupt that has
+		been assigned a priority above the configured maximum system call
+		priority.  Only FreeRTOS functions that end in FromISR can be called
+		from interrupts	that have been assigned a priority at or (logically)
+		below the maximum system call interrupt priority.  FreeRTOS maintains a
+		separate interrupt safe API to ensure interrupt entry is as fast and as
+		simple as possible.  More information (albeit Cortex-M specific) is
+		provided on the following link:
+		https://www.freertos.org/RTOS-Cortex-M3-M4.html */
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID();
+
+		uxSavedInterruptState = portSET_INTERRUPT_MASK_FROM_ISR();
+		{
+			/* If null is passed in here then it is the priority of the calling
+			task that is being queried. */
+			pxTCB = prvGetTCBFromHandle( xTask );
+			uxReturn = pxTCB->uxPriority;
+		}
+		portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptState );
+
+		return uxReturn;
+	}
+
+#endif /* INCLUDE_uxTaskPriorityGet */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskPrioritySet == 1 )
+
+	void vTaskPrioritySet( TaskHandle_t xTask, UBaseType_t uxNewPriority )
+	{
+	TCB_t *pxTCB;
+	UBaseType_t uxCurrentBasePriority, uxPriorityUsedOnEntry;
+	BaseType_t xYieldRequired = pdFALSE;
+
+		configASSERT( ( uxNewPriority < configMAX_PRIORITIES ) );
+
+		/* Ensure the new priority is valid. */
+		if( uxNewPriority >= ( UBaseType_t ) configMAX_PRIORITIES )
+		{
+			uxNewPriority = ( UBaseType_t ) configMAX_PRIORITIES - ( UBaseType_t ) 1U;
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		taskENTER_CRITICAL();
+		{
+			/* If null is passed in here then it is the priority of the calling
+			task that is being changed. */
+			pxTCB = prvGetTCBFromHandle( xTask );
+
+			traceTASK_PRIORITY_SET( pxTCB, uxNewPriority );
+
+			#if ( configUSE_MUTEXES == 1 )
+			{
+				uxCurrentBasePriority = pxTCB->uxBasePriority;
+			}
+			#else
+			{
+				uxCurrentBasePriority = pxTCB->uxPriority;
+			}
+			#endif
+
+			if( uxCurrentBasePriority != uxNewPriority )
+			{
+				/* The priority change may have readied a task of higher
+				priority than the calling task. */
+				if( uxNewPriority > uxCurrentBasePriority )
+				{
+					if( pxTCB != pxCurrentTCB )
+					{
+						/* The priority of a task other than the currently
+						running task is being raised.  Is the priority being
+						raised above that of the running task? */
+						if( uxNewPriority >= pxCurrentTCB->uxPriority )
+						{
+							xYieldRequired = pdTRUE;
+						}
+						else
+						{
+							mtCOVERAGE_TEST_MARKER();
+						}
+					}
+					else
+					{
+						/* The priority of the running task is being raised,
+						but the running task must already be the highest
+						priority task able to run so no yield is required. */
+					}
+				}
+				else if( pxTCB == pxCurrentTCB )
+				{
+					/* Setting the priority of the running task down means
+					there may now be another task of higher priority that
+					is ready to execute. */
+					xYieldRequired = pdTRUE;
+				}
+				else
+				{
+					/* Setting the priority of any other task down does not
+					require a yield as the running task must be above the
+					new priority of the task being modified. */
+				}
+
+				/* Remember the ready list the task might be referenced from
+				before its uxPriority member is changed so the
+				taskRESET_READY_PRIORITY() macro can function correctly. */
+				uxPriorityUsedOnEntry = pxTCB->uxPriority;
+
+				#if ( configUSE_MUTEXES == 1 )
+				{
+					/* Only change the priority being used if the task is not
+					currently using an inherited priority. */
+					if( pxTCB->uxBasePriority == pxTCB->uxPriority )
+					{
+						pxTCB->uxPriority = uxNewPriority;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					/* The base priority gets set whatever. */
+					pxTCB->uxBasePriority = uxNewPriority;
+				}
+				#else
+				{
+					pxTCB->uxPriority = uxNewPriority;
+				}
+				#endif
+
+				/* Only reset the event list item value if the value is not
+				being used for anything else. */
+				if( ( listGET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ) ) & taskEVENT_LIST_ITEM_VALUE_IN_USE ) == 0UL )
+				{
+					listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxNewPriority ) ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+
+				/* If the task is in the blocked or suspended list we need do
+				nothing more than change its priority variable. However, if
+				the task is in a ready list it needs to be removed and placed
+				in the list appropriate to its new priority. */
+				if( listIS_CONTAINED_WITHIN( &( pxReadyTasksLists[ uxPriorityUsedOnEntry ] ), &( pxTCB->xStateListItem ) ) != pdFALSE )
+				{
+					/* The task is currently in its ready list - remove before
+					adding it to it's new ready list.  As we are in a critical
+					section we can do this even if the scheduler is suspended. */
+					if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+					{
+						/* It is known that the task is in its ready list so
+						there is no need to check again and the port level
+						reset macro can be called directly. */
+						portRESET_READY_PRIORITY( uxPriorityUsedOnEntry, uxTopReadyPriority );
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+					prvAddTaskToReadyList( pxTCB );
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+
+				if( xYieldRequired != pdFALSE )
+				{
+					taskYIELD_IF_USING_PREEMPTION();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+
+				/* Remove compiler warning about unused variables when the port
+				optimised task selection is not being used. */
+				( void ) uxPriorityUsedOnEntry;
+			}
+		}
+		taskEXIT_CRITICAL();
+	}
+
+#endif /* INCLUDE_vTaskPrioritySet */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskSuspend == 1 )
+
+	void vTaskSuspend( TaskHandle_t xTaskToSuspend )
+	{
+	TCB_t *pxTCB;
+
+		taskENTER_CRITICAL();
+		{
+			/* If null is passed in here then it is the running task that is
+			being suspended. */
+			pxTCB = prvGetTCBFromHandle( xTaskToSuspend );
+
+			traceTASK_SUSPEND( pxTCB );
+
+			/* Remove task from the ready/delayed list and place in the
+			suspended list. */
+			if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+			{
+				taskRESET_READY_PRIORITY( pxTCB->uxPriority );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			/* Is the task waiting on an event also? */
+			if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
+			{
+				( void ) uxListRemove( &( pxTCB->xEventListItem ) );
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			vListInsertEnd( &xSuspendedTaskList, &( pxTCB->xStateListItem ) );
+
+			#if( configUSE_TASK_NOTIFICATIONS == 1 )
+			{
+				if( pxTCB->ucNotifyState == taskWAITING_NOTIFICATION )
+				{
+					/* The task was blocked to wait for a notification, but is
+					now suspended, so no notification was received. */
+					pxTCB->ucNotifyState = taskNOT_WAITING_NOTIFICATION;
+				}
+			}
+			#endif
+		}
+		taskEXIT_CRITICAL();
+
+		if( xSchedulerRunning != pdFALSE )
+		{
+			/* Reset the next expected unblock time in case it referred to the
+			task that is now in the Suspended state. */
+			taskENTER_CRITICAL();
+			{
+				prvResetNextTaskUnblockTime();
+			}
+			taskEXIT_CRITICAL();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		if( pxTCB == pxCurrentTCB )
+		{
+			if( xSchedulerRunning != pdFALSE )
+			{
+				/* The current task has just been suspended. */
+				configASSERT( uxSchedulerSuspended == 0 );
+				portYIELD_WITHIN_API();
+			}
+			else
+			{
+				/* The scheduler is not running, but the task that was pointed
+				to by pxCurrentTCB has just been suspended and pxCurrentTCB
+				must be adjusted to point to a different task. */
+				if( listCURRENT_LIST_LENGTH( &xSuspendedTaskList ) == uxCurrentNumberOfTasks ) /*lint !e931 Right has no side effect, just volatile. */
+				{
+					/* No other tasks are ready, so set pxCurrentTCB back to
+					NULL so when the next task is created pxCurrentTCB will
+					be set to point to it no matter what its relative priority
+					is. */
+					pxCurrentTCB = NULL;
+				}
+				else
+				{
+					vTaskSwitchContext();
+				}
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* INCLUDE_vTaskSuspend */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskSuspend == 1 )
+
+	static BaseType_t prvTaskIsTaskSuspended( const TaskHandle_t xTask )
+	{
+	BaseType_t xReturn = pdFALSE;
+	const TCB_t * const pxTCB = xTask;
+
+		/* Accesses xPendingReadyList so must be called from a critical
+		section. */
+
+		/* It does not make sense to check if the calling task is suspended. */
+		configASSERT( xTask );
+
+		/* Is the task being resumed actually in the suspended list? */
+		if( listIS_CONTAINED_WITHIN( &xSuspendedTaskList, &( pxTCB->xStateListItem ) ) != pdFALSE )
+		{
+			/* Has the task already been resumed from within an ISR? */
+			if( listIS_CONTAINED_WITHIN( &xPendingReadyList, &( pxTCB->xEventListItem ) ) == pdFALSE )
+			{
+				/* Is it in the suspended list because it is in the	Suspended
+				state, or because is is blocked with no timeout? */
+				if( listIS_CONTAINED_WITHIN( NULL, &( pxTCB->xEventListItem ) ) != pdFALSE ) /*lint !e961.  The cast is only redundant when NULL is used. */
+				{
+					xReturn = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		return xReturn;
+	} /*lint !e818 xTask cannot be a pointer to const because it is a typedef. */
+
+#endif /* INCLUDE_vTaskSuspend */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskSuspend == 1 )
+
+	void vTaskResume( TaskHandle_t xTaskToResume )
+	{
+	TCB_t * const pxTCB = xTaskToResume;
+
+		/* It does not make sense to resume the calling task. */
+		configASSERT( xTaskToResume );
+
+		/* The parameter cannot be NULL as it is impossible to resume the
+		currently executing task. */
+		if( ( pxTCB != pxCurrentTCB ) && ( pxTCB != NULL ) )
+		{
+			taskENTER_CRITICAL();
+			{
+				if( prvTaskIsTaskSuspended( pxTCB ) != pdFALSE )
+				{
+					traceTASK_RESUME( pxTCB );
+
+					/* The ready list can be accessed even if the scheduler is
+					suspended because this is inside a critical section. */
+					( void ) uxListRemove(  &( pxTCB->xStateListItem ) );
+					prvAddTaskToReadyList( pxTCB );
+
+					/* A higher priority task may have just been resumed. */
+					if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
+					{
+						/* This yield may not cause the task just resumed to run,
+						but will leave the lists in the correct state for the
+						next yield. */
+						taskYIELD_IF_USING_PREEMPTION();
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			taskEXIT_CRITICAL();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* INCLUDE_vTaskSuspend */
+
+/*-----------------------------------------------------------*/
+
+#if ( ( INCLUDE_xTaskResumeFromISR == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) )
+
+	BaseType_t xTaskResumeFromISR( TaskHandle_t xTaskToResume )
+	{
+	BaseType_t xYieldRequired = pdFALSE;
+	TCB_t * const pxTCB = xTaskToResume;
+	UBaseType_t uxSavedInterruptStatus;
+
+		configASSERT( xTaskToResume );
+
+		/* RTOS ports that support interrupt nesting have the concept of a
+		maximum	system call (or maximum API call) interrupt priority.
+		Interrupts that are	above the maximum system call priority are keep
+		permanently enabled, even when the RTOS kernel is in a critical section,
+		but cannot make any calls to FreeRTOS API functions.  If configASSERT()
+		is defined in FreeRTOSConfig.h then
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID() will result in an assertion
+		failure if a FreeRTOS API function is called from an interrupt that has
+		been assigned a priority above the configured maximum system call
+		priority.  Only FreeRTOS functions that end in FromISR can be called
+		from interrupts	that have been assigned a priority at or (logically)
+		below the maximum system call interrupt priority.  FreeRTOS maintains a
+		separate interrupt safe API to ensure interrupt entry is as fast and as
+		simple as possible.  More information (albeit Cortex-M specific) is
+		provided on the following link:
+		https://www.freertos.org/RTOS-Cortex-M3-M4.html */
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID();
+
+		uxSavedInterruptStatus = portSET_INTERRUPT_MASK_FROM_ISR();
+		{
+			if( prvTaskIsTaskSuspended( pxTCB ) != pdFALSE )
+			{
+				traceTASK_RESUME_FROM_ISR( pxTCB );
+
+				/* Check the ready lists can be accessed. */
+				if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+				{
+					/* Ready lists can be accessed so move the task from the
+					suspended list to the ready list directly. */
+					if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
+					{
+						xYieldRequired = pdTRUE;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+					prvAddTaskToReadyList( pxTCB );
+				}
+				else
+				{
+					/* The delayed or ready lists cannot be accessed so the task
+					is held in the pending ready list until the scheduler is
+					unsuspended. */
+					vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );
+
+		return xYieldRequired;
+	}
+
+#endif /* ( ( INCLUDE_xTaskResumeFromISR == 1 ) && ( INCLUDE_vTaskSuspend == 1 ) ) */
+/*-----------------------------------------------------------*/
 
 void vTaskStartScheduler( void )
 {
 BaseType_t xReturn;
-# 1971 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- {
 
-  xReturn = xTaskCreate( prvIdleTask,
-        "IDLE",
-        (256),
-        ( void * ) 
-# 1976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                  ((void *)0)
-# 1976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                      ,
-        ( ( UBaseType_t ) 0x00 ),
-        &xIdleTaskHandle );
- }
+	/* Add the idle task at the lowest priority. */
+	#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+	{
+		StaticTask_t *pxIdleTaskTCBBuffer = NULL;
+		StackType_t *pxIdleTaskStackBuffer = NULL;
+		uint32_t ulIdleTaskStackSize;
 
+		/* The Idle task is created using user provided RAM - obtain the
+		address of the RAM then create the idle task. */
+		vApplicationGetIdleTaskMemory( &pxIdleTaskTCBBuffer, &pxIdleTaskStackBuffer, &ulIdleTaskStackSize );
+		xIdleTaskHandle = xTaskCreateStatic(	prvIdleTask,
+												configIDLE_TASK_NAME,
+												ulIdleTaskStackSize,
+												( void * ) NULL, /*lint !e961.  The cast is not redundant for all compilers. */
+												portPRIVILEGE_BIT, /* In effect ( tskIDLE_PRIORITY | portPRIVILEGE_BIT ), but tskIDLE_PRIORITY is zero. */
+												pxIdleTaskStackBuffer,
+												pxIdleTaskTCBBuffer ); /*lint !e961 MISRA exception, justified as it is not a redundant explicit cast to all supported compilers. */
 
+		if( xIdleTaskHandle != NULL )
+		{
+			xReturn = pdPASS;
+		}
+		else
+		{
+			xReturn = pdFAIL;
+		}
+	}
+	#else
+	{
+		/* The Idle task is being created using dynamically allocated RAM. */
+		xReturn = xTaskCreate(	prvIdleTask,
+								configIDLE_TASK_NAME,
+								configMINIMAL_STACK_SIZE,
+								( void * ) NULL,
+								portPRIVILEGE_BIT, /* In effect ( tskIDLE_PRIORITY | portPRIVILEGE_BIT ), but tskIDLE_PRIORITY is zero. */
+								&xIdleTaskHandle ); /*lint !e961 MISRA exception, justified as it is not a redundant explicit cast to all supported compilers. */
+	}
+	#endif /* configSUPPORT_STATIC_ALLOCATION */
 
- {
-  if( xReturn == ( ( ( BaseType_t ) 1 ) ) )
-  {
-   xReturn = xTimerCreateTimerTask();
-  }
-  else
-  {
-   ;
-  }
- }
+	#if ( configUSE_TIMERS == 1 )
+	{
+		if( xReturn == pdPASS )
+		{
+			xReturn = xTimerCreateTimerTask();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+	#endif /* configUSE_TIMERS */
 
+	if( xReturn == pdPASS )
+	{
+		/* freertos_tasks_c_additions_init() should only be called if the user
+		definable macro FREERTOS_TASKS_C_ADDITIONS_INIT() is defined, as that is
+		the only macro called by the function. */
+		#ifdef FREERTOS_TASKS_C_ADDITIONS_INIT
+		{
+			freertos_tasks_c_additions_init();
+		}
+		#endif
 
- if( xReturn == ( ( ( BaseType_t ) 1 ) ) )
- {
-# 2011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  vPortRaiseBASEPRI();
+		/* Interrupts are turned off here, to ensure a tick does not occur
+		before or during the call to xPortStartScheduler().  The stacks of
+		the created tasks contain a status word with interrupts switched on
+		so interrupts will automatically get re-enabled when the first task
+		starts to run. */
+		portDISABLE_INTERRUPTS();
 
+		#if ( configUSE_NEWLIB_REENTRANT == 1 )
+		{
+			/* Switch Newlib's _impure_ptr variable to point to the _reent
+			structure specific to the task that will run first. */
+			_impure_ptr = &( pxCurrentTCB->xNewLib_reent );
+		}
+		#endif /* configUSE_NEWLIB_REENTRANT */
 
-  {
+		xNextTaskUnblockTime = portMAX_DELAY;
+		xSchedulerRunning = pdTRUE;
+		xTickCount = ( TickType_t ) configINITIAL_TICK_COUNT;
 
+		/* If configGENERATE_RUN_TIME_STATS is defined then the following
+		macro must be defined to configure the timer/counter used to generate
+		the run time counter time base.   NOTE:  If configGENERATE_RUN_TIME_STATS
+		is set to 0 and the following line fails to build then ensure you do not
+		have portCONFIGURE_TIMER_FOR_RUN_TIME_STATS() defined in your
+		FreeRTOSConfig.h file. */
+		portCONFIGURE_TIMER_FOR_RUN_TIME_STATS();
 
-   _impure_ptr = &( pxCurrentTCB->xNewLib_reent );
-  }
+		traceTASK_SWITCHED_IN();
 
+		/* Setting up the timer tick is hardware specific and thus in the
+		portable interface. */
+		if( xPortStartScheduler() != pdFALSE )
+		{
+			/* Should not reach here as if the scheduler is running the
+			function will not return. */
+		}
+		else
+		{
+			/* Should only reach here if a task calls xTaskEndScheduler(). */
+		}
+	}
+	else
+	{
+		/* This line will only be reached if the kernel could not be started,
+		because there was not enough FreeRTOS heap to create the idle task
+		or the timer task. */
+		configASSERT( xReturn != errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY );
+	}
 
-  xNextTaskUnblockTime = ( TickType_t ) 0xffffffffUL;
-  xSchedulerRunning = ( ( BaseType_t ) 1 );
-  xTickCount = ( TickType_t ) 0;
-
-
-
-
-
-
-
-  ;
-
-  ;
-
-
-
-  if( xPortStartScheduler() != ( ( BaseType_t ) 0 ) )
-  {
-
-
-  }
-  else
-  {
-
-  }
- }
- else
- {
-
-
-
-  if (( xReturn != ( -1 ) ) == 0) while(1);;
- }
-
-
-
- ( void ) xIdleTaskHandle;
+	/* Prevent compiler warnings if INCLUDE_xTaskGetIdleTaskHandle is set to 0,
+	meaning xIdleTaskHandle is not used anywhere else. */
+	( void ) xIdleTaskHandle;
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskEndScheduler( void )
 {
-
-
-
- vPortRaiseBASEPRI();
- xSchedulerRunning = ( ( BaseType_t ) 0 );
- vPortEndScheduler();
+	/* Stop the scheduler interrupts and call the portable scheduler end
+	routine so the original ISRs can be restored if necessary.  The port
+	layer must ensure interrupts enable	bit is left in the correct state. */
+	portDISABLE_INTERRUPTS();
+	xSchedulerRunning = pdFALSE;
+	vPortEndScheduler();
 }
-
+/*----------------------------------------------------------*/
 
 void vTaskSuspendAll( void )
 {
-
-
-
-
- ++uxSchedulerSuspended;
+	/* A critical section is not required as the variable is of type
+	BaseType_t.  Please read Richard Barry's reply in the following link to a
+	post in the FreeRTOS support forum before reporting this as a bug! -
+	http://goo.gl/wu4acr */
+	++uxSchedulerSuspended;
 }
+/*----------------------------------------------------------*/
 
+#if ( configUSE_TICKLESS_IDLE != 0 )
 
+	static TickType_t prvGetExpectedIdleTime( void )
+	{
+	TickType_t xReturn;
+	UBaseType_t uxHigherPriorityReadyTasks = pdFALSE;
 
+		/* uxHigherPriorityReadyTasks takes care of the case where
+		configUSE_PREEMPTION is 0, so there may be tasks above the idle priority
+		task that are in the Ready state, even though the idle task is
+		running. */
+		#if( configUSE_PORT_OPTIMISED_TASK_SELECTION == 0 )
+		{
+			if( uxTopReadyPriority > tskIDLE_PRIORITY )
+			{
+				uxHigherPriorityReadyTasks = pdTRUE;
+			}
+		}
+		#else
+		{
+			const UBaseType_t uxLeastSignificantBit = ( UBaseType_t ) 0x01;
 
- static TickType_t prvGetExpectedIdleTime( void )
- {
- TickType_t xReturn;
- UBaseType_t uxHigherPriorityReadyTasks = ( ( BaseType_t ) 0 );
+			/* When port optimised task selection is used the uxTopReadyPriority
+			variable is used as a bit map.  If bits other than the least
+			significant bit are set then there are tasks that have a priority
+			above the idle priority that are in the Ready state.  This takes
+			care of the case where the co-operative scheduler is in use. */
+			if( uxTopReadyPriority > uxLeastSignificantBit )
+			{
+				uxHigherPriorityReadyTasks = pdTRUE;
+			}
+		}
+		#endif
 
+		if( pxCurrentTCB->uxPriority > tskIDLE_PRIORITY )
+		{
+			xReturn = 0;
+		}
+		else if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ tskIDLE_PRIORITY ] ) ) > 1 )
+		{
+			/* There are other idle priority tasks in the ready state.  If
+			time slicing is used then the very next tick interrupt must be
+			processed. */
+			xReturn = 0;
+		}
+		else if( uxHigherPriorityReadyTasks != pdFALSE )
+		{
+			/* There are tasks in the Ready state that have a priority above the
+			idle priority.  This path can only be reached if
+			configUSE_PREEMPTION is 0. */
+			xReturn = 0;
+		}
+		else
+		{
+			xReturn = xNextTaskUnblockTime - xTickCount;
+		}
 
+		return xReturn;
+	}
 
-
-
-
-  {
-   if( uxTopReadyPriority > ( ( UBaseType_t ) 0U ) )
-   {
-    uxHigherPriorityReadyTasks = ( ( BaseType_t ) 1 );
-   }
-  }
-# 2116 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  if( pxCurrentTCB->uxPriority > ( ( UBaseType_t ) 0U ) )
-  {
-   xReturn = 0;
-  }
-  else if( ( ( &( pxReadyTasksLists[ ( ( UBaseType_t ) 0U ) ] ) )->uxNumberOfItems ) > 1 )
-  {
-
-
-
-   xReturn = 0;
-  }
-  else if( uxHigherPriorityReadyTasks != ( ( BaseType_t ) 0 ) )
-  {
-
-
-
-   xReturn = 0;
-  }
-  else
-  {
-   xReturn = xNextTaskUnblockTime - xTickCount;
-  }
-
-  return xReturn;
- }
-
-
-
+#endif /* configUSE_TICKLESS_IDLE */
+/*----------------------------------------------------------*/
 
 BaseType_t xTaskResumeAll( void )
 {
-TCB_t *pxTCB = 
-# 2147 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-              ((void *)0)
-# 2147 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                  ;
-BaseType_t xAlreadyYielded = ( ( BaseType_t ) 0 );
+TCB_t *pxTCB = NULL;
+BaseType_t xAlreadyYielded = pdFALSE;
 
+	/* If uxSchedulerSuspended is zero then this function does not match a
+	previous call to vTaskSuspendAll(). */
+	configASSERT( uxSchedulerSuspended );
 
+	/* It is possible that an ISR caused a task to be removed from an event
+	list while the scheduler was suspended.  If this was the case then the
+	removed task will have been added to the xPendingReadyList.  Once the
+	scheduler has been resumed it is safe to move all the pending ready
+	tasks from this list into their appropriate ready list. */
+	taskENTER_CRITICAL();
+	{
+		--uxSchedulerSuspended;
 
- if (( uxSchedulerSuspended ) == 0) while(1);;
+		if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+		{
+			if( uxCurrentNumberOfTasks > ( UBaseType_t ) 0U )
+			{
+				/* Move any readied tasks from the pending list into the
+				appropriate ready list. */
+				while( listLIST_IS_EMPTY( &xPendingReadyList ) == pdFALSE )
+				{
+					pxTCB = listGET_OWNER_OF_HEAD_ENTRY( ( &xPendingReadyList ) ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+					( void ) uxListRemove( &( pxTCB->xEventListItem ) );
+					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+					prvAddTaskToReadyList( pxTCB );
 
+					/* If the moved task has a priority higher than the current
+					task then a yield must be performed. */
+					if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
+					{
+						xYieldPending = pdTRUE;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
 
+				if( pxTCB != NULL )
+				{
+					/* A task was unblocked while the scheduler was suspended,
+					which may have prevented the next unblock time from being
+					re-calculated, in which case re-calculate it now.  Mainly
+					important for low power tickless implementations, where
+					this can prevent an unnecessary exit from low power
+					state. */
+					prvResetNextTaskUnblockTime();
+				}
 
+				/* If any ticks occurred while the scheduler was suspended then
+				they should be processed now.  This ensures the tick count does
+				not	slip, and that any delayed tasks are resumed at the correct
+				time. */
+				{
+					UBaseType_t uxPendedCounts = uxPendedTicks; /* Non-volatile copy. */
 
+					if( uxPendedCounts > ( UBaseType_t ) 0U )
+					{
+						do
+						{
+							if( xTaskIncrementTick() != pdFALSE )
+							{
+								xYieldPending = pdTRUE;
+							}
+							else
+							{
+								mtCOVERAGE_TEST_MARKER();
+							}
+							--uxPendedCounts;
+						} while( uxPendedCounts > ( UBaseType_t ) 0U );
 
+						uxPendedTicks = 0;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
 
- vPortEnterCritical();
- {
-  --uxSchedulerSuspended;
+				if( xYieldPending != pdFALSE )
+				{
+					#if( configUSE_PREEMPTION != 0 )
+					{
+						xAlreadyYielded = pdTRUE;
+					}
+					#endif
+					taskYIELD_IF_USING_PREEMPTION();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+	taskEXIT_CRITICAL();
 
-  if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
-  {
-   if( uxCurrentNumberOfTasks > ( UBaseType_t ) 0U )
-   {
-
-
-    while( ( ( ( &xPendingReadyList )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? ( ( BaseType_t ) 1 ) : ( ( BaseType_t ) 0 ) ) == ( ( BaseType_t ) 0 ) )
-    {
-     pxTCB = ( (&( ( ( &xPendingReadyList ) )->xListEnd ))->pxNext->pvOwner );
-     ( void ) uxListRemove( &( pxTCB->xEventListItem ) );
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-
-
-
-     if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
-     {
-      xYieldPending = ( ( BaseType_t ) 1 );
-     }
-     else
-     {
-      ;
-     }
-    }
-
-    if( pxTCB != 
-# 2188 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                ((void *)0) 
-# 2188 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                     )
-    {
-
-
-
-
-
-
-     prvResetNextTaskUnblockTime();
-    }
-
-
-
-
-
-    {
-     UBaseType_t uxPendedCounts = uxPendedTicks;
-
-     if( uxPendedCounts > ( UBaseType_t ) 0U )
-     {
-      do
-      {
-       if( xTaskIncrementTick() != ( ( BaseType_t ) 0 ) )
-       {
-        xYieldPending = ( ( BaseType_t ) 1 );
-       }
-       else
-       {
-        ;
-       }
-       --uxPendedCounts;
-      } while( uxPendedCounts > ( UBaseType_t ) 0U );
-
-      uxPendedTicks = 0;
-     }
-     else
-     {
-      ;
-     }
-    }
-
-    if( xYieldPending != ( ( BaseType_t ) 0 ) )
-    {
-
-     {
-      xAlreadyYielded = ( ( BaseType_t ) 1 );
-     }
-
-     { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-    }
-    else
-    {
-     ;
-    }
-   }
-  }
-  else
-  {
-   ;
-  }
- }
- vPortExitCritical();
-
- return xAlreadyYielded;
+	return xAlreadyYielded;
 }
-
+/*-----------------------------------------------------------*/
 
 TickType_t xTaskGetTickCount( void )
 {
 TickType_t xTicks;
 
+	/* Critical section required if running on a 16 bit processor. */
+	portTICK_TYPE_ENTER_CRITICAL();
+	{
+		xTicks = xTickCount;
+	}
+	portTICK_TYPE_EXIT_CRITICAL();
 
- ;
- {
-  xTicks = xTickCount;
- }
- ;
-
- return xTicks;
+	return xTicks;
 }
-
+/*-----------------------------------------------------------*/
 
 TickType_t xTaskGetTickCountFromISR( void )
 {
 TickType_t xReturn;
 UBaseType_t uxSavedInterruptStatus;
-# 2289 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- vPortValidateInterruptPriority();
 
- uxSavedInterruptStatus = 0;
- {
-  xReturn = xTickCount;
- }
- ( void ) uxSavedInterruptStatus;
+	/* RTOS ports that support interrupt nesting have the concept of a maximum
+	system call (or maximum API call) interrupt priority.  Interrupts that are
+	above the maximum system call priority are kept permanently enabled, even
+	when the RTOS kernel is in a critical section, but cannot make any calls to
+	FreeRTOS API functions.  If configASSERT() is defined in FreeRTOSConfig.h
+	then portASSERT_IF_INTERRUPT_PRIORITY_INVALID() will result in an assertion
+	failure if a FreeRTOS API function is called from an interrupt that has been
+	assigned a priority above the configured maximum system call priority.
+	Only FreeRTOS functions that end in FromISR can be called from interrupts
+	that have been assigned a priority at or (logically) below the maximum
+	system call	interrupt priority.  FreeRTOS maintains a separate interrupt
+	safe API to ensure interrupt entry is as fast and as simple as possible.
+	More information (albeit Cortex-M specific) is provided on the following
+	link: https://www.freertos.org/RTOS-Cortex-M3-M4.html */
+	portASSERT_IF_INTERRUPT_PRIORITY_INVALID();
 
- return xReturn;
+	uxSavedInterruptStatus = portTICK_TYPE_SET_INTERRUPT_MASK_FROM_ISR();
+	{
+		xReturn = xTickCount;
+	}
+	portTICK_TYPE_CLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );
+
+	return xReturn;
 }
-
+/*-----------------------------------------------------------*/
 
 UBaseType_t uxTaskGetNumberOfTasks( void )
 {
-
-
- return uxCurrentNumberOfTasks;
+	/* A critical section is not required because the variables are of type
+	BaseType_t. */
+	return uxCurrentNumberOfTasks;
 }
+/*-----------------------------------------------------------*/
 
-
-char *pcTaskGetName( TaskHandle_t xTaskToQuery )
+char *pcTaskGetName( TaskHandle_t xTaskToQuery ) /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
 {
 TCB_t *pxTCB;
 
-
-
- pxTCB = ( ( ( xTaskToQuery ) == 
-# 2315 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-        ((void *)0) 
-# 2315 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-        ) ? pxCurrentTCB : ( xTaskToQuery ) );
- if (( pxTCB ) == 0) while(1);;
- return &( pxTCB->pcTaskName[ 0 ] );
+	/* If null is passed in here then the name of the calling task is being
+	queried. */
+	pxTCB = prvGetTCBFromHandle( xTaskToQuery );
+	configASSERT( pxTCB );
+	return &( pxTCB->pcTaskName[ 0 ] );
 }
-# 2547 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- void vTaskStepTick( const TickType_t xTicksToJump )
- {
+/*-----------------------------------------------------------*/
 
+#if ( INCLUDE_xTaskGetHandle == 1 )
 
+	static TCB_t *prvSearchForNameWithinSingleList( List_t *pxList, const char pcNameToQuery[] )
+	{
+	TCB_t *pxNextTCB, *pxFirstTCB, *pxReturn = NULL;
+	UBaseType_t x;
+	char cNextChar;
+	BaseType_t xBreakLoop;
 
-  if (( ( xTickCount + xTicksToJump ) <= xNextTaskUnblockTime ) == 0) while(1);;
-  xTickCount += xTicksToJump;
-  ;
- }
-# 2636 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
+		/* This function is called with the scheduler suspended. */
+
+		if( listCURRENT_LIST_LENGTH( pxList ) > ( UBaseType_t ) 0 )
+		{
+			listGET_OWNER_OF_NEXT_ENTRY( pxFirstTCB, pxList );  /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+
+			do
+			{
+				listGET_OWNER_OF_NEXT_ENTRY( pxNextTCB, pxList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+
+				/* Check each character in the name looking for a match or
+				mismatch. */
+				xBreakLoop = pdFALSE;
+				for( x = ( UBaseType_t ) 0; x < ( UBaseType_t ) configMAX_TASK_NAME_LEN; x++ )
+				{
+					cNextChar = pxNextTCB->pcTaskName[ x ];
+
+					if( cNextChar != pcNameToQuery[ x ] )
+					{
+						/* Characters didn't match. */
+						xBreakLoop = pdTRUE;
+					}
+					else if( cNextChar == ( char ) 0x00 )
+					{
+						/* Both strings terminated, a match must have been
+						found. */
+						pxReturn = pxNextTCB;
+						xBreakLoop = pdTRUE;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					if( xBreakLoop != pdFALSE )
+					{
+						break;
+					}
+				}
+
+				if( pxReturn != NULL )
+				{
+					/* The handle has been found. */
+					break;
+				}
+
+			} while( pxNextTCB != pxFirstTCB );
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		return pxReturn;
+	}
+
+#endif /* INCLUDE_xTaskGetHandle */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_xTaskGetHandle == 1 )
+
+	TaskHandle_t xTaskGetHandle( const char *pcNameToQuery ) /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
+	{
+	UBaseType_t uxQueue = configMAX_PRIORITIES;
+	TCB_t* pxTCB;
+
+		/* Task names will be truncated to configMAX_TASK_NAME_LEN - 1 bytes. */
+		configASSERT( strlen( pcNameToQuery ) < configMAX_TASK_NAME_LEN );
+
+		vTaskSuspendAll();
+		{
+			/* Search the ready lists. */
+			do
+			{
+				uxQueue--;
+				pxTCB = prvSearchForNameWithinSingleList( ( List_t * ) &( pxReadyTasksLists[ uxQueue ] ), pcNameToQuery );
+
+				if( pxTCB != NULL )
+				{
+					/* Found the handle. */
+					break;
+				}
+
+			} while( uxQueue > ( UBaseType_t ) tskIDLE_PRIORITY ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+
+			/* Search the delayed lists. */
+			if( pxTCB == NULL )
+			{
+				pxTCB = prvSearchForNameWithinSingleList( ( List_t * ) pxDelayedTaskList, pcNameToQuery );
+			}
+
+			if( pxTCB == NULL )
+			{
+				pxTCB = prvSearchForNameWithinSingleList( ( List_t * ) pxOverflowDelayedTaskList, pcNameToQuery );
+			}
+
+			#if ( INCLUDE_vTaskSuspend == 1 )
+			{
+				if( pxTCB == NULL )
+				{
+					/* Search the suspended list. */
+					pxTCB = prvSearchForNameWithinSingleList( &xSuspendedTaskList, pcNameToQuery );
+				}
+			}
+			#endif
+
+			#if( INCLUDE_vTaskDelete == 1 )
+			{
+				if( pxTCB == NULL )
+				{
+					/* Search the deleted list. */
+					pxTCB = prvSearchForNameWithinSingleList( &xTasksWaitingTermination, pcNameToQuery );
+				}
+			}
+			#endif
+		}
+		( void ) xTaskResumeAll();
+
+		return pxTCB;
+	}
+
+#endif /* INCLUDE_xTaskGetHandle */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_TRACE_FACILITY == 1 )
+
+	UBaseType_t uxTaskGetSystemState( TaskStatus_t * const pxTaskStatusArray, const UBaseType_t uxArraySize, uint32_t * const pulTotalRunTime )
+	{
+	UBaseType_t uxTask = 0, uxQueue = configMAX_PRIORITIES;
+
+		vTaskSuspendAll();
+		{
+			/* Is there a space in the array for each task in the system? */
+			if( uxArraySize >= uxCurrentNumberOfTasks )
+			{
+				/* Fill in an TaskStatus_t structure with information on each
+				task in the Ready state. */
+				do
+				{
+					uxQueue--;
+					uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), &( pxReadyTasksLists[ uxQueue ] ), eReady );
+
+				} while( uxQueue > ( UBaseType_t ) tskIDLE_PRIORITY ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+
+				/* Fill in an TaskStatus_t structure with information on each
+				task in the Blocked state. */
+				uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), ( List_t * ) pxDelayedTaskList, eBlocked );
+				uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), ( List_t * ) pxOverflowDelayedTaskList, eBlocked );
+
+				#if( INCLUDE_vTaskDelete == 1 )
+				{
+					/* Fill in an TaskStatus_t structure with information on
+					each task that has been deleted but not yet cleaned up. */
+					uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), &xTasksWaitingTermination, eDeleted );
+				}
+				#endif
+
+				#if ( INCLUDE_vTaskSuspend == 1 )
+				{
+					/* Fill in an TaskStatus_t structure with information on
+					each task in the Suspended state. */
+					uxTask += prvListTasksWithinSingleList( &( pxTaskStatusArray[ uxTask ] ), &xSuspendedTaskList, eSuspended );
+				}
+				#endif
+
+				#if ( configGENERATE_RUN_TIME_STATS == 1)
+				{
+					if( pulTotalRunTime != NULL )
+					{
+						#ifdef portALT_GET_RUN_TIME_COUNTER_VALUE
+							portALT_GET_RUN_TIME_COUNTER_VALUE( ( *pulTotalRunTime ) );
+						#else
+							*pulTotalRunTime = portGET_RUN_TIME_COUNTER_VALUE();
+						#endif
+					}
+				}
+				#else
+				{
+					if( pulTotalRunTime != NULL )
+					{
+						*pulTotalRunTime = 0;
+					}
+				}
+				#endif
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		( void ) xTaskResumeAll();
+
+		return uxTask;
+	}
+
+#endif /* configUSE_TRACE_FACILITY */
+/*----------------------------------------------------------*/
+
+#if ( INCLUDE_xTaskGetIdleTaskHandle == 1 )
+
+	TaskHandle_t xTaskGetIdleTaskHandle( void )
+	{
+		/* If xTaskGetIdleTaskHandle() is called before the scheduler has been
+		started, then xIdleTaskHandle will be NULL. */
+		configASSERT( ( xIdleTaskHandle != NULL ) );
+		return xIdleTaskHandle;
+	}
+
+#endif /* INCLUDE_xTaskGetIdleTaskHandle */
+/*----------------------------------------------------------*/
+
+/* This conditional compilation should use inequality to 0, not equality to 1.
+This is to ensure vTaskStepTick() is available when user defined low power mode
+implementations require configUSE_TICKLESS_IDLE to be set to a value other than
+1. */
+#if ( configUSE_TICKLESS_IDLE != 0 )
+
+	void vTaskStepTick( const TickType_t xTicksToJump )
+	{
+		/* Correct the tick count value after a period during which the tick
+		was suppressed.  Note this does *not* call the tick hook function for
+		each stepped tick. */
+		configASSERT( ( xTickCount + xTicksToJump ) <= xNextTaskUnblockTime );
+		xTickCount += xTicksToJump;
+		traceINCREASE_TICK_COUNT( xTicksToJump );
+	}
+
+#endif /* configUSE_TICKLESS_IDLE */
+/*----------------------------------------------------------*/
+
+#if ( INCLUDE_xTaskAbortDelay == 1 )
+
+	BaseType_t xTaskAbortDelay( TaskHandle_t xTask )
+	{
+	TCB_t *pxTCB = xTask;
+	BaseType_t xReturn;
+
+		configASSERT( pxTCB );
+
+		vTaskSuspendAll();
+		{
+			/* A task can only be prematurely removed from the Blocked state if
+			it is actually in the Blocked state. */
+			if( eTaskGetState( xTask ) == eBlocked )
+			{
+				xReturn = pdPASS;
+
+				/* Remove the reference to the task from the blocked list.  An
+				interrupt won't touch the xStateListItem because the
+				scheduler is suspended. */
+				( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+
+				/* Is the task waiting on an event also?  If so remove it from
+				the event list too.  Interrupts can touch the event list item,
+				even though the scheduler is suspended, so a critical section
+				is used. */
+				taskENTER_CRITICAL();
+				{
+					if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
+					{
+						( void ) uxListRemove( &( pxTCB->xEventListItem ) );
+						pxTCB->ucDelayAborted = pdTRUE;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
+				taskEXIT_CRITICAL();
+
+				/* Place the unblocked task into the appropriate ready list. */
+				prvAddTaskToReadyList( pxTCB );
+
+				/* A task being unblocked cannot cause an immediate context
+				switch if preemption is turned off. */
+				#if (  configUSE_PREEMPTION == 1 )
+				{
+					/* Preemption is on, but a context switch should only be
+					performed if the unblocked task has a priority that is
+					equal to or higher than the currently executing task. */
+					if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
+					{
+						/* Pend the yield to be performed when the scheduler
+						is unsuspended. */
+						xYieldPending = pdTRUE;
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
+				#endif /* configUSE_PREEMPTION */
+			}
+			else
+			{
+				xReturn = pdFAIL;
+			}
+		}
+		( void ) xTaskResumeAll();
+
+		return xReturn;
+	}
+
+#endif /* INCLUDE_xTaskAbortDelay */
+/*----------------------------------------------------------*/
+
 BaseType_t xTaskIncrementTick( void )
 {
 TCB_t * pxTCB;
 TickType_t xItemValue;
-BaseType_t xSwitchRequired = ( ( BaseType_t ) 0 );
+BaseType_t xSwitchRequired = pdFALSE;
 
+	/* Called by the portable layer each time a tick interrupt occurs.
+	Increments the tick then checks to see if the new tick value will cause any
+	tasks to be unblocked. */
+	traceTASK_INCREMENT_TICK( xTickCount );
+	if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+	{
+		/* Minor optimisation.  The tick count cannot change in this
+		block. */
+		const TickType_t xConstTickCount = xTickCount + ( TickType_t ) 1;
 
+		/* Increment the RTOS tick, switching the delayed and overflowed
+		delayed lists if it wraps to 0. */
+		xTickCount = xConstTickCount;
 
+		if( xConstTickCount == ( TickType_t ) 0U ) /*lint !e774 'if' does not always evaluate to false as it is looking for an overflow. */
+		{
+			taskSWITCH_DELAYED_LISTS();
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
 
- ;
- if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
- {
+		/* See if this tick has made a timeout expire.  Tasks are stored in
+		the	queue in the order of their wake time - meaning once one task
+		has been found whose block time has not expired there is no need to
+		look any further down the list. */
+		if( xConstTickCount >= xNextTaskUnblockTime )
+		{
+			for( ;; )
+			{
+				if( listLIST_IS_EMPTY( pxDelayedTaskList ) != pdFALSE )
+				{
+					/* The delayed list is empty.  Set xNextTaskUnblockTime
+					to the maximum possible value so it is extremely
+					unlikely that the
+					if( xTickCount >= xNextTaskUnblockTime ) test will pass
+					next time through. */
+					xNextTaskUnblockTime = portMAX_DELAY; /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+					break;
+				}
+				else
+				{
+					/* The delayed list is not empty, get the value of the
+					item at the head of the delayed list.  This is the time
+					at which the task at the head of the delayed list must
+					be removed from the Blocked state. */
+					pxTCB = listGET_OWNER_OF_HEAD_ENTRY( pxDelayedTaskList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+					xItemValue = listGET_LIST_ITEM_VALUE( &( pxTCB->xStateListItem ) );
 
+					if( xConstTickCount < xItemValue )
+					{
+						/* It is not time to unblock this item yet, but the
+						item value is the time at which the task at the head
+						of the blocked list must be removed from the Blocked
+						state -	so record the item value in
+						xNextTaskUnblockTime. */
+						xNextTaskUnblockTime = xItemValue;
+						break; /*lint !e9011 Code structure here is deedmed easier to understand with multiple breaks. */
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
 
-  const TickType_t xConstTickCount = xTickCount + ( TickType_t ) 1;
+					/* It is time to remove the item from the Blocked state. */
+					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
 
+					/* Is the task waiting on an event also?  If so remove
+					it from the event list. */
+					if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
+					{
+						( void ) uxListRemove( &( pxTCB->xEventListItem ) );
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
 
+					/* Place the unblocked task into the appropriate ready
+					list. */
+					prvAddTaskToReadyList( pxTCB );
 
-  xTickCount = xConstTickCount;
+					/* A task being unblocked cannot cause an immediate
+					context switch if preemption is turned off. */
+					#if (  configUSE_PREEMPTION == 1 )
+					{
+						/* Preemption is on, but a context switch should
+						only be performed if the unblocked task has a
+						priority that is equal to or higher than the
+						currently executing task. */
+						if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
+						{
+							xSwitchRequired = pdTRUE;
+						}
+						else
+						{
+							mtCOVERAGE_TEST_MARKER();
+						}
+					}
+					#endif /* configUSE_PREEMPTION */
+				}
+			}
+		}
 
-  if( xConstTickCount == ( TickType_t ) 0U )
-  {
-   { List_t *pxTemp; if (( ( ( ( ( pxDelayedTaskList )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? ( ( BaseType_t ) 1 ) : ( ( BaseType_t ) 0 ) ) ) ) == 0) while(1);; pxTemp = pxDelayedTaskList; pxDelayedTaskList = pxOverflowDelayedTaskList; pxOverflowDelayedTaskList = pxTemp; xNumOfOverflows++; prvResetNextTaskUnblockTime(); };
-  }
-  else
-  {
-   ;
-  }
+		/* Tasks of equal priority to the currently running task will share
+		processing time (time slice) if preemption is on, and the application
+		writer has not explicitly turned time slicing off. */
+		#if ( ( configUSE_PREEMPTION == 1 ) && ( configUSE_TIME_SLICING == 1 ) )
+		{
+			if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ pxCurrentTCB->uxPriority ] ) ) > ( UBaseType_t ) 1 )
+			{
+				xSwitchRequired = pdTRUE;
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		#endif /* ( ( configUSE_PREEMPTION == 1 ) && ( configUSE_TIME_SLICING == 1 ) ) */
 
+		#if ( configUSE_TICK_HOOK == 1 )
+		{
+			/* Guard against the tick hook being called when the pended tick
+			count is being unwound (when the scheduler is being unlocked). */
+			if( uxPendedTicks == ( UBaseType_t ) 0U )
+			{
+				vApplicationTickHook();
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		#endif /* configUSE_TICK_HOOK */
+	}
+	else
+	{
+		++uxPendedTicks;
 
+		/* The tick hook gets called at regular intervals, even if the
+		scheduler is locked. */
+		#if ( configUSE_TICK_HOOK == 1 )
+		{
+			vApplicationTickHook();
+		}
+		#endif
+	}
 
+	#if ( configUSE_PREEMPTION == 1 )
+	{
+		if( xYieldPending != pdFALSE )
+		{
+			xSwitchRequired = pdTRUE;
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+	#endif /* configUSE_PREEMPTION */
 
-
-  if( xConstTickCount >= xNextTaskUnblockTime )
-  {
-   for( ;; )
-   {
-    if( ( ( ( pxDelayedTaskList )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? ( ( BaseType_t ) 1 ) : ( ( BaseType_t ) 0 ) ) != ( ( BaseType_t ) 0 ) )
-    {
-
-
-
-
-
-     xNextTaskUnblockTime = ( TickType_t ) 0xffffffffUL;
-     break;
-    }
-    else
-    {
-
-
-
-
-     pxTCB = ( (&( ( pxDelayedTaskList )->xListEnd ))->pxNext->pvOwner );
-     xItemValue = ( ( &( pxTCB->xStateListItem ) )->xItemValue );
-
-     if( xConstTickCount < xItemValue )
-     {
-
-
-
-
-
-      xNextTaskUnblockTime = xItemValue;
-      break;
-     }
-     else
-     {
-      ;
-     }
-
-
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-
-
-
-     if( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) != 
-# 2712 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                                                 ((void *)0) 
-# 2712 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                                                      )
-     {
-      ( void ) uxListRemove( &( pxTCB->xEventListItem ) );
-     }
-     else
-     {
-      ;
-     }
-
-
-
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-
-
-
-
-     {
-
-
-
-
-      if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
-      {
-       xSwitchRequired = ( ( BaseType_t ) 1 );
-      }
-      else
-      {
-       ;
-      }
-     }
-
-    }
-   }
-  }
-# 2777 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- }
- else
- {
-  ++uxPendedTicks;
-# 2789 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- }
-
-
- {
-  if( xYieldPending != ( ( BaseType_t ) 0 ) )
-  {
-   xSwitchRequired = ( ( BaseType_t ) 1 );
-  }
-  else
-  {
-   ;
-  }
- }
-
-
- return xSwitchRequired;
+	return xSwitchRequired;
 }
-# 2900 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_APPLICATION_TASK_TAG == 1 )
+
+	void vTaskSetApplicationTaskTag( TaskHandle_t xTask, TaskHookFunction_t pxHookFunction )
+	{
+	TCB_t *xTCB;
+
+		/* If xTask is NULL then it is the task hook of the calling task that is
+		getting set. */
+		if( xTask == NULL )
+		{
+			xTCB = ( TCB_t * ) pxCurrentTCB;
+		}
+		else
+		{
+			xTCB = xTask;
+		}
+
+		/* Save the hook function in the TCB.  A critical section is required as
+		the value can be accessed from an interrupt. */
+		taskENTER_CRITICAL();
+		{
+			xTCB->pxTaskTag = pxHookFunction;
+		}
+		taskEXIT_CRITICAL();
+	}
+
+#endif /* configUSE_APPLICATION_TASK_TAG */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_APPLICATION_TASK_TAG == 1 )
+
+	TaskHookFunction_t xTaskGetApplicationTaskTag( TaskHandle_t xTask )
+	{
+	TCB_t *xTCB;
+	TaskHookFunction_t xReturn;
+
+		/* If xTask is NULL then we are setting our own task hook. */
+		if( xTask == NULL )
+		{
+			xTCB = ( TCB_t * ) pxCurrentTCB;
+		}
+		else
+		{
+			xTCB = xTask;
+		}
+
+		/* Save the hook function in the TCB.  A critical section is required as
+		the value can be accessed from an interrupt. */
+		taskENTER_CRITICAL();
+		{
+			xReturn = xTCB->pxTaskTag;
+		}
+		taskEXIT_CRITICAL();
+
+		return xReturn;
+	}
+
+#endif /* configUSE_APPLICATION_TASK_TAG */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_APPLICATION_TASK_TAG == 1 )
+
+	BaseType_t xTaskCallApplicationTaskHook( TaskHandle_t xTask, void *pvParameter )
+	{
+	TCB_t *xTCB;
+	BaseType_t xReturn;
+
+		/* If xTask is NULL then we are calling our own task hook. */
+		if( xTask == NULL )
+		{
+			xTCB = pxCurrentTCB;
+		}
+		else
+		{
+			xTCB = xTask;
+		}
+
+		if( xTCB->pxTaskTag != NULL )
+		{
+			xReturn = xTCB->pxTaskTag( pvParameter );
+		}
+		else
+		{
+			xReturn = pdFAIL;
+		}
+
+		return xReturn;
+	}
+
+#endif /* configUSE_APPLICATION_TASK_TAG */
+/*-----------------------------------------------------------*/
+
 void vTaskSwitchContext( void )
 {
- if( uxSchedulerSuspended != ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
- {
+	if( uxSchedulerSuspended != ( UBaseType_t ) pdFALSE )
+	{
+		/* The scheduler is currently suspended - do not allow a context
+		switch. */
+		xYieldPending = pdTRUE;
+	}
+	else
+	{
+		xYieldPending = pdFALSE;
+		traceTASK_SWITCHED_OUT();
 
+		#if ( configGENERATE_RUN_TIME_STATS == 1 )
+		{
+				#ifdef portALT_GET_RUN_TIME_COUNTER_VALUE
+					portALT_GET_RUN_TIME_COUNTER_VALUE( ulTotalRunTime );
+				#else
+					ulTotalRunTime = portGET_RUN_TIME_COUNTER_VALUE();
+				#endif
 
-  xYieldPending = ( ( BaseType_t ) 1 );
- }
- else
- {
-  xYieldPending = ( ( BaseType_t ) 0 );
-  ;
-# 2941 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  { const uint32_t * const pulStack = ( uint32_t * ) pxCurrentTCB->pxStack; const uint32_t ulCheckValue = ( uint32_t ) 0xa5a5a5a5; if( ( pulStack[ 0 ] != ulCheckValue ) || ( pulStack[ 1 ] != ulCheckValue ) || ( pulStack[ 2 ] != ulCheckValue ) || ( pulStack[ 3 ] != ulCheckValue ) ) { vApplicationStackOverflowHook( ( TaskHandle_t ) pxCurrentTCB, pxCurrentTCB->pcTaskName ); } };
-# 2952 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  { UBaseType_t uxTopPriority = uxTopReadyPriority; while( ( ( ( &( pxReadyTasksLists[ uxTopPriority ] ) )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? ( ( BaseType_t ) 1 ) : ( ( BaseType_t ) 0 ) ) ) { if (( uxTopPriority ) == 0) while(1);; --uxTopPriority; } { List_t * const pxConstList = ( &( pxReadyTasksLists[ uxTopPriority ] ) ); ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; if( ( void * ) ( pxConstList )->pxIndex == ( void * ) &( ( pxConstList )->xListEnd ) ) { ( pxConstList )->pxIndex = ( pxConstList )->pxIndex->pxNext; } ( pxCurrentTCB ) = ( pxConstList )->pxIndex->pvOwner; }; uxTopReadyPriority = uxTopPriority; };
-  ;
-# 2963 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  {
+				/* Add the amount of time the task has been running to the
+				accumulated time so far.  The time the task started running was
+				stored in ulTaskSwitchedInTime.  Note that there is no overflow
+				protection here so count values are only valid until the timer
+				overflows.  The guard against negative values is to protect
+				against suspect run time stat counter implementations - which
+				are provided by the application, not the kernel. */
+				if( ulTotalRunTime > ulTaskSwitchedInTime )
+				{
+					pxCurrentTCB->ulRunTimeCounter += ( ulTotalRunTime - ulTaskSwitchedInTime );
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+				ulTaskSwitchedInTime = ulTotalRunTime;
+		}
+		#endif /* configGENERATE_RUN_TIME_STATS */
 
+		/* Check for stack overflow, if configured. */
+		taskCHECK_FOR_STACK_OVERFLOW();
 
-   _impure_ptr = &( pxCurrentTCB->xNewLib_reent );
-  }
+		/* Before the currently running task is switched out, save its errno. */
+		#if( configUSE_POSIX_ERRNO == 1 )
+		{
+			pxCurrentTCB->iTaskErrno = FreeRTOS_errno;
+		}
+		#endif
 
- }
+		/* Select a new task to run using either the generic C or port
+		optimised asm code. */
+		taskSELECT_HIGHEST_PRIORITY_TASK(); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+		traceTASK_SWITCHED_IN();
+
+		/* After the new task is switched in, update the global errno. */
+		#if( configUSE_POSIX_ERRNO == 1 )
+		{
+			FreeRTOS_errno = pxCurrentTCB->iTaskErrno;
+		}
+		#endif
+
+		#if ( configUSE_NEWLIB_REENTRANT == 1 )
+		{
+			/* Switch Newlib's _impure_ptr variable to point to the _reent
+			structure specific to this task. */
+			_impure_ptr = &( pxCurrentTCB->xNewLib_reent );
+		}
+		#endif /* configUSE_NEWLIB_REENTRANT */
+	}
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskPlaceOnEventList( List_t * const pxEventList, const TickType_t xTicksToWait )
 {
- if (( pxEventList ) == 0) while(1);;
-# 2984 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- vListInsert( pxEventList, &( pxCurrentTCB->xEventListItem ) );
+	configASSERT( pxEventList );
 
- prvAddCurrentTaskToDelayedList( xTicksToWait, ( ( BaseType_t ) 1 ) );
+	/* THIS FUNCTION MUST BE CALLED WITH EITHER INTERRUPTS DISABLED OR THE
+	SCHEDULER SUSPENDED AND THE QUEUE BEING ACCESSED LOCKED. */
+
+	/* Place the event list item of the TCB in the appropriate event list.
+	This is placed in the list in priority order so the highest priority task
+	is the first to be woken by the event.  The queue that contains the event
+	list is locked, preventing simultaneous access from interrupts. */
+	vListInsert( pxEventList, &( pxCurrentTCB->xEventListItem ) );
+
+	prvAddCurrentTaskToDelayedList( xTicksToWait, pdTRUE );
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskPlaceOnUnorderedEventList( List_t * pxEventList, const TickType_t xItemValue, const TickType_t xTicksToWait )
 {
- if (( pxEventList ) == 0) while(1);;
+	configASSERT( pxEventList );
 
+	/* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED.  It is used by
+	the event groups implementation. */
+	configASSERT( uxSchedulerSuspended != 0 );
 
+	/* Store the item value in the event list item.  It is safe to access the
+	event list item here as interrupts won't access the event list item of a
+	task that is not in the Blocked state. */
+	listSET_LIST_ITEM_VALUE( &( pxCurrentTCB->xEventListItem ), xItemValue | taskEVENT_LIST_ITEM_VALUE_IN_USE );
 
- if (( uxSchedulerSuspended != 0 ) == 0) while(1);;
+	/* Place the event list item of the TCB at the end of the appropriate event
+	list.  It is safe to access the event list here because it is part of an
+	event group implementation - and interrupts don't access event groups
+	directly (instead they access them indirectly by pending function calls to
+	the task level). */
+	vListInsertEnd( pxEventList, &( pxCurrentTCB->xEventListItem ) );
 
-
-
-
- ( ( &( pxCurrentTCB->xEventListItem ) )->xItemValue = ( xItemValue | 0x80000000UL ) );
-
-
-
-
-
-
- vListInsertEnd( pxEventList, &( pxCurrentTCB->xEventListItem ) );
-
- prvAddCurrentTaskToDelayedList( xTicksToWait, ( ( BaseType_t ) 1 ) );
+	prvAddCurrentTaskToDelayedList( xTicksToWait, pdTRUE );
 }
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TIMERS == 1 )
+
+	void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTicksToWait, const BaseType_t xWaitIndefinitely )
+	{
+		configASSERT( pxEventList );
+
+		/* This function should not be called by application code hence the
+		'Restricted' in its name.  It is not part of the public API.  It is
+		designed for use by kernel code, and has special calling requirements -
+		it should be called with the scheduler suspended. */
 
 
+		/* Place the event list item of the TCB in the appropriate event list.
+		In this case it is assume that this is the only task that is going to
+		be waiting on this event list, so the faster vListInsertEnd() function
+		can be used in place of vListInsert. */
+		vListInsertEnd( pxEventList, &( pxCurrentTCB->xEventListItem ) );
 
+		/* If the task should block indefinitely then set the block time to a
+		value that will be recognised as an indefinite delay inside the
+		prvAddCurrentTaskToDelayedList() function. */
+		if( xWaitIndefinitely != pdFALSE )
+		{
+			xTicksToWait = portMAX_DELAY;
+		}
 
- void vTaskPlaceOnEventListRestricted( List_t * const pxEventList, TickType_t xTicksToWait, const BaseType_t xWaitIndefinitely )
- {
-  if (( pxEventList ) == 0) while(1);;
-# 3030 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  vListInsertEnd( pxEventList, &( pxCurrentTCB->xEventListItem ) );
+		traceTASK_DELAY_UNTIL( ( xTickCount + xTicksToWait ) );
+		prvAddCurrentTaskToDelayedList( xTicksToWait, xWaitIndefinitely );
+	}
 
-
-
-
-  if( xWaitIndefinitely != ( ( BaseType_t ) 0 ) )
-  {
-   xTicksToWait = ( TickType_t ) 0xffffffffUL;
-  }
-
-  ;
-  prvAddCurrentTaskToDelayedList( xTicksToWait, xWaitIndefinitely );
- }
-
-
-
+#endif /* configUSE_TIMERS */
+/*-----------------------------------------------------------*/
 
 BaseType_t xTaskRemoveFromEventList( const List_t * const pxEventList )
 {
 TCB_t *pxUnblockedTCB;
 BaseType_t xReturn;
-# 3065 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- pxUnblockedTCB = ( (&( ( pxEventList )->xListEnd ))->pxNext->pvOwner );
- if (( pxUnblockedTCB ) == 0) while(1);;
- ( void ) uxListRemove( &( pxUnblockedTCB->xEventListItem ) );
 
- if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
- {
-  ( void ) uxListRemove( &( pxUnblockedTCB->xStateListItem ) );
-  ; { if( ( ( pxUnblockedTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxUnblockedTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxUnblockedTCB )->uxPriority ] ), &( ( pxUnblockedTCB )->xStateListItem ) ); ;
- }
- else
- {
+	/* THIS FUNCTION MUST BE CALLED FROM A CRITICAL SECTION.  It can also be
+	called from a critical section within an ISR. */
 
+	/* The event list is sorted in priority order, so the first in the list can
+	be removed as it is known to be the highest priority.  Remove the TCB from
+	the delayed list, and add it to the ready list.
 
-  vListInsertEnd( &( xPendingReadyList ), &( pxUnblockedTCB->xEventListItem ) );
- }
+	If an event is for a queue that is locked then this function will never
+	get called - the lock count on the queue will get modified instead.  This
+	means exclusive access to the event list is guaranteed here.
 
- if( pxUnblockedTCB->uxPriority > pxCurrentTCB->uxPriority )
- {
+	This function assumes that a check has already been made to ensure that
+	pxEventList is not empty. */
+	pxUnblockedTCB = listGET_OWNER_OF_HEAD_ENTRY( pxEventList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+	configASSERT( pxUnblockedTCB );
+	( void ) uxListRemove( &( pxUnblockedTCB->xEventListItem ) );
 
+	if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+	{
+		( void ) uxListRemove( &( pxUnblockedTCB->xStateListItem ) );
+		prvAddTaskToReadyList( pxUnblockedTCB );
+	}
+	else
+	{
+		/* The delayed and ready lists cannot be accessed, so hold this task
+		pending until the scheduler is resumed. */
+		vListInsertEnd( &( xPendingReadyList ), &( pxUnblockedTCB->xEventListItem ) );
+	}
 
+	if( pxUnblockedTCB->uxPriority > pxCurrentTCB->uxPriority )
+	{
+		/* Return true if the task removed from the event list has a higher
+		priority than the calling task.  This allows the calling task to know if
+		it should force a context switch now. */
+		xReturn = pdTRUE;
 
-  xReturn = ( ( BaseType_t ) 1 );
+		/* Mark that a yield is pending in case the user is not using the
+		"xHigherPriorityTaskWoken" parameter to an ISR safe FreeRTOS function. */
+		xYieldPending = pdTRUE;
+	}
+	else
+	{
+		xReturn = pdFALSE;
+	}
 
+	#if( configUSE_TICKLESS_IDLE != 0 )
+	{
+		/* If a task is blocked on a kernel object then xNextTaskUnblockTime
+		might be set to the blocked task's time out time.  If the task is
+		unblocked for a reason other than a timeout xNextTaskUnblockTime is
+		normally left unchanged, because it is automatically reset to a new
+		value when the tick count equals xNextTaskUnblockTime.  However if
+		tickless idling is used it might be more important to enter sleep mode
+		at the earliest possible time - so reset xNextTaskUnblockTime here to
+		ensure it is updated at the earliest possible time. */
+		prvResetNextTaskUnblockTime();
+	}
+	#endif
 
-
-  xYieldPending = ( ( BaseType_t ) 1 );
- }
- else
- {
-  xReturn = ( ( BaseType_t ) 0 );
- }
-
-
- {
-# 3107 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  prvResetNextTaskUnblockTime();
- }
-
-
- return xReturn;
+	return xReturn;
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskRemoveFromUnorderedEventList( ListItem_t * pxEventListItem, const TickType_t xItemValue )
 {
 TCB_t *pxUnblockedTCB;
 
+	/* THIS FUNCTION MUST BE CALLED WITH THE SCHEDULER SUSPENDED.  It is used by
+	the event flags implementation. */
+	configASSERT( uxSchedulerSuspended != pdFALSE );
 
+	/* Store the new item value in the event list. */
+	listSET_LIST_ITEM_VALUE( pxEventListItem, xItemValue | taskEVENT_LIST_ITEM_VALUE_IN_USE );
 
- if (( uxSchedulerSuspended != ( ( BaseType_t ) 0 ) ) == 0) while(1);;
+	/* Remove the event list form the event flag.  Interrupts do not access
+	event flags. */
+	pxUnblockedTCB = listGET_LIST_ITEM_OWNER( pxEventListItem ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+	configASSERT( pxUnblockedTCB );
+	( void ) uxListRemove( pxEventListItem );
 
+	/* Remove the task from the delayed list and add it to the ready list.  The
+	scheduler is suspended so interrupts will not be accessing the ready
+	lists. */
+	( void ) uxListRemove( &( pxUnblockedTCB->xStateListItem ) );
+	prvAddTaskToReadyList( pxUnblockedTCB );
 
- ( ( pxEventListItem )->xItemValue = ( xItemValue | 0x80000000UL ) );
-
-
-
- pxUnblockedTCB = ( ( pxEventListItem )->pvOwner );
- if (( pxUnblockedTCB ) == 0) while(1);;
- ( void ) uxListRemove( pxEventListItem );
-
-
-
-
- ( void ) uxListRemove( &( pxUnblockedTCB->xStateListItem ) );
- ; { if( ( ( pxUnblockedTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxUnblockedTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxUnblockedTCB )->uxPriority ] ), &( ( pxUnblockedTCB )->xStateListItem ) ); ;
-
- if( pxUnblockedTCB->uxPriority > pxCurrentTCB->uxPriority )
- {
-
-
-
-
-  xYieldPending = ( ( BaseType_t ) 1 );
- }
+	if( pxUnblockedTCB->uxPriority > pxCurrentTCB->uxPriority )
+	{
+		/* The unblocked task has a priority above that of the calling task, so
+		a context switch is required.  This function is called with the
+		scheduler suspended so xYieldPending is set so the context switch
+		occurs immediately that the scheduler is resumed (unsuspended). */
+		xYieldPending = pdTRUE;
+	}
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskSetTimeOutState( TimeOut_t * const pxTimeOut )
 {
- if (( pxTimeOut ) == 0) while(1);;
- vPortEnterCritical();
- {
-  pxTimeOut->xOverflowCount = xNumOfOverflows;
-  pxTimeOut->xTimeOnEntering = xTickCount;
- }
- vPortExitCritical();
+	configASSERT( pxTimeOut );
+	taskENTER_CRITICAL();
+	{
+		pxTimeOut->xOverflowCount = xNumOfOverflows;
+		pxTimeOut->xTimeOnEntering = xTickCount;
+	}
+	taskEXIT_CRITICAL();
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskInternalSetTimeOutState( TimeOut_t * const pxTimeOut )
 {
-
- pxTimeOut->xOverflowCount = xNumOfOverflows;
- pxTimeOut->xTimeOnEntering = xTickCount;
+	/* For internal use only as it does not use a critical section. */
+	pxTimeOut->xOverflowCount = xNumOfOverflows;
+	pxTimeOut->xTimeOnEntering = xTickCount;
 }
-
+/*-----------------------------------------------------------*/
 
 BaseType_t xTaskCheckForTimeOut( TimeOut_t * const pxTimeOut, TickType_t * const pxTicksToWait )
 {
 BaseType_t xReturn;
 
- if (( pxTimeOut ) == 0) while(1);;
- if (( pxTicksToWait ) == 0) while(1);;
+	configASSERT( pxTimeOut );
+	configASSERT( pxTicksToWait );
 
- vPortEnterCritical();
- {
+	taskENTER_CRITICAL();
+	{
+		/* Minor optimisation.  The tick count cannot change in this block. */
+		const TickType_t xConstTickCount = xTickCount;
+		const TickType_t xElapsedTime = xConstTickCount - pxTimeOut->xTimeOnEntering;
 
-  const TickType_t xConstTickCount = xTickCount;
-  const TickType_t xElapsedTime = xConstTickCount - pxTimeOut->xTimeOnEntering;
-# 3194 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   if( *pxTicksToWait == ( TickType_t ) 0xffffffffUL )
-   {
+		#if( INCLUDE_xTaskAbortDelay == 1 )
+			if( pxCurrentTCB->ucDelayAborted != ( uint8_t ) pdFALSE )
+			{
+				/* The delay was aborted, which is not the same as a time out,
+				but has the same result. */
+				pxCurrentTCB->ucDelayAborted = pdFALSE;
+				xReturn = pdTRUE;
+			}
+			else
+		#endif
 
+		#if ( INCLUDE_vTaskSuspend == 1 )
+			if( *pxTicksToWait == portMAX_DELAY )
+			{
+				/* If INCLUDE_vTaskSuspend is set to 1 and the block time
+				specified is the maximum block time then the task should block
+				indefinitely, and therefore never time out. */
+				xReturn = pdFALSE;
+			}
+			else
+		#endif
 
+		if( ( xNumOfOverflows != pxTimeOut->xOverflowCount ) && ( xConstTickCount >= pxTimeOut->xTimeOnEntering ) ) /*lint !e525 Indentation preferred as is to make code within pre-processor directives clearer. */
+		{
+			/* The tick count is greater than the time at which
+			vTaskSetTimeout() was called, but has also overflowed since
+			vTaskSetTimeOut() was called.  It must have wrapped all the way
+			around and gone past again. This passed since vTaskSetTimeout()
+			was called. */
+			xReturn = pdTRUE;
+		}
+		else if( xElapsedTime < *pxTicksToWait ) /*lint !e961 Explicit casting is only redundant with some compilers, whereas others require it to prevent integer conversion errors. */
+		{
+			/* Not a genuine timeout. Adjust parameters for time remaining. */
+			*pxTicksToWait -= xElapsedTime;
+			vTaskInternalSetTimeOutState( pxTimeOut );
+			xReturn = pdFALSE;
+		}
+		else
+		{
+			*pxTicksToWait = 0;
+			xReturn = pdTRUE;
+		}
+	}
+	taskEXIT_CRITICAL();
 
-    xReturn = ( ( BaseType_t ) 0 );
-   }
-   else
-
-
-  if( ( xNumOfOverflows != pxTimeOut->xOverflowCount ) && ( xConstTickCount >= pxTimeOut->xTimeOnEntering ) )
-  {
-
-
-
-
-
-   xReturn = ( ( BaseType_t ) 1 );
-  }
-  else if( xElapsedTime < *pxTicksToWait )
-  {
-
-   *pxTicksToWait -= xElapsedTime;
-   vTaskInternalSetTimeOutState( pxTimeOut );
-   xReturn = ( ( BaseType_t ) 0 );
-  }
-  else
-  {
-   *pxTicksToWait = 0;
-   xReturn = ( ( BaseType_t ) 1 );
-  }
- }
- vPortExitCritical();
-
- return xReturn;
+	return xReturn;
 }
-
+/*-----------------------------------------------------------*/
 
 void vTaskMissedYield( void )
 {
- xYieldPending = ( ( BaseType_t ) 1 );
+	xYieldPending = pdTRUE;
 }
-# 3287 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-static void prvIdleTask( void *pvParameters )
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_TRACE_FACILITY == 1 )
+
+	UBaseType_t uxTaskGetTaskNumber( TaskHandle_t xTask )
+	{
+	UBaseType_t uxReturn;
+	TCB_t const *pxTCB;
+
+		if( xTask != NULL )
+		{
+			pxTCB = xTask;
+			uxReturn = pxTCB->uxTaskNumber;
+		}
+		else
+		{
+			uxReturn = 0U;
+		}
+
+		return uxReturn;
+	}
+
+#endif /* configUSE_TRACE_FACILITY */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_TRACE_FACILITY == 1 )
+
+	void vTaskSetTaskNumber( TaskHandle_t xTask, const UBaseType_t uxHandle )
+	{
+	TCB_t * pxTCB;
+
+		if( xTask != NULL )
+		{
+			pxTCB = xTask;
+			pxTCB->uxTaskNumber = uxHandle;
+		}
+	}
+
+#endif /* configUSE_TRACE_FACILITY */
+
+/*
+ * -----------------------------------------------------------
+ * The Idle task.
+ * ----------------------------------------------------------
+ *
+ * The portTASK_FUNCTION() macro is used to allow port/compiler specific
+ * language extensions.  The equivalent prototype for this function is:
+ *
+ * void prvIdleTask( void *pvParameters );
+ *
+ */
+static portTASK_FUNCTION( prvIdleTask, pvParameters )
 {
+	/* Stop warnings. */
+	( void ) pvParameters;
 
- ( void ) pvParameters;
+	/** THIS IS THE RTOS IDLE TASK - WHICH IS CREATED AUTOMATICALLY WHEN THE
+	SCHEDULER IS STARTED. **/
 
+	/* In case a task that has a secure context deletes itself, in which case
+	the idle task is responsible for deleting the task's secure context, if
+	any. */
+	portTASK_CALLS_SECURE_FUNCTIONS();
 
+	for( ;; )
+	{
+		/* See if any tasks have deleted themselves - if so then the idle task
+		is responsible for freeing the deleted task's TCB and stack. */
+		prvCheckTasksWaitingTermination();
 
+		#if ( configUSE_PREEMPTION == 0 )
+		{
+			/* If we are not using preemption we keep forcing a task switch to
+			see if any other task has become available.  If we are using
+			preemption we don't need to do this as any task becoming available
+			will automatically get the processor anyway. */
+			taskYIELD();
+		}
+		#endif /* configUSE_PREEMPTION */
 
+		#if ( ( configUSE_PREEMPTION == 1 ) && ( configIDLE_SHOULD_YIELD == 1 ) )
+		{
+			/* When using preemption tasks of equal priority will be
+			timesliced.  If a task that is sharing the idle priority is ready
+			to run then the idle task should yield before the end of the
+			timeslice.
 
+			A critical region is not required here as we are just reading from
+			the list, and an occasional incorrect value will not matter.  If
+			the ready list at the idle priority contains more than one task
+			then a task other than the idle task is ready to execute. */
+			if( listCURRENT_LIST_LENGTH( &( pxReadyTasksLists[ tskIDLE_PRIORITY ] ) ) > ( UBaseType_t ) 1 )
+			{
+				taskYIELD();
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		#endif /* ( ( configUSE_PREEMPTION == 1 ) && ( configIDLE_SHOULD_YIELD == 1 ) ) */
 
+		#if ( configUSE_IDLE_HOOK == 1 )
+		{
+			extern void vApplicationIdleHook( void );
 
- ;
+			/* Call the user defined function from within the idle task.  This
+			allows the application designer to add background functionality
+			without the overhead of a separate task.
+			NOTE: vApplicationIdleHook() MUST NOT, UNDER ANY CIRCUMSTANCES,
+			CALL A FUNCTION THAT MIGHT BLOCK. */
+			vApplicationIdleHook();
+		}
+		#endif /* configUSE_IDLE_HOOK */
 
- for( ;; )
- {
+		/* This conditional compilation should use inequality to 0, not equality
+		to 1.  This is to ensure portSUPPRESS_TICKS_AND_SLEEP() is called when
+		user defined low power mode	implementations require
+		configUSE_TICKLESS_IDLE to be set to a value other than 1. */
+		#if ( configUSE_TICKLESS_IDLE != 0 )
+		{
+		TickType_t xExpectedIdleTime;
 
+			/* It is not desirable to suspend then resume the scheduler on
+			each iteration of the idle task.  Therefore, a preliminary
+			test of the expected idle time is performed without the
+			scheduler suspended.  The result here is not necessarily
+			valid. */
+			xExpectedIdleTime = prvGetExpectedIdleTime();
 
-  prvCheckTasksWaitingTermination();
-# 3317 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  {
-# 3327 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   if( ( ( &( pxReadyTasksLists[ ( ( UBaseType_t ) 0U ) ] ) )->uxNumberOfItems ) > ( UBaseType_t ) 1 )
-   {
-    { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-   }
-   else
-   {
-    ;
-   }
-  }
-# 3356 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  {
-  TickType_t xExpectedIdleTime;
+			if( xExpectedIdleTime >= configEXPECTED_IDLE_TIME_BEFORE_SLEEP )
+			{
+				vTaskSuspendAll();
+				{
+					/* Now the scheduler is suspended, the expected idle
+					time can be sampled again, and this time its value can
+					be used. */
+					configASSERT( xNextTaskUnblockTime >= xTickCount );
+					xExpectedIdleTime = prvGetExpectedIdleTime();
 
+					/* Define the following macro to set xExpectedIdleTime to 0
+					if the application does not want
+					portSUPPRESS_TICKS_AND_SLEEP() to be called. */
+					configPRE_SUPPRESS_TICKS_AND_SLEEP_PROCESSING( xExpectedIdleTime );
 
-
-
-
-
-   xExpectedIdleTime = prvGetExpectedIdleTime();
-
-   if( xExpectedIdleTime >= 2 )
-   {
-    vTaskSuspendAll();
-    {
-
-
-
-     if (( xNextTaskUnblockTime >= xTickCount ) == 0) while(1);;
-     xExpectedIdleTime = prvGetExpectedIdleTime();
-
-
-
-
-     ;
-
-     if( xExpectedIdleTime >= 2 )
-     {
-      ;
-      vPortSuppressTicksAndSleep( xExpectedIdleTime );
-      ;
-     }
-     else
-     {
-      ;
-     }
-    }
-    ( void ) xTaskResumeAll();
-   }
-   else
-   {
-    ;
-   }
-  }
-
- }
+					if( xExpectedIdleTime >= configEXPECTED_IDLE_TIME_BEFORE_SLEEP )
+					{
+						traceLOW_POWER_IDLE_BEGIN();
+						portSUPPRESS_TICKS_AND_SLEEP( xExpectedIdleTime );
+						traceLOW_POWER_IDLE_END();
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
+				( void ) xTaskResumeAll();
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		#endif /* configUSE_TICKLESS_IDLE */
+	}
 }
+/*-----------------------------------------------------------*/
 
+#if( configUSE_TICKLESS_IDLE != 0 )
 
+	eSleepModeStatus eTaskConfirmSleepModeStatus( void )
+	{
+	/* The idle task exists in addition to the application tasks. */
+	const UBaseType_t uxNonApplicationTasks = 1;
+	eSleepModeStatus eReturn = eStandardSleep;
 
+		if( listCURRENT_LIST_LENGTH( &xPendingReadyList ) != 0 )
+		{
+			/* A task was made ready while the scheduler was suspended. */
+			eReturn = eAbortSleep;
+		}
+		else if( xYieldPending != pdFALSE )
+		{
+			/* A yield was pended while the scheduler was suspended. */
+			eReturn = eAbortSleep;
+		}
+		else
+		{
+			/* If all the tasks are in the suspended list (which might mean they
+			have an infinite block time rather than actually being suspended)
+			then it is safe to turn all clocks off and just wait for external
+			interrupts. */
+			if( listCURRENT_LIST_LENGTH( &xSuspendedTaskList ) == ( uxCurrentNumberOfTasks - uxNonApplicationTasks ) )
+			{
+				eReturn = eNoTasksWaitingTimeout;
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
 
- eSleepModeStatus eTaskConfirmSleepModeStatus( void )
- {
+		return eReturn;
+	}
 
- const UBaseType_t uxNonApplicationTasks = 1;
- eSleepModeStatus eReturn = eStandardSleep;
+#endif /* configUSE_TICKLESS_IDLE */
+/*-----------------------------------------------------------*/
 
-  if( ( ( &xPendingReadyList )->uxNumberOfItems ) != 0 )
-  {
+#if ( configNUM_THREAD_LOCAL_STORAGE_POINTERS != 0 )
 
-   eReturn = eAbortSleep;
-  }
-  else if( xYieldPending != ( ( BaseType_t ) 0 ) )
-  {
+	void vTaskSetThreadLocalStoragePointer( TaskHandle_t xTaskToSet, BaseType_t xIndex, void *pvValue )
+	{
+	TCB_t *pxTCB;
 
-   eReturn = eAbortSleep;
-  }
-  else
-  {
+		if( xIndex < configNUM_THREAD_LOCAL_STORAGE_POINTERS )
+		{
+			pxTCB = prvGetTCBFromHandle( xTaskToSet );
+			pxTCB->pvThreadLocalStoragePointers[ xIndex ] = pvValue;
+		}
+	}
 
+#endif /* configNUM_THREAD_LOCAL_STORAGE_POINTERS */
+/*-----------------------------------------------------------*/
 
+#if ( configNUM_THREAD_LOCAL_STORAGE_POINTERS != 0 )
 
+	void *pvTaskGetThreadLocalStoragePointer( TaskHandle_t xTaskToQuery, BaseType_t xIndex )
+	{
+	void *pvReturn = NULL;
+	TCB_t *pxTCB;
 
-   if( ( ( &xSuspendedTaskList )->uxNumberOfItems ) == ( uxCurrentNumberOfTasks - uxNonApplicationTasks ) )
-   {
-    eReturn = eNoTasksWaitingTimeout;
-   }
-   else
-   {
-    ;
-   }
-  }
+		if( xIndex < configNUM_THREAD_LOCAL_STORAGE_POINTERS )
+		{
+			pxTCB = prvGetTCBFromHandle( xTaskToQuery );
+			pvReturn = pxTCB->pvThreadLocalStoragePointers[ xIndex ];
+		}
+		else
+		{
+			pvReturn = NULL;
+		}
 
-  return eReturn;
- }
-# 3499 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
+		return pvReturn;
+	}
+
+#endif /* configNUM_THREAD_LOCAL_STORAGE_POINTERS */
+/*-----------------------------------------------------------*/
+
+#if ( portUSING_MPU_WRAPPERS == 1 )
+
+	void vTaskAllocateMPURegions( TaskHandle_t xTaskToModify, const MemoryRegion_t * const xRegions )
+	{
+	TCB_t *pxTCB;
+
+		/* If null is passed in here then we are modifying the MPU settings of
+		the calling task. */
+		pxTCB = prvGetTCBFromHandle( xTaskToModify );
+
+		vPortStoreTaskMPUSettings( &( pxTCB->xMPUSettings ), xRegions, NULL, 0 );
+	}
+
+#endif /* portUSING_MPU_WRAPPERS */
+/*-----------------------------------------------------------*/
+
 static void prvInitialiseTaskLists( void )
 {
 UBaseType_t uxPriority;
 
- for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t ) 5; uxPriority++ )
- {
-  vListInitialise( &( pxReadyTasksLists[ uxPriority ] ) );
- }
+	for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t ) configMAX_PRIORITIES; uxPriority++ )
+	{
+		vListInitialise( &( pxReadyTasksLists[ uxPriority ] ) );
+	}
 
- vListInitialise( &xDelayedTaskList1 );
- vListInitialise( &xDelayedTaskList2 );
- vListInitialise( &xPendingReadyList );
+	vListInitialise( &xDelayedTaskList1 );
+	vListInitialise( &xDelayedTaskList2 );
+	vListInitialise( &xPendingReadyList );
 
+	#if ( INCLUDE_vTaskDelete == 1 )
+	{
+		vListInitialise( &xTasksWaitingTermination );
+	}
+	#endif /* INCLUDE_vTaskDelete */
 
- {
-  vListInitialise( &xTasksWaitingTermination );
- }
+	#if ( INCLUDE_vTaskSuspend == 1 )
+	{
+		vListInitialise( &xSuspendedTaskList );
+	}
+	#endif /* INCLUDE_vTaskSuspend */
 
-
-
- {
-  vListInitialise( &xSuspendedTaskList );
- }
-
-
-
-
- pxDelayedTaskList = &xDelayedTaskList1;
- pxOverflowDelayedTaskList = &xDelayedTaskList2;
+	/* Start with pxDelayedTaskList using list1 and the pxOverflowDelayedTaskList
+	using list2. */
+	pxDelayedTaskList = &xDelayedTaskList1;
+	pxOverflowDelayedTaskList = &xDelayedTaskList2;
 }
-
+/*-----------------------------------------------------------*/
 
 static void prvCheckTasksWaitingTermination( void )
 {
 
+	/** THIS FUNCTION IS CALLED FROM THE RTOS IDLE TASK **/
 
+	#if ( INCLUDE_vTaskDelete == 1 )
+	{
+		TCB_t *pxTCB;
 
+		/* uxDeletedTasksWaitingCleanUp is used to prevent taskENTER_CRITICAL()
+		being called too often in the idle task. */
+		while( uxDeletedTasksWaitingCleanUp > ( UBaseType_t ) 0U )
+		{
+			taskENTER_CRITICAL();
+			{
+				pxTCB = listGET_OWNER_OF_HEAD_ENTRY( ( &xTasksWaitingTermination ) ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+				( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+				--uxCurrentNumberOfTasks;
+				--uxDeletedTasksWaitingCleanUp;
+			}
+			taskEXIT_CRITICAL();
 
- {
-  TCB_t *pxTCB;
-
-
-
-  while( uxDeletedTasksWaitingCleanUp > ( UBaseType_t ) 0U )
-  {
-   vPortEnterCritical();
-   {
-    pxTCB = ( (&( ( ( &xTasksWaitingTermination ) )->xListEnd ))->pxNext->pvOwner );
-    ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-    --uxCurrentNumberOfTasks;
-    --uxDeletedTasksWaitingCleanUp;
-   }
-   vPortExitCritical();
-
-   prvDeleteTCB( pxTCB );
-  }
- }
-
+			prvDeleteTCB( pxTCB );
+		}
+	}
+	#endif /* INCLUDE_vTaskDelete */
 }
-# 3739 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- static void prvDeleteTCB( TCB_t *pxTCB )
- {
+/*-----------------------------------------------------------*/
 
+#if( configUSE_TRACE_FACILITY == 1 )
 
+	void vTaskGetInfo( TaskHandle_t xTask, TaskStatus_t *pxTaskStatus, BaseType_t xGetFreeStackSpace, eTaskState eState )
+	{
+	TCB_t *pxTCB;
 
-  ( void ) pxTCB;
+		/* xTask is NULL then get the state of the calling task. */
+		pxTCB = prvGetTCBFromHandle( xTask );
 
+		pxTaskStatus->xHandle = ( TaskHandle_t ) pxTCB;
+		pxTaskStatus->pcTaskName = ( const char * ) &( pxTCB->pcTaskName [ 0 ] );
+		pxTaskStatus->uxCurrentPriority = pxTCB->uxPriority;
+		pxTaskStatus->pxStackBase = pxTCB->pxStack;
+		pxTaskStatus->xTaskNumber = pxTCB->uxTCBNumber;
 
+		#if ( configUSE_MUTEXES == 1 )
+		{
+			pxTaskStatus->uxBasePriority = pxTCB->uxBasePriority;
+		}
+		#else
+		{
+			pxTaskStatus->uxBasePriority = 0;
+		}
+		#endif
 
+		#if ( configGENERATE_RUN_TIME_STATS == 1 )
+		{
+			pxTaskStatus->ulRunTimeCounter = pxTCB->ulRunTimeCounter;
+		}
+		#else
+		{
+			pxTaskStatus->ulRunTimeCounter = 0;
+		}
+		#endif
 
-  {
-   _reclaim_reent( &( pxTCB->xNewLib_reent ) );
-  }
+		/* Obtaining the task state is a little fiddly, so is only done if the
+		value of eState passed into this function is eInvalid - otherwise the
+		state is just set to whatever is passed in. */
+		if( eState != eInvalid )
+		{
+			if( pxTCB == pxCurrentTCB )
+			{
+				pxTaskStatus->eCurrentState = eRunning;
+			}
+			else
+			{
+				pxTaskStatus->eCurrentState = eState;
 
+				#if ( INCLUDE_vTaskSuspend == 1 )
+				{
+					/* If the task is in the suspended list then there is a
+					chance it is actually just blocked indefinitely - so really
+					it should be reported as being in the Blocked state. */
+					if( eState == eSuspended )
+					{
+						vTaskSuspendAll();
+						{
+							if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
+							{
+								pxTaskStatus->eCurrentState = eBlocked;
+							}
+						}
+						( void ) xTaskResumeAll();
+					}
+				}
+				#endif /* INCLUDE_vTaskSuspend */
+			}
+		}
+		else
+		{
+			pxTaskStatus->eCurrentState = eTaskGetState( pxTCB );
+		}
 
+		/* Obtaining the stack space takes some time, so the xGetFreeStackSpace
+		parameter is provided to allow it to be skipped. */
+		if( xGetFreeStackSpace != pdFALSE )
+		{
+			#if ( portSTACK_GROWTH > 0 )
+			{
+				pxTaskStatus->usStackHighWaterMark = prvTaskCheckFreeStackSpace( ( uint8_t * ) pxTCB->pxEndOfStack );
+			}
+			#else
+			{
+				pxTaskStatus->usStackHighWaterMark = prvTaskCheckFreeStackSpace( ( uint8_t * ) pxTCB->pxStack );
+			}
+			#endif
+		}
+		else
+		{
+			pxTaskStatus->usStackHighWaterMark = 0;
+		}
+	}
 
-  {
+#endif /* configUSE_TRACE_FACILITY */
+/*-----------------------------------------------------------*/
 
+#if ( configUSE_TRACE_FACILITY == 1 )
 
-   vPortFree( pxTCB->pxStack );
-   vPortFree( pxTCB );
-  }
-# 3788 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- }
+	static UBaseType_t prvListTasksWithinSingleList( TaskStatus_t *pxTaskStatusArray, List_t *pxList, eTaskState eState )
+	{
+	configLIST_VOLATILE TCB_t *pxNextTCB, *pxFirstTCB;
+	UBaseType_t uxTask = 0;
 
+		if( listCURRENT_LIST_LENGTH( pxList ) > ( UBaseType_t ) 0 )
+		{
+			listGET_OWNER_OF_NEXT_ENTRY( pxFirstTCB, pxList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
 
+			/* Populate an TaskStatus_t structure within the
+			pxTaskStatusArray array for each task that is referenced from
+			pxList.  See the definition of TaskStatus_t in task.h for the
+			meaning of each TaskStatus_t structure member. */
+			do
+			{
+				listGET_OWNER_OF_NEXT_ENTRY( pxNextTCB, pxList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+				vTaskGetInfo( ( TaskHandle_t ) pxNextTCB, &( pxTaskStatusArray[ uxTask ] ), pdTRUE, eState );
+				uxTask++;
+			} while( pxNextTCB != pxFirstTCB );
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
 
+		return uxTask;
+	}
+
+#endif /* configUSE_TRACE_FACILITY */
+/*-----------------------------------------------------------*/
+
+#if ( ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) )
+
+	static configSTACK_DEPTH_TYPE prvTaskCheckFreeStackSpace( const uint8_t * pucStackByte )
+	{
+	uint32_t ulCount = 0U;
+
+		while( *pucStackByte == ( uint8_t ) tskSTACK_FILL_BYTE )
+		{
+			pucStackByte -= portSTACK_GROWTH;
+			ulCount++;
+		}
+
+		ulCount /= ( uint32_t ) sizeof( StackType_t ); /*lint !e961 Casting is not redundant on smaller architectures. */
+
+		return ( configSTACK_DEPTH_TYPE ) ulCount;
+	}
+
+#endif /* ( ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) ) */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_uxTaskGetStackHighWaterMark == 1 )
+
+	UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask )
+	{
+	TCB_t *pxTCB;
+	uint8_t *pucEndOfStack;
+	UBaseType_t uxReturn;
+
+		pxTCB = prvGetTCBFromHandle( xTask );
+
+		#if portSTACK_GROWTH < 0
+		{
+			pucEndOfStack = ( uint8_t * ) pxTCB->pxStack;
+		}
+		#else
+		{
+			pucEndOfStack = ( uint8_t * ) pxTCB->pxEndOfStack;
+		}
+		#endif
+
+		uxReturn = ( UBaseType_t ) prvTaskCheckFreeStackSpace( pucEndOfStack );
+
+		return uxReturn;
+	}
+
+#endif /* INCLUDE_uxTaskGetStackHighWaterMark */
+/*-----------------------------------------------------------*/
+
+#if ( INCLUDE_vTaskDelete == 1 )
+
+	static void prvDeleteTCB( TCB_t *pxTCB )
+	{
+		/* This call is required specifically for the TriCore port.  It must be
+		above the vPortFree() calls.  The call is also used by ports/demos that
+		want to allocate and clean RAM statically. */
+		portCLEAN_UP_TCB( pxTCB );
+
+		/* Free up the memory allocated by the scheduler for the task.  It is up
+		to the task to free any memory allocated at the application level. */
+		#if ( configUSE_NEWLIB_REENTRANT == 1 )
+		{
+			_reclaim_reent( &( pxTCB->xNewLib_reent ) );
+		}
+		#endif /* configUSE_NEWLIB_REENTRANT */
+
+		#if( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 0 ) && ( portUSING_MPU_WRAPPERS == 0 ) )
+		{
+			/* The task can only have been allocated dynamically - free both
+			the stack and TCB. */
+			vPortFree( pxTCB->pxStack );
+			vPortFree( pxTCB );
+		}
+		#elif( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 ) /*lint !e731 !e9029 Macro has been consolidated for readability reasons. */
+		{
+			/* The task could have been allocated statically or dynamically, so
+			check what was statically allocated before trying to free the
+			memory. */
+			if( pxTCB->ucStaticallyAllocated == tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB )
+			{
+				/* Both the stack and TCB were allocated dynamically, so both
+				must be freed. */
+				vPortFree( pxTCB->pxStack );
+				vPortFree( pxTCB );
+			}
+			else if( pxTCB->ucStaticallyAllocated == tskSTATICALLY_ALLOCATED_STACK_ONLY )
+			{
+				/* Only the stack was statically allocated, so the TCB is the
+				only memory that must be freed. */
+				vPortFree( pxTCB );
+			}
+			else
+			{
+				/* Neither the stack nor the TCB were allocated dynamically, so
+				nothing needs to be freed. */
+				configASSERT( pxTCB->ucStaticallyAllocated == tskSTATICALLY_ALLOCATED_STACK_AND_TCB	);
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		#endif /* configSUPPORT_DYNAMIC_ALLOCATION */
+	}
+
+#endif /* INCLUDE_vTaskDelete */
+/*-----------------------------------------------------------*/
 
 static void prvResetNextTaskUnblockTime( void )
 {
 TCB_t *pxTCB;
 
- if( ( ( ( pxDelayedTaskList )->uxNumberOfItems == ( UBaseType_t ) 0 ) ? ( ( BaseType_t ) 1 ) : ( ( BaseType_t ) 0 ) ) != ( ( BaseType_t ) 0 ) )
- {
-
-
-
-
-  xNextTaskUnblockTime = ( TickType_t ) 0xffffffffUL;
- }
- else
- {
-
-
-
-
-  ( pxTCB ) = ( (&( ( pxDelayedTaskList )->xListEnd ))->pxNext->pvOwner );
-  xNextTaskUnblockTime = ( ( &( ( pxTCB )->xStateListItem ) )->xItemValue );
- }
+	if( listLIST_IS_EMPTY( pxDelayedTaskList ) != pdFALSE )
+	{
+		/* The new current delayed list is empty.  Set xNextTaskUnblockTime to
+		the maximum possible value so it is	extremely unlikely that the
+		if( xTickCount >= xNextTaskUnblockTime ) test will pass until
+		there is an item in the delayed list. */
+		xNextTaskUnblockTime = portMAX_DELAY;
+	}
+	else
+	{
+		/* The new current delayed list is not empty, get the value of
+		the item at the head of the delayed list.  This is the time at
+		which the task at the head of the delayed list should be removed
+		from the Blocked state. */
+		( pxTCB ) = listGET_OWNER_OF_HEAD_ENTRY( pxDelayedTaskList ); /*lint !e9079 void * is used as this macro is used with timers and co-routines too.  Alignment is known to be fine as the type of the pointer stored and retrieved is the same. */
+		xNextTaskUnblockTime = listGET_LIST_ITEM_VALUE( &( ( pxTCB )->xStateListItem ) );
+	}
 }
+/*-----------------------------------------------------------*/
+
+#if ( ( INCLUDE_xTaskGetCurrentTaskHandle == 1 ) || ( configUSE_MUTEXES == 1 ) )
+
+	TaskHandle_t xTaskGetCurrentTaskHandle( void )
+	{
+	TaskHandle_t xReturn;
+
+		/* A critical section is not required as this is not called from
+		an interrupt and the current TCB will always be the same for any
+		individual execution thread. */
+		xReturn = pxCurrentTCB;
+
+		return xReturn;
+	}
+
+#endif /* ( ( INCLUDE_xTaskGetCurrentTaskHandle == 1 ) || ( configUSE_MUTEXES == 1 ) ) */
+/*-----------------------------------------------------------*/
+
+#if ( ( INCLUDE_xTaskGetSchedulerState == 1 ) || ( configUSE_TIMERS == 1 ) )
+
+	BaseType_t xTaskGetSchedulerState( void )
+	{
+	BaseType_t xReturn;
+
+		if( xSchedulerRunning == pdFALSE )
+		{
+			xReturn = taskSCHEDULER_NOT_STARTED;
+		}
+		else
+		{
+			if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+			{
+				xReturn = taskSCHEDULER_RUNNING;
+			}
+			else
+			{
+				xReturn = taskSCHEDULER_SUSPENDED;
+			}
+		}
+
+		return xReturn;
+	}
+
+#endif /* ( ( INCLUDE_xTaskGetSchedulerState == 1 ) || ( configUSE_TIMERS == 1 ) ) */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_MUTEXES == 1 )
+
+	BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder )
+	{
+	TCB_t * const pxMutexHolderTCB = pxMutexHolder;
+	BaseType_t xReturn = pdFALSE;
+
+		/* If the mutex was given back by an interrupt while the queue was
+		locked then the mutex holder might now be NULL.  _RB_ Is this still
+		needed as interrupts can no longer use mutexes? */
+		if( pxMutexHolder != NULL )
+		{
+			/* If the holder of the mutex has a priority below the priority of
+			the task attempting to obtain the mutex then it will temporarily
+			inherit the priority of the task attempting to obtain the mutex. */
+			if( pxMutexHolderTCB->uxPriority < pxCurrentTCB->uxPriority )
+			{
+				/* Adjust the mutex holder state to account for its new
+				priority.  Only reset the event list item value if the value is
+				not being used for anything else. */
+				if( ( listGET_LIST_ITEM_VALUE( &( pxMutexHolderTCB->xEventListItem ) ) & taskEVENT_LIST_ITEM_VALUE_IN_USE ) == 0UL )
+				{
+					listSET_LIST_ITEM_VALUE( &( pxMutexHolderTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) pxCurrentTCB->uxPriority ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+
+				/* If the task being modified is in the ready state it will need
+				to be moved into a new list. */
+				if( listIS_CONTAINED_WITHIN( &( pxReadyTasksLists[ pxMutexHolderTCB->uxPriority ] ), &( pxMutexHolderTCB->xStateListItem ) ) != pdFALSE )
+				{
+					if( uxListRemove( &( pxMutexHolderTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+					{
+						taskRESET_READY_PRIORITY( pxMutexHolderTCB->uxPriority );
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					/* Inherit the priority before being moved into the new list. */
+					pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
+					prvAddTaskToReadyList( pxMutexHolderTCB );
+				}
+				else
+				{
+					/* Just inherit the priority. */
+					pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
+				}
+
+				traceTASK_PRIORITY_INHERIT( pxMutexHolderTCB, pxCurrentTCB->uxPriority );
+
+				/* Inheritance occurred. */
+				xReturn = pdTRUE;
+			}
+			else
+			{
+				if( pxMutexHolderTCB->uxBasePriority < pxCurrentTCB->uxPriority )
+				{
+					/* The base priority of the mutex holder is lower than the
+					priority of the task attempting to take the mutex, but the
+					current priority of the mutex holder is not lower than the
+					priority of the task attempting to take the mutex.
+					Therefore the mutex holder must have already inherited a
+					priority, but inheritance would have occurred if that had
+					not been the case. */
+					xReturn = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		return xReturn;
+	}
+
+#endif /* configUSE_MUTEXES */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_MUTEXES == 1 )
+
+	BaseType_t xTaskPriorityDisinherit( TaskHandle_t const pxMutexHolder )
+	{
+	TCB_t * const pxTCB = pxMutexHolder;
+	BaseType_t xReturn = pdFALSE;
+
+		if( pxMutexHolder != NULL )
+		{
+			/* A task can only have an inherited priority if it holds the mutex.
+			If the mutex is held by a task then it cannot be given from an
+			interrupt, and if a mutex is given by the holding task then it must
+			be the running state task. */
+			configASSERT( pxTCB == pxCurrentTCB );
+			configASSERT( pxTCB->uxMutexesHeld );
+			( pxTCB->uxMutexesHeld )--;
+
+			/* Has the holder of the mutex inherited the priority of another
+			task? */
+			if( pxTCB->uxPriority != pxTCB->uxBasePriority )
+			{
+				/* Only disinherit if no other mutexes are held. */
+				if( pxTCB->uxMutexesHeld == ( UBaseType_t ) 0 )
+				{
+					/* A task can only have an inherited priority if it holds
+					the mutex.  If the mutex is held by a task then it cannot be
+					given from an interrupt, and if a mutex is given by the
+					holding task then it must be the running state task.  Remove
+					the holding task from the ready list. */
+					if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+					{
+						taskRESET_READY_PRIORITY( pxTCB->uxPriority );
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					/* Disinherit the priority before adding the task into the
+					new	ready list. */
+					traceTASK_PRIORITY_DISINHERIT( pxTCB, pxTCB->uxBasePriority );
+					pxTCB->uxPriority = pxTCB->uxBasePriority;
+
+					/* Reset the event list item value.  It cannot be in use for
+					any other purpose if this task is running, and it must be
+					running to give back the mutex. */
+					listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) pxTCB->uxPriority ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+					prvAddTaskToReadyList( pxTCB );
+
+					/* Return true to indicate that a context switch is required.
+					This is only actually required in the corner case whereby
+					multiple mutexes were held and the mutexes were given back
+					in an order different to that in which they were taken.
+					If a context switch did not occur when the first mutex was
+					returned, even if a task was waiting on it, then a context
+					switch should occur when the last mutex is returned whether
+					a task is waiting on it or not. */
+					xReturn = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+
+		return xReturn;
+	}
+
+#endif /* configUSE_MUTEXES */
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_MUTEXES == 1 )
+
+	void vTaskPriorityDisinheritAfterTimeout( TaskHandle_t const pxMutexHolder, UBaseType_t uxHighestPriorityWaitingTask )
+	{
+	TCB_t * const pxTCB = pxMutexHolder;
+	UBaseType_t uxPriorityUsedOnEntry, uxPriorityToUse;
+	const UBaseType_t uxOnlyOneMutexHeld = ( UBaseType_t ) 1;
+
+		if( pxMutexHolder != NULL )
+		{
+			/* If pxMutexHolder is not NULL then the holder must hold at least
+			one mutex. */
+			configASSERT( pxTCB->uxMutexesHeld );
+
+			/* Determine the priority to which the priority of the task that
+			holds the mutex should be set.  This will be the greater of the
+			holding task's base priority and the priority of the highest
+			priority task that is waiting to obtain the mutex. */
+			if( pxTCB->uxBasePriority < uxHighestPriorityWaitingTask )
+			{
+				uxPriorityToUse = uxHighestPriorityWaitingTask;
+			}
+			else
+			{
+				uxPriorityToUse = pxTCB->uxBasePriority;
+			}
+
+			/* Does the priority need to change? */
+			if( pxTCB->uxPriority != uxPriorityToUse )
+			{
+				/* Only disinherit if no other mutexes are held.  This is a
+				simplification in the priority inheritance implementation.  If
+				the task that holds the mutex is also holding other mutexes then
+				the other mutexes may have caused the priority inheritance. */
+				if( pxTCB->uxMutexesHeld == uxOnlyOneMutexHeld )
+				{
+					/* If a task has timed out because it already holds the
+					mutex it was trying to obtain then it cannot of inherited
+					its own priority. */
+					configASSERT( pxTCB != pxCurrentTCB );
+
+					/* Disinherit the priority, remembering the previous
+					priority to facilitate determining the subject task's
+					state. */
+					traceTASK_PRIORITY_DISINHERIT( pxTCB, pxTCB->uxBasePriority );
+					uxPriorityUsedOnEntry = pxTCB->uxPriority;
+					pxTCB->uxPriority = uxPriorityToUse;
+
+					/* Only reset the event list item value if the value is not
+					being used for anything else. */
+					if( ( listGET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ) ) & taskEVENT_LIST_ITEM_VALUE_IN_USE ) == 0UL )
+					{
+						listSET_LIST_ITEM_VALUE( &( pxTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxPriorityToUse ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+
+					/* If the running task is not the task that holds the mutex
+					then the task that holds the mutex could be in either the
+					Ready, Blocked or Suspended states.  Only remove the task
+					from its current state list if it is in the Ready state as
+					the task's priority is going to change and there is one
+					Ready list per priority. */
+					if( listIS_CONTAINED_WITHIN( &( pxReadyTasksLists[ uxPriorityUsedOnEntry ] ), &( pxTCB->xStateListItem ) ) != pdFALSE )
+					{
+						if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+						{
+							taskRESET_READY_PRIORITY( pxTCB->uxPriority );
+						}
+						else
+						{
+							mtCOVERAGE_TEST_MARKER();
+						}
+
+						prvAddTaskToReadyList( pxTCB );
+					}
+					else
+					{
+						mtCOVERAGE_TEST_MARKER();
+					}
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* configUSE_MUTEXES */
+/*-----------------------------------------------------------*/
+
+#if ( portCRITICAL_NESTING_IN_TCB == 1 )
+
+	void vTaskEnterCritical( void )
+	{
+		portDISABLE_INTERRUPTS();
+
+		if( xSchedulerRunning != pdFALSE )
+		{
+			( pxCurrentTCB->uxCriticalNesting )++;
+
+			/* This is not the interrupt safe version of the enter critical
+			function so	assert() if it is being called from an interrupt
+			context.  Only API functions that end in "FromISR" can be used in an
+			interrupt.  Only assert if the critical nesting count is 1 to
+			protect against recursive calls if the assert function also uses a
+			critical section. */
+			if( pxCurrentTCB->uxCriticalNesting == 1 )
+			{
+				portASSERT_IF_IN_ISR();
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* portCRITICAL_NESTING_IN_TCB */
+/*-----------------------------------------------------------*/
+
+#if ( portCRITICAL_NESTING_IN_TCB == 1 )
+
+	void vTaskExitCritical( void )
+	{
+		if( xSchedulerRunning != pdFALSE )
+		{
+			if( pxCurrentTCB->uxCriticalNesting > 0U )
+			{
+				( pxCurrentTCB->uxCriticalNesting )--;
+
+				if( pxCurrentTCB->uxCriticalNesting == 0U )
+				{
+					portENABLE_INTERRUPTS();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* portCRITICAL_NESTING_IN_TCB */
+/*-----------------------------------------------------------*/
+
+#if ( ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) )
+
+	static char *prvWriteNameToBuffer( char *pcBuffer, const char *pcTaskName )
+	{
+	size_t x;
+
+		/* Start by copying the entire string. */
+		strcpy( pcBuffer, pcTaskName );
+
+		/* Pad the end of the string with spaces to ensure columns line up when
+		printed out. */
+		for( x = strlen( pcBuffer ); x < ( size_t ) ( configMAX_TASK_NAME_LEN - 1 ); x++ )
+		{
+			pcBuffer[ x ] = ' ';
+		}
+
+		/* Terminate. */
+		pcBuffer[ x ] = ( char ) 0x00;
+
+		/* Return the new end of string. */
+		return &( pcBuffer[ x ] );
+	}
+
+#endif /* ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) */
+/*-----------------------------------------------------------*/
+
+#if ( ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+
+	void vTaskList( char * pcWriteBuffer )
+	{
+	TaskStatus_t *pxTaskStatusArray;
+	UBaseType_t uxArraySize, x;
+	char cStatus;
+
+		/*
+		 * PLEASE NOTE:
+		 *
+		 * This function is provided for convenience only, and is used by many
+		 * of the demo applications.  Do not consider it to be part of the
+		 * scheduler.
+		 *
+		 * vTaskList() calls uxTaskGetSystemState(), then formats part of the
+		 * uxTaskGetSystemState() output into a human readable table that
+		 * displays task names, states and stack usage.
+		 *
+		 * vTaskList() has a dependency on the sprintf() C library function that
+		 * might bloat the code size, use a lot of stack, and provide different
+		 * results on different platforms.  An alternative, tiny, third party,
+		 * and limited functionality implementation of sprintf() is provided in
+		 * many of the FreeRTOS/Demo sub-directories in a file called
+		 * printf-stdarg.c (note printf-stdarg.c does not provide a full
+		 * snprintf() implementation!).
+		 *
+		 * It is recommended that production systems call uxTaskGetSystemState()
+		 * directly to get access to raw stats data, rather than indirectly
+		 * through a call to vTaskList().
+		 */
+
+
+		/* Make sure the write buffer does not contain a string. */
+		*pcWriteBuffer = ( char ) 0x00;
+
+		/* Take a snapshot of the number of tasks in case it changes while this
+		function is executing. */
+		uxArraySize = uxCurrentNumberOfTasks;
+
+		/* Allocate an array index for each task.  NOTE!  if
+		configSUPPORT_DYNAMIC_ALLOCATION is set to 0 then pvPortMalloc() will
+		equate to NULL. */
+		pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation allocates a struct that has the alignment requirements of a pointer. */
+
+		if( pxTaskStatusArray != NULL )
+		{
+			/* Generate the (binary) data. */
+			uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, NULL );
+
+			/* Create a human readable table from the binary data. */
+			for( x = 0; x < uxArraySize; x++ )
+			{
+				switch( pxTaskStatusArray[ x ].eCurrentState )
+				{
+					case eRunning:		cStatus = tskRUNNING_CHAR;
+										break;
+
+					case eReady:		cStatus = tskREADY_CHAR;
+										break;
+
+					case eBlocked:		cStatus = tskBLOCKED_CHAR;
+										break;
+
+					case eSuspended:	cStatus = tskSUSPENDED_CHAR;
+										break;
+
+					case eDeleted:		cStatus = tskDELETED_CHAR;
+										break;
+
+					case eInvalid:		/* Fall through. */
+					default:			/* Should not get here, but it is included
+										to prevent static checking errors. */
+										cStatus = ( char ) 0x00;
+										break;
+				}
+
+				/* Write the task name to the string, padding with spaces so it
+				can be printed in tabular form more easily. */
+				pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
+
+				/* Write the rest of the string. */
+				sprintf( pcWriteBuffer, "\t%c\t%u\t%u\t%u\r\n", cStatus, ( unsigned int ) pxTaskStatusArray[ x ].uxCurrentPriority, ( unsigned int ) pxTaskStatusArray[ x ].usStackHighWaterMark, ( unsigned int ) pxTaskStatusArray[ x ].xTaskNumber ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+				pcWriteBuffer += strlen( pcWriteBuffer ); /*lint !e9016 Pointer arithmetic ok on char pointers especially as in this case where it best denotes the intent of the code. */
+			}
+
+			/* Free the array again.  NOTE!  If configSUPPORT_DYNAMIC_ALLOCATION
+			is 0 then vPortFree() will be #defined to nothing. */
+			vPortFree( pxTaskStatusArray );
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* ( ( configUSE_TRACE_FACILITY == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
+/*----------------------------------------------------------*/
+
+#if ( ( configGENERATE_RUN_TIME_STATS == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+
+	void vTaskGetRunTimeStats( char *pcWriteBuffer )
+	{
+	TaskStatus_t *pxTaskStatusArray;
+	UBaseType_t uxArraySize, x;
+	uint32_t ulTotalTime, ulStatsAsPercentage;
+
+		#if( configUSE_TRACE_FACILITY != 1 )
+		{
+			#error configUSE_TRACE_FACILITY must also be set to 1 in FreeRTOSConfig.h to use vTaskGetRunTimeStats().
+		}
+		#endif
+
+		/*
+		 * PLEASE NOTE:
+		 *
+		 * This function is provided for convenience only, and is used by many
+		 * of the demo applications.  Do not consider it to be part of the
+		 * scheduler.
+		 *
+		 * vTaskGetRunTimeStats() calls uxTaskGetSystemState(), then formats part
+		 * of the uxTaskGetSystemState() output into a human readable table that
+		 * displays the amount of time each task has spent in the Running state
+		 * in both absolute and percentage terms.
+		 *
+		 * vTaskGetRunTimeStats() has a dependency on the sprintf() C library
+		 * function that might bloat the code size, use a lot of stack, and
+		 * provide different results on different platforms.  An alternative,
+		 * tiny, third party, and limited functionality implementation of
+		 * sprintf() is provided in many of the FreeRTOS/Demo sub-directories in
+		 * a file called printf-stdarg.c (note printf-stdarg.c does not provide
+		 * a full snprintf() implementation!).
+		 *
+		 * It is recommended that production systems call uxTaskGetSystemState()
+		 * directly to get access to raw stats data, rather than indirectly
+		 * through a call to vTaskGetRunTimeStats().
+		 */
+
+		/* Make sure the write buffer does not contain a string. */
+		*pcWriteBuffer = ( char ) 0x00;
+
+		/* Take a snapshot of the number of tasks in case it changes while this
+		function is executing. */
+		uxArraySize = uxCurrentNumberOfTasks;
+
+		/* Allocate an array index for each task.  NOTE!  If
+		configSUPPORT_DYNAMIC_ALLOCATION is set to 0 then pvPortMalloc() will
+		equate to NULL. */
+		pxTaskStatusArray = pvPortMalloc( uxCurrentNumberOfTasks * sizeof( TaskStatus_t ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation allocates a struct that has the alignment requirements of a pointer. */
+
+		if( pxTaskStatusArray != NULL )
+		{
+			/* Generate the (binary) data. */
+			uxArraySize = uxTaskGetSystemState( pxTaskStatusArray, uxArraySize, &ulTotalTime );
+
+			/* For percentage calculations. */
+			ulTotalTime /= 100UL;
+
+			/* Avoid divide by zero errors. */
+			if( ulTotalTime > 0UL )
+			{
+				/* Create a human readable table from the binary data. */
+				for( x = 0; x < uxArraySize; x++ )
+				{
+					/* What percentage of the total run time has the task used?
+					This will always be rounded down to the nearest integer.
+					ulTotalRunTimeDiv100 has already been divided by 100. */
+					ulStatsAsPercentage = pxTaskStatusArray[ x ].ulRunTimeCounter / ulTotalTime;
+
+					/* Write the task name to the string, padding with
+					spaces so it can be printed in tabular form more
+					easily. */
+					pcWriteBuffer = prvWriteNameToBuffer( pcWriteBuffer, pxTaskStatusArray[ x ].pcTaskName );
+
+					if( ulStatsAsPercentage > 0UL )
+					{
+						#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
+						{
+							sprintf( pcWriteBuffer, "\t%lu\t\t%lu%%\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter, ulStatsAsPercentage );
+						}
+						#else
+						{
+							/* sizeof( int ) == sizeof( long ) so a smaller
+							printf() library can be used. */
+							sprintf( pcWriteBuffer, "\t%u\t\t%u%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter, ( unsigned int ) ulStatsAsPercentage ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+						}
+						#endif
+					}
+					else
+					{
+						/* If the percentage is zero here then the task has
+						consumed less than 1% of the total run time. */
+						#ifdef portLU_PRINTF_SPECIFIER_REQUIRED
+						{
+							sprintf( pcWriteBuffer, "\t%lu\t\t<1%%\r\n", pxTaskStatusArray[ x ].ulRunTimeCounter );
+						}
+						#else
+						{
+							/* sizeof( int ) == sizeof( long ) so a smaller
+							printf() library can be used. */
+							sprintf( pcWriteBuffer, "\t%u\t\t<1%%\r\n", ( unsigned int ) pxTaskStatusArray[ x ].ulRunTimeCounter ); /*lint !e586 sprintf() allowed as this is compiled with many compilers and this is a utility function only - not part of the core kernel implementation. */
+						}
+						#endif
+					}
+
+					pcWriteBuffer += strlen( pcWriteBuffer ); /*lint !e9016 Pointer arithmetic ok on char pointers especially as in this case where it best denotes the intent of the code. */
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			/* Free the array again.  NOTE!  If configSUPPORT_DYNAMIC_ALLOCATION
+			is 0 then vPortFree() will be #defined to nothing. */
+			vPortFree( pxTaskStatusArray );
+		}
+		else
+		{
+			mtCOVERAGE_TEST_MARKER();
+		}
+	}
+
+#endif /* ( ( configGENERATE_RUN_TIME_STATS == 1 ) && ( configUSE_STATS_FORMATTING_FUNCTIONS > 0 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) ) */
+/*-----------------------------------------------------------*/
 
-
-
-
- TaskHandle_t xTaskGetCurrentTaskHandle( void )
- {
- TaskHandle_t xReturn;
-
-
-
-
-  xReturn = pxCurrentTCB;
-
-  return xReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskGetSchedulerState( void )
- {
- BaseType_t xReturn;
-
-  if( xSchedulerRunning == ( ( BaseType_t ) 0 ) )
-  {
-   xReturn = ( ( BaseType_t ) 1 );
-  }
-  else
-  {
-   if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
-   {
-    xReturn = ( ( BaseType_t ) 2 );
-   }
-   else
-   {
-    xReturn = ( ( BaseType_t ) 0 );
-   }
-  }
-
-  return xReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskPriorityInherit( TaskHandle_t const pxMutexHolder )
- {
- TCB_t * const pxMutexHolderTCB = pxMutexHolder;
- BaseType_t xReturn = ( ( BaseType_t ) 0 );
-
-
-
-
-  if( pxMutexHolder != 
-# 3872 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                      ((void *)0) 
-# 3872 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                           )
-  {
-
-
-
-   if( pxMutexHolderTCB->uxPriority < pxCurrentTCB->uxPriority )
-   {
-
-
-
-    if( ( ( ( &( pxMutexHolderTCB->xEventListItem ) )->xItemValue ) & 0x80000000UL ) == 0UL )
-    {
-     ( ( &( pxMutexHolderTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) 5 - ( TickType_t ) pxCurrentTCB->uxPriority ) );
-    }
-    else
-    {
-     ;
-    }
-
-
-
-    if( ( ( ( &( pxMutexHolderTCB->xStateListItem ) )->pxContainer == ( &( pxReadyTasksLists[ pxMutexHolderTCB->uxPriority ] ) ) ) ? ( ( ( BaseType_t ) 1 ) ) : ( ( ( BaseType_t ) 0 ) ) ) != ( ( BaseType_t ) 0 ) )
-    {
-     if( uxListRemove( &( pxMutexHolderTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
-     {
-      ;
-     }
-     else
-     {
-      ;
-     }
-
-
-     pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
-     ; { if( ( ( pxMutexHolderTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxMutexHolderTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxMutexHolderTCB )->uxPriority ] ), &( ( pxMutexHolderTCB )->xStateListItem ) ); ;
-    }
-    else
-    {
-
-     pxMutexHolderTCB->uxPriority = pxCurrentTCB->uxPriority;
-    }
-
-    ;
-
-
-    xReturn = ( ( BaseType_t ) 1 );
-   }
-   else
-   {
-    if( pxMutexHolderTCB->uxBasePriority < pxCurrentTCB->uxPriority )
-    {
-
-
-
-
-
-
-
-     xReturn = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-  }
-  else
-  {
-   ;
-  }
-
-  return xReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskPriorityDisinherit( TaskHandle_t const pxMutexHolder )
- {
- TCB_t * const pxTCB = pxMutexHolder;
- BaseType_t xReturn = ( ( BaseType_t ) 0 );
-
-  if( pxMutexHolder != 
-# 3956 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                      ((void *)0) 
-# 3956 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                           )
-  {
-
-
-
-
-   if (( pxTCB == pxCurrentTCB ) == 0) while(1);;
-   if (( pxTCB->uxMutexesHeld ) == 0) while(1);;
-   ( pxTCB->uxMutexesHeld )--;
-
-
-
-   if( pxTCB->uxPriority != pxTCB->uxBasePriority )
-   {
-
-    if( pxTCB->uxMutexesHeld == ( UBaseType_t ) 0 )
-    {
-
-
-
-
-
-     if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
-     {
-      ;
-     }
-     else
-     {
-      ;
-     }
-
-
-
-     ;
-     pxTCB->uxPriority = pxTCB->uxBasePriority;
-
-
-
-
-     ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) 5 - ( TickType_t ) pxTCB->uxPriority ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-# 4006 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-     xReturn = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  else
-  {
-   ;
-  }
-
-  return xReturn;
- }
-
-
-
-
-
-
- void vTaskPriorityDisinheritAfterTimeout( TaskHandle_t const pxMutexHolder, UBaseType_t uxHighestPriorityWaitingTask )
- {
- TCB_t * const pxTCB = pxMutexHolder;
- UBaseType_t uxPriorityUsedOnEntry, uxPriorityToUse;
- const UBaseType_t uxOnlyOneMutexHeld = ( UBaseType_t ) 1;
-
-  if( pxMutexHolder != 
-# 4037 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                      ((void *)0) 
-# 4037 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                           )
-  {
-
-
-   if (( pxTCB->uxMutexesHeld ) == 0) while(1);;
-
-
-
-
-
-   if( pxTCB->uxBasePriority < uxHighestPriorityWaitingTask )
-   {
-    uxPriorityToUse = uxHighestPriorityWaitingTask;
-   }
-   else
-   {
-    uxPriorityToUse = pxTCB->uxBasePriority;
-   }
-
-
-   if( pxTCB->uxPriority != uxPriorityToUse )
-   {
-
-
-
-
-    if( pxTCB->uxMutexesHeld == uxOnlyOneMutexHeld )
-    {
-
-
-
-     if (( pxTCB != pxCurrentTCB ) == 0) while(1);;
-
-
-
-
-     ;
-     uxPriorityUsedOnEntry = pxTCB->uxPriority;
-     pxTCB->uxPriority = uxPriorityToUse;
-
-
-
-     if( ( ( ( &( pxTCB->xEventListItem ) )->xItemValue ) & 0x80000000UL ) == 0UL )
-     {
-      ( ( &( pxTCB->xEventListItem ) )->xItemValue = ( ( TickType_t ) 5 - ( TickType_t ) uxPriorityToUse ) );
-     }
-     else
-     {
-      ;
-     }
-
-
-
-
-
-
-
-     if( ( ( ( &( pxTCB->xStateListItem ) )->pxContainer == ( &( pxReadyTasksLists[ uxPriorityUsedOnEntry ] ) ) ) ? ( ( ( BaseType_t ) 1 ) ) : ( ( ( BaseType_t ) 0 ) ) ) != ( ( BaseType_t ) 0 ) )
-     {
-      if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
-      {
-       ;
-      }
-      else
-      {
-       ;
-      }
-
-      ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-     }
-     else
-     {
-      ;
-     }
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  else
-  {
-   ;
-  }
- }
-# 4446 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
 TickType_t uxTaskResetEventItemValue( void )
 {
 TickType_t uxReturn;
 
- uxReturn = ( ( &( pxCurrentTCB->xEventListItem ) )->xItemValue );
+	uxReturn = listGET_LIST_ITEM_VALUE( &( pxCurrentTCB->xEventListItem ) );
 
+	/* Reset the event list item to its normal value - so it can be used with
+	queues and semaphores. */
+	listSET_LIST_ITEM_VALUE( &( pxCurrentTCB->xEventListItem ), ( ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) pxCurrentTCB->uxPriority ) ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
 
-
- ( ( &( pxCurrentTCB->xEventListItem ) )->xItemValue = ( ( ( TickType_t ) 5 - ( TickType_t ) pxCurrentTCB->uxPriority ) ) );
-
- return uxReturn;
+	return uxReturn;
 }
-
-
-
-
- TaskHandle_t pvTaskIncrementMutexHeldCount( void )
- {
-
-
-  if( pxCurrentTCB != 
-# 4466 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                     ((void *)0) 
-# 4466 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                          )
-  {
-   ( pxCurrentTCB->uxMutexesHeld )++;
-  }
-
-  return pxCurrentTCB;
- }
-
-
-
-
-
-
- uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait )
- {
- uint32_t ulReturn;
-
-  vPortEnterCritical();
-  {
-
-   if( pxCurrentTCB->ulNotifiedValue == 0UL )
-   {
-
-    pxCurrentTCB->ucNotifyState = ( ( uint8_t ) 1 );
-
-    if( xTicksToWait > ( TickType_t ) 0 )
-    {
-     prvAddCurrentTaskToDelayedList( xTicksToWait, ( ( BaseType_t ) 1 ) );
-     ;
-
-
-
-
-
-     { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  vPortExitCritical();
-
-  vPortEnterCritical();
-  {
-   ;
-   ulReturn = pxCurrentTCB->ulNotifiedValue;
-
-   if( ulReturn != 0UL )
-   {
-    if( xClearCountOnExit != ( ( BaseType_t ) 0 ) )
-    {
-     pxCurrentTCB->ulNotifiedValue = 0UL;
-    }
-    else
-    {
-     pxCurrentTCB->ulNotifiedValue = ulReturn - ( uint32_t ) 1;
-    }
-   }
-   else
-   {
-    ;
-   }
-
-   pxCurrentTCB->ucNotifyState = ( ( uint8_t ) 0 );
-  }
-  vPortExitCritical();
-
-  return ulReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait )
- {
- BaseType_t xReturn;
-
-  vPortEnterCritical();
-  {
-
-   if( pxCurrentTCB->ucNotifyState != ( ( uint8_t ) 2 ) )
-   {
-
-
-
-    pxCurrentTCB->ulNotifiedValue &= ~ulBitsToClearOnEntry;
-
-
-    pxCurrentTCB->ucNotifyState = ( ( uint8_t ) 1 );
-
-    if( xTicksToWait > ( TickType_t ) 0 )
-    {
-     prvAddCurrentTaskToDelayedList( xTicksToWait, ( ( BaseType_t ) 1 ) );
-     ;
-
-
-
-
-
-     { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  vPortExitCritical();
-
-  vPortEnterCritical();
-  {
-   ;
-
-   if( pulNotificationValue != 
-# 4591 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                              ((void *)0) 
-# 4591 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                   )
-   {
-
-
-    *pulNotificationValue = pxCurrentTCB->ulNotifiedValue;
-   }
-
-
-
-
-
-   if( pxCurrentTCB->ucNotifyState != ( ( uint8_t ) 2 ) )
-   {
-
-    xReturn = ( ( BaseType_t ) 0 );
-   }
-   else
-   {
-
-
-    pxCurrentTCB->ulNotifiedValue &= ~ulBitsToClearOnExit;
-    xReturn = ( ( BaseType_t ) 1 );
-   }
-
-   pxCurrentTCB->ucNotifyState = ( ( uint8_t ) 0 );
-  }
-  vPortExitCritical();
-
-  return xReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue )
- {
- TCB_t * pxTCB;
- BaseType_t xReturn = ( ( ( BaseType_t ) 1 ) );
- uint8_t ucOriginalNotifyState;
-
-  if (( xTaskToNotify ) == 0) while(1);;
-  pxTCB = xTaskToNotify;
-
-  vPortEnterCritical();
-  {
-   if( pulPreviousNotificationValue != 
-# 4638 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                      ((void *)0) 
-# 4638 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                           )
-   {
-    *pulPreviousNotificationValue = pxTCB->ulNotifiedValue;
-   }
-
-   ucOriginalNotifyState = pxTCB->ucNotifyState;
-
-   pxTCB->ucNotifyState = ( ( uint8_t ) 2 );
-
-   switch( eAction )
-   {
-    case eSetBits :
-     pxTCB->ulNotifiedValue |= ulValue;
-     break;
-
-    case eIncrement :
-     ( pxTCB->ulNotifiedValue )++;
-     break;
-
-    case eSetValueWithOverwrite :
-     pxTCB->ulNotifiedValue = ulValue;
-     break;
-
-    case eSetValueWithoutOverwrite :
-     if( ucOriginalNotifyState != ( ( uint8_t ) 2 ) )
-     {
-      pxTCB->ulNotifiedValue = ulValue;
-     }
-     else
-     {
-
-      xReturn = ( ( ( BaseType_t ) 0 ) );
-     }
-     break;
-
-    case eNoAction:
-
-
-     break;
-
-    default:
-
-
-
-     if (( pxTCB->ulNotifiedValue == ~0UL ) == 0) while(1);;
-
-     break;
-   }
-
-   ;
-
-
-
-   if( ucOriginalNotifyState == ( ( uint8_t ) 1 ) )
-   {
-    ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-    ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-
-
-    if (( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) == 
-# 4697 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-   ((void *)0) 
-# 4697 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   ) == 0) while(1);;
-
-
-    {
-# 4711 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-     prvResetNextTaskUnblockTime();
-    }
-
-
-    if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
-    {
-
-
-     { ( * ( ( volatile uint32_t * ) 0xe000ed04 ) ) = ( 1UL << 28UL ); __asm volatile( "dsb" ::: "memory" ); __asm volatile( "isb" ); };
-    }
-    else
-    {
-     ;
-    }
-   }
-   else
-   {
-    ;
-   }
-  }
-  vPortExitCritical();
-
-  return xReturn;
- }
-
-
-
-
-
-
- BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue, BaseType_t *pxHigherPriorityTaskWoken )
- {
- TCB_t * pxTCB;
- uint8_t ucOriginalNotifyState;
- BaseType_t xReturn = ( ( ( BaseType_t ) 1 ) );
- UBaseType_t uxSavedInterruptStatus;
-
-  if (( xTaskToNotify ) == 0) while(1);;
-# 4766 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  vPortValidateInterruptPriority();
-
-  pxTCB = xTaskToNotify;
-
-  uxSavedInterruptStatus = ulPortRaiseBASEPRI();
-  {
-   if( pulPreviousNotificationValue != 
-# 4772 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                      ((void *)0) 
-# 4772 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                           )
-   {
-    *pulPreviousNotificationValue = pxTCB->ulNotifiedValue;
-   }
-
-   ucOriginalNotifyState = pxTCB->ucNotifyState;
-   pxTCB->ucNotifyState = ( ( uint8_t ) 2 );
-
-   switch( eAction )
-   {
-    case eSetBits :
-     pxTCB->ulNotifiedValue |= ulValue;
-     break;
-
-    case eIncrement :
-     ( pxTCB->ulNotifiedValue )++;
-     break;
-
-    case eSetValueWithOverwrite :
-     pxTCB->ulNotifiedValue = ulValue;
-     break;
-
-    case eSetValueWithoutOverwrite :
-     if( ucOriginalNotifyState != ( ( uint8_t ) 2 ) )
-     {
-      pxTCB->ulNotifiedValue = ulValue;
-     }
-     else
-     {
-
-      xReturn = ( ( ( BaseType_t ) 0 ) );
-     }
-     break;
-
-    case eNoAction :
-
-
-     break;
-
-    default:
-
-
-
-     if (( pxTCB->ulNotifiedValue == ~0UL ) == 0) while(1);;
-     break;
-   }
-
-   ;
-
-
-
-   if( ucOriginalNotifyState == ( ( uint8_t ) 1 ) )
-   {
-
-    if (( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) == 
-# 4826 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-   ((void *)0) 
-# 4826 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   ) == 0) while(1);;
-
-    if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
-    {
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-    }
-    else
-    {
-
-
-     vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
-    }
-
-    if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
-    {
-
-
-     if( pxHigherPriorityTaskWoken != 
-# 4844 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                     ((void *)0) 
-# 4844 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                          )
-     {
-      *pxHigherPriorityTaskWoken = ( ( BaseType_t ) 1 );
-     }
-
-
-
-
-     xYieldPending = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-  }
-  vPortSetBASEPRI(uxSavedInterruptStatus);
-
-  return xReturn;
- }
-
-
-
-
-
-
- void vTaskNotifyGiveFromISR( TaskHandle_t xTaskToNotify, BaseType_t *pxHigherPriorityTaskWoken )
- {
- TCB_t * pxTCB;
- uint8_t ucOriginalNotifyState;
- UBaseType_t uxSavedInterruptStatus;
-
-  if (( xTaskToNotify ) == 0) while(1);;
-# 4894 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-  vPortValidateInterruptPriority();
-
-  pxTCB = xTaskToNotify;
-
-  uxSavedInterruptStatus = ulPortRaiseBASEPRI();
-  {
-   ucOriginalNotifyState = pxTCB->ucNotifyState;
-   pxTCB->ucNotifyState = ( ( uint8_t ) 2 );
-
-
-
-   ( pxTCB->ulNotifiedValue )++;
-
-   ;
-
-
-
-   if( ucOriginalNotifyState == ( ( uint8_t ) 1 ) )
-   {
-
-    if (( ( ( &( pxTCB->xEventListItem ) )->pxContainer ) == 
-# 4914 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-   ((void *)0) 
-# 4914 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-   ) == 0) while(1);;
-
-    if( uxSchedulerSuspended == ( UBaseType_t ) ( ( BaseType_t ) 0 ) )
-    {
-     ( void ) uxListRemove( &( pxTCB->xStateListItem ) );
-     ; { if( ( ( pxTCB )->uxPriority ) > uxTopReadyPriority ) { uxTopReadyPriority = ( ( pxTCB )->uxPriority ); } }; vListInsertEnd( &( pxReadyTasksLists[ ( pxTCB )->uxPriority ] ), &( ( pxTCB )->xStateListItem ) ); ;
-    }
-    else
-    {
-
-
-     vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
-    }
-
-    if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
-    {
-
-
-     if( pxHigherPriorityTaskWoken != 
-# 4932 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-                                     ((void *)0) 
-# 4932 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-                                          )
-     {
-      *pxHigherPriorityTaskWoken = ( ( BaseType_t ) 1 );
-     }
-
-
-
-
-     xYieldPending = ( ( BaseType_t ) 1 );
-    }
-    else
-    {
-     ;
-    }
-   }
-  }
-  vPortSetBASEPRI(uxSavedInterruptStatus);
- }
-
-
-
-
-
-
-
- BaseType_t xTaskNotifyStateClear( TaskHandle_t xTask )
- {
- TCB_t *pxTCB;
- BaseType_t xReturn;
-
-
-
-  pxTCB = ( ( ( xTask ) == 
-# 4964 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c" 3 4
-         ((void *)0) 
-# 4964 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
-         ) ? pxCurrentTCB : ( xTask ) );
-
-  vPortEnterCritical();
-  {
-   if( pxTCB->ucNotifyState == ( ( uint8_t ) 2 ) )
-   {
-    pxTCB->ucNotifyState = ( ( uint8_t ) 0 );
-    xReturn = ( ( ( BaseType_t ) 1 ) );
-   }
-   else
-   {
-    xReturn = ( ( ( BaseType_t ) 0 ) );
-   }
-  }
-  vPortExitCritical();
-
-  return xReturn;
- }
-
-
-
+/*-----------------------------------------------------------*/
+
+#if ( configUSE_MUTEXES == 1 )
+
+	TaskHandle_t pvTaskIncrementMutexHeldCount( void )
+	{
+		/* If xSemaphoreCreateMutex() is called before any tasks have been created
+		then pxCurrentTCB will be NULL. */
+		if( pxCurrentTCB != NULL )
+		{
+			( pxCurrentTCB->uxMutexesHeld )++;
+		}
+
+		return pxCurrentTCB;
+	}
+
+#endif /* configUSE_MUTEXES */
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	uint32_t ulTaskNotifyTake( BaseType_t xClearCountOnExit, TickType_t xTicksToWait )
+	{
+	uint32_t ulReturn;
+
+		taskENTER_CRITICAL();
+		{
+			/* Only block if the notification count is not already non-zero. */
+			if( pxCurrentTCB->ulNotifiedValue == 0UL )
+			{
+				/* Mark this task as waiting for a notification. */
+				pxCurrentTCB->ucNotifyState = taskWAITING_NOTIFICATION;
+
+				if( xTicksToWait > ( TickType_t ) 0 )
+				{
+					prvAddCurrentTaskToDelayedList( xTicksToWait, pdTRUE );
+					traceTASK_NOTIFY_TAKE_BLOCK();
+
+					/* All ports are written to allow a yield in a critical
+					section (some will yield immediately, others wait until the
+					critical section exits) - but it is not something that
+					application code should ever do. */
+					portYIELD_WITHIN_API();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		taskEXIT_CRITICAL();
+
+		taskENTER_CRITICAL();
+		{
+			traceTASK_NOTIFY_TAKE();
+			ulReturn = pxCurrentTCB->ulNotifiedValue;
+
+			if( ulReturn != 0UL )
+			{
+				if( xClearCountOnExit != pdFALSE )
+				{
+					pxCurrentTCB->ulNotifiedValue = 0UL;
+				}
+				else
+				{
+					pxCurrentTCB->ulNotifiedValue = ulReturn - ( uint32_t ) 1;
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+
+			pxCurrentTCB->ucNotifyState = taskNOT_WAITING_NOTIFICATION;
+		}
+		taskEXIT_CRITICAL();
+
+		return ulReturn;
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	BaseType_t xTaskNotifyWait( uint32_t ulBitsToClearOnEntry, uint32_t ulBitsToClearOnExit, uint32_t *pulNotificationValue, TickType_t xTicksToWait )
+	{
+	BaseType_t xReturn;
+
+		taskENTER_CRITICAL();
+		{
+			/* Only block if a notification is not already pending. */
+			if( pxCurrentTCB->ucNotifyState != taskNOTIFICATION_RECEIVED )
+			{
+				/* Clear bits in the task's notification value as bits may get
+				set	by the notifying task or interrupt.  This can be used to
+				clear the value to zero. */
+				pxCurrentTCB->ulNotifiedValue &= ~ulBitsToClearOnEntry;
+
+				/* Mark this task as waiting for a notification. */
+				pxCurrentTCB->ucNotifyState = taskWAITING_NOTIFICATION;
+
+				if( xTicksToWait > ( TickType_t ) 0 )
+				{
+					prvAddCurrentTaskToDelayedList( xTicksToWait, pdTRUE );
+					traceTASK_NOTIFY_WAIT_BLOCK();
+
+					/* All ports are written to allow a yield in a critical
+					section (some will yield immediately, others wait until the
+					critical section exits) - but it is not something that
+					application code should ever do. */
+					portYIELD_WITHIN_API();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		taskEXIT_CRITICAL();
+
+		taskENTER_CRITICAL();
+		{
+			traceTASK_NOTIFY_WAIT();
+
+			if( pulNotificationValue != NULL )
+			{
+				/* Output the current notification value, which may or may not
+				have changed. */
+				*pulNotificationValue = pxCurrentTCB->ulNotifiedValue;
+			}
+
+			/* If ucNotifyValue is set then either the task never entered the
+			blocked state (because a notification was already pending) or the
+			task unblocked because of a notification.  Otherwise the task
+			unblocked because of a timeout. */
+			if( pxCurrentTCB->ucNotifyState != taskNOTIFICATION_RECEIVED )
+			{
+				/* A notification was not received. */
+				xReturn = pdFALSE;
+			}
+			else
+			{
+				/* A notification was already pending or a notification was
+				received while the task was waiting. */
+				pxCurrentTCB->ulNotifiedValue &= ~ulBitsToClearOnExit;
+				xReturn = pdTRUE;
+			}
+
+			pxCurrentTCB->ucNotifyState = taskNOT_WAITING_NOTIFICATION;
+		}
+		taskEXIT_CRITICAL();
+
+		return xReturn;
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	BaseType_t xTaskGenericNotify( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue )
+	{
+	TCB_t * pxTCB;
+	BaseType_t xReturn = pdPASS;
+	uint8_t ucOriginalNotifyState;
+
+		configASSERT( xTaskToNotify );
+		pxTCB = xTaskToNotify;
+
+		taskENTER_CRITICAL();
+		{
+			if( pulPreviousNotificationValue != NULL )
+			{
+				*pulPreviousNotificationValue = pxTCB->ulNotifiedValue;
+			}
+
+			ucOriginalNotifyState = pxTCB->ucNotifyState;
+
+			pxTCB->ucNotifyState = taskNOTIFICATION_RECEIVED;
+
+			switch( eAction )
+			{
+				case eSetBits	:
+					pxTCB->ulNotifiedValue |= ulValue;
+					break;
+
+				case eIncrement	:
+					( pxTCB->ulNotifiedValue )++;
+					break;
+
+				case eSetValueWithOverwrite	:
+					pxTCB->ulNotifiedValue = ulValue;
+					break;
+
+				case eSetValueWithoutOverwrite :
+					if( ucOriginalNotifyState != taskNOTIFICATION_RECEIVED )
+					{
+						pxTCB->ulNotifiedValue = ulValue;
+					}
+					else
+					{
+						/* The value could not be written to the task. */
+						xReturn = pdFAIL;
+					}
+					break;
+
+				case eNoAction:
+					/* The task is being notified without its notify value being
+					updated. */
+					break;
+
+				default:
+					/* Should not get here if all enums are handled.
+					Artificially force an assert by testing a value the
+					compiler can't assume is const. */
+					configASSERT( pxTCB->ulNotifiedValue == ~0UL );
+
+					break;
+			}
+
+			traceTASK_NOTIFY();
+
+			/* If the task is in the blocked state specifically to wait for a
+			notification then unblock it now. */
+			if( ucOriginalNotifyState == taskWAITING_NOTIFICATION )
+			{
+				( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+				prvAddTaskToReadyList( pxTCB );
+
+				/* The task should not have been on an event list. */
+				configASSERT( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) == NULL );
+
+				#if( configUSE_TICKLESS_IDLE != 0 )
+				{
+					/* If a task is blocked waiting for a notification then
+					xNextTaskUnblockTime might be set to the blocked task's time
+					out time.  If the task is unblocked for a reason other than
+					a timeout xNextTaskUnblockTime is normally left unchanged,
+					because it will automatically get reset to a new value when
+					the tick count equals xNextTaskUnblockTime.  However if
+					tickless idling is used it might be more important to enter
+					sleep mode at the earliest possible time - so reset
+					xNextTaskUnblockTime here to ensure it is updated at the
+					earliest possible time. */
+					prvResetNextTaskUnblockTime();
+				}
+				#endif
+
+				if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
+				{
+					/* The notified task has a priority above the currently
+					executing task so a yield is required. */
+					taskYIELD_IF_USING_PREEMPTION();
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
+		taskEXIT_CRITICAL();
+
+		return xReturn;
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	BaseType_t xTaskGenericNotifyFromISR( TaskHandle_t xTaskToNotify, uint32_t ulValue, eNotifyAction eAction, uint32_t *pulPreviousNotificationValue, BaseType_t *pxHigherPriorityTaskWoken )
+	{
+	TCB_t * pxTCB;
+	uint8_t ucOriginalNotifyState;
+	BaseType_t xReturn = pdPASS;
+	UBaseType_t uxSavedInterruptStatus;
+
+		configASSERT( xTaskToNotify );
+
+		/* RTOS ports that support interrupt nesting have the concept of a
+		maximum	system call (or maximum API call) interrupt priority.
+		Interrupts that are	above the maximum system call priority are keep
+		permanently enabled, even when the RTOS kernel is in a critical section,
+		but cannot make any calls to FreeRTOS API functions.  If configASSERT()
+		is defined in FreeRTOSConfig.h then
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID() will result in an assertion
+		failure if a FreeRTOS API function is called from an interrupt that has
+		been assigned a priority above the configured maximum system call
+		priority.  Only FreeRTOS functions that end in FromISR can be called
+		from interrupts	that have been assigned a priority at or (logically)
+		below the maximum system call interrupt priority.  FreeRTOS maintains a
+		separate interrupt safe API to ensure interrupt entry is as fast and as
+		simple as possible.  More information (albeit Cortex-M specific) is
+		provided on the following link:
+		http://www.freertos.org/RTOS-Cortex-M3-M4.html */
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID();
+
+		pxTCB = xTaskToNotify;
+
+		uxSavedInterruptStatus = portSET_INTERRUPT_MASK_FROM_ISR();
+		{
+			if( pulPreviousNotificationValue != NULL )
+			{
+				*pulPreviousNotificationValue = pxTCB->ulNotifiedValue;
+			}
+
+			ucOriginalNotifyState = pxTCB->ucNotifyState;
+			pxTCB->ucNotifyState = taskNOTIFICATION_RECEIVED;
+
+			switch( eAction )
+			{
+				case eSetBits	:
+					pxTCB->ulNotifiedValue |= ulValue;
+					break;
+
+				case eIncrement	:
+					( pxTCB->ulNotifiedValue )++;
+					break;
+
+				case eSetValueWithOverwrite	:
+					pxTCB->ulNotifiedValue = ulValue;
+					break;
+
+				case eSetValueWithoutOverwrite :
+					if( ucOriginalNotifyState != taskNOTIFICATION_RECEIVED )
+					{
+						pxTCB->ulNotifiedValue = ulValue;
+					}
+					else
+					{
+						/* The value could not be written to the task. */
+						xReturn = pdFAIL;
+					}
+					break;
+
+				case eNoAction :
+					/* The task is being notified without its notify value being
+					updated. */
+					break;
+
+				default:
+					/* Should not get here if all enums are handled.
+					Artificially force an assert by testing a value the
+					compiler can't assume is const. */
+					configASSERT( pxTCB->ulNotifiedValue == ~0UL );
+					break;
+			}
+
+			traceTASK_NOTIFY_FROM_ISR();
+
+			/* If the task is in the blocked state specifically to wait for a
+			notification then unblock it now. */
+			if( ucOriginalNotifyState == taskWAITING_NOTIFICATION )
+			{
+				/* The task should not have been on an event list. */
+				configASSERT( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) == NULL );
+
+				if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+				{
+					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+					prvAddTaskToReadyList( pxTCB );
+				}
+				else
+				{
+					/* The delayed and ready lists cannot be accessed, so hold
+					this task pending until the scheduler is resumed. */
+					vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
+				}
+
+				if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
+				{
+					/* The notified task has a priority above the currently
+					executing task so a yield is required. */
+					if( pxHigherPriorityTaskWoken != NULL )
+					{
+						*pxHigherPriorityTaskWoken = pdTRUE;
+					}
+
+					/* Mark that a yield is pending in case the user is not
+					using the "xHigherPriorityTaskWoken" parameter to an ISR
+					safe FreeRTOS function. */
+					xYieldPending = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+		}
+		portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );
+
+		return xReturn;
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	void vTaskNotifyGiveFromISR( TaskHandle_t xTaskToNotify, BaseType_t *pxHigherPriorityTaskWoken )
+	{
+	TCB_t * pxTCB;
+	uint8_t ucOriginalNotifyState;
+	UBaseType_t uxSavedInterruptStatus;
+
+		configASSERT( xTaskToNotify );
+
+		/* RTOS ports that support interrupt nesting have the concept of a
+		maximum	system call (or maximum API call) interrupt priority.
+		Interrupts that are	above the maximum system call priority are keep
+		permanently enabled, even when the RTOS kernel is in a critical section,
+		but cannot make any calls to FreeRTOS API functions.  If configASSERT()
+		is defined in FreeRTOSConfig.h then
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID() will result in an assertion
+		failure if a FreeRTOS API function is called from an interrupt that has
+		been assigned a priority above the configured maximum system call
+		priority.  Only FreeRTOS functions that end in FromISR can be called
+		from interrupts	that have been assigned a priority at or (logically)
+		below the maximum system call interrupt priority.  FreeRTOS maintains a
+		separate interrupt safe API to ensure interrupt entry is as fast and as
+		simple as possible.  More information (albeit Cortex-M specific) is
+		provided on the following link:
+		http://www.freertos.org/RTOS-Cortex-M3-M4.html */
+		portASSERT_IF_INTERRUPT_PRIORITY_INVALID();
+
+		pxTCB = xTaskToNotify;
+
+		uxSavedInterruptStatus = portSET_INTERRUPT_MASK_FROM_ISR();
+		{
+			ucOriginalNotifyState = pxTCB->ucNotifyState;
+			pxTCB->ucNotifyState = taskNOTIFICATION_RECEIVED;
+
+			/* 'Giving' is equivalent to incrementing a count in a counting
+			semaphore. */
+			( pxTCB->ulNotifiedValue )++;
+
+			traceTASK_NOTIFY_GIVE_FROM_ISR();
+
+			/* If the task is in the blocked state specifically to wait for a
+			notification then unblock it now. */
+			if( ucOriginalNotifyState == taskWAITING_NOTIFICATION )
+			{
+				/* The task should not have been on an event list. */
+				configASSERT( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) == NULL );
+
+				if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
+				{
+					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
+					prvAddTaskToReadyList( pxTCB );
+				}
+				else
+				{
+					/* The delayed and ready lists cannot be accessed, so hold
+					this task pending until the scheduler is resumed. */
+					vListInsertEnd( &( xPendingReadyList ), &( pxTCB->xEventListItem ) );
+				}
+
+				if( pxTCB->uxPriority > pxCurrentTCB->uxPriority )
+				{
+					/* The notified task has a priority above the currently
+					executing task so a yield is required. */
+					if( pxHigherPriorityTaskWoken != NULL )
+					{
+						*pxHigherPriorityTaskWoken = pdTRUE;
+					}
+
+					/* Mark that a yield is pending in case the user is not
+					using the "xHigherPriorityTaskWoken" parameter in an ISR
+					safe FreeRTOS function. */
+					xYieldPending = pdTRUE;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+		}
+		portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+
+/*-----------------------------------------------------------*/
+
+#if( configUSE_TASK_NOTIFICATIONS == 1 )
+
+	BaseType_t xTaskNotifyStateClear( TaskHandle_t xTask )
+	{
+	TCB_t *pxTCB;
+	BaseType_t xReturn;
+
+		/* If null is passed in here then it is the calling task that is having
+		its notification state cleared. */
+		pxTCB = prvGetTCBFromHandle( xTask );
+
+		taskENTER_CRITICAL();
+		{
+			if( pxTCB->ucNotifyState == taskNOTIFICATION_RECEIVED )
+			{
+				pxTCB->ucNotifyState = taskNOT_WAITING_NOTIFICATION;
+				xReturn = pdPASS;
+			}
+			else
+			{
+				xReturn = pdFAIL;
+			}
+		}
+		taskEXIT_CRITICAL();
+
+		return xReturn;
+	}
+
+#endif /* configUSE_TASK_NOTIFICATIONS */
+/*-----------------------------------------------------------*/
 
 
 static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait, const BaseType_t xCanBlockIndefinitely )
 {
 TickType_t xTimeToWake;
 const TickType_t xConstTickCount = xTickCount;
-# 5003 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
- if( uxListRemove( &( pxCurrentTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
- {
 
+	#if( INCLUDE_xTaskAbortDelay == 1 )
+	{
+		/* About to enter a delayed list, so ensure the ucDelayAborted flag is
+		reset to pdFALSE so it can be detected as having been set to pdTRUE
+		when the task leaves the Blocked state. */
+		pxCurrentTCB->ucDelayAborted = pdFALSE;
+	}
+	#endif
 
-  ;
- }
- else
- {
-  ;
- }
+	/* Remove the task from the ready list before adding it to the blocked list
+	as the same list item is used for both lists. */
+	if( uxListRemove( &( pxCurrentTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
+	{
+		/* The current task must be in a ready list, so there is no need to
+		check, and the port reset macro can be called directly. */
+		portRESET_READY_PRIORITY( pxCurrentTCB->uxPriority, uxTopReadyPriority ); /*lint !e931 pxCurrentTCB cannot change as it is the calling task.  pxCurrentTCB->uxPriority and uxTopReadyPriority cannot change as called with scheduler suspended or in a critical section. */
+	}
+	else
+	{
+		mtCOVERAGE_TEST_MARKER();
+	}
 
+	#if ( INCLUDE_vTaskSuspend == 1 )
+	{
+		if( ( xTicksToWait == portMAX_DELAY ) && ( xCanBlockIndefinitely != pdFALSE ) )
+		{
+			/* Add the task to the suspended task list instead of a delayed task
+			list to ensure it is not woken by a timing event.  It will block
+			indefinitely. */
+			vListInsertEnd( &xSuspendedTaskList, &( pxCurrentTCB->xStateListItem ) );
+		}
+		else
+		{
+			/* Calculate the time at which the task should be woken if the event
+			does not occur.  This may overflow but this doesn't matter, the
+			kernel will manage it correctly. */
+			xTimeToWake = xConstTickCount + xTicksToWait;
 
- {
-  if( ( xTicksToWait == ( TickType_t ) 0xffffffffUL ) && ( xCanBlockIndefinitely != ( ( BaseType_t ) 0 ) ) )
-  {
+			/* The list item will be inserted in wake time order. */
+			listSET_LIST_ITEM_VALUE( &( pxCurrentTCB->xStateListItem ), xTimeToWake );
 
+			if( xTimeToWake < xConstTickCount )
+			{
+				/* Wake time has overflowed.  Place this item in the overflow
+				list. */
+				vListInsert( pxOverflowDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
+			}
+			else
+			{
+				/* The wake time has not overflowed, so the current block list
+				is used. */
+				vListInsert( pxDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
 
+				/* If the task entering the blocked state was placed at the
+				head of the list of blocked tasks then xNextTaskUnblockTime
+				needs to be updated too. */
+				if( xTimeToWake < xNextTaskUnblockTime )
+				{
+					xNextTaskUnblockTime = xTimeToWake;
+				}
+				else
+				{
+					mtCOVERAGE_TEST_MARKER();
+				}
+			}
+		}
+	}
+	#else /* INCLUDE_vTaskSuspend */
+	{
+		/* Calculate the time at which the task should be woken if the event
+		does not occur.  This may overflow but this doesn't matter, the kernel
+		will manage it correctly. */
+		xTimeToWake = xConstTickCount + xTicksToWait;
 
-   vListInsertEnd( &xSuspendedTaskList, &( pxCurrentTCB->xStateListItem ) );
-  }
-  else
-  {
+		/* The list item will be inserted in wake time order. */
+		listSET_LIST_ITEM_VALUE( &( pxCurrentTCB->xStateListItem ), xTimeToWake );
 
+		if( xTimeToWake < xConstTickCount )
+		{
+			/* Wake time has overflowed.  Place this item in the overflow list. */
+			vListInsert( pxOverflowDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
+		}
+		else
+		{
+			/* The wake time has not overflowed, so the current block list is used. */
+			vListInsert( pxDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
 
+			/* If the task entering the blocked state was placed at the head of the
+			list of blocked tasks then xNextTaskUnblockTime needs to be updated
+			too. */
+			if( xTimeToWake < xNextTaskUnblockTime )
+			{
+				xNextTaskUnblockTime = xTimeToWake;
+			}
+			else
+			{
+				mtCOVERAGE_TEST_MARKER();
+			}
+		}
 
-   xTimeToWake = xConstTickCount + xTicksToWait;
-
-
-   ( ( &( pxCurrentTCB->xStateListItem ) )->xItemValue = ( xTimeToWake ) );
-
-   if( xTimeToWake < xConstTickCount )
-   {
-
-
-    vListInsert( pxOverflowDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
-   }
-   else
-   {
-
-
-    vListInsert( pxDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
-
-
-
-
-    if( xTimeToWake < xNextTaskUnblockTime )
-    {
-     xNextTaskUnblockTime = xTimeToWake;
-    }
-    else
-    {
-     ;
-    }
-   }
-  }
- }
-# 5096 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/third_party/FreeRTOSv10.1.1/Source/tasks.c"
+		/* Avoid compiler warning when INCLUDE_vTaskSuspend is not 1. */
+		( void ) xCanBlockIndefinitely;
+	}
+	#endif /* INCLUDE_vTaskSuspend */
 }
+
+/* Code below here allows additional code to be inserted into this source file,
+especially where access to file scope functions and data is needed (for example
+when performing module tests). */
+
+#ifdef FREERTOS_MODULE_TEST
+	#include "tasks_test_access_functions.h"
+#endif
+
+
+#if( configINCLUDE_FREERTOS_TASK_C_ADDITIONS_H == 1 )
+
+	#include "freertos_tasks_c_additions.h"
+
+	#ifdef FREERTOS_TASKS_C_ADDITIONS_INIT
+		static void freertos_tasks_c_additions_init( void )
+		{
+			FREERTOS_TASKS_C_ADDITIONS_INIT();
+		}
+	#endif
+
+#endif
+
+

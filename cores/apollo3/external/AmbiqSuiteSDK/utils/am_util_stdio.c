@@ -1,1241 +1,114 @@
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3//"
-# 1 "<built-in>"
-#define __STDC__ 1
-#define __STDC_VERSION__ 199901L
-#define __STDC_HOSTED__ 1
-#define __GNUC__ 10
-#define __GNUC_MINOR__ 2
-#define __GNUC_PATCHLEVEL__ 1
-#define __VERSION__ "10.2.1 20201103 (release)"
-#define __ATOMIC_RELAXED 0
-#define __ATOMIC_SEQ_CST 5
-#define __ATOMIC_ACQUIRE 2
-#define __ATOMIC_RELEASE 3
-#define __ATOMIC_ACQ_REL 4
-#define __ATOMIC_CONSUME 1
-#define __OPTIMIZE_SIZE__ 1
-#define __OPTIMIZE__ 1
-#define __FINITE_MATH_ONLY__ 0
-#define __SIZEOF_INT__ 4
-#define __SIZEOF_LONG__ 4
-#define __SIZEOF_LONG_LONG__ 8
-#define __SIZEOF_SHORT__ 2
-#define __SIZEOF_FLOAT__ 4
-#define __SIZEOF_DOUBLE__ 8
-#define __SIZEOF_LONG_DOUBLE__ 8
-#define __SIZEOF_SIZE_T__ 4
-#define __CHAR_BIT__ 8
-#define __BIGGEST_ALIGNMENT__ 8
-#define __ORDER_LITTLE_ENDIAN__ 1234
-#define __ORDER_BIG_ENDIAN__ 4321
-#define __ORDER_PDP_ENDIAN__ 3412
-#define __BYTE_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __FLOAT_WORD_ORDER__ __ORDER_LITTLE_ENDIAN__
-#define __SIZEOF_POINTER__ 4
-#define __SIZE_TYPE__ unsigned int
-#define __PTRDIFF_TYPE__ int
-#define __WCHAR_TYPE__ unsigned int
-#define __WINT_TYPE__ unsigned int
-#define __INTMAX_TYPE__ long long int
-#define __UINTMAX_TYPE__ long long unsigned int
-#define __CHAR16_TYPE__ short unsigned int
-#define __CHAR32_TYPE__ long unsigned int
-#define __SIG_ATOMIC_TYPE__ int
-#define __INT8_TYPE__ signed char
-#define __INT16_TYPE__ short int
-#define __INT32_TYPE__ long int
-#define __INT64_TYPE__ long long int
-#define __UINT8_TYPE__ unsigned char
-#define __UINT16_TYPE__ short unsigned int
-#define __UINT32_TYPE__ long unsigned int
-#define __UINT64_TYPE__ long long unsigned int
-#define __INT_LEAST8_TYPE__ signed char
-#define __INT_LEAST16_TYPE__ short int
-#define __INT_LEAST32_TYPE__ long int
-#define __INT_LEAST64_TYPE__ long long int
-#define __UINT_LEAST8_TYPE__ unsigned char
-#define __UINT_LEAST16_TYPE__ short unsigned int
-#define __UINT_LEAST32_TYPE__ long unsigned int
-#define __UINT_LEAST64_TYPE__ long long unsigned int
-#define __INT_FAST8_TYPE__ int
-#define __INT_FAST16_TYPE__ int
-#define __INT_FAST32_TYPE__ int
-#define __INT_FAST64_TYPE__ long long int
-#define __UINT_FAST8_TYPE__ unsigned int
-#define __UINT_FAST16_TYPE__ unsigned int
-#define __UINT_FAST32_TYPE__ unsigned int
-#define __UINT_FAST64_TYPE__ long long unsigned int
-#define __INTPTR_TYPE__ int
-#define __UINTPTR_TYPE__ unsigned int
-#define __GXX_ABI_VERSION 1014
-#define __SCHAR_MAX__ 0x7f
-#define __SHRT_MAX__ 0x7fff
-#define __INT_MAX__ 0x7fffffff
-#define __LONG_MAX__ 0x7fffffffL
-#define __LONG_LONG_MAX__ 0x7fffffffffffffffLL
-#define __WCHAR_MAX__ 0xffffffffU
-#define __WCHAR_MIN__ 0U
-#define __WINT_MAX__ 0xffffffffU
-#define __WINT_MIN__ 0U
-#define __PTRDIFF_MAX__ 0x7fffffff
-#define __SIZE_MAX__ 0xffffffffU
-#define __SCHAR_WIDTH__ 8
-#define __SHRT_WIDTH__ 16
-#define __INT_WIDTH__ 32
-#define __LONG_WIDTH__ 32
-#define __LONG_LONG_WIDTH__ 64
-#define __WCHAR_WIDTH__ 32
-#define __WINT_WIDTH__ 32
-#define __PTRDIFF_WIDTH__ 32
-#define __SIZE_WIDTH__ 32
-#define __INTMAX_MAX__ 0x7fffffffffffffffLL
-#define __INTMAX_C(c) c ## LL
-#define __UINTMAX_MAX__ 0xffffffffffffffffULL
-#define __UINTMAX_C(c) c ## ULL
-#define __INTMAX_WIDTH__ 64
-#define __SIG_ATOMIC_MAX__ 0x7fffffff
-#define __SIG_ATOMIC_MIN__ (-__SIG_ATOMIC_MAX__ - 1)
-#define __SIG_ATOMIC_WIDTH__ 32
-#define __INT8_MAX__ 0x7f
-#define __INT16_MAX__ 0x7fff
-#define __INT32_MAX__ 0x7fffffffL
-#define __INT64_MAX__ 0x7fffffffffffffffLL
-#define __UINT8_MAX__ 0xff
-#define __UINT16_MAX__ 0xffff
-#define __UINT32_MAX__ 0xffffffffUL
-#define __UINT64_MAX__ 0xffffffffffffffffULL
-#define __INT_LEAST8_MAX__ 0x7f
-#define __INT8_C(c) c
-#define __INT_LEAST8_WIDTH__ 8
-#define __INT_LEAST16_MAX__ 0x7fff
-#define __INT16_C(c) c
-#define __INT_LEAST16_WIDTH__ 16
-#define __INT_LEAST32_MAX__ 0x7fffffffL
-#define __INT32_C(c) c ## L
-#define __INT_LEAST32_WIDTH__ 32
-#define __INT_LEAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT64_C(c) c ## LL
-#define __INT_LEAST64_WIDTH__ 64
-#define __UINT_LEAST8_MAX__ 0xff
-#define __UINT8_C(c) c
-#define __UINT_LEAST16_MAX__ 0xffff
-#define __UINT16_C(c) c
-#define __UINT_LEAST32_MAX__ 0xffffffffUL
-#define __UINT32_C(c) c ## UL
-#define __UINT_LEAST64_MAX__ 0xffffffffffffffffULL
-#define __UINT64_C(c) c ## ULL
-#define __INT_FAST8_MAX__ 0x7fffffff
-#define __INT_FAST8_WIDTH__ 32
-#define __INT_FAST16_MAX__ 0x7fffffff
-#define __INT_FAST16_WIDTH__ 32
-#define __INT_FAST32_MAX__ 0x7fffffff
-#define __INT_FAST32_WIDTH__ 32
-#define __INT_FAST64_MAX__ 0x7fffffffffffffffLL
-#define __INT_FAST64_WIDTH__ 64
-#define __UINT_FAST8_MAX__ 0xffffffffU
-#define __UINT_FAST16_MAX__ 0xffffffffU
-#define __UINT_FAST32_MAX__ 0xffffffffU
-#define __UINT_FAST64_MAX__ 0xffffffffffffffffULL
-#define __INTPTR_MAX__ 0x7fffffff
-#define __INTPTR_WIDTH__ 32
-#define __UINTPTR_MAX__ 0xffffffffU
-#define __GCC_IEC_559 0
-#define __GCC_IEC_559_COMPLEX 0
-#define __FLT_EVAL_METHOD__ 0
-#define __FLT_EVAL_METHOD_TS_18661_3__ 0
-#define __DEC_EVAL_METHOD__ 2
-#define __FLT_RADIX__ 2
-#define __FLT_MANT_DIG__ 24
-#define __FLT_DIG__ 6
-#define __FLT_MIN_EXP__ (-125)
-#define __FLT_MIN_10_EXP__ (-37)
-#define __FLT_MAX_EXP__ 128
-#define __FLT_MAX_10_EXP__ 38
-#define __FLT_DECIMAL_DIG__ 9
-#define __FLT_MAX__ 3.4028234663852886e+38F
-#define __FLT_NORM_MAX__ 3.4028234663852886e+38F
-#define __FLT_MIN__ 1.1754943508222875e-38F
-#define __FLT_EPSILON__ 1.1920928955078125e-7F
-#define __FLT_DENORM_MIN__ 1.4012984643248171e-45F
-#define __FLT_HAS_DENORM__ 1
-#define __FLT_HAS_INFINITY__ 1
-#define __FLT_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF 1
-#define __DBL_MANT_DIG__ 53
-#define __DBL_DIG__ 15
-#define __DBL_MIN_EXP__ (-1021)
-#define __DBL_MIN_10_EXP__ (-307)
-#define __DBL_MAX_EXP__ 1024
-#define __DBL_MAX_10_EXP__ 308
-#define __DBL_DECIMAL_DIG__ 17
-#define __DBL_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_NORM_MAX__ ((double)1.7976931348623157e+308L)
-#define __DBL_MIN__ ((double)2.2250738585072014e-308L)
-#define __DBL_EPSILON__ ((double)2.2204460492503131e-16L)
-#define __DBL_DENORM_MIN__ ((double)4.9406564584124654e-324L)
-#define __DBL_HAS_DENORM__ 1
-#define __DBL_HAS_INFINITY__ 1
-#define __DBL_HAS_QUIET_NAN__ 1
-#define __LDBL_MANT_DIG__ 53
-#define __LDBL_DIG__ 15
-#define __LDBL_MIN_EXP__ (-1021)
-#define __LDBL_MIN_10_EXP__ (-307)
-#define __LDBL_MAX_EXP__ 1024
-#define __LDBL_MAX_10_EXP__ 308
-#define __DECIMAL_DIG__ 17
-#define __LDBL_DECIMAL_DIG__ 17
-#define __LDBL_MAX__ 1.7976931348623157e+308L
-#define __LDBL_NORM_MAX__ 1.7976931348623157e+308L
-#define __LDBL_MIN__ 2.2250738585072014e-308L
-#define __LDBL_EPSILON__ 2.2204460492503131e-16L
-#define __LDBL_DENORM_MIN__ 4.9406564584124654e-324L
-#define __LDBL_HAS_DENORM__ 1
-#define __LDBL_HAS_INFINITY__ 1
-#define __LDBL_HAS_QUIET_NAN__ 1
-#define __FLT32_MANT_DIG__ 24
-#define __FLT32_DIG__ 6
-#define __FLT32_MIN_EXP__ (-125)
-#define __FLT32_MIN_10_EXP__ (-37)
-#define __FLT32_MAX_EXP__ 128
-#define __FLT32_MAX_10_EXP__ 38
-#define __FLT32_DECIMAL_DIG__ 9
-#define __FLT32_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_NORM_MAX__ 3.4028234663852886e+38F32
-#define __FLT32_MIN__ 1.1754943508222875e-38F32
-#define __FLT32_EPSILON__ 1.1920928955078125e-7F32
-#define __FLT32_DENORM_MIN__ 1.4012984643248171e-45F32
-#define __FLT32_HAS_DENORM__ 1
-#define __FLT32_HAS_INFINITY__ 1
-#define __FLT32_HAS_QUIET_NAN__ 1
-#define __FP_FAST_FMAF32 1
-#define __FLT64_MANT_DIG__ 53
-#define __FLT64_DIG__ 15
-#define __FLT64_MIN_EXP__ (-1021)
-#define __FLT64_MIN_10_EXP__ (-307)
-#define __FLT64_MAX_EXP__ 1024
-#define __FLT64_MAX_10_EXP__ 308
-#define __FLT64_DECIMAL_DIG__ 17
-#define __FLT64_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_NORM_MAX__ 1.7976931348623157e+308F64
-#define __FLT64_MIN__ 2.2250738585072014e-308F64
-#define __FLT64_EPSILON__ 2.2204460492503131e-16F64
-#define __FLT64_DENORM_MIN__ 4.9406564584124654e-324F64
-#define __FLT64_HAS_DENORM__ 1
-#define __FLT64_HAS_INFINITY__ 1
-#define __FLT64_HAS_QUIET_NAN__ 1
-#define __FLT32X_MANT_DIG__ 53
-#define __FLT32X_DIG__ 15
-#define __FLT32X_MIN_EXP__ (-1021)
-#define __FLT32X_MIN_10_EXP__ (-307)
-#define __FLT32X_MAX_EXP__ 1024
-#define __FLT32X_MAX_10_EXP__ 308
-#define __FLT32X_DECIMAL_DIG__ 17
-#define __FLT32X_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_NORM_MAX__ 1.7976931348623157e+308F32x
-#define __FLT32X_MIN__ 2.2250738585072014e-308F32x
-#define __FLT32X_EPSILON__ 2.2204460492503131e-16F32x
-#define __FLT32X_DENORM_MIN__ 4.9406564584124654e-324F32x
-#define __FLT32X_HAS_DENORM__ 1
-#define __FLT32X_HAS_INFINITY__ 1
-#define __FLT32X_HAS_QUIET_NAN__ 1
-#define __SFRACT_FBIT__ 7
-#define __SFRACT_IBIT__ 0
-#define __SFRACT_MIN__ (-0.5HR-0.5HR)
-#define __SFRACT_MAX__ 0X7FP-7HR
-#define __SFRACT_EPSILON__ 0x1P-7HR
-#define __USFRACT_FBIT__ 8
-#define __USFRACT_IBIT__ 0
-#define __USFRACT_MIN__ 0.0UHR
-#define __USFRACT_MAX__ 0XFFP-8UHR
-#define __USFRACT_EPSILON__ 0x1P-8UHR
-#define __FRACT_FBIT__ 15
-#define __FRACT_IBIT__ 0
-#define __FRACT_MIN__ (-0.5R-0.5R)
-#define __FRACT_MAX__ 0X7FFFP-15R
-#define __FRACT_EPSILON__ 0x1P-15R
-#define __UFRACT_FBIT__ 16
-#define __UFRACT_IBIT__ 0
-#define __UFRACT_MIN__ 0.0UR
-#define __UFRACT_MAX__ 0XFFFFP-16UR
-#define __UFRACT_EPSILON__ 0x1P-16UR
-#define __LFRACT_FBIT__ 31
-#define __LFRACT_IBIT__ 0
-#define __LFRACT_MIN__ (-0.5LR-0.5LR)
-#define __LFRACT_MAX__ 0X7FFFFFFFP-31LR
-#define __LFRACT_EPSILON__ 0x1P-31LR
-#define __ULFRACT_FBIT__ 32
-#define __ULFRACT_IBIT__ 0
-#define __ULFRACT_MIN__ 0.0ULR
-#define __ULFRACT_MAX__ 0XFFFFFFFFP-32ULR
-#define __ULFRACT_EPSILON__ 0x1P-32ULR
-#define __LLFRACT_FBIT__ 63
-#define __LLFRACT_IBIT__ 0
-#define __LLFRACT_MIN__ (-0.5LLR-0.5LLR)
-#define __LLFRACT_MAX__ 0X7FFFFFFFFFFFFFFFP-63LLR
-#define __LLFRACT_EPSILON__ 0x1P-63LLR
-#define __ULLFRACT_FBIT__ 64
-#define __ULLFRACT_IBIT__ 0
-#define __ULLFRACT_MIN__ 0.0ULLR
-#define __ULLFRACT_MAX__ 0XFFFFFFFFFFFFFFFFP-64ULLR
-#define __ULLFRACT_EPSILON__ 0x1P-64ULLR
-#define __SACCUM_FBIT__ 7
-#define __SACCUM_IBIT__ 8
-#define __SACCUM_MIN__ (-0X1P7HK-0X1P7HK)
-#define __SACCUM_MAX__ 0X7FFFP-7HK
-#define __SACCUM_EPSILON__ 0x1P-7HK
-#define __USACCUM_FBIT__ 8
-#define __USACCUM_IBIT__ 8
-#define __USACCUM_MIN__ 0.0UHK
-#define __USACCUM_MAX__ 0XFFFFP-8UHK
-#define __USACCUM_EPSILON__ 0x1P-8UHK
-#define __ACCUM_FBIT__ 15
-#define __ACCUM_IBIT__ 16
-#define __ACCUM_MIN__ (-0X1P15K-0X1P15K)
-#define __ACCUM_MAX__ 0X7FFFFFFFP-15K
-#define __ACCUM_EPSILON__ 0x1P-15K
-#define __UACCUM_FBIT__ 16
-#define __UACCUM_IBIT__ 16
-#define __UACCUM_MIN__ 0.0UK
-#define __UACCUM_MAX__ 0XFFFFFFFFP-16UK
-#define __UACCUM_EPSILON__ 0x1P-16UK
-#define __LACCUM_FBIT__ 31
-#define __LACCUM_IBIT__ 32
-#define __LACCUM_MIN__ (-0X1P31LK-0X1P31LK)
-#define __LACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LK
-#define __LACCUM_EPSILON__ 0x1P-31LK
-#define __ULACCUM_FBIT__ 32
-#define __ULACCUM_IBIT__ 32
-#define __ULACCUM_MIN__ 0.0ULK
-#define __ULACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULK
-#define __ULACCUM_EPSILON__ 0x1P-32ULK
-#define __LLACCUM_FBIT__ 31
-#define __LLACCUM_IBIT__ 32
-#define __LLACCUM_MIN__ (-0X1P31LLK-0X1P31LLK)
-#define __LLACCUM_MAX__ 0X7FFFFFFFFFFFFFFFP-31LLK
-#define __LLACCUM_EPSILON__ 0x1P-31LLK
-#define __ULLACCUM_FBIT__ 32
-#define __ULLACCUM_IBIT__ 32
-#define __ULLACCUM_MIN__ 0.0ULLK
-#define __ULLACCUM_MAX__ 0XFFFFFFFFFFFFFFFFP-32ULLK
-#define __ULLACCUM_EPSILON__ 0x1P-32ULLK
-#define __QQ_FBIT__ 7
-#define __QQ_IBIT__ 0
-#define __HQ_FBIT__ 15
-#define __HQ_IBIT__ 0
-#define __SQ_FBIT__ 31
-#define __SQ_IBIT__ 0
-#define __DQ_FBIT__ 63
-#define __DQ_IBIT__ 0
-#define __TQ_FBIT__ 127
-#define __TQ_IBIT__ 0
-#define __UQQ_FBIT__ 8
-#define __UQQ_IBIT__ 0
-#define __UHQ_FBIT__ 16
-#define __UHQ_IBIT__ 0
-#define __USQ_FBIT__ 32
-#define __USQ_IBIT__ 0
-#define __UDQ_FBIT__ 64
-#define __UDQ_IBIT__ 0
-#define __UTQ_FBIT__ 128
-#define __UTQ_IBIT__ 0
-#define __HA_FBIT__ 7
-#define __HA_IBIT__ 8
-#define __SA_FBIT__ 15
-#define __SA_IBIT__ 16
-#define __DA_FBIT__ 31
-#define __DA_IBIT__ 32
-#define __TA_FBIT__ 63
-#define __TA_IBIT__ 64
-#define __UHA_FBIT__ 8
-#define __UHA_IBIT__ 8
-#define __USA_FBIT__ 16
-#define __USA_IBIT__ 16
-#define __UDA_FBIT__ 32
-#define __UDA_IBIT__ 32
-#define __UTA_FBIT__ 64
-#define __UTA_IBIT__ 64
-#define __REGISTER_PREFIX__ 
-#define __USER_LABEL_PREFIX__ 
-#define __GNUC_STDC_INLINE__ 1
-#define __STRICT_ANSI__ 1
-#define __CHAR_UNSIGNED__ 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2 1
-#define __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4 1
-#define __GCC_ATOMIC_BOOL_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR16_T_LOCK_FREE 2
-#define __GCC_ATOMIC_CHAR32_T_LOCK_FREE 2
-#define __GCC_ATOMIC_WCHAR_T_LOCK_FREE 2
-#define __GCC_ATOMIC_SHORT_LOCK_FREE 2
-#define __GCC_ATOMIC_INT_LOCK_FREE 2
-#define __GCC_ATOMIC_LONG_LOCK_FREE 2
-#define __GCC_ATOMIC_LLONG_LOCK_FREE 1
-#define __GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1
-#define __GCC_ATOMIC_POINTER_LOCK_FREE 2
-#define __HAVE_SPECULATION_SAFE_VALUE 1
-#define __GCC_HAVE_DWARF2_CFI_ASM 1
-#define __PRAGMA_REDEFINE_EXTNAME 1
-#define __SIZEOF_WCHAR_T__ 4
-#define __SIZEOF_WINT_T__ 4
-#define __SIZEOF_PTRDIFF_T__ 4
-#define __ARM_FEATURE_DSP 1
-#define __ARM_FEATURE_QBIT 1
-#define __ARM_FEATURE_SAT 1
-#undef __ARM_FEATURE_CRYPTO
-# 1 "<built-in>"
-#define __ARM_FEATURE_UNALIGNED 1
-#undef __ARM_FEATURE_QRDMX
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CRC32
-# 1 "<built-in>"
-#undef __ARM_FEATURE_DOTPROD
-# 1 "<built-in>"
-#undef __ARM_FEATURE_COMPLEX
-# 1 "<built-in>"
-#define __ARM_32BIT_STATE 1
-#undef __ARM_FEATURE_MVE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CMSE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_LDREX
-# 1 "<built-in>"
-#define __ARM_FEATURE_LDREX 7
-#define __ARM_FEATURE_CLZ 1
-#undef __ARM_FEATURE_NUMERIC_MAXMIN
-# 1 "<built-in>"
-#define __ARM_FEATURE_SIMD32 1
-#define __ARM_SIZEOF_MINIMAL_ENUM 1
-#define __ARM_SIZEOF_WCHAR_T 4
-#undef __ARM_ARCH_PROFILE
-# 1 "<built-in>"
-#define __ARM_ARCH_PROFILE 77
-#define __arm__ 1
-#undef __ARM_ARCH
-# 1 "<built-in>"
-#define __ARM_ARCH 7
-#define __APCS_32__ 1
-#define __GCC_ASM_FLAG_OUTPUTS__ 1
-#define __thumb__ 1
-#define __thumb2__ 1
-#define __THUMBEL__ 1
-#undef __ARM_ARCH_ISA_THUMB
-# 1 "<built-in>"
-#define __ARM_ARCH_ISA_THUMB 2
-#define __ARMEL__ 1
-#define __VFP_FP__ 1
-#undef __ARM_FP
-# 1 "<built-in>"
-#define __ARM_FP 4
-#undef __ARM_FP16_FORMAT_IEEE
-# 1 "<built-in>"
-#undef __ARM_FP16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#undef __ARM_FP16_ARGS
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_FP16_FML
-# 1 "<built-in>"
-#define __ARM_FEATURE_FMA 1
-#undef __ARM_NEON__
-# 1 "<built-in>"
-#undef __ARM_NEON
-# 1 "<built-in>"
-#undef __ARM_NEON_FP
-# 1 "<built-in>"
-#define __THUMB_INTERWORK__ 1
-#define __ARM_ARCH_7EM__ 1
-#define __ARM_PCS_VFP 1
-#define __ARM_EABI__ 1
-#undef __FDPIC__
-# 1 "<built-in>"
-#define __ARM_ARCH_EXT_IDIV__ 1
-#define __ARM_FEATURE_IDIV 1
-#define __ARM_ASM_SYNTAX_UNIFIED__ 1
-#undef __ARM_FEATURE_COPROC
-# 1 "<built-in>"
-#define __ARM_FEATURE_COPROC 15
-#undef __ARM_FEATURE_CDE
-# 1 "<built-in>"
-#undef __ARM_FEATURE_CDE_COPROC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_MATMUL_INT8
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_SCALAR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_FEATURE_BF16_VECTOR_ARITHMETIC
-# 1 "<built-in>"
-#undef __ARM_BF16_FORMAT_ALTERNATIVE
-# 1 "<built-in>"
-#define __GXX_TYPEINFO_EQUALITY_INLINE 0
-#define __ELF__ 1
-# 1 "<command-line>"
-#define __USES_INITFINI__ 1
-#define apollo3 1
-#define SUPPORT_LORA 1
-#define SUPPORT_LORA_P2P 1
-#define LORA_IO_SPI_PORT 1
-#define SYS_RTC_COUNTER_PORT 2
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WAN_TYPE 0
-#define RAK11720 +RAK5005-O_V1.0 1
-#define rak11720 1
-#define gcc 1
-#define PART_APOLLO3 1
-#define AM_PACKAGE_BGA 1
-#define AM_PART_APOLLO3 1
-#define AM_FREERTOS 1
-#define AM_FREERTOS_STIMER_BACKUP 1
-#define AM_BLE_USE_NVM 1
-#define AM_CUSTOM_BDADDR 1
-#define AM_NUS_ADD 1
-#define AM_CUS_ADD 1
-#define AM_AMOTA_ADD 1
-#define AM_UTIL_FAULTISR_PRINT 1
-#define SEC_ECC_CFG SEC_ECC_CFG_HCI
-#define RTT_LOG_ENABLED 1
-#define DEBUG_ENABLED 1
-#define rak11720 1
-#define SYS_RTC_COUNTER_PORT 2
-#define TWI0_ENABLED 1
-#define SPI0_ENABLED 1
-#define SPI1_ENABLED 1
-#define BLE_SUPPORT 1
-#define ATCMD_CUST_TABLE_SIZE 64
-#define WISBLOCK_BASE_5005_O 1
-#define SX1262_CHIP 1
-#define REGION_AS923 1
-#define REGION_AU915 1
-#define REGION_CN470 1
-#define REGION_CN779 1
-#define REGION_EU433 1
-#define REGION_EU868 1
-#define REGION_KR920 1
-#define REGION_IN865 1
-#define REGION_US915 1
-#define REGION_RU864 1
-#define REGION_LA915 1
-#define SOFT_SE 1
-#define SECURE_ELEMENT_PRE_PROVISIONED 1
-#define LORAMAC_CLASSB_ENABLED 1
-#define BLE_CENTRAL_SUPPORT 1
-#define WISBLOCK_BASE_5005_O 1
-#define SUPPORT_BLE 1
-#define SUPPORT_SPI 1
-#define SUPPORT_AT 1
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-# 57 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 1 3 4
-# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define _STDINT_H 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 1 3 4
-
-
-
-
-
-#define _MACHINE__DEFAULT_TYPES_H 
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 1 3 4
-# 22 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define _SYS_FEATURES_H 
-
-
-
-
-
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/_newlib_version.h" 1 3 4
-
-
-
-#define _NEWLIB_VERSION_H__ 1
-
-#define _NEWLIB_VERSION "3.3.0"
-#define __NEWLIB__ 3
-#define __NEWLIB_MINOR__ 3
-#define __NEWLIB_PATCHLEVEL__ 0
-# 29 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 2 3 4
-
-
-
-
-#define __GNUC_PREREQ(maj,min) ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-
-
-
-
-
-
-#define __GNUC_PREREQ__(ma,mi) __GNUC_PREREQ(ma, mi)
-# 249 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __ATFILE_VISIBLE 0
-
-
-
-
-
-#define __BSD_VISIBLE 0
-
-
-
-
-
-#define __GNU_VISIBLE 0
-
-
-
-
-
-
-
-#define __ISO_C_VISIBLE 1999
-
-
-
-
-
-
-
-#define __LARGEFILE_VISIBLE 0
-
-
-
-
-
-#define __MISC_VISIBLE 0
-# 299 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __POSIX_VISIBLE 0
-
-
-
-
-
-#define __SVID_VISIBLE 0
-# 319 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __XSI_VISIBLE 0
-# 330 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/features.h" 3 4
-#define __SSP_FORTIFY_LEVEL 0
-# 9 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 2 3 4
-
-
-
-
-
-
-#define __EXP(x) __ ##x ##__
-# 26 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-#define __have_longlong64 1
-
-
-
-
-
-
-#define __have_long32 1
-
-
-
-
-
-
-
-
-# 41 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int8_t;
-
-typedef unsigned char __uint8_t;
-
-
-
-#define ___int8_t_defined 1
-
-
-
-
-
-
-
-typedef short int __int16_t;
-
-typedef short unsigned int __uint16_t;
-
-
-
-#define ___int16_t_defined 1
-# 77 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int32_t;
-
-typedef long unsigned int __uint32_t;
-
-
-
-#define ___int32_t_defined 1
-# 103 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int64_t;
-
-typedef long long unsigned int __uint64_t;
-
-
-
-#define ___int64_t_defined 1
-# 134 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef signed char __int_least8_t;
-
-typedef unsigned char __uint_least8_t;
-
-
-
-#define ___int_least8_t_defined 1
-# 160 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef short int __int_least16_t;
-
-typedef short unsigned int __uint_least16_t;
-
-
-
-#define ___int_least16_t_defined 1
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long int __int_least32_t;
-
-typedef long unsigned int __uint_least32_t;
-
-
-
-#define ___int_least32_t_defined 1
-# 200 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-typedef long long int __int_least64_t;
-
-typedef long long unsigned int __uint_least64_t;
-
-
-
-#define ___int_least64_t_defined 1
-
-
-
-
-
-
-
-typedef long long int __intmax_t;
-
-
-
-
-
-
-
-typedef long long unsigned int __uintmax_t;
-
-
-
-
-
-
-
-typedef int __intptr_t;
-
-typedef unsigned int __uintptr_t;
-# 244 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/machine/_default_types.h" 3 4
-#undef __EXP
-# 13 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _SYS__INTSUP_H 
-
-
-
-
-
-#define __STDINT_EXP(x) __ ##x ##__
-# 35 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-       
-       
-       
-       
-       
-       
-       
-       
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef __int20
-#undef __int20__
-#undef long
-#define signed +0
-#define unsigned +0
-#define char +0
-#define short +1
-#define __int20 +2
-#define __int20__ +2
-#define int +2
-#define long +4
-# 67 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define _INTPTR_EQ_INT 
-
-
-
-
-
-
-#define _INT32_EQ_LONG 
-
-
-
-
-
-
-
-#define __INT8 "hh"
-# 93 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT16 "h"
-# 104 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT32 "l"
-# 113 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __INT64 "ll"
-
-
-
-
-
-
-#define __FAST8 
-# 129 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST16 
-
-
-
-
-
-
-#define __FAST32 
-# 147 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __FAST64 "ll"
-
-
-
-#define __LEAST8 "hh"
-# 162 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST16 "h"
-# 173 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST32 "l"
-# 182 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#define __LEAST64 "ll"
-
-#undef signed
-#undef unsigned
-#undef char
-#undef short
-#undef int
-#undef long
-       
-       
-       
-       
-       
-# 194 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20
-       
-# 195 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_intsup.h" 3 4
-#undef __int20__
-       
-       
-# 14 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 1 3 4
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-#define _SYS__STDINT_H 
-# 20 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/sys/_stdint.h" 3 4
-typedef __int8_t int8_t ;
-#define _INT8_T_DECLARED 
-
-
-typedef __uint8_t uint8_t ;
-#define _UINT8_T_DECLARED 
-
-#define __int8_t_defined 1
-
-
-
-
-typedef __int16_t int16_t ;
-#define _INT16_T_DECLARED 
-
-
-typedef __uint16_t uint16_t ;
-#define _UINT16_T_DECLARED 
-
-#define __int16_t_defined 1
-
-
-
-
-typedef __int32_t int32_t ;
-#define _INT32_T_DECLARED 
-
-
-typedef __uint32_t uint32_t ;
-#define _UINT32_T_DECLARED 
-
-#define __int32_t_defined 1
-
-
-
-
-typedef __int64_t int64_t ;
-#define _INT64_T_DECLARED 
-
-
-typedef __uint64_t uint64_t ;
-#define _UINT64_T_DECLARED 
-
-#define __int64_t_defined 1
-
-
-
-typedef __intmax_t intmax_t;
-#define _INTMAX_T_DECLARED 
-
-
-
-typedef __uintmax_t uintmax_t;
-#define _UINTMAX_T_DECLARED 
-
-
-
-typedef __intptr_t intptr_t;
-#define _INTPTR_T_DECLARED 
-
-
-
-typedef __uintptr_t uintptr_t;
-#define _UINTPTR_T_DECLARED 
-# 15 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 2 3 4
-
-
-
-
-
-
-typedef __int_least8_t int_least8_t;
-typedef __uint_least8_t uint_least8_t;
-#define __int_least8_t_defined 1
-
-
-
-typedef __int_least16_t int_least16_t;
-typedef __uint_least16_t uint_least16_t;
-#define __int_least16_t_defined 1
-
-
-
-typedef __int_least32_t int_least32_t;
-typedef __uint_least32_t uint_least32_t;
-#define __int_least32_t_defined 1
-
-
-
-typedef __int_least64_t int_least64_t;
-typedef __uint_least64_t uint_least64_t;
-#define __int_least64_t_defined 1
-# 51 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-  typedef int int_fast8_t;
-  typedef unsigned int uint_fast8_t;
-#define __int_fast8_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast16_t;
-  typedef unsigned int uint_fast16_t;
-#define __int_fast16_t_defined 1
-
-
-
-
-
-
-
-  typedef int int_fast32_t;
-  typedef unsigned int uint_fast32_t;
-#define __int_fast32_t_defined 1
-
-
-
-
-
-
-
-  typedef long long int int_fast64_t;
-  typedef long long unsigned int uint_fast64_t;
-#define __int_fast64_t_defined 1
-# 128 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTPTR_MIN (-__INTPTR_MAX__ - 1)
-#define INTPTR_MAX (__INTPTR_MAX__)
-#define UINTPTR_MAX (__UINTPTR_MAX__)
-# 152 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT8_MIN (-__INT8_MAX__ - 1)
-#define INT8_MAX (__INT8_MAX__)
-#define UINT8_MAX (__UINT8_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST8_MIN (-__INT_LEAST8_MAX__ - 1)
-#define INT_LEAST8_MAX (__INT_LEAST8_MAX__)
-#define UINT_LEAST8_MAX (__UINT_LEAST8_MAX__)
-# 174 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_MIN (-__INT16_MAX__ - 1)
-#define INT16_MAX (__INT16_MAX__)
-#define UINT16_MAX (__UINT16_MAX__)
-
-
-
-
-
-
-
-#define INT_LEAST16_MIN (-__INT_LEAST16_MAX__ - 1)
-#define INT_LEAST16_MAX (__INT_LEAST16_MAX__)
-#define UINT_LEAST16_MAX (__UINT_LEAST16_MAX__)
-# 196 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_MIN (-__INT32_MAX__ - 1)
-#define INT32_MAX (__INT32_MAX__)
-#define UINT32_MAX (__UINT32_MAX__)
-# 212 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST32_MIN (-__INT_LEAST32_MAX__ - 1)
-#define INT_LEAST32_MAX (__INT_LEAST32_MAX__)
-#define UINT_LEAST32_MAX (__UINT_LEAST32_MAX__)
-# 230 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_MIN (-__INT64_MAX__ - 1)
-#define INT64_MAX (__INT64_MAX__)
-#define UINT64_MAX (__UINT64_MAX__)
-# 246 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_LEAST64_MIN (-__INT_LEAST64_MAX__ - 1)
-#define INT_LEAST64_MAX (__INT_LEAST64_MAX__)
-#define UINT_LEAST64_MAX (__UINT_LEAST64_MAX__)
-# 262 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST8_MIN (-__INT_FAST8_MAX__ - 1)
-#define INT_FAST8_MAX (__INT_FAST8_MAX__)
-#define UINT_FAST8_MAX (__UINT_FAST8_MAX__)
-# 278 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST16_MIN (-__INT_FAST16_MAX__ - 1)
-#define INT_FAST16_MAX (__INT_FAST16_MAX__)
-#define UINT_FAST16_MAX (__UINT_FAST16_MAX__)
-# 294 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST32_MIN (-__INT_FAST32_MAX__ - 1)
-#define INT_FAST32_MAX (__INT_FAST32_MAX__)
-#define UINT_FAST32_MAX (__UINT_FAST32_MAX__)
-# 310 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT_FAST64_MIN (-__INT_FAST64_MAX__ - 1)
-#define INT_FAST64_MAX (__INT_FAST64_MAX__)
-#define UINT_FAST64_MAX (__UINT_FAST64_MAX__)
-# 326 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_MAX (__INTMAX_MAX__)
-#define INTMAX_MIN (-INTMAX_MAX - 1)
-
-
-
-
-
-
-
-#define UINTMAX_MAX (__UINTMAX_MAX__)
-
-
-
-
-
-
-
-#define SIZE_MAX (__SIZE_MAX__)
-
-
-
-
-
-#define SIG_ATOMIC_MIN (-__STDINT_EXP(INT_MAX) - 1)
-#define SIG_ATOMIC_MAX (__STDINT_EXP(INT_MAX))
-
-
-
-#define PTRDIFF_MAX (__PTRDIFF_MAX__)
-
-
-
-#define PTRDIFF_MIN (-PTRDIFF_MAX - 1)
-
-
-
-
-#define WCHAR_MIN (__WCHAR_MIN__)
-# 374 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WCHAR_MAX (__WCHAR_MAX__)
-# 384 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define WINT_MAX (__WINT_MAX__)
-
-
-
-
-#define WINT_MIN (__WINT_MIN__)
-
-
-
-
-
-
-#define INT8_C(x) __INT8_C(x)
-#define UINT8_C(x) __UINT8_C(x)
-# 408 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT16_C(x) __INT16_C(x)
-#define UINT16_C(x) __UINT16_C(x)
-# 420 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT32_C(x) __INT32_C(x)
-#define UINT32_C(x) __UINT32_C(x)
-# 433 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INT64_C(x) __INT64_C(x)
-#define UINT64_C(x) __UINT64_C(x)
-# 449 "/opt/gcc-arm-none-eabi-10-2020-q4-major/arm-none-eabi/include/stdint.h" 3 4
-#define INTMAX_C(x) __INTMAX_C(x)
-#define UINTMAX_C(x) __UINTMAX_C(x)
-# 10 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdint.h" 2 3 4
-
-
-
-#define _GCC_WRAP_STDINT_H 
-# 58 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 2
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 1 3 4
-# 29 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 3 4
-#define _STDBOOL_H 
-
-
-
-#define bool _Bool
-#define true 1
-#define false 0
-# 52 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdbool.h" 3 4
-#define __bool_true_false_are_defined 1
-# 59 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 2
-# 1 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 1 3 4
-# 31 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 3 4
-#define _STDARG_H 
-#define _ANSI_STDARG_H_ 
-
-#undef __need___va_list
-
-
-
-
-#define __GNUC_VA_LIST 
-typedef __builtin_va_list __gnuc_va_list;
-
-
-
-
-
-
-#define va_start(v,l) __builtin_va_start(v,l)
-#define va_end(v) __builtin_va_end(v)
-#define va_arg(v,l) __builtin_va_arg(v,l)
-
-
-#define va_copy(d,s) __builtin_va_copy(d,s)
-
-#define __va_copy(d,s) __builtin_va_copy(d,s)
-# 99 "/opt/gcc-arm-none-eabi-10-2020-q4-major/lib/gcc/arm-none-eabi/10.2.1/include/stdarg.h" 3 4
-typedef __gnuc_va_list va_list;
-
-
-
-
-
-#define _VA_LIST_ 
-
-
-#define _VA_LIST 
-
-
-#define _VA_LIST_DEFINED 
-
-
-#define _VA_LIST_T_H 
-
-
-#define __va_list__ 
-# 60 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 2
-# 1 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h" 1
-# 57 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h"
-#define AM_UTIL_STDIO_H 
-# 74 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h"
-#define AM_PRINTF_BUFSIZE 1024
-
-
-
-# 77 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h"
-typedef void (*am_util_stdio_print_char_t)(char *pcStr);
-
-
-
-
-
-
-extern void am_util_stdio_printf_init(am_util_stdio_print_char_t pfnCharPrint);
-extern uint32_t am_util_stdio_strtoul(const char *str, char **endptr, int base);
-extern 
-# 86 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h" 3 4
-      _Bool 
-# 86 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h"
-           am_util_stdio_textmode_set(
-# 86 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h" 3 4
-                                      _Bool 
-# 86 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.h"
-                                           bSetTextTranslationMode);
-extern uint32_t am_util_stdio_vprintf(const char *pcFmt, va_list pArgs);
-extern uint32_t am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs);
-extern uint32_t am_util_stdio_vsnprintf(char *pcBuf, uint32_t n, const char *pcFmt, va_list pArgs);
-extern uint32_t am_util_stdio_printf(const char *pui8Fmt, ...);
-extern uint32_t am_util_stdio_sprintf(char *pui8Buf, const char *pui8Fmt, ...);
-extern uint32_t am_util_stdio_snprintf(char *pcBuf, uint32_t n, const char *pcFmt, ...);
-extern void am_util_stdio_terminal_clear(void);
-# 61 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 2
-# 69 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+//*****************************************************************************
+//
+//! @file am_util_stdio.c
+//!
+//! @brief A few printf-style functions for use with Ambiq products
+//!
+//! Functions for performing printf-style operations without dynamic memory
+//! allocation.
+//!
+//! For further information about this module concerning its history, uses,
+//! and limitations, please see the Ambiq Micro KB article "Q&A: What does
+//! the AmbiqSuite SDK am_util_stdio_printf() function do?" at:
+//!
+//! https://support.ambiqmicro.com/hc/en-us/articles/360040441631
+//!
+//
+//*****************************************************************************
+
+//*****************************************************************************
+//
+// Copyright (c) 2021, Ambiq Micro, Inc.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// 1. Redistributions of source code must retain the above copyright notice,
+// this list of conditions and the following disclaimer.
+//
+// 2. Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+//
+// 3. Neither the name of the copyright holder nor the names of its
+// contributors may be used to endorse or promote products derived from this
+// software without specific prior written permission.
+//
+// Third party software included in this distribution is subject to the
+// additional license terms as defined in the /docs/licenses directory.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+//
+// This is part of revision release_sdk_3_0_0-742e5ac27c of the AmbiqSuite Development Package.
+//
+//*****************************************************************************
+
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdarg.h>
+#include "am_util_stdio.h"
+
+//*****************************************************************************
+//
+// Global Variables
+//
+//*****************************************************************************
+
+// function pointer for printf
 am_util_stdio_print_char_t g_pfnCharPrint;
 
+// buffer for printf
+static char g_prfbuf[AM_PRINTF_BUFSIZE];
 
-static char g_prfbuf[1024];
+// Flag to do conversion of '\n' to '\n\r' in sprintf()
+static bool g_bTxtXlate = false;
 
-
-static 
-# 75 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-      _Bool 
-# 75 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-           g_bTxtXlate = 
-# 75 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                         0
-# 75 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                              ;
-# 90 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+//*****************************************************************************
+//
+//! @brief Sets the interface for printf calls.
+//!
+//! @param pfnCharPrint - Function pointer to be used to print to interface
+//!
+//! This function initializes the global print function which is used for
+//! printf. This allows users to define their own printf interface and pass it
+//! in as a am_util_stdio_print_char_t type.
+//!
+//! @return None.
+//
+//*****************************************************************************
 void
 am_util_stdio_printf_init(am_util_stdio_print_char_t pfnCharPrint)
 {
     g_pfnCharPrint = pfnCharPrint;
 }
-# 112 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+//! @brief Converts strings to 32-bit unsigned integers.
+//!
+//! @param *str - Pointer to the string to convert
+//! @param **endptr - strtoul will set this to the char after the converted num
+//! @param base - Base of the number as written in the input string.
+//!
+//! This function was implemented in a way similar to the strtoul function
+//! found in the C standard library. It will attempt to extract a numerical
+//! value from the input string, and return it to the caller. Invalid input
+//! strings will return a value of zero.
+//!
+//! @return uint32_t representing the numerical value from the string.
+//
+//*****************************************************************************
 uint32_t
 am_util_stdio_strtoul(const char *str, char **endptr, int base)
 {
@@ -1243,30 +116,30 @@ am_util_stdio_strtoul(const char *str, char **endptr, int base)
     uint32_t ui32BaseVal;
     uint32_t ui32RetVal;
 
-
-
-
+    //
+    // Prepare a pointer to start advancing through the string.
+    //
     pos = (char *)str;
 
-
-
-
-
-
-
+    //
+    // Determine what base we are using. Default to '16', but change to other
+    // values as specified by the user. If the user didn't specify anything,
+    // try to guess the base value from looking at the first few characters of
+    // the input
+    //
     ui32BaseVal = 16;
 
-
-
-
+    //
+    // Switch to octal for a leading zero
+    //
     if (*pos == '0')
     {
         ui32BaseVal = 8;
         pos++;
 
-
-
-
+        //
+        // Switch back to hex for a leading '0x'
+        //
         if (*pos == 'x')
         {
             ui32BaseVal = 16;
@@ -1274,44 +147,44 @@ am_util_stdio_strtoul(const char *str, char **endptr, int base)
         }
     }
 
-
-
-
-
+    //
+    // No matter what, if the user specified a base value, use that as the real
+    // base value.
+    //
     if (base)
     {
         ui32BaseVal = base;
     }
 
-
-
-
+    //
+    // Start accumulating the converted integer value
+    //
     ui32RetVal = 0;
 
-
-
-
-
+    //
+    // Loop through the digits, one character at a time. End the loop if the
+    // number is out of range
+    //
     while ((*pos >= 'a' && *pos <= 'f' && ui32BaseVal == 16) ||
            (*pos >= 'A' && *pos <= 'F' && ui32BaseVal == 16) ||
            (*pos >= '0' && *pos <= '9'))
     {
-
-
-
+        //
+        // Make sure to stop if we hit a NULL byte.
+        //
         if (*pos == 0)
         {
             break;
         }
 
-
-
-
+        //
+        // Multiply by the base value to move up one 'digit'
+        //
         ui32RetVal *= ui32BaseVal;
 
-
-
-
+        //
+        // Add the value of the next character.
+        //
         if (*pos >= '0' && *pos <= '9')
         {
             ui32RetVal += *pos - '0';
@@ -1325,18 +198,18 @@ am_util_stdio_strtoul(const char *str, char **endptr, int base)
             ui32RetVal += (*pos - 'a') + 10;
         }
 
-
-
-
+        //
+        // Grab the next character.
+        //
         pos++;
     }
 
-
-
-
-
-
-
+    //
+    // If we get here, hopefully it means that we have parsed a number
+    // correctly. The 'pos' pointer should already be pointing at the character
+    // right after the last valid number, so set the enptr appropriately, and
+    // return the calculated numerical value of the string.
+    //
     if (endptr)
     {
         *endptr = pos;
@@ -1344,16 +217,23 @@ am_util_stdio_strtoul(const char *str, char **endptr, int base)
 
     return ui32RetVal;
 }
-# 228 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+//  Divide an unsigned 32-bit value by 10.
+//
+//  Note: Adapted from Ch10 of Hackers Delight (hackersdelight.org).
+//
+//*****************************************************************************
 static uint64_t
 divu64_10(uint64_t ui64Val)
 {
     uint64_t q64, r64;
     uint32_t q32, r32, ui32Val;
 
-
-
-
+    //
+    // If a 32-bit value, use the more optimal 32-bit routine.
+    //
     if ( ui64Val >> 32 )
     {
         q64 = (ui64Val>>1) + (ui64Val>>2);
@@ -1377,7 +257,14 @@ divu64_10(uint64_t ui64Val)
         return (uint64_t)(q32 + ((r32 + 6) >> 4));
     }
 }
-# 268 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+// Return the number of decimal digits in an uint64_t.
+//
+// example: 10000 return 5, 123 returns 3.
+//
+//*****************************************************************************
 static int
 ndigits_in_u64(uint64_t ui64Val)
 {
@@ -1385,35 +272,44 @@ ndigits_in_u64(uint64_t ui64Val)
 
     while ( ui64Val )
     {
-
-
-
+        //
+        // ui32Val /= 10;
+        //
         ui64Val = divu64_10(ui64Val);
         ++iNDigits;
     }
 
     return iNDigits;
 }
-# 294 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+// Return the number of decimal digits in a 64-bit integer.
+//
+// Note: Does not include the '-' sign.
+//
+// example: -3 returns 1, 3 returns 1, 15 returns 2, -15 returns 2, ...
+//
+//*****************************************************************************
 static int
 ndigits_in_i64(int64_t i64Val)
 {
     if ( i64Val < 0 )
     {
-
-
-
+        //
+        // Get absolute value
+        //
         i64Val = -i64Val;
     }
 
     return ndigits_in_u64((uint64_t) i64Val);
 }
 
-
-
-
-
-
+//*****************************************************************************
+//
+// Return the number of hex digits in an uint64_t.
+//
+//*****************************************************************************
 static int
 ndigits_in_hex(uint64_t ui64Val)
 {
@@ -1427,44 +323,42 @@ ndigits_in_hex(uint64_t ui64Val)
 
     return iDigits;
 }
-# 337 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+// Converts a string representing a decimal value to an int32_t.
+//
+// Returns the int32_t integer value.
+//
+// Note: If a count of the number of chars is desired, then provide
+// pui32CharCnt.
+//
+//*****************************************************************************
 static uint32_t
 decstr_to_int(const char *pcStr, uint32_t *pui32CharCnt)
 {
-    
-# 340 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   _Bool 
-# 340 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-        bNeg = 
-# 340 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-               0
-# 340 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                    ;
+    bool bNeg = false;
     uint32_t ui32Val = 0, uCnt = 0;
 
     if ( *pcStr == '-')
     {
-        bNeg = 
-# 345 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-              1
-# 345 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                  ;
+        bNeg = true;
         pcStr++;
         uCnt++;
     }
 
-    while ( *pcStr >= '0' && *pcStr <= '9' )
+    while ( *pcStr >= '0'  &&  *pcStr <= '9' )
     {
         ++uCnt;
 
-
-
-
+        //
+        // Multiply accumulated value by 10.
+        //
         ui32Val *= 10;
 
-
-
-
+        //
+        // Add in the new low digit.
+        //
         ui32Val += (*pcStr - '0');
         pcStr++;
     }
@@ -1476,7 +370,18 @@ decstr_to_int(const char *pcStr, uint32_t *pui32CharCnt)
 
     return bNeg ? -ui32Val : ui32Val;
 }
-# 385 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+// Converts ui64Val to a string.
+// Note: pcBuf[] must be sized for a minimum of 21 characters.
+//
+// Returns the number of decimal digits in the string.
+//
+// NOTE: If pcBuf is NULL, will compute a return ui64Val only (no chars
+// written).
+//
+//*****************************************************************************
 static int
 uint64_to_str(uint64_t ui64Val, char *pcBuf)
 {
@@ -1487,28 +392,28 @@ uint64_to_str(uint64_t ui64Val, char *pcBuf)
 
     do
     {
-
-
-
+        //
+        // Divide by 10
+        //
         u64Tmp = divu64_10(ui64Val);
 
-
-
-
+        //
+        // Get modulus
+        //
         uMod = ui64Val - (u64Tmp * 10);
 
         tbuf[ix++] = uMod + '0';
         ui64Val = u64Tmp;
     } while ( ui64Val );
 
-
-
-
+    //
+    // Save the total number of digits
+    //
     iNumDig = ix;
 
-
-
-
+    //
+    // Now, reverse the buffer when saving to the caller's buffer.
+    //
     if ( pcBuf )
     {
         while ( ix-- )
@@ -1516,37 +421,47 @@ uint64_to_str(uint64_t ui64Val, char *pcBuf)
             *pcBuf++ = tbuf[ix];
         }
 
-
-
-
+        //
+        // Terminate the caller's buffer
+        //
         *pcBuf = 0x00;
     }
 
     return iNumDig;
 }
-# 447 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+// Converts ui64Val to a hex string.  Alpha chars are lower case.
+// Input:
+//  ui64Val = Value to be converted.
+//  pcBuf[] must be sized for a minimum of 17 characters.
+//
+// Returns the number of hex digits required for ui64Val (does not
+//  include the terminating NULL char in the string).
+//
+// NOTE: If pcBuf is NULL, will compute a return value only (no chars
+// written).
+//
+//*****************************************************************************
 static int
-uint64_to_hexstr(uint64_t ui64Val, char *pcBuf, 
-# 448 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                               _Bool 
-# 448 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                    bLower)
+uint64_to_hexstr(uint64_t ui64Val, char *pcBuf, bool bLower)
 {
     int iNumDig, ix = 0;
     char cCh, tbuf[20];
 
     if ( ui64Val == 0 )
     {
-        tbuf[ix++] = '0';
+        tbuf[ix++] = '0';   // Print a '0'
     }
 
     while ( ui64Val )
     {
         cCh = ui64Val & 0xf;
 
-
-
-
+        //
+        // Alpha character
+        //
         if ( cCh > 9 )
         {
             cCh += bLower ? 0x27 : 0x7;
@@ -1556,14 +471,14 @@ uint64_to_hexstr(uint64_t ui64Val, char *pcBuf,
         ui64Val >>= 4;
     }
 
-
-
-
+    //
+    // Save the total number of digits
+    //
     iNumDig = ix;
 
-
-
-
+    //
+    // Now, reverse the buffer when saving to the callers buffer.
+    //
     if (pcBuf)
     {
         while (ix--)
@@ -1571,20 +486,20 @@ uint64_to_hexstr(uint64_t ui64Val, char *pcBuf,
             *pcBuf++ = tbuf[ix];
         }
 
-
-
-
+        //
+        // Terminate the caller's buffer
+        //
         *pcBuf = 0;
     }
 
     return iNumDig;
 }
 
-
-
-
-
-
+//*****************************************************************************
+//
+// Return length of the given string.
+//
+//*****************************************************************************
 static uint32_t
 simple_strlen(char *pcBuf)
 {
@@ -1601,11 +516,11 @@ simple_strlen(char *pcBuf)
     return ui32RetVal;
 }
 
-
-
-
-
-
+//*****************************************************************************
+//
+// Pad a string buffer with pad characters.
+//
+//*****************************************************************************
 static int32_t
 padbuffer(char *pcBuf, uint8_t cPadChar, int32_t i32NumChars)
 {
@@ -1627,38 +542,59 @@ padbuffer(char *pcBuf, uint8_t cPadChar, int32_t i32NumChars)
 
     return i32Cnt;
 }
-# 560 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
 
-# 560 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-_Bool
-
-# 561 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-am_util_stdio_textmode_set(
-# 561 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                          _Bool 
-# 561 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                               bSetTextTranslationMode)
+//*****************************************************************************
+//
+//! @brief Text mode translates linefeed (\n) characters to carriage return/
+//! linefeed (CR/LF) combinations in printf() and sprintf() functions.
+//!
+//! @param bSetTextTranslationMode - true: Do LF to CR/LF translation.
+//! false: Don't do the text mode translation.
+//!
+//! This function causes the printf() and sprintf() functions to translate
+//! newline characters (\\n) into CR/LF (\\r\\n) combinations.
+//!
+//! @return Previous mode.
+//
+//*****************************************************************************
+bool
+am_util_stdio_textmode_set(bool bSetTextTranslationMode)
 {
-    
-# 563 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   _Bool 
-# 563 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-        bRet = g_bTxtXlate;
+    bool bRet = g_bTxtXlate;
 
-
-
-
+    //
+    // true=cvt LF chars to CR/LF
+    //
     g_bTxtXlate = bSetTextTranslationMode;
 
-
-
-
+    //
+    // return previous mode.
+    //
     return bRet;
 }
-# 595 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-#define AM_FTOA_ERR_VAL_TOO_SMALL -1
-#define AM_FTOA_ERR_VAL_TOO_LARGE -2
-#define AM_FTOA_ERR_BUFSIZE -3
+
+//*****************************************************************************
+//
+//  Float to ASCII text. A basic implementation for providing support for
+//  single-precision %f.
+//
+//  param
+//      fValue     = Float value to be converted.
+//      pcBuf      = Buffer to place string AND input of buffer size.
+//      iPrecision = Desired number of decimal places.
+//      IMPORTANT: On entry, the first 32-bit word of pcBuf must
+//                 contain the size (in bytes) of the buffer!
+//                 The recommended size is at least 16 bytes.
+//
+//  This function performs a basic translation of a floating point single
+//  precision value to a string.
+//
+//  return Number of chars printed to the buffer.
+//
+//*****************************************************************************
+#define AM_FTOA_ERR_VAL_TOO_SMALL   -1
+#define AM_FTOA_ERR_VAL_TOO_LARGE   -2
+#define AM_FTOA_ERR_BUFSIZE         -3
 
 typedef union
 {
@@ -1676,12 +612,12 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
     iBufSize = *(uint32_t*)pcBuf;
     if (iBufSize < 4)
     {
-        return -3;
+        return AM_FTOA_ERR_BUFSIZE;
     }
 
     if (fValue == 0.0f)
     {
-
+        // "0.0"
         *(uint32_t*)pcBuf = 0x00 << 24 | ('0' << 16) | ('.' << 8) | ('0' << 0);
         return 3;
     }
@@ -1697,11 +633,11 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
 
     if (iExp2 >= 31)
     {
-        return -2;
+        return AM_FTOA_ERR_VAL_TOO_LARGE;
     }
     else if (iExp2 < -23)
     {
-        return -1;
+        return AM_FTOA_ERR_VAL_TOO_SMALL;
     }
     else if (iExp2 >= 23)
     {
@@ -1712,7 +648,7 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
         i32IntPart = i32Significand >> (23 - iExp2);
         i32FracPart = (i32Significand << (iExp2 + 1)) & 0x00FFFFFF;
     }
-    else
+    else // if (iExp2 < 0)
     {
         i32FracPart = (i32Significand & 0x00FFFFFF) >> -(iExp2 + 1);
     }
@@ -1737,15 +673,15 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
             *pcBuf++ = '-';
             uint64_to_str(-i32IntPart, pcBuf);
         }
-        while (*pcBuf)
+        while (*pcBuf)    // Get to end of new string
         {
             pcBuf++;
         }
     }
 
-
-
-
+    //
+    // Now, begin the fractional part
+    //
     *pcBuf++ = '.';
 
     if (i32FracPart == 0)
@@ -1765,13 +701,38 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
             *pcBuf++ = (i32FracPart >> 24) + '0';
             i32FracPart &= 0x00FFFFFF;
         }
-# 730 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+        //
+        // Per the printf spec, the number of digits printed to the right of the
+        // decimal point (i.e. iPrecision) should be rounded.
+        // Some examples:
+        // Value        iPrecision          Formatted value
+        // 1.36399      Unspecified (6)     1.363990
+        // 1.36399      3                   1.364
+        // 1.36399      4                   1.3640
+        // 1.36399      5                   1.36399
+        // 1.363994     Unspecified (6)     1.363994
+        // 1.363994     3                   1.364
+        // 1.363994     4                   1.3640
+        // 1.363994     5                   1.36399
+        // 1.363995     Unspecified (6)     1.363995
+        // 1.363995     3                   1.364
+        // 1.363995     4                   1.3640
+        // 1.363995     5                   1.36400
+        // 1.996        Unspecified (6)     1.996000
+        // 1.996        2                   2.00
+        // 1.996        3                   1.996
+        // 1.996        4                   1.9960
+        //
+        // To determine whether to round up, we'll look at what the next
+        // decimal value would have been.
+        //
         if ( ((i32FracPart * 10) >> 24) >= 5 )
         {
-
-
-
-
+            //
+            // Yes, we need to round up.
+            // Go back through the string and make adjustments as necessary.
+            //
             pcBuftmp = pcBuf - 1;
             while ( pcBuftmp >= pcBufInitial )
             {
@@ -1792,14 +753,36 @@ static int ftoa(float fValue, char *pcBuf, int iPrecision)
         }
     }
 
-
-
-
+    //
+    // Terminate the string and we're done
+    //
     *pcBuf = 0x00;
 
     return (pcBuf - pcBufInitial);
-}
-# 786 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+} // ftoa()
+
+//******************************************************************************
+//
+//! @brief Format data into string. (va_list implementation)
+//!
+//! @param *pcBuf - Pointer to the buffer to store the string
+//! @param *pcFmt - Pointer to formatter string
+//!
+//! A lite version of vsprintf().
+//!      Currently handles the following specifiers:
+//!      %c
+//!      %s
+//!      %[0][width]d (also %i)
+//!      %[0][width]u
+//!      %[0][width]x
+//!      %[.precision]f
+//!
+//!     Note than any unrecognized or unhandled format specifier character is
+//!     simply printed.  For example, "%%" will print a '%' character.
+//!
+//! @return uint32_t representing the number of characters printed.
+//
+//******************************************************************************
 uint32_t
 am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
 {
@@ -1809,26 +792,22 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
     uint32_t ui32NumChars, ui32CharCnt = 0;
     int iWidth, iVal, iPrecision;
     uint8_t ui8CharSpecifier, ui8PadChar;
-    
-# 795 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   _Bool 
-# 795 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-        bLower, bLongLong, bNeg;
+    bool bLower, bLongLong, bNeg;
     uint32_t ui32strlen = 0;
 
     while ( *pcFmt != 0x0 )
     {
-        iPrecision = 6;
+        iPrecision = 6;             // printf() default precision for %f is 6
 
         if ( *pcFmt != '%' )
         {
-
-
-
+            //
+            // Accumulate the string portion of the format specification.
+            //
             if ( pcBuf )
             {
-
-                if ( *pcFmt == '\n' && g_bTxtXlate )
+                // If '\n', convert to '\r\n'
+                if ( *pcFmt == '\n'  &&  g_bTxtXlate )
                 {
                     *pcBuf++ = '\r';
                     ++ui32CharCnt;
@@ -1841,19 +820,15 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
             continue;
         }
 
-
-
-
+        //
+        // Handle the specifier.
+        //
         ++pcFmt;
-        bLower = bLongLong = 
-# 827 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                            0
-# 827 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                 ;
+        bLower = bLongLong = false;
 
-
-
-
+        //
+        // Default to space as ui8PadChar
+        //
         ui8PadChar = ' ';
 
         if ( *pcFmt == '0' )
@@ -1862,60 +837,51 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
             ++pcFmt;
         }
 
-
-
-
+        //
+        // Width specifier
+        //
         iWidth = decstr_to_int(pcFmt, &ui32NumChars);
         pcFmt += ui32NumChars;
 
-
-
-
-        if ( ( *pcFmt != 's' ) && ( iWidth < 0 ) )
+        //
+        // For now, only support a negative width specifier for %s
+        //
+        if ( ( *pcFmt != 's' )  &&  ( iWidth < 0 ) )
         {
             iWidth = -iWidth;
         }
 
-
-
-
+        //
+        // Check for precision specifier
+        //
         if (*pcFmt == '.')
         {
             ++pcFmt;
             iPrecision = decstr_to_int(pcFmt, &ui32NumChars);
             pcFmt += ui32NumChars;
         }
-# 871 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+        //
+        // Check for the long or long long length field sub-specifiers, 'l' or
+        // 'll', which must be a modifier for either 'd', 'i', 'u', 'x', or 'X'
+        // (or even 'o', which is not currently supported). Other sub-specifiers
+        // like 'hh','h', etc. are not currently handled.
+        // Note - 'l' is used in Coremark, a primary reason it's supported here.
+        //
         if ( *pcFmt == 'l' )
         {
             pcFmt++;
-            if ( *pcFmt == 'l' )
+            if ( *pcFmt == 'l' )    // "ll" (long long)
             {
                 pcFmt++;
-                bLongLong = 
-# 877 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                           1
-# 877 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                               ;
+                bLongLong = true;
             }
         }
 
         switch ( *pcFmt )
         {
             case 'c':
-                ui8CharSpecifier = 
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  __builtin_va_arg(
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                  pArgs
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  ,
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                  uint32_t
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  )
-# 884 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                         ;
+                ui8CharSpecifier = va_arg(pArgs, uint32_t);
 
                 if ( pcBuf )
                 {
@@ -1926,32 +892,20 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 break;
 
             case 's':
-                pcStr = 
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                       __builtin_va_arg(
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                       pArgs
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                       ,
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                       char *
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                       )
-# 895 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                            ;
+                pcStr = va_arg(pArgs, char *);
 
-
-
-
-
-
+                //
+                // For %s, we support the width specifier. If iWidth is negative
+                // the string is left-aligned (padding on the right).  Otherwise
+                // the string is padded at the beginning with spaces.
+                //
                 ui32strlen = simple_strlen(pcStr);
                 if ( iWidth > 0 )
                 {
-
+                    // Pad the beginning of the string (right-aligned).
                     if ( ui32strlen < iWidth )
                     {
-
+                        // String needs some padding.
                         iWidth -= ui32strlen;
                         iWidth = padbuffer(pcBuf, ui8PadChar, iWidth);
                         pcBuf += pcBuf ? iWidth : 0;
@@ -1975,10 +929,10 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 {
                     iWidth = -iWidth;
 
-
+                    // Pad the end of the string (left-aligned).
                     if ( ui32strlen < iWidth )
                     {
-
+                        // String needs some padding.
                         iWidth -= ui32strlen;
                         iWidth = padbuffer(pcBuf, ui8PadChar, iWidth);
                         pcBuf += pcBuf ? iWidth : 0;
@@ -1989,44 +943,16 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 break;
 
             case 'x':
-                bLower = 
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                        1
-# 946 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                            ;
+                bLower = true;
             case 'X':
-                ui64Val = bLongLong ? 
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     __builtin_va_arg(
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     pArgs
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ,
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     uint64_t
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ) 
-# 948 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                             :
-                                      
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     __builtin_va_arg(
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     pArgs
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ,
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     uint32_t
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     )
-# 949 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                            ;
+                ui64Val = bLongLong ? va_arg(pArgs, uint64_t) :
+                                      va_arg(pArgs, uint32_t);
 
                 if ( iWidth )
                 {
-
-
-
+                    //
+                    // Compute # of leading chars
+                    //
                     iWidth -= ndigits_in_hex(ui64Val);
 
                     iWidth = padbuffer(pcBuf, ui8PadChar, iWidth);
@@ -2046,39 +972,15 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 break;
 
             case 'u':
-                ui64Val = bLongLong ? 
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     __builtin_va_arg(
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     pArgs
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ,
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     uint64_t
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ) 
-# 975 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                             :
-                                      
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     __builtin_va_arg(
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     pArgs
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     ,
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                     uint32_t
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                     )
-# 976 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                            ;
+                ui64Val = bLongLong ? va_arg(pArgs, uint64_t) :
+                                      va_arg(pArgs, uint32_t);
 
                 if ( iWidth )
                 {
-
-
-
-
+                    //
+                    // We need to pad the beginning of the value.
+                    // Compute # of leading chars
+                    //
                     iWidth -= ndigits_in_u64(ui64Val);
 
                     iWidth = padbuffer(pcBuf, ui8PadChar, iWidth);
@@ -2099,81 +1001,49 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
 
             case 'd':
             case 'i':
+                //
+                // Output for a negative number, for example, -5:
+                //   %d:-5
+                //  %5d:   -5
+                // %05d:-0005
+                //
+                i64Val = bLongLong ? va_arg(pArgs, int64_t) :
+                                     va_arg(pArgs, int32_t);
 
-
-
-
-
-
-                i64Val = bLongLong ? 
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    __builtin_va_arg(
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                    pArgs
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    ,
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                    int64_t
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    ) 
-# 1010 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                           :
-                                     
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    __builtin_va_arg(
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                    pArgs
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    ,
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                    int32_t
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                    )
-# 1011 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                          ;
-
-
-
-
+                //
+                // Get absolute value
+                //
                 if ( i64Val < 0 )
                 {
-                    ui64Val = -i64Val;
-                    bNeg = 
-# 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                          1
-# 1019 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                              ;
+                    ui64Val = -i64Val;          // Get absolute value
+                    bNeg = true;
                 }
                 else
                 {
                     ui64Val = i64Val;
-                    bNeg = 
-# 1024 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                          0
-# 1024 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                               ;
+                    bNeg = false;
                 }
 
                 if ( iWidth )
                 {
-
-
-
-
+                    //
+                    // We need to pad the beginning of the value.
+                    // Compute # of leading chars
+                    //
                     iWidth -= ndigits_in_i64(ui64Val);
 
                     if ( bNeg )
                     {
                         --iWidth;
 
-
-
-
+                        //
+                        // Allow for the negative sign
+                        //
                         if ( ui8PadChar == '0' )
                         {
-
-
-
+                            //
+                            // Print the neg sign BEFORE the leading zeros
+                            //
                             if ( pcBuf )
                             {
                                 *pcBuf++ = '-';
@@ -2188,11 +1058,11 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                     ui32CharCnt += iWidth;
                     iWidth = 0;
 
-                    if ( bNeg && (ui8PadChar == ' ') )
+                    if ( bNeg  &&  (ui8PadChar == ' ') )
                     {
-
-
-
+                        //
+                        // Print the neg sign AFTER the leading blanks
+                        //
                         if ( pcBuf )
                         {
                             *pcBuf++ = '-';
@@ -2228,43 +1098,31 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
             case 'F':
                 if ( pcBuf )
                 {
-                    float fValue = 
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  __builtin_va_arg(
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                  pArgs
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  ,
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                  double
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-                                  )
-# 1101 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                                                       ;
+                    float fValue = va_arg(pArgs, double);
 
-
-
-
+                    //
+                    // pcBuf is an input (size of buffer) and also an output of ftoa()
+                    //
                     *(uint32_t*)pcBuf = 20;
 
                     iVal = ftoa(fValue, pcBuf, iPrecision);
                     if ( iVal < 0 )
                     {
                         uint32_t u32PrntErrVal;
-                        if ( iVal == -1 )
+                        if ( iVal == AM_FTOA_ERR_VAL_TOO_SMALL )
                         {
                             u32PrntErrVal = (0x00 << 24) | ('0' << 16) |
-                                            ('.' << 8) | ('0' << 0);
+                                            ('.' << 8)   | ('0' << 0);  // "0.0"
                         }
-                        else if ( iVal == -2 )
+                        else if ( iVal == AM_FTOA_ERR_VAL_TOO_LARGE )
                         {
                             u32PrntErrVal = (0x00 << 24) | ('#' << 16) |
-                                            ('.' << 8) | ('#' << 0);
+                                            ('.' << 8)   | ('#' << 0);  // "#.#"
                         }
                         else
                         {
                             u32PrntErrVal = (0x00 << 24) | ('?' << 16) |
-                                            ('.' << 8) | ('?' << 0);
+                                            ('.' << 8)   | ('?' << 0);  // "?.?"
                         }
                         *(uint32_t*)pcBuf = u32PrntErrVal;
                         iVal = 3;
@@ -2274,12 +1132,12 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 }
                 break;
 
-
-
-
-
-
-
+            //
+            // Invalid specifier character
+            // For non-handled specifiers, we'll just print the character.
+            // e.g. this will allow the normal printing of a '%' using
+            // "%%".
+            //
             default:
                 if ( pcBuf )
                 {
@@ -2289,18 +1147,18 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
                 ++ui32CharCnt;
                 break;
 
-        }
+        } // switch ()
 
-
-
-
+        //
+        // Bump the format specification to the next character
+        //
         ++pcFmt;
 
-    }
+    } // while ()
 
-
-
-
+    //
+    // Terminate the string
+    //
     if ( pcBuf )
     {
         *pcBuf = 0x0;
@@ -2308,40 +1166,52 @@ am_util_stdio_vsprintf(char *pcBuf, const char *pcFmt, va_list pArgs)
 
     return (ui32CharCnt);
 }
-# 1191 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//******************************************************************************
+//
+//! @brief Format data into string.
+//!
+//! @param *pcBuf - Pointer to the buffer to store the string
+//! @param *pcFmt - Pointer to formater string
+//!
+//! A lite version of vsprintf().
+//!      Currently handles the following specifiers:
+//!      %c
+//!      %s
+//!      %[0][width]d (also %i)
+//!      %[0][width]u
+//!      %[0][width]x
+//!
+//!     Note than any unrecognized or unhandled format specifier character is
+//!     simply printed.  For example, "%%" will print a '%' character.
+//!
+//! @return uint32_t representing the number of characters printed.
+//
+//******************************************************************************
 uint32_t
 am_util_stdio_sprintf(char *pcBuf, const char *pcFmt, ...)
 {
     uint32_t ui32CharCnt;
 
     va_list pArgs;
-    
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_start(
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   ,
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pcFmt
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1197 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                         ;
+    va_start(pArgs, pcFmt);
     ui32CharCnt = am_util_stdio_vsprintf(pcBuf, pcFmt, pArgs);
-    
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_end(
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1199 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                ;
+    va_end(pArgs);
 
     return ui32CharCnt;
 }
-# 1215 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+//! @brief A lite version of printf()
+//!
+//! @param *pcFmt - Pointer to formatter string
+//!
+//!  See am_util_stdio_sprintf() for more details.
+//!
+//! @return uint32_t representing the number of characters printed.
+//
+// *****************************************************************************
 uint32_t
 am_util_stdio_printf(const char *pcFmt, ...)
 {
@@ -2352,42 +1222,22 @@ am_util_stdio_printf(const char *pcFmt, ...)
         return 0;
     }
 
-
-
-
+    //
+    // Convert to the desired string.
+    //
     va_list pArgs;
-    
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_start(
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   ,
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pcFmt
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1229 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                         ;
+    va_start(pArgs, pcFmt);
     ui32NumChars = am_util_stdio_vsprintf(g_prfbuf, pcFmt, pArgs);
-    
-# 1231 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_end(
-# 1231 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1231 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1231 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                ;
+    va_end(pArgs);
 
-
-
-
+    //
+    // This is where we print the buffer to the configured interface.
+    //
     g_pfnCharPrint(g_prfbuf);
 
-
-
-
+    //
+    // return the number of characters printed.
+    //
     return ui32NumChars;
 }
 
@@ -2397,7 +1247,7 @@ am_util_stdio_vsnprintf(char *pcBuf, uint32_t n, const char *pcFmt,
 {
     uint32_t ui32NumChars, i;
 
-    if (n >= 1024)
+    if (n >= AM_PRINTF_BUFSIZE)
     {
         return 0;
     }
@@ -2423,29 +1273,9 @@ am_util_stdio_snprintf(char *pcBuf, uint32_t n, const char *pcFmt, ...)
     uint32_t ui32CharCnt;
 
     va_list pArgs;
-    
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_start(
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   ,
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pcFmt
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1276 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                         ;
+    va_start(pArgs, pcFmt);
     ui32CharCnt = am_util_stdio_vsnprintf(pcBuf, n, pcFmt, pArgs);
-    
-# 1278 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   __builtin_va_end(
-# 1278 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-   pArgs
-# 1278 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c" 3 4
-   )
-# 1278 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
-                ;
+    va_end(pArgs);
 
     return ui32CharCnt;
 }
@@ -2463,22 +1293,31 @@ am_util_stdio_vprintf(const char *pcFmt, va_list pArgs)
 
     ui32NumChars = am_util_stdio_vsprintf(g_prfbuf, pcFmt, pArgs);
 
-
-
-
+    //
+    // This is where we print the buffer to the configured interface.
+    //
     g_pfnCharPrint(g_prfbuf);
 
-
-
-
+    //
+    // return the number of characters printed.
+    //
     return ui32NumChars;
 }
-# 1316 "/home/jenkins/workspace/RUI_Release/rui-v3/external/AmbiqSuiteSDK/utils/am_util_stdio.c"
+
+//*****************************************************************************
+//
+//! @brief Clear the terminal screen
+//!
+//! This function clears a standard terminal screen.
+//!
+//! @return None.
+//
+//*****************************************************************************
 void
 am_util_stdio_terminal_clear(void)
 {
-
-
-
+    //
+    // Simulate a clear terminal by printing a series of linefeeds.
+    //
     am_util_stdio_printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 }
