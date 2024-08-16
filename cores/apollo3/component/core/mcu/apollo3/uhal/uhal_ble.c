@@ -2410,6 +2410,14 @@ void uhal_ble_scan_start(uint16_t scan_sec)
         xSemaphoreTake(scan_start_semaphore, 1000);
 }
 
+void uhal_scan_init(bool connect_if_match)
+{
+    //TODO
+}
+void uhal_ble_scan_stop(void)
+{
+    //TODO
+}
 int32_t uhal_nus_set_keypairing(uint8_t *pairing_key, uint8_t key_length)
 {
     uint32_t err_code = 0;
