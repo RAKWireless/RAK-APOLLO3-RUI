@@ -26,6 +26,8 @@
 #include "rtc-board.h"
 #include "gpio-board.h"
 #include "udrv_gpio.h"
+#include "error_check.h"
+#define assert_param ASSERT
 
 void GpioMcuInit( Gpio_t *obj, PinNames pin, PinModes mode, PinConfigs config, PinTypes type, uint32_t value )
 {
