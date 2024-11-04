@@ -31,16 +31,6 @@ extern "C"
 #include <stdint.h>
 
 /*!
- * LMN (LoRaMac-node) status
- */
-typedef enum LmnStatus_e
-{
-  LMN_STATUS_ERROR = 0,
-  LMN_STATUS_OK = !LMN_STATUS_ERROR
-} LmnStatus_t;
-
-
-/*!
  * Generic definition
  */
 #ifndef SUCCESS
