@@ -202,14 +202,21 @@ int32_t uhal_timer_create (TimerID_E timer_id, timer_handler tmr_handler, TimerM
     uhal_timer_pdata[timer_id].timer_id = timer_id;
     uhal_timer_pdata[timer_id].timer_func = tmr_handler;
 
-    if(apollo3_timer_id == NULL)
+    if(apollo3_timer_id != NULL)
     {
-        apollo3_timer_id = xTimerCreate("TMR",
-                                  1,
-                                  get_apollo_timer_mode(mode),
-                                  NULL,
-                                  uhal_timer_handler_dispatcher);
+        if(pdPASS != xTimerDelete(apollo3_timer_id, OSTIMER_WAIT_FOR_QUEUE))
+        {
+            return -UDRV_INTERNAL_ERR;
+        }
+        set_apollo_timer_id(timer_id, NULL);
+        apollo3_timer_id = NULL;
     }
+
+    apollo3_timer_id = xTimerCreate("TMR",
+                              1,
+                              get_apollo_timer_mode(mode),
+                              NULL,
+                              uhal_timer_handler_dispatcher);
 
     if (apollo3_timer_id != NULL) {
         set_apollo_timer_id(timer_id, apollo3_timer_id);
@@ -332,14 +339,21 @@ int32_t uhal_sys_timer_create (SysTimerID_E timer_id, timer_handler tmr_handler,
     uhal_sys_timer_pdata[timer_id].sys_timer_id = timer_id;
     uhal_sys_timer_pdata[timer_id].timer_func = tmr_handler;
 
-    if(apollo3_timer_id == NULL)
+    if(apollo3_timer_id != NULL)
     {
-        apollo3_timer_id = xTimerCreate("SYS_TMR",
-                                    1,
-                                    get_apollo_timer_mode(mode),
-                                    NULL,
-                                    uhal_sys_timer_handler_dispatcher);
+        if(pdPASS != xTimerDelete(apollo3_timer_id, OSTIMER_WAIT_FOR_QUEUE))
+        {
+            return -UDRV_INTERNAL_ERR;            
+        }
+        set_sys_apollo_timer_id(timer_id, NULL);
+        apollo3_timer_id = NULL;
     }
+
+    apollo3_timer_id = xTimerCreate("SYS_TMR",
+                                1,
+                                get_apollo_timer_mode(mode),
+                                NULL,
+                                uhal_sys_timer_handler_dispatcher);
 
     if (apollo3_timer_id != NULL) {
         set_sys_apollo_timer_id(timer_id, apollo3_timer_id);
