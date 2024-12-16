@@ -133,6 +133,9 @@ recipe.objcopy.zip.2.pattern.macosx="{runtime.platform.path}/security/apollo3_sc
 recipe.objcopy.zip.3.pattern=python3 "{runtime.platform.path}/security/apollo3_scripts/ota_binary_converter.py" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
 recipe.objcopy.zip.3.pattern.windows="{runtime.platform.path}/security/apollo3_scripts/windows/ota_binary_converter.exe" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
 recipe.objcopy.zip.3.pattern.macosx="{runtime.platform.path}/security/apollo3_scripts/macosx/ota_binary_converter" --load-address 0x84000 --appbin "{build.path}/{build.project_name}_Main_Nonsecure_OTA_BLOB.bin" -o "{build.path}/{build.project_name}_Nonsecure_OTA_Package_BLE"
+recipe.objcopy.zip.4.pattern=python3 "{runtime.platform.path}/security/apollo3_scripts/append_crc.py" "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_crc"
+recipe.objcopy.zip.4.pattern.windows="{runtime.platform.path}/security/apollo3_scripts/windows/append_crc.exe" "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_crc"
+recipe.objcopy.zip.4.pattern.macosx=python3 "{runtime.platform.path}/security/apollo3_scripts/macosx/append_crc.py" "{build.path}/{build.project_name}.bin" -o "{build.path}/{build.project_name}_crc"
 
 ## Save bin
 recipe.output.tmp_file_bin={build.project_name}.bin
@@ -184,4 +187,4 @@ tools.bootburn.bootloader.pattern={program.burn_pattern} "{serial.port}" -f "{bo
 tools.bootburn.erase.params.verbose=
 tools.bootburn.erase.params.quiet=
 tools.bootburn.erase.pattern=
-version=4.1.2
+version=RUI_5.0.1
