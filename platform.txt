@@ -31,7 +31,7 @@ compiler.warning_flags.all=-Wall -Wextra -Wno-unused-parameter -Wno-missing-fiel
 # Allow changing optimization settings via platform.local.txt / boards.local.txt
 compiler.optimization_flag=-Os
 
-compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+compiler.path=/usr/bin/
 compiler.c.cmd=arm-none-eabi-gcc
 compiler.c.flags=-mcpu={build.mcu} -mthumb -c -g {compiler.warning_flags} {build.float_flags} -std=gnu11 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -nostdlib -fno-use-cxa-atexit -MMD
 compiler.c.elf.cmd=arm-none-eabi-gcc

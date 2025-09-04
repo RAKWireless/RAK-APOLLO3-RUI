@@ -100,12 +100,12 @@ void OnTimerEvent()
 }
 #endif
 
-void HardFault_Handler(void)
+__attribute__((weak)) void HardFault_Handler(void)
 {
     NVIC_SystemReset();
 }
 
-void error_fault_handler(uint32_t info)
+__attribute__((weak)) void error_fault_handler(uint32_t info)
 {
     NVIC_SystemReset();
 }
