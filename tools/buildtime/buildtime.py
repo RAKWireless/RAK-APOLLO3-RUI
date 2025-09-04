@@ -1,22 +1,26 @@
-#!/usr/bin/env python3
+#!/bin/python3
 
+import re
 import sys
-import os
+from datetime import datetime
 import time
-
 if len(sys.argv) < 2:
-    print("Usage: buildtime.py <version.c>")
-    sys.exit(1)
+    print("no argument")
+    sys.exit()
 
-version_file = sys.argv[1]
-fmt = "%Y-%m-%d %H:%M:%S"
-build_time = time.strftime(fmt)
+t = datetime.now()
+buildtime = t.strftime("%H%M%S")
+builddate = t.strftime("%Y%m%d")
 
-version_dir = os.path.dirname(version_file)
-if not os.path.exists(version_dir):
-    os.makedirs(version_dir)
-
-with open(version_file, 'w') as f:
-    f.write(f'const char* build_time = "{build_time}";\n')
-
-print(f"Build time: {build_time}")
+reading_file = open(sys.argv[1])
+new_content = ""
+for line in reading_file:
+    if re.search("define BUILD_TIME",line):
+        line = '#define BUILD_TIME "%s"\n'%buildtime
+    if re.search("define BUILD_DATE",line):
+        line = '#define BUILD_DATE "%s"\n'%builddate
+    new_content += line
+reading_file.close()
+writing_file = open(sys.argv[1],"w")
+writing_file.write(new_content)
+writing_file.close()
