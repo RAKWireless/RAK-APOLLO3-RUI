@@ -29,6 +29,7 @@
 #include "sx126x.h"
 #include "sx126x-board.h"
 #include "board.h"
+#include "am_log.h"
 
 /*!
  * \brief Initializes the radio
@@ -768,6 +769,10 @@ void RadioSetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
                         uint8_t hopPeriod, bool iqInverted, uint32_t timeout )
 {
 
+    power = 10;
+    datarate = LORA_SF7;
+    rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: power forced to %d dBm\r\n", power);
+    rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: datarate forced to %d \r\n", datarate);
     switch( modem )
     {
         case MODEM_FSK:
@@ -1026,6 +1031,8 @@ uint32_t RadioTimeOnAir( RadioModems_t modem, uint32_t bandwidth,
 
 void RadioSend( uint8_t *buffer, uint8_t size )
 {
+    am_log_inf("[RADIO_SEND] Size: %d bytes, TxTimeout: %d ms\r\n", size, TxTimeout);
+
     SX126xSetDioIrqParams( IRQ_TX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_TX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_RADIO_NONE,
@@ -1058,11 +1065,21 @@ void RadioSleep( void )
 
 void RadioStandby( void )
 {
+    am_log_inf("[RADIO_STANDBY]\r\n");
     SX126xSetStandby( STDBY_RC );
 }
 
 void RadioRx( uint32_t timeout )
 {
+    if( RxContinuous == true )
+    {
+        am_log_inf("[RADIO_RX] Continuous mode, Timeout: %d ms\r\n", timeout);
+    }
+    else
+    {
+        am_log_inf("[RADIO_RX] Single mode, Timeout: %d ms, RxTimeout: %d\r\n", timeout, RxTimeout);
+    }
+
     SX126xSetDioIrqParams( IRQ_RADIO_ALL, //IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_RADIO_ALL, //IRQ_RX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_RADIO_NONE,
@@ -1270,6 +1287,7 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_TX_DONE ) == IRQ_TX_DONE )
         {
+            am_log_inf("[RADIO_IRQ] TX_DONE\r\n");
             TimerStop( &TxTimeoutTimer );
             //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
             SX126xSetOperatingMode( MODE_STDBY_RC );
@@ -1285,6 +1303,7 @@ void RadioIrqProcess( void )
 
             if( ( irqRegs & IRQ_CRC_ERROR ) == IRQ_CRC_ERROR )
             {
+                am_log_inf("[RADIO_IRQ] RX_DONE - CRC_ERROR\r\n");
                 if( RxContinuous == false )
                 {
                     //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
@@ -1311,6 +1330,8 @@ void RadioIrqProcess( void )
                 }
                 SX126xGetPayload( RadioRxPayload, &size , 255 );
                 SX126xGetPacketStatus( &RadioPktStatus );
+                am_log_inf("[RADIO_IRQ] RX_DONE - Size: %d, RSSI: %d, SNR: %d\r\n",
+                           size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt);
                 if( ( RadioEvents != NULL ) && ( RadioEvents->RxDone != NULL ) )
                 {
                     RadioEvents->RxDone( RadioRxPayload, size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt );
@@ -1332,6 +1353,7 @@ void RadioIrqProcess( void )
         {
             if( SX126xGetOperatingMode( ) == MODE_TX )
             {
+                am_log_inf("[RADIO_IRQ] TX_TIMEOUT\r\n");
                 TimerStop( &TxTimeoutTimer );
                 //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
                 SX126xSetOperatingMode( MODE_STDBY_RC );
@@ -1342,6 +1364,7 @@ void RadioIrqProcess( void )
             }
             else if( SX126xGetOperatingMode( ) == MODE_RX )
             {
+                am_log_inf("[RADIO_IRQ] RX_TIMEOUT\r\n");
                 TimerStop( &RxTimeoutTimer );
                 //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
                 SX126xSetOperatingMode( MODE_STDBY_RC );
@@ -1354,6 +1377,7 @@ void RadioIrqProcess( void )
 
         if( ( irqRegs & IRQ_PREAMBLE_DETECTED ) == IRQ_PREAMBLE_DETECTED )
         {
+            am_log_inf("[RADIO_IRQ] PREAMBLE_DETECTED\r\n");
             //__NOP( );
         }
 

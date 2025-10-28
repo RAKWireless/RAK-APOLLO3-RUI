@@ -1,4 +1,5 @@
 #include "radio.h"
+#include "am_log.h"
 #include "udrv_gpio.h"
 #ifdef SUPPORT_LORA
 #include <stddef.h>
@@ -31,6 +32,28 @@
 #include "udrv_system.h"
 #endif
 
+static const char* loramac_status_to_string(uint8_t status)
+{
+    switch(status) {
+        case 0: return "OK";
+        case 1: return "ERROR";
+        case 2: return "TX_TIMEOUT";
+        case 3: return "RX1_TIMEOUT";
+        case 4: return "RX2_TIMEOUT";
+        case 5: return "RX1_ERROR";
+        case 6: return "RX2_ERROR";
+        case 7: return "JOIN_FAIL";
+        case 8: return "DOWNLINK_REPEATED";
+        case 9: return "TX_DR_PAYLOAD_SIZE_ERROR";
+        case 10: return "ADDRESS_FAIL";
+        case 11: return "MIC_FAIL";
+        case 12: return "MULTICAST_FAIL";
+        case 13: return "BEACON_LOCKED";
+        case 14: return "BEACON_LOST";
+        case 15: return "BEACON_NOT_FOUND";
+        default: return "UNKNOWN";
+    }
+}
 
 typedef enum PackageNotifyTypes_e
 {
@@ -181,7 +204,7 @@ static int32_t service_lora_start(void)
         }
         else
         {
-            udrv_serial_log_printf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
+            am_log_inf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
         }
     }
 #endif
@@ -269,7 +292,7 @@ static void service_lora_beacon_acquisition(void *m_data)
     }
     else
     {
-        //udrv_serial_log_printf("Acquire Beacon Fail\r\n");
+        //am_log_inf("Acquire Beacon Fail\r\n");
         LORA_TEST_DEBUG("+BC:ONGOING\r\n");
     }
 }
@@ -305,6 +328,9 @@ static void service_lora_send_null(uint8_t m_data)
 
 static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 {
+    am_log_inf("[MCPS_CONFIRM] Status: %s, AckRcvd: %d, DR: %d, TxPower: %d, NbTrans: %d\r\n",
+               loramac_status_to_string(mcpsConfirm->Status), mcpsConfirm->AckReceived, mcpsConfirm->Datarate,
+               mcpsConfirm->TxPower, mcpsConfirm->NbTrans);
 
     if (mcpsConfirm->Status == LORAMAC_EVENT_INFO_STATUS_OK)
     {
@@ -319,7 +345,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
     {
         if(mcpsConfirm->AckReceived)
         {
-            udrv_serial_log_printf("+EVT:SEND_CONFIRMED_OK\r\n");
+            am_log_inf("+EVT:SEND_CONFIRMED_OK\r\n");
             if (service_lora_send_callback != NULL) {
                 service_lora_send_callback(mcpsConfirm->Status);
             }
@@ -327,7 +353,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
         }
         else
         {
-            udrv_serial_log_printf("+EVT:SEND_CONFIRMED_FAILED(%d)\r\n", mcpsConfirm->Status);
+            am_log_inf("+EVT:SEND_CONFIRMED_FAILED(%d)\r\n", mcpsConfirm->Status);
             if(AckTimeoutRetriesCounter <= AckTimeoutRetries)
             {
                 uint8_t counter = AckTimeoutRetriesCounter + 1;
@@ -349,7 +375,7 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
         if (service_lora_send_callback != NULL) {
             service_lora_send_callback(mcpsConfirm->Status);
         }
-        udrv_serial_log_printf("+EVT:TX_DONE\r\n");
+        am_log_inf("+EVT:TX_DONE\r\n");
     }
 
     service_lora_lptp_send_callback(0);
@@ -359,6 +385,9 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
 
 static void McpsIndication(McpsIndication_t *mcpsIndication)
 {
+    am_log_inf("[MCPS_INDICATION] Status: %s, Size: %d, Port: %d, RxSlot: %d\r\n",
+               loramac_status_to_string(mcpsIndication->Status), mcpsIndication->BufferSize, mcpsIndication->Port, mcpsIndication->RxSlot);
+
     if (mcpsIndication->Status == LORAMAC_EVENT_INFO_STATUS_OK)
     {
         rssi = mcpsIndication->Rssi;
@@ -367,16 +396,16 @@ static void McpsIndication(McpsIndication_t *mcpsIndication)
 
         if (mcpsIndication->BufferSize > 0)
         {
-            udrv_serial_log_printf("+EVT:RX_%s:%d:%d", slotStrings[mcpsIndication->RxSlot], rssi, snr);
+            am_log_inf("+EVT:RX_%s:%d:%d", slotStrings[mcpsIndication->RxSlot], rssi, snr);
             if (mcpsIndication->Multicast == 1)
             {
-                udrv_serial_log_printf(":MULTICAST");
+                am_log_inf(":MULTICAST");
             }
             else
             {
-                udrv_serial_log_printf(":UNICAST");
+                am_log_inf(":UNICAST");
             }
-            udrv_serial_log_printf(":%d:", mcpsIndication->Port);
+            am_log_inf(":%d:", mcpsIndication->Port);
             for (int i = 0 ; i < SERIAL_MAX ; i++)
             {
                 SERVICE_MODE_TYPE mode = service_nvm_get_mode_type_from_nvm((SERIAL_PORT)i);
@@ -431,7 +460,7 @@ static void McpsIndication(McpsIndication_t *mcpsIndication)
             {
                 // Check DemodMargin
                 // Check NbGateways
-                udrv_serial_log_printf("+EVT:LINKCHECK:0:%d:%d:%d:%d\r\n", DemodMargin, NbGateways, rssi, snr);
+                am_log_inf("+EVT:LINKCHECK:0:%d:%d:%d:%d\r\n", DemodMargin, NbGateways, rssi, snr);
                 if (service_lora_linkcheck_callback != NULL) {
                     linkcheck_data.State = linkcheck_state;
                     linkcheck_data.DemodMargin = DemodMargin;
@@ -473,31 +502,32 @@ static void McpsIndication(McpsIndication_t *mcpsIndication)
         {
             if(RX_SLOT_WIN_1 == mcpsIndication->RxSlot)
             {
-                udrv_serial_log_printf("Receiving in RX_SLOT_WIN_1\r\n");
+                am_log_inf("Receiving in RX_SLOT_WIN_1\r\n");
             }
             else if(RX_SLOT_WIN_2 == mcpsIndication->RxSlot)
             {
-                udrv_serial_log_printf("Receiving in RX_SLOT_WIN_2\r\n");
+                am_log_inf("Receiving in RX_SLOT_WIN_2\r\n");
             }
             else if(RX_SLOT_WIN_CLASS_C == mcpsIndication->RxSlot)
             {
-                udrv_serial_log_printf("Receiving in RX_SLOT_WIN_CLASS_C\r\n");
+                am_log_inf("Receiving in RX_SLOT_WIN_CLASS_C\r\n");
             }
-            udrv_serial_log_printf("DevAddress:%08x\r\n",mcpsIndication->DevAddress);
-            udrv_serial_log_printf("Port:%d\r\n",mcpsIndication->Port);
-            udrv_serial_log_printf("Rssi:%d\r\n",mcpsIndication->Rssi);
-            udrv_serial_log_printf("Snr:%d\r\n",mcpsIndication->Snr);
-            udrv_serial_log_printf("RxDatarate:%u\r\n",mcpsIndication->RxDatarate);
-            udrv_serial_log_printf("FCntDown:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntDown);
+            am_log_inf("DevAddress:%08x\r\n",mcpsIndication->DevAddress);
+            am_log_inf("Port:%d\r\n",mcpsIndication->Port);
+            am_log_inf("Rssi:%d\r\n",mcpsIndication->Rssi);
+            am_log_inf("Snr:%d\r\n",mcpsIndication->Snr);
+            am_log_inf("RxDatarate:%u\r\n",mcpsIndication->RxDatarate);
+            am_log_inf("FCntDown:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntDown);
         }
         else
-            udrv_serial_log_printf("LoRaMacMibGetRequestConfirm ERROR\r\n");
+            am_log_inf("LoRaMacMibGetRequestConfirm ERROR\r\n");
     }
 
 }
 
 static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
 {
+    am_log_inf("[MLME_CONFIRM] Request: %d, Status: %s\r\n", mlmeConfirm->MlmeRequest, loramac_status_to_string(mlmeConfirm->Status));
     LmHandlerPackagesNotify( PACKAGE_MLME_CONFIRM, mlmeConfirm );
 
     switch (mlmeConfirm->MlmeRequest)
@@ -508,7 +538,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
             LoRaMacStatus_t status;
             MlmeReq_t mlmeReq;
 
-            udrv_serial_log_printf("+EVT:JOINED\r\n");
+            am_log_inf("+EVT:JOINED\r\n");
 
             udrv_system_timer_stop(SYSTIMER_LORAWAN);
 
@@ -523,7 +553,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
                 mibReq.Param.Class = CLASS_C;
                 if (LoRaMacMibSetRequestConfirm(&mibReq) != LORAMAC_STATUS_OK)
                 {
-                    udrv_serial_log_printf("+EVT:SWITCH_FAILED\r\n");
+                    am_log_inf("+EVT:SWITCH_FAILED\r\n");
                 }
             }
 
@@ -537,18 +567,18 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
             switch (mlmeConfirm->Status) {
                 case LORAMAC_EVENT_INFO_STATUS_TX_TIMEOUT:
                 {
-                    udrv_serial_log_printf("+EVT:JOIN_FAILED_TX_TIMEOUT\r\n");
+                    am_log_inf("+EVT:JOIN_FAILED_TX_TIMEOUT\r\n");
                     break;
                 }
                 case LORAMAC_EVENT_INFO_STATUS_RX1_TIMEOUT:
                 case LORAMAC_EVENT_INFO_STATUS_RX2_TIMEOUT:
                 {
-                    udrv_serial_log_printf("+EVT:JOIN_FAILED_RX_TIMEOUT\r\n");
+                    am_log_inf("+EVT:JOIN_FAILED_RX_TIMEOUT\r\n");
                     break;
                 }
                 default:
                 {
-                    udrv_serial_log_printf("+EVT:JOIN_FAILED_%d\r\n", mlmeConfirm->Status);
+                    am_log_inf("+EVT:JOIN_FAILED_%d\r\n", mlmeConfirm->Status);
                     break;
                 }
             }
@@ -568,7 +598,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
                     }
                     else
                     {
-                        udrv_serial_log_printf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
+                        am_log_inf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
                     }
                 }
 
@@ -594,11 +624,11 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
             if ((status = LoRaMacMibGetRequestConfirm(&mibReq)) == LORAMAC_STATUS_OK)
             {
 
-                udrv_serial_log_printf("Receiving MLME_JOIN\r\n");
-                udrv_serial_log_printf("DevAddr:%08x\r\n",mibReq.Param.Contexts->MacGroup2.DevAddr);
+                am_log_inf("Receiving MLME_JOIN\r\n");
+                am_log_inf("DevAddr:%08x\r\n",mibReq.Param.Contexts->MacGroup2.DevAddr);
             }
             else
-                udrv_serial_log_printf("LoRaMacMibGetRequestConfirm ERROR\r\n");
+                am_log_inf("LoRaMacMibGetRequestConfirm ERROR\r\n");
         }
 
         break;
@@ -608,7 +638,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
         {
             if(timereq_status == TIMEREQ_ENABLED)
             {
-                udrv_serial_log_printf("+EVT:TIMEREQ_OK\r\n");
+                am_log_inf("+EVT:TIMEREQ_OK\r\n");
                 if (service_lora_timereq_callback != NULL) {
                     service_lora_timereq_callback(GET_DEVICE_TIME_OK);
                 }
@@ -631,7 +661,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
         {
             if(timereq_status == TIMEREQ_ENABLED)
             {
-                udrv_serial_log_printf("+EVT:TIMEREQ_FAILED\r\n");
+                am_log_inf("+EVT:TIMEREQ_FAILED\r\n");
                 if (service_lora_timereq_callback != NULL) {
                     service_lora_timereq_callback(GET_DEVICE_TIME_FAIL);
                 }
@@ -654,7 +684,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
             mibReq.Param.Class = CLASS_B;
             if ((status = LoRaMacMibSetRequestConfirm(&mibReq)) == LORAMAC_STATUS_OK)
             {
-                udrv_serial_log_printf("+BC:DONE\r\n");
+                am_log_inf("+BC:DONE\r\n");
                 //classb bit is true , Need to send an empty packet to the server
                 service_lora_send_null(SERVICE_LORA_MAC_CMD_PING_SLOT_INFO);
             }
@@ -677,7 +707,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
         linkcheck_state = mlmeConfirm->Status;
         if(linkcheck_state!= LORAMAC_EVENT_INFO_STATUS_OK)
         {
-            udrv_serial_log_printf("+EVT:LINKCHECK:1:0:0:0:0\r\n");
+            am_log_inf("+EVT:LINKCHECK:1:0:0:0:0\r\n");
             if (service_lora_linkcheck_callback != NULL) {
                 linkcheck_data.State = linkcheck_state;
                 linkcheck_data.DemodMargin = 0;
@@ -698,7 +728,7 @@ static void MlmeConfirm(MlmeConfirm_t *mlmeConfirm)
         else
         {
             //LORAMAC_EVENT_INFO_STATUS_BEACON_NOT_FOUND
-            udrv_serial_log_printf("+BC:FAILED\r\n");
+            am_log_inf("+BC:FAILED\r\n");
             
             if (class_b_state != SERVICE_LORA_CLASS_B_COMPLETED) 
             {
@@ -728,7 +758,7 @@ static void MlmeIndication(MlmeIndication_t *mlmeIndication)
     //Not received beacon for two hours 
     case MLME_BEACON_LOST:   
     {
-        udrv_serial_log_printf("+BC:LOST\r\n");
+        am_log_inf("+BC:LOST\r\n");
         //user need to re execute the ClassB process
         class_b_state = SERVICE_LORA_CLASS_B_S0;
 
@@ -744,7 +774,7 @@ static void MlmeIndication(MlmeIndication_t *mlmeIndication)
     {
         if (mlmeIndication->Status == LORAMAC_EVENT_INFO_STATUS_BEACON_LOCKED)
        {
-            udrv_serial_log_printf("+BC:LOCKED\r\n");
+            am_log_inf("+BC:LOCKED\r\n");
 
             LORA_TEST_DEBUG("Lock Beacon Success\r\n");
 
@@ -761,7 +791,7 @@ static void MlmeIndication(MlmeIndication_t *mlmeIndication)
                 }
                 else
                 {
-                    udrv_serial_log_printf("+BC:FAILED_%d\r\n", __LINE__);
+                    am_log_inf("+BC:FAILED_%d\r\n", __LINE__);
                     udrv_system_timer_stop(SYSTIMER_LORAWAN);
                 }
             }
@@ -814,7 +844,7 @@ static void MlmeIndication(MlmeIndication_t *mlmeIndication)
         {
             //Just print the log. The system has received the beacon before. Although it is lost this time, 
             //the system will automatically find the next beacon
-            udrv_serial_log_printf("+BC:FAILED\r\n");
+            am_log_inf("+BC:FAILED\r\n");
         }
         btime = mlmeIndication->BeaconInfo.Time;
         break;
@@ -1989,7 +2019,11 @@ int32_t service_lora_join(int32_t param1, int32_t param2, int32_t param3, int32_
         mlmeReq.Req.Join.NetworkActivation = ACTIVATION_TYPE_OTAA;
 #endif
 
+        am_log_inf("[JOIN] forcing DR_7\r\n");
+        mlmeReq.Req.Join.Datarate = DR_7;
+        am_log_inf("[JOIN] Initiating join request (DR: %d)\r\n", mlmeReq.Req.Join.Datarate);
         status = LoRaMacMlmeRequest(&mlmeReq);
+        am_log_inf("[JOIN] LoRaMacMlmeRequest result: %d\r\n", status);
         LORA_TEST_DEBUG("status=%d", status);
 
 #ifdef LORA_STACK_104
@@ -2028,10 +2062,10 @@ int32_t service_lora_join(int32_t param1, int32_t param2, int32_t param3, int32_
                 }
                 else
                 {
-                    udrv_serial_log_printf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
+                    am_log_inf("+EVT:JOIN_FAILED_%d\r\n", __LINE__);
                 }
             }
-            udrv_serial_log_printf("Restricted_Wait_%d_ms\r\n", mlmeReq.ReqReturn.DutyCycleWaitTime);
+            am_log_inf("Restricted_Wait_%d_ms\r\n", mlmeReq.ReqReturn.DutyCycleWaitTime);
             return -UDRV_BUSY;
         }
         else
@@ -2075,32 +2109,32 @@ int32_t service_lora_join(int32_t param1, int32_t param2, int32_t param3, int32_
         if ((status = LoRaMacMibGetRequestConfirm(&mibReq)) == LORAMAC_STATUS_OK)
         {
             region = mibReq.Param.Contexts->MacGroup2.Region;
-            udrv_serial_log_printf("Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+            am_log_inf("Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
             if(region == LORAMAC_REGION_AU915 || region == LORAMAC_REGION_US915)
             {
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%8)*( (uint32_t) 600000 ));
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%8)*( (uint32_t) 600000 ));
             }
             else if (region == LORAMAC_REGION_CN470)
             {
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%48)*( (uint32_t) 200000 ));
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%48)*( (uint32_t) 200000 ));
             }
             else
             {
 #ifdef LORA_STACK_104
                 if (mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency == 0) {
-                    udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+                    am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
                 }
                 else {
-                    udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency);
+                    am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency);
                 }
 #else
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
 #endif
             }
-            udrv_serial_log_printf("RxCFrequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency);
-            udrv_serial_log_printf("ChannelsDatarate:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsDatarate);
-            udrv_serial_log_printf("ChannelsTxPower:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsTxPower);
-            udrv_serial_log_printf("FCntUp:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntUp);
+            am_log_inf("RxCFrequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency);
+            am_log_inf("ChannelsDatarate:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsDatarate);
+            am_log_inf("ChannelsTxPower:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsTxPower);
+            am_log_inf("FCntUp:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntUp);
         }
     }
     return UDRV_RETURN_OK;
@@ -2136,7 +2170,7 @@ int32_t service_lora_set_lora_default(void)
 
     if (service_nvm_set_default_config_to_nvm() != UDRV_RETURN_OK)
     {
-        udrv_serial_log_printf("%s():Fail\r\n", __func__);
+        am_log_inf("%s():Fail\r\n", __func__);
         return -UDRV_INTERNAL_ERR;
     }
 
@@ -2445,7 +2479,7 @@ int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO in
     status = LoRaMacQueryTxPossible( len , &txInfo );
     if(service_get_debug_level())
     {
-        udrv_serial_log_printf("QueryTxPossible: %s, UserDataSize %d PossibleDataSize %d AdditionalFOptsSize %d\r\n", MacStatusStrings[status], len, txInfo.MaxPossibleApplicationDataSize, (txInfo.CurrentPossiblePayloadSize - txInfo.MaxPossibleApplicationDataSize));
+        am_log_inf("QueryTxPossible: %s, UserDataSize %d PossibleDataSize %d AdditionalFOptsSize %d\r\n", MacStatusStrings[status], len, txInfo.MaxPossibleApplicationDataSize, (txInfo.CurrentPossiblePayloadSize - txInfo.MaxPossibleApplicationDataSize));
     }
     if( status != LORAMAC_STATUS_OK ) /* if invalid, still send null packet for respond ack and trigger adr mechaniam */ 
     {
@@ -2527,7 +2561,10 @@ int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO in
         AckTimeoutRetries_info.retry_valid = info.retry_valid;
     }
 
+    am_log_inf("[SEND] Len: %d, Port: %d, Type: %d, Confirm: %d\r\n",
+               len, info.port, mcpsReq.Type, (mcpsReq.Type == MCPS_CONFIRMED));
     status = LoRaMacMcpsRequest(&mcpsReq);
+    am_log_inf("[SEND] LoRaMacMcpsRequest result: %d, DutyCycle: %d ms\r\n", status, mcpsReq.ReqReturn.DutyCycleWaitTime);
     LORA_TEST_DEBUG("status %d",status);
     LORA_TEST_DEBUG("DutyCycleWaitTime  %d",mcpsReq.ReqReturn.DutyCycleWaitTime);
 #ifdef LORA_STACK_104
@@ -2544,32 +2581,32 @@ int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO in
         if ((status = LoRaMacMibGetRequestConfirm(&mibReq)) == LORAMAC_STATUS_OK)
         {
             region = mibReq.Param.Contexts->MacGroup2.Region;
-            udrv_serial_log_printf("Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+            am_log_inf("Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
             if(region == LORAMAC_REGION_AU915 || region == LORAMAC_REGION_US915)
             {
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%8)*( (uint32_t) 600000 ));
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%8)*( (uint32_t) 600000 ));
             }
             else if (region == LORAMAC_REGION_CN470)
             {
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%48)*( (uint32_t) 200000 ));
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency + (last_tx_channel%48)*( (uint32_t) 200000 ));
             }
             else
             {
 #ifdef LORA_STACK_104
                 if (mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency == 0) {
-                    udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+                    am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
                 }
                 else {
-                    udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency);
+                    am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Rx1Frequency);
                 }
 #else
-                udrv_serial_log_printf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
+                am_log_inf("Rx1Frequency:%u\r\n",mibReq.Param.Contexts->RegionGroup2.Channels[last_tx_channel].Frequency);
 #endif
             }
-            udrv_serial_log_printf("RxCFrequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency);
-            udrv_serial_log_printf("ChannelsDatarate:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsDatarate);
-            udrv_serial_log_printf("ChannelsTxPower:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsTxPower);
-            udrv_serial_log_printf("FCntUp:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntUp);
+            am_log_inf("RxCFrequency:%u\r\n",mibReq.Param.Contexts->MacGroup2.MacParamsDefaults.RxCChannel.Frequency);
+            am_log_inf("ChannelsDatarate:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsDatarate);
+            am_log_inf("ChannelsTxPower:%d\r\n",mibReq.Param.Contexts->MacGroup1.ChannelsTxPower);
+            am_log_inf("FCntUp:%u\r\n",mibReq.Param.Contexts->Crypto.FCntList.FCntUp);
         }
     }
 
@@ -2600,7 +2637,7 @@ int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO in
     }
     else if (status == LORAMAC_STATUS_DUTYCYCLE_RESTRICTED)
     {
-        udrv_serial_log_printf("Restricted_Wait_%d_ms\r\n", mcpsReq.ReqReturn.DutyCycleWaitTime);
+        am_log_inf("Restricted_Wait_%d_ms\r\n", mcpsReq.ReqReturn.DutyCycleWaitTime);
         return -UDRV_BUSY;
     }
     else
@@ -3538,37 +3575,37 @@ static void DisplayMacMcpsRequestUpdate( LoRaMacStatus_t status, McpsReq_t *mcps
     {
         case MCPS_CONFIRMED:
         {
-            udrv_serial_log_printf( "\n###### =========== MCPS-Request ============ ######\n" );
-            udrv_serial_log_printf( "######            MCPS_CONFIRMED             ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MCPS-Request ============ ######\n" );
+            am_log_inf( "######            MCPS_CONFIRMED             ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         case MCPS_UNCONFIRMED:
         {
-            udrv_serial_log_printf( "\n###### =========== MCPS-Request ============ ######\n" );
-            udrv_serial_log_printf( "######           MCPS_UNCONFIRMED            ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MCPS-Request ============ ######\n" );
+            am_log_inf( "######           MCPS_UNCONFIRMED            ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         case MCPS_PROPRIETARY:
         {
-            udrv_serial_log_printf( "\n###### =========== MCPS-Request ============ ######\n" );
-            udrv_serial_log_printf( "######           MCPS_PROPRIETARY            ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MCPS-Request ============ ######\n" );
+            am_log_inf( "######           MCPS_PROPRIETARY            ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         default:
         {
-            udrv_serial_log_printf( "\n###### =========== MCPS-Request ============ ######\n" );
-            udrv_serial_log_printf( "######                MCPS_ERROR             ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MCPS-Request ============ ######\n" );
+            am_log_inf( "######                MCPS_ERROR             ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
     }
-    udrv_serial_log_printf( "STATUS      : %s\n", MacStatusStrings[status] );
+    am_log_inf( "STATUS      : %s\n", MacStatusStrings[status] );
     if( status == LORAMAC_STATUS_DUTYCYCLE_RESTRICTED )
     {
-        udrv_serial_log_printf( "Next Tx in  : %lu [ms]\n", nextTxIn );
+        am_log_inf( "Next Tx in  : %lu [ms]\n", nextTxIn );
     }
 }
 
@@ -3579,53 +3616,53 @@ static void DisplayMacMlmeRequestUpdate( LoRaMacStatus_t status, MlmeReq_t *mlme
     {
         case MLME_JOIN:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######               MLME_JOIN               ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######               MLME_JOIN               ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         case MLME_LINK_CHECK:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######            MLME_LINK_CHECK            ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######            MLME_LINK_CHECK            ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         case MLME_DEVICE_TIME:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######            MLME_DEVICE_TIME           ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######            MLME_DEVICE_TIME           ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
         case MLME_TXCW:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######               MLME_TXCW               ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######               MLME_TXCW               ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
 #ifndef LORA_STACK_104
         case MLME_TXCW_1:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######               MLME_TXCW_1             ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######               MLME_TXCW_1             ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
 #endif
         default:
         {
-            udrv_serial_log_printf( "\n###### =========== MLME-Request ============ ######\n" );
-            udrv_serial_log_printf( "######              MLME_UNKNOWN             ######\n");
-            udrv_serial_log_printf( "###### ===================================== ######\n");
+            am_log_inf( "\n###### =========== MLME-Request ============ ######\n" );
+            am_log_inf( "######              MLME_UNKNOWN             ######\n");
+            am_log_inf( "###### ===================================== ######\n");
             break;
         }
     }
-    udrv_serial_log_printf( "STATUS      : %s\n", MacStatusStrings[status] );
+    am_log_inf( "STATUS      : %s\n", MacStatusStrings[status] );
     if( status == LORAMAC_STATUS_DUTYCYCLE_RESTRICTED )
     {
-        udrv_serial_log_printf( "Next Tx in  : %lu [ms]\n", nextTxIn );
+        am_log_inf( "Next Tx in  : %lu [ms]\n", nextTxIn );
     }
 }
 

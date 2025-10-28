@@ -5,6 +5,7 @@
 extern "C" {
 #endif 
 
+#define RTT_LOG_ENABLED 1
 #ifdef RTT_LOG_ENABLED
 
 #include"SEGGER_RTT.h"

@@ -16,6 +16,7 @@
 #include "soft-se/aes.h"
 #include "board.h"
 #include "service_runtimeConfig.h"
+#include "am_log.h"
 
 #ifdef LORA_CHIP_SX1276
     // #include "sx1276Regs-LoRa.h"
@@ -94,6 +95,7 @@ static void OnTxDone(void)
 {
     lora_p2p_status.isRadioBusy = false;
 
+    am_log_inf("[P2P_TX_DONE]\r\n");
     LORA_P2P_DEBUG("%s\r\n", __func__);
     if (service_get_debug_level()) {
         udrv_serial_log_printf("%s\r\n", __func__);
@@ -128,6 +130,7 @@ static void OnRxDone(uint8_t *payload, uint16_t size, int16_t rssi, int8_t snr)
     lora_p2p_status.isRadioBusy = false;
     lora_p2p_status.isContinue = false;
 
+    am_log_inf("[P2P_RX_DONE] Size: %d, RSSI: %d, SNR: %d\r\n", size, rssi, snr);
     LORA_P2P_DEBUG("%s\r\n", __func__);
 
     if (true == service_lora_p2p_get_crypto_enable())
@@ -185,6 +188,7 @@ static void OnTxTimeout(void)
 
 static void OnRxTimeout(void)
 {
+    am_log_inf("[P2P_RX_TIMEOUT]\r\n");
     LORA_P2P_DEBUG("%s\r\n", __func__);
 
     lora_p2p_status.isRadioBusy = false;
@@ -215,6 +219,7 @@ static void OnRxError(void)
     lora_p2p_status.isRadioBusy = false;
     lora_p2p_status.isContinue = false;
 
+    am_log_inf("[P2P_RX_ERROR]\r\n");
     if (SERVICE_LORA_P2P == service_lora_p2p_get_nwm())
         udrv_serial_log_printf("+EVT:RXP2P RECEIVE ERROR\r\n");
     else
@@ -406,6 +411,8 @@ int32_t service_lora_p2p_send(uint8_t *p_data, uint8_t len, bool cad_enable)
         if(lora_p2p_status.isRadioBusy == false)
             return -UDRV_BUSY;
     }
+
+    am_log_inf("[P2P_SEND] Len: %d, CAD: %d\r\n", len, cad_enable);
     Radio.Send(lora_p2p_buf, len);
 
 
