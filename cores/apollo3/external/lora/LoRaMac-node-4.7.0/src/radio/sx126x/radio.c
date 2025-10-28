@@ -644,7 +644,9 @@ void RadioSetRxConfig( RadioModems_t modem, uint32_t bandwidth,
                          bool crcOn, bool freqHopOn, uint8_t hopPeriod,
                          bool iqInverted, bool rxContinuous )
 {
-
+    am_log_inf("[RADIO_SET_RX_CONFIG] SF: %d, BW: %d, symbTimeout: %d, rxContinuous: %d\r\n",
+               datarate, bandwidth, symbTimeout, rxContinuous);
+    //datarate = LORA_SF7;
     RxContinuous = rxContinuous;
     if( rxContinuous == true )
     {
@@ -769,8 +771,8 @@ void RadioSetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
                         uint8_t hopPeriod, bool iqInverted, uint32_t timeout )
 {
 
-    power = 10;
-    datarate = LORA_SF7;
+    //power = 10;
+    //datarate = LORA_SF7;
     rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: power forced to %d dBm\r\n", power);
     rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: datarate forced to %d \r\n", datarate);
     switch( modem )
@@ -1353,7 +1355,7 @@ void RadioIrqProcess( void )
         {
             if( SX126xGetOperatingMode( ) == MODE_TX )
             {
-                am_log_inf("[RADIO_IRQ] TX_TIMEOUT\r\n");
+                am_log_inf("[RADIO_IRQ] TX_TIMEOUT (HW timeout)\r\n");
                 TimerStop( &TxTimeoutTimer );
                 //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
                 SX126xSetOperatingMode( MODE_STDBY_RC );
@@ -1364,7 +1366,7 @@ void RadioIrqProcess( void )
             }
             else if( SX126xGetOperatingMode( ) == MODE_RX )
             {
-                am_log_inf("[RADIO_IRQ] RX_TIMEOUT\r\n");
+                am_log_inf("[RADIO_IRQ] RX_TIMEOUT (HW timeout, not SW timer!)\r\n");
                 TimerStop( &RxTimeoutTimer );
                 //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
                 SX126xSetOperatingMode( MODE_STDBY_RC );

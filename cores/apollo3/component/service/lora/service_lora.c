@@ -2019,8 +2019,8 @@ int32_t service_lora_join(int32_t param1, int32_t param2, int32_t param3, int32_
         mlmeReq.Req.Join.NetworkActivation = ACTIVATION_TYPE_OTAA;
 #endif
 
-        am_log_inf("[JOIN] forcing DR_7\r\n");
-        mlmeReq.Req.Join.Datarate = DR_7;
+        //am_log_inf("[JOIN] forcing DR_7\r\n");
+        //mlmeReq.Req.Join.Datarate = DR_7;
         am_log_inf("[JOIN] Initiating join request (DR: %d)\r\n", mlmeReq.Req.Join.Datarate);
         status = LoRaMacMlmeRequest(&mlmeReq);
         am_log_inf("[JOIN] LoRaMacMlmeRequest result: %d\r\n", status);
