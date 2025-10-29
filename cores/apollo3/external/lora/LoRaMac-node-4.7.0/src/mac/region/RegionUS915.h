@@ -96,9 +96,9 @@ extern "C"
 
 /*!
  * Default Tx output power used by the node
- * Reduced from TX_POWER_0 (26dBm) to TX_POWER_8 (14dBm) for power efficiency
+ * Reduced from TX_POWER_0 (26dBm) to TX_POWER_13 (4dBm) for power efficiency
  */
-#define US915_DEFAULT_TX_POWER                      TX_POWER_8
+#define US915_DEFAULT_TX_POWER                      TX_POWER_13
 
 /*!
  * Default Max ERP
