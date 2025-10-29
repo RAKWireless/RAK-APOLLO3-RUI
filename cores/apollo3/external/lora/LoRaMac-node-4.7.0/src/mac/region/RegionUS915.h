@@ -72,7 +72,7 @@ extern "C"
 /*!
  * Default datarate used by the node
  */
-#define US915_DEFAULT_DATARATE                      DR_0
+#define US915_DEFAULT_DATARATE                      DR_4
 
 /*!
  * Minimal Rx1 receive datarate offset
@@ -96,8 +96,9 @@ extern "C"
 
 /*!
  * Default Tx output power used by the node
+ * Reduced from TX_POWER_0 (26dBm) to TX_POWER_8 (14dBm) for power efficiency
  */
-#define US915_DEFAULT_TX_POWER                      TX_POWER_0
+#define US915_DEFAULT_TX_POWER                      TX_POWER_8
 
 /*!
  * Default Max ERP

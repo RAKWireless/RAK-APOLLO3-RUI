@@ -796,8 +796,7 @@ int8_t RegionUS915DlChannelReq( DlChannelReqParams_t* dlChannelReq )
 
 int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
 {
-    // Alternates the data rate according to the channel sequence:
-    // Eight times a 125kHz DR_0 and then one 500kHz DR_4 channel
+    // Always use DR_4 (SF8/BW500kHz) for power efficiency
     if(US915_SingleChannel.AlternateDr != NULL)
     {
         currentDr = US915_SingleChannel.AlternateDr();
@@ -813,15 +812,8 @@ int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
         RegionNvmGroup1->JoinTrialsCounter--;
     }
 
-    if( RegionNvmGroup1->JoinTrialsCounter % 9 == 0 )
-    {
-        // Use DR_4 every 9th times.
-        currentDr = DR_4;
-    }
-    else
-    {
-        currentDr = DR_0;
-    }
+    // Always use DR_4 (SF8/BW500kHz) instead of alternating
+    currentDr = DR_4;
     return currentDr;
 }
 
