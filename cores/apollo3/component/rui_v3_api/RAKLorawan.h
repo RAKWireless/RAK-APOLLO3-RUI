@@ -792,6 +792,50 @@ public:
      */
   bool registerTimereqCallback(service_lora_timereq_cb callback);
 
+  /**@par   Description
+     *          This API is used to register a callback function for radio power management before TX.
+     * @par Syntax
+     *          api.lorawan.registerRadioPreTxCallback(service_lora_radio_cb callback)
+     * @param   The callback function
+     * @return  bool
+     * @retval  TRUE for setting callback function success
+     * @retval  FALSE for setting callback function failure
+     */
+  bool registerRadioPreTxCallback(service_lora_radio_cb callback);
+
+  /**@par   Description
+     *          This API is used to register a callback function for radio power management after TX.
+     * @par Syntax
+     *          api.lorawan.registerRadioPostTxCallback(service_lora_radio_cb callback)
+     * @param   The callback function
+     * @return  bool
+     * @retval  TRUE for setting callback function success
+     * @retval  FALSE for setting callback function failure
+     */
+  bool registerRadioPostTxCallback(service_lora_radio_cb callback);
+
+  /**@par   Description
+     *          This API is used to register a callback function for radio power management before RX.
+     * @par Syntax
+     *          api.lorawan.registerRadioPreRxCallback(service_lora_radio_cb callback)
+     * @param   The callback function
+     * @return  bool
+     * @retval  TRUE for setting callback function success
+     * @retval  FALSE for setting callback function failure
+     */
+  bool registerRadioPreRxCallback(service_lora_radio_cb callback);
+
+  /**@par   Description
+     *          This API is used to register a callback function for radio power management after RX.
+     * @par Syntax
+     *          api.lorawan.registerRadioPostRxCallback(service_lora_radio_cb callback)
+     * @param   The callback function
+     * @return  bool
+     * @retval  TRUE for setting callback function success
+     * @retval  FALSE for setting callback function failure
+     */
+  bool registerRadioPostRxCallback(service_lora_radio_cb callback);
+
 
 
   /**@par	Description
