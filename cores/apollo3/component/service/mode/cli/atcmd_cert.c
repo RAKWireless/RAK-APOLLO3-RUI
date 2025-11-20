@@ -432,11 +432,13 @@ int At_Cw(SERIAL_PORT port, char *cmd, stParam *param)
             LORA_TEST_DEBUG();
             return AT_PARAM_ERROR;
         }
-        if (0 != at_check_digital_uint32_t(param->argv[1], &Param.txpower))
-        {
-            LORA_TEST_DEBUG();
-            return AT_PARAM_ERROR;
-        }
+        // if (0 != at_check_digital_uint32_t(param->argv[1], &Param.txpower))
+        // {
+        //     LORA_TEST_DEBUG();
+        //     return AT_PARAM_ERROR;
+        // }
+        Param.txpower = atoi(param->argv[1]);
+        atcmd_printf("[%s]=%d:", param->argv[1], Param.txpower);
 
         if (0 != at_check_digital_uint32_t(param->argv[2], &Param.txTimeout))
         {
@@ -456,8 +458,12 @@ int At_Cw(SERIAL_PORT port, char *cmd, stParam *param)
         }
 #endif
 
-        if(Param.txpower > 22 || Param.txpower < 5)
+        if(Param.txpower > 22 || Param.txpower < -5)
+        {
+            LORA_TEST_DEBUG();
             return AT_PARAM_ERROR;
+        }
+            
 
         if(Param.txTimeout > 65535)
             return AT_PARAM_ERROR;
