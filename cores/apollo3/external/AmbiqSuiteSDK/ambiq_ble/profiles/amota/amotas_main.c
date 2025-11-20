@@ -71,6 +71,7 @@
 #include "am_multi_boot.h"
 
 #include "uhal_uart.h"
+#include "am_log.h"
 
 #if defined(AM_PART_APOLLO4B)
 #include "am_hal_security.h"
@@ -81,10 +82,11 @@
 #undef  APP_TRACE_INFO2
 #undef  APP_TRACE_INFO3
 
-#define APP_TRACE_INFO0(msg)
-#define APP_TRACE_INFO1(msg, var1)
-#define APP_TRACE_INFO2(msg, var1, var2)
-#define APP_TRACE_INFO3(msg, var1, var2, var3)
+// Enable RTT logging for AMOTA debug
+#define APP_TRACE_INFO0(msg)                    am_log_inf(msg)
+#define APP_TRACE_INFO1(msg, var1)              am_log_inf(msg, var1)
+#define APP_TRACE_INFO2(msg, var1, var2)        am_log_inf(msg, var1, var2)
+#define APP_TRACE_INFO3(msg, var1, var2, var3)  am_log_inf(msg, var1, var2, var3)
 
 static am_multiboot_flash_info_t *g_pFlash = &g_intFlash;
 
@@ -347,6 +349,38 @@ amotas_conn_open(dmEvt_t *pMsg)
     APP_TRACE_INFO1("connInterval = 0x%x", evt->connInterval);
     APP_TRACE_INFO1("connLatency = 0x%x", evt->connLatency);
     APP_TRACE_INFO1("supTimeout = 0x%x", evt->supTimeout);
+
+    // Request longer connection parameters for OTA reliability
+    // Increase supervision timeout to 6 seconds to handle flash write delays
+    // take a look at:
+    //
+    // app_api.h
+    ///*! \brief Configurable parameters for connection parameter update */
+    // typedef struct
+    // {
+    //   wsfTimerTicks_t idlePeriod;                  /*!< \brief Connection idle period in ms before attempting
+    //                                                     connection parameter update; set to zero to disable */
+    //   uint16_t    connIntervalMin;                 /*!< \brief Minimum connection interval in 1.25ms units */
+    //   uint16_t    connIntervalMax;                 /*!< \brief Maximum connection interval in 1.25ms units */
+    //   uint16_t    connLatency;                     /*!< \brief Connection latency */
+    //   uint16_t    supTimeout;                      /*!< \brief Supervision timeout in 10ms units */
+    //   uint8_t     maxAttempts;                     /*!< \brief Number of update attempts before giving up */
+    // } appUpdateCfg_t;
+    //
+    // hci_defs.h
+    //
+    // #define HCI_CONN_INTERVAL_MIN   0x0006  /*!< \brief Minimum connection interval (7.5ms) */
+    // #define HCI_CONN_INTERVAL_MAX   0x0C80  /*!< \brief Maximum connection interval (4000ms) */
+    // #define HCI_SUP_TIMEOUT_MIN     0x000A  /*!< \brief Minimum supervision timeout (100ms) */
+    // #define HCI_SUP_TIMEOUT_MAX     0x0C80  /*!< \brief Maximum supervision timeout (32s) */
+    hciConnSpec_t connSpec;
+    connSpec.connIntervalMin = 0x06;    // 7.5ms (6 * 1.25ms)
+    connSpec.connIntervalMax = 0x0C;    // 15ms (12 * 1.25ms)
+    connSpec.connLatency = 0;           // No latency
+    connSpec.supTimeout = 0x258;        // 6 seconds (600 * 10ms)
+
+    APP_TRACE_INFO0("Requesting longer supervision timeout for OTA");
+    DmConnUpdate(evt->hdr.param, &connSpec);
 }
 
 //*****************************************************************************
@@ -443,7 +477,9 @@ amotas_send_data(uint8_t *buf, uint16_t len)
     /* send notification */
     if ( pConn )
     {
+#ifdef AMOTA_DEBUG_ON
         APP_TRACE_INFO1("Send to connId = %d", pConn->connId);
+#endif
         AttsHandleValueNtf(pConn->connId, AMOTAS_TX_HDL, len, buf);
     }
     else
@@ -490,11 +526,15 @@ amotas_set_fw_addr(void)
     //
     // Check storage type
     //
+    APP_TRACE_INFO1("amotas_set_fw_addr: storageType = %d", amotasCb.fwHeader.storageType);
     if ( amotasCb.fwHeader.storageType == AMOTA_FW_STORAGE_INTERNAL )
     {
         // storage in internal flash
+        APP_TRACE_INFO2("OTA: Base address=0x%08X, pageSize=0x%04X", AMOTA_INT_FLASH_OTA_ADDRESS, AM_HAL_FLASH_PAGE_SIZE);
         uint32_t storeAddr = (AMOTA_INT_FLASH_OTA_ADDRESS + AM_HAL_FLASH_PAGE_SIZE - 1) & ~(AM_HAL_FLASH_PAGE_SIZE - 1);
         uint32_t maxSize = AMOTA_INT_FLASH_OTA_MAX_SIZE & ~(AM_HAL_FLASH_PAGE_SIZE - 1);
+        APP_TRACE_INFO2("OTA: Calculated storeAddr=0x%08X, maxSize=0x%08X", storeAddr, maxSize);
+        APP_TRACE_INFO1("fwLength = 0x%x", amotasCb.fwHeader.fwLength);
 
 #if !defined(AM_PART_APOLLO3) && !defined(AM_PART_APOLLO3P) && !defined(AM_PART_APOLLO4B)// There is no easy way to get the information about the main image in Apollo3
         uint32_t ui32CurLinkAddr;
@@ -527,7 +567,35 @@ amotas_set_fw_addr(void)
         }
 
         g_pFlash = &g_intFlash;
+
+        // Validate calculated address matches expected OTA storage location
+        if (storeAddr != MCU_FLASH_OTA_ADDRESS)
+        {
+            APP_TRACE_INFO2("OTA: ERROR! Calculated address 0x%08X != expected 0x%08X", storeAddr, MCU_FLASH_OTA_ADDRESS);
+            APP_TRACE_INFO0("OTA: Check MCU_FLASH_OTA_ADDRESS alignment in mcu_basic.h");
+            return false;
+        }
+
+        // Validate storage address is safe
+        uint32_t availableSpace = MCU_OTA_POINTER_LOCATION - storeAddr;
+        APP_TRACE_INFO2("OTA: Storage=0x%08X, availableSpace=0x%08X", storeAddr, availableSpace);
+        APP_TRACE_INFO1("OTA: Available space = %d KB", availableSpace / 1024);
+
+        if (storeAddr >= MCU_OTA_POINTER_LOCATION)
+        {
+            APP_TRACE_INFO0("OTA: ERROR! Storage address overlaps flag page!");
+            return false;
+        }
+
+        if (amotasCb.fwHeader.fwLength > availableSpace)
+        {
+            APP_TRACE_INFO2("OTA: ERROR! Firmware size 0x%X exceeds available space 0x%X",
+                            amotasCb.fwHeader.fwLength, availableSpace);
+            return false;
+        }
+
         amotasCb.newFwFlashInfo.addr = storeAddr;
+        APP_TRACE_INFO1("OTA: Final storage address set to 0x%08X", amotasCb.newFwFlashInfo.addr);
         bResult = true;
     }
     else if ( amotasCb.fwHeader.storageType == AMOTA_FW_STORAGE_EXTERNAL )
@@ -564,25 +632,35 @@ amotas_set_fw_addr(void)
         //
         // Initialize the flash device.
         //
+        APP_TRACE_INFO0("Initializing flash...");
         if (FLASH_OPERATE(g_pFlash, flash_init) == 0)
         {
+            APP_TRACE_INFO0("Flash init OK, enabling...");
             if (FLASH_OPERATE(g_pFlash, flash_enable) != 0)
             {
+                APP_TRACE_INFO0("Flash enable FAILED!");
                 FLASH_OPERATE(g_pFlash, flash_deinit);
                 bResult = false;
             }
-            //
-            // Erase necessary sectors in the flash according to length of the image.
-            //
-            erase_flash(amotasCb.newFwFlashInfo.addr, amotasCb.fwHeader.fwLength);
+            else
+            {
+                APP_TRACE_INFO0("Flash enable OK, erasing...");
+                //
+                // Erase necessary sectors in the flash according to length of the image.
+                //
+                erase_flash(amotasCb.newFwFlashInfo.addr, amotasCb.fwHeader.fwLength);
 
-            FLASH_OPERATE(g_pFlash, flash_disable);
+                APP_TRACE_INFO0("Erase complete, disabling flash");
+                FLASH_OPERATE(g_pFlash, flash_disable);
+            }
         }
         else
         {
+            APP_TRACE_INFO0("Flash init FAILED!");
             bResult = false;
         }
     }
+    APP_TRACE_INFO1("amotas_set_fw_addr returning: %d", bResult);
     return bResult;
 }
 
@@ -823,8 +901,17 @@ amotas_update_ota(void)
 {
     uint8_t magic = amotasCb.metaData.magicNum;
 
+    APP_TRACE_INFO2("OTA: Setting descriptor magic=0x%02X addr=0x%08X", magic, amotasCb.newFwFlashInfo.addr);
+
     // Set OTAPOINTER
-    am_hal_ota_add(AM_HAL_FLASH_PROGRAM_KEY, magic, (uint32_t *)amotasCb.newFwFlashInfo.addr);
+    uint32_t result = am_hal_ota_add(AM_HAL_FLASH_PROGRAM_KEY, magic, (uint32_t *)amotasCb.newFwFlashInfo.addr);
+    APP_TRACE_INFO1("OTA: am_hal_ota_add returned: 0x%08X", result);
+
+    // Read back to verify
+    uint32_t *pOtaPtr = (uint32_t *)OTA_POINTER_LOCATION;
+    APP_TRACE_INFO2("OTA: OTAPOINTER at 0x%08X = 0x%08X", OTA_POINTER_LOCATION, *pOtaPtr);
+
+    APP_TRACE_INFO0("OTA: Descriptor written, device will reboot and apply update");
 }
 
 static void
@@ -959,7 +1046,9 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
     ver = fwCrc = 0;
     bool_t resumeTransfer = FALSE;
 
+#ifdef AMOTA_DEBUG_ON
     APP_TRACE_INFO2("received packet cmd = 0x%x, len = 0x%x", cmd, len);
+#endif
 
     switch(cmd)
     {
@@ -1041,7 +1130,6 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
 
                 amotasCb.state = AMOTA_STATE_GETTING_FW;
             }
-#ifdef AMOTA_DEBUG_ON
             APP_TRACE_INFO0("============= fw header start ===============");
             APP_TRACE_INFO1("encrypted = 0x%x", amotasCb.fwHeader.encrypted);
             APP_TRACE_INFO1("version = 0x%x", amotasCb.fwHeader.version);
@@ -1054,7 +1142,6 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             APP_TRACE_INFO1("imageId = 0x%x", amotasCb.fwHeader.imageId);
 #endif
             APP_TRACE_INFO0("============= fw header end ===============");
-#endif // AMOTA_DEBUG_ON
             data[0] = ((amotasCb.newFwFlashInfo.offset) & 0xff);
             data[1] = ((amotasCb.newFwFlashInfo.offset >> 8) & 0xff);
             data[2] = ((amotasCb.newFwFlashInfo.offset >> 16) & 0xff);
@@ -1068,6 +1155,8 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             if ( amotasCb.newFwFlashInfo.offset == 0 )
             {
                 memcpy(&amotasCb.metaData, buf, sizeof(amotaMetadataInfo_t));
+                APP_TRACE_INFO2("OTA: Extracted metadata from first packet: blobSize=0x%06X magicNum=0x%02X",
+                                amotasCb.metaData.blobSize, amotasCb.metaData.magicNum);
             }
 #endif
 
@@ -1088,7 +1177,20 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             else
 #endif
             {
-                bResult = amotas_write2flash(len, buf, amotasCb.newFwFlashInfo.addr + amotasCb.newFwFlashInfo.offset,
+                uint32_t writeAddr = amotasCb.newFwFlashInfo.addr + amotasCb.newFwFlashInfo.offset;
+                if (amotasCb.newFwFlashInfo.offset == 0)
+                {
+                    APP_TRACE_INFO2("OTA: First write to flash at 0x%08X (base=0x%08X)", writeAddr, amotasCb.newFwFlashInfo.addr);
+
+                    // Sanity check: base address must be 0x84000
+                    if (amotasCb.newFwFlashInfo.addr != AMOTA_INT_FLASH_OTA_ADDRESS)
+                    {
+                        APP_TRACE_INFO1("OTA: CRITICAL ERROR! Base addr is 0x%08X, expected 0x%08X!", amotasCb.newFwFlashInfo.addr, AMOTA_INT_FLASH_OTA_ADDRESS);
+                        amotas_reply_to_client(cmd, AMOTA_STATUS_FLASH_WRITE_ERROR, NULL, 0);
+                        return;
+                    }
+                }
+                bResult = amotas_write2flash(len, buf, writeAddr,
                     ((amotasCb.newFwFlashInfo.offset + len) == amotasCb.fwHeader.fwLength));
             }
 
@@ -1137,10 +1239,12 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
             }
             else
             {
-                APP_TRACE_INFO0("crc verify failed");
+                APP_TRACE_INFO2("crc verify failed: expected=0x%08X calculated=0x%08X", amotasCb.fwHeader.fwCrc, ui32ImageCalCRC);
 
-                uint8_t msg[] = "CRC verify failed.\r\n";
-                uhal_uart_write_buffer(0, msg, strlen(msg), 0);
+                char msg[128];
+                sprintf(msg, "CRC verify failed: expected=0x%08X calculated=0x%08X\r\n",
+                        (unsigned int)amotasCb.fwHeader.fwCrc, (unsigned int)ui32ImageCalCRC);
+                uhal_uart_write_buffer(0, (uint8_t*)msg, strlen(msg), 0);
 
                 amotas_reply_to_client(cmd, AMOTA_STATUS_CRC_ERROR, NULL, 0);
             }
