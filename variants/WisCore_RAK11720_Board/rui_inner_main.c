@@ -424,7 +424,7 @@ dump_ota_status(void)
     }
     if (pOtaDesc[i] == 0xFFFFFFFF)
     {
-        // udrv_serial_log_printf("Valid Previous OTA state\r\n");
+        am_log_inf("BOOTLOADER: Valid Previous OTA state");
         // It seems in last boot this was used as OTA descriptor
         // Dump previous OTA information
         am_hal_ota_status_t otaStatus[AM_HAL_SECURE_OTA_MAX_OTA];
@@ -436,15 +436,15 @@ dump_ota_status(void)
                 break;
             }
             {
-                // udrv_serial_log_printf("Previous OTA: Blob Addr: 0x%x - Result %s\r\n",
-                //                     otaStatus[i].pImage, otaStatusMessage[otaStatus[i].status]);
+                am_log_inf("BOOTLOADER: Previous OTA: Blob Addr=0x%08x Result=%s",
+                           (unsigned int)otaStatus[i].pImage, otaStatusMessage[otaStatus[i].status]);
 
             }
         }
     }
     else
     {
-        // udrv_serial_log_printf("No Previous OTA state\r\n");
+        am_log_inf("BOOTLOADER: No Previous OTA state");
     }
 }
 #endif
