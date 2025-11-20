@@ -1185,7 +1185,7 @@ amotas_packet_handler(eAmotaCommand cmd, uint16_t len, uint8_t *buf)
                     // Sanity check: base address must be 0x84000
                     if (amotasCb.newFwFlashInfo.addr != AMOTA_INT_FLASH_OTA_ADDRESS)
                     {
-                        APP_TRACE_INFO1("OTA: CRITICAL ERROR! Base addr is 0x%08X, expected 0x%08X!", amotasCb.newFwFlashInfo.addr, AMOTA_INT_FLASH_OTA_ADDRESS);
+                        APP_TRACE_INFO2("OTA: CRITICAL ERROR! Base addr is 0x%08X, expected 0x%08X!", amotasCb.newFwFlashInfo.addr, AMOTA_INT_FLASH_OTA_ADDRESS);
                         amotas_reply_to_client(cmd, AMOTA_STATUS_FLASH_WRITE_ERROR, NULL, 0);
                         return;
                     }
