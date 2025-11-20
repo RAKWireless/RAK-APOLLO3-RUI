@@ -381,7 +381,7 @@ struct uhal_ble_parameter ble_parameter =
     .service_mode = DRV_BLE_UART_MODE,
     .adv_timeout = APP_ADV_TIMEOUT_IN_SECONDS,
     .pairing_key = {},
-    .permission = SET_ENC_NO_MITM,
+    .permission = SET_OPEN,  // Changed from SET_ENC_NO_MITM to allow connections without pairing
 };
 
 #define READ_SIZE 1
@@ -694,19 +694,19 @@ static void bleModuleProcMsg(bleModuleMsg_t *pMsg)
     switch(pMsg->hdr.event)
     {
         case ATTS_HANDLE_VALUE_CNF:
-            am_log_inf("ATTS_HANDLE_VALUE_CNF");
+            //am_log_inf("ATTS_HANDLE_VALUE_CNF");
             #ifdef AM_NUS_ADD
             if(pMsg->att.handle == NUS_CHAR2_HDL)
             #else
             if(0)
             #endif
             {
-                am_log_inf("NUS");
+                //am_log_inf("NUS");
                 xSemaphoreGive(nus_notify_semaphore);
             }
             else
             {
-                am_log_inf("OTHER");
+                //am_log_inf("OTHER");
             }
             break;
 
