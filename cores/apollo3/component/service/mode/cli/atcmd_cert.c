@@ -160,11 +160,13 @@ int At_Tconf(SERIAL_PORT port, char *cmd, stParam *param)
             LORA_TEST_DEBUG();
             return AT_PARAM_ERROR;
         }
-        if (0 != at_check_digital_uint32_t(param->argv[1],&Param.power))
-        {
-            LORA_TEST_DEBUG();
-            return AT_PARAM_ERROR;
-        }
+        // if (0 != at_check_digital_uint32_t(param->argv[1],&Param.power))
+        // {
+        //     LORA_TEST_DEBUG();
+        //     return AT_PARAM_ERROR;
+        // }
+        Param.power = atoi(param->argv[1]);
+        atcmd_printf("[%s]=%d:", param->argv[1], Param.power);
 
         if (0 != at_check_digital_uint32_t(param->argv[2], &Param.bandwidth))
         {
