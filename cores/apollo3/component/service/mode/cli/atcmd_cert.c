@@ -458,7 +458,8 @@ int At_Cw(SERIAL_PORT port, char *cmd, stParam *param)
         }
 #endif
 
-        if(Param.txpower > 22 || Param.txpower < -5)
+        int8_t parsedPower = (int8_t)(Param.txpower);
+        if(parsedPower > 22 || parsedPower < -5)
         {
             LORA_TEST_DEBUG();
             return AT_PARAM_ERROR;
