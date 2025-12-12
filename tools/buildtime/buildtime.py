@@ -3,8 +3,7 @@
 import re
 import sys
 from datetime import datetime
-import time
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print("no argument")
     sys.exit()
 
@@ -21,6 +20,6 @@ for line in reading_file:
         line = '#define BUILD_DATE "%s"\n'%builddate
     new_content += line
 reading_file.close()
-writing_file = open(sys.argv[1],"w")
+writing_file = open(sys.argv[2],"w")
 writing_file.write(new_content)
 writing_file.close()
