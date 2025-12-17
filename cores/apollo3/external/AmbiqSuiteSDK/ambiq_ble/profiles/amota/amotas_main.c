@@ -532,7 +532,7 @@ amotas_set_fw_addr(void)
         // storage in internal flash
         APP_TRACE_INFO2("OTA: Base address=0x%08X, pageSize=0x%04X", AMOTA_INT_FLASH_OTA_ADDRESS, AM_HAL_FLASH_PAGE_SIZE);
         uint32_t storeAddr = (AMOTA_INT_FLASH_OTA_ADDRESS + AM_HAL_FLASH_PAGE_SIZE - 1) & ~(AM_HAL_FLASH_PAGE_SIZE - 1);
-        uint32_t maxSize = AMOTA_INT_FLASH_OTA_MAX_SIZE & ~(AM_HAL_FLASH_PAGE_SIZE - 1);
+        uint32_t maxSize = MCU_SYS_CONFIG_NVM_ADDR - AMOTA_INT_FLASH_OTA_ADDRESS;
         APP_TRACE_INFO2("OTA: Calculated storeAddr=0x%08X, maxSize=0x%08X", storeAddr, maxSize);
         APP_TRACE_INFO1("fwLength = 0x%x", amotasCb.fwHeader.fwLength);
 
@@ -577,7 +577,7 @@ amotas_set_fw_addr(void)
         }
 
         // Validate storage address is safe
-        uint32_t availableSpace = MCU_OTA_POINTER_LOCATION - storeAddr;
+        uint32_t availableSpace = maxSize;
         APP_TRACE_INFO2("OTA: Storage=0x%08X, availableSpace=0x%08X", storeAddr, availableSpace);
         APP_TRACE_INFO1("OTA: Available space = %d KB", availableSpace / 1024);
 
