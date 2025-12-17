@@ -426,11 +426,11 @@ int32_t service_nvm_set_cli_ver_to_nvm(uint8_t *buff, uint32_t len) {
 /***********************************************************/
 
 int32_t service_nvm_write_user_data (uint32_t offset, uint8_t *buff, uint32_t len) {
-    if (offset > (MCU_CERT_CONFIG_NVM_ADDR - SERVICE_NVM_USER_DATA_NVM_ADDR)) {
+    if (offset >= MCU_USER_DATA_NVM_SIZE) {
         return -UDRV_WRONG_ARG;
     }
 
-    if (len > (MCU_CERT_CONFIG_NVM_ADDR - SERVICE_NVM_USER_DATA_NVM_ADDR - offset)) {
+    if (len > (MCU_USER_DATA_NVM_SIZE - offset)) {
         return -UDRV_WRONG_ARG;
     }
 
@@ -438,11 +438,11 @@ int32_t service_nvm_write_user_data (uint32_t offset, uint8_t *buff, uint32_t le
 }
 
 int32_t service_nvm_read_user_data (uint32_t offset, uint8_t *buff, uint32_t len) {
-    if (offset > (MCU_CERT_CONFIG_NVM_ADDR - SERVICE_NVM_USER_DATA_NVM_ADDR)) {
+    if (offset >= MCU_USER_DATA_NVM_SIZE) {
         return -UDRV_WRONG_ARG;
     }
 
-    if (len > (MCU_CERT_CONFIG_NVM_ADDR - SERVICE_NVM_USER_DATA_NVM_ADDR - offset)) {
+    if (len > (MCU_USER_DATA_NVM_SIZE - offset)) {
         return -UDRV_WRONG_ARG;
     }
 
