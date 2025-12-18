@@ -59,6 +59,7 @@ extern void RadioOnDioIrq( void* context );
 
 static udrv_system_event_t rui_gpio_int_event[M_MAX_GPIO_PIN];
 
+static gpio_isr_func sg_gpio_wakeup_isr;
 static gpio_isr_func sg_gpio_isr[M_MAX_GPIO_PIN];
 
 static gpio_intc_trigger_mode_t uhal_gpio_wakeup_mode = GPIO_INTC_RISING_FALLING_EDGE;
@@ -204,6 +205,10 @@ static void rak_hal_gpio_interrupt_service(uint32_t pinNumber)
         if (gpio_status[pinNumber].wakeup_source == true)
         {
             sg_gpio_isr[pinNumber]((uint32_t)pinNumber);
+            if(sg_gpio_wakeup_isr != NULL)
+            {
+                sg_gpio_wakeup_isr((uint32_t)pinNumber);
+            }
             return;
         }
 
@@ -483,6 +488,11 @@ void uhal_gpio_set_wakeup_disable(uint32_t pin) {
 
 void uhal_gpio_set_wakeup_mode(gpio_intc_trigger_mode_t mode) {
     uhal_gpio_wakeup_mode = mode;
+}
+
+void uhal_gpio_set_wakeup_isr(gpio_isr_func handler)
+{
+    sg_gpio_wakeup_isr = handler;
 }
 
 void uhal_gpio_pin_suspend(uint32_t pin)
