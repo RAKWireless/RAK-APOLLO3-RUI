@@ -507,19 +507,6 @@ void uhal_gpio_suspend(void) {
             ) {
             continue;
         }
-        
-        if (i == WB_A0 || i == WB_A1)
-        {
-
-            // GPIO INPUT
-            uint32_t err_code = am_hal_gpio_pinconfig(i, GPIO_OPENDRAIN);
-            ERROR_CHECK(err_code);
-
-            // GPIO OPENDRAIN
-            // uint32_t err_code = am_hal_gpio_pinconfig(i, GPIO_OPENDRAIN);
-            // ERROR_CHECK(err_code);
-
-        }
 
         if (gpio_status[i].wakeup_source == true)
         {
