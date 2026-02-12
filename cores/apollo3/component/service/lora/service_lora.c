@@ -354,8 +354,8 @@ static void McpsConfirm(McpsConfirm_t *mcpsConfirm)
         }
         else
         {
-            am_log_inf("+EVT:SEND_CONFIRMED_FAILED(%d)\r\n", mcpsConfirm->Status);
-            if(AckTimeoutRetriesCounter <= AckTimeoutRetries)
+            am_log_inf("+EVT:SEND_CONFIRMED_FAILED(%d)(%d)(%d)\r\n", mcpsConfirm->Status, AckTimeoutRetriesCounter, AckTimeoutRetries);
+            if((AckTimeoutRetries > 0 ) && (AckTimeoutRetriesCounter <= AckTimeoutRetries))
             {
                 uint8_t counter = AckTimeoutRetriesCounter + 1;
                 AckTimeoutRetriesCounter = 0;
@@ -4112,4 +4112,3 @@ bool service_lora_isbusy(void){
 #endif
 }   
 #endif
-
