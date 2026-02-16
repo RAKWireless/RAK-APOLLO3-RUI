@@ -1210,3 +1210,12 @@ void uhal_uart_resume(void) {
     }
 }
 
+bool uhal_uart_is_active(SERIAL_PORT Port)
+{
+    if (Port < SERIAL_UART0 || Port >= UHAL_UART_MAX)
+    {
+        return false;
+    }
+
+    return uart_status[Port].active;
+}
