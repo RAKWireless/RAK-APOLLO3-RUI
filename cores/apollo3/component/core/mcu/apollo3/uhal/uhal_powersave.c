@@ -370,21 +370,29 @@ void uart1_rx_interrupt_handler()
 
 void uhal_mcu_set_rx_interrupt(void) {
 
-  am_log_inf("Set RX interrupt...");
 
-  uhal_gpio_intc_clear(WB_RXD0);
-  uhal_gpio_pin_suspend(WB_RXD0);
-  uhal_gpio_set_dir(WB_RXD0, GPIO_DIR_IN);
-  uhal_gpio_set_pull(WB_RXD0, GPIO_PULL_UP);
-  uhal_gpio_intc_trigger_mode(WB_RXD0, GPIO_INTC_FALLING_EDGE);
-  uhal_gpio_register_isr(WB_RXD0, uart0_rx_interrupt_handler);
+  
+  if(uhal_uart_is_active(SERIAL_UART0))
+  {
+    am_log_inf("Set RX0 interrupt...");
+    uhal_gpio_intc_clear(WB_RXD0);
+    uhal_gpio_pin_suspend(WB_RXD0);
+    uhal_gpio_set_dir(WB_RXD0, GPIO_DIR_IN);
+    uhal_gpio_set_pull(WB_RXD0, GPIO_PULL_UP);
+    uhal_gpio_intc_trigger_mode(WB_RXD0, GPIO_INTC_FALLING_EDGE);
+    uhal_gpio_register_isr(WB_RXD0, uart0_rx_interrupt_handler);
+  }
 
-  uhal_gpio_intc_clear(WB_RXD1);
-  uhal_gpio_pin_suspend(WB_RXD1);
-  uhal_gpio_set_dir(WB_RXD1, GPIO_DIR_IN);
-  uhal_gpio_set_pull(WB_RXD1, GPIO_PULL_UP);
-  uhal_gpio_intc_trigger_mode(WB_RXD1, GPIO_INTC_FALLING_EDGE);
-  uhal_gpio_register_isr(WB_RXD1, uart1_rx_interrupt_handler);
+  if(uhal_uart_is_active(SERIAL_UART1))
+  {
+    am_log_inf("Set RX1 interrupt...");
+    uhal_gpio_intc_clear(WB_RXD1);
+    uhal_gpio_pin_suspend(WB_RXD1);
+    uhal_gpio_set_dir(WB_RXD1, GPIO_DIR_IN);
+    uhal_gpio_set_pull(WB_RXD1, GPIO_PULL_UP);
+    uhal_gpio_intc_trigger_mode(WB_RXD1, GPIO_INTC_FALLING_EDGE);
+    uhal_gpio_register_isr(WB_RXD1, uart1_rx_interrupt_handler);
+  }
 }
 
 void uhal_mcu_clear_rx_interrupt(void) {

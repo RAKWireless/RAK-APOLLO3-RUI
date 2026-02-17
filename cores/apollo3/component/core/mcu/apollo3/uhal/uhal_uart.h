@@ -54,6 +54,8 @@ void uhal_uart_suspend(void);
 
 void uhal_uart_resume(void);
 
+bool uhal_uart_is_active(SERIAL_PORT Port);
+
 //void USAR_UART_IDLECallback(UART_HandleTypeDef *huart);
 
 #endif  // #ifndef _UHAL_UART_H_
