@@ -1026,7 +1026,18 @@ void uhal_uart_write_buffer (SERIAL_PORT Port, uint8_t const *Buffer, int32_t Nu
 {
     if(NumberOfBytes == 0)
         return;
-   
+
+    if (Port < SERIAL_UART0 || Port >= UHAL_UART_MAX)
+    {
+        return;
+    }
+
+    // Port can be logically deinitialized to save power; never queue TX in that state.
+    if ((uart_status[Port].active == false) || (uart_status[Port].resumed == false))
+    {
+        return;
+    }
+
     uart_take_sem(Port);
 
     if(Port == SERIAL_UART0)
