@@ -9,7 +9,8 @@ BOOT_VERSION = 0x000FC000;
 
 MEMORY
 {
-    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 976K
+    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 448K - 64
+    VERRES (rx) : ORIGIN = 0x00083FC0, LENGTH = 64
     RWMEM (rwx) : ORIGIN = 0x10000000, LENGTH = 384K
 }
 
@@ -34,6 +35,12 @@ SECTIONS
         . = ALIGN(4);
         _etext = .;
     } > ROMEM
+
+    .ver_reserved :
+    {
+        . = ALIGN(4);
+        KEEP(*(.ver_reserved))
+    } > VERRES
 
     /* User stack section initialized by startup code. */
     .stack (NOLOAD):
