@@ -9,8 +9,12 @@ BOOT_VERSION = 0x000FC000;
 
 MEMORY
 {
-    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 448K - 64
-    VERRES (rx) : ORIGIN = 0x00083FC0, LENGTH = 64
+    /*
+       -256 : 256 bytes lost due to image blob header for OTA updates
+       -64  : 64 bytes for 'ver_reserved' section where version string is located in firmware
+    */
+    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 448K - 256 - 64
+    VERRES (rx) : ORIGIN = 0x00083EC0, LENGTH = 64
     RWMEM (rwx) : ORIGIN = 0x10000000, LENGTH = 384K
 }
 
