@@ -36,6 +36,15 @@ static void *p_context = NULL;
 static volatile bool is_mcu_sleeping = false;
 volatile bool is_mcu_resumed = false;
 volatile bool rx_wait_active = false;
+volatile uint64_t rx_wait_active_start = 0;
+
+void start_active_rx_wait()
+{
+    portENTER_CRITICAL();
+    rx_wait_active_start = udrv_rtc_get_counter((RtcID_E)SYS_RTC_COUNTER_PORT);
+    rx_wait_active = true;
+    portEXIT_CRITICAL();
+}
 
 void consume_event_task_handler(void *pvPaParameters)
 {
@@ -284,7 +293,7 @@ int32_t uhal_uart_wait_timer_start (uint32_t count) {
         }
     }
 
-    rx_wait_active = true;
+    start_active_rx_wait();
     return UDRV_RETURN_OK;
 }
 
@@ -332,14 +341,14 @@ void uart0_rx_interrupt_handler()
     uhal_mcu_wake_up();
 
     uhal_uart_resume();
-    uint8_t *str_ok = "WAKE_UP\r\n";
+    uint8_t *str_ok = "UART0 RX WAIT START\r\n";
     uhal_uart_write(0, str_ok, strlen(str_ok), 0);
     uhal_uart_write(1, str_ok, strlen(str_ok), 0);
     uhal_uart_suspend();
   }
 
   if(no_busy_loop == false)
-    rx_wait_active = true;
+    start_active_rx_wait();
   else
     uhal_uart_wait_timer_start(UART_WAIT_TIMEOUT_TIME);
 }
@@ -356,14 +365,14 @@ void uart1_rx_interrupt_handler()
     uhal_mcu_wake_up();
 
     uhal_uart_resume();
-    uint8_t *str_ok = "WAKE_UP\r\n";
+    uint8_t *str_ok = "UART1 RX WAIT START\r\n";
     uhal_uart_write(0, str_ok, strlen(str_ok), 0);
     uhal_uart_write(1, str_ok, strlen(str_ok), 0);
     uhal_uart_suspend();
   }
 
   if(no_busy_loop == false)
-    rx_wait_active = true;
+    start_active_rx_wait();
   else
     uhal_uart_wait_timer_start(UART_WAIT_TIMEOUT_TIME);
 }

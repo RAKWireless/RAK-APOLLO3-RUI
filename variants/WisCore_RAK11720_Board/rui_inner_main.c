@@ -53,6 +53,7 @@ static bool run_user_app = false;
 
 extern bool udrv_powersave_in_sleep;
 extern volatile bool rx_wait_active;
+extern volatile uint64_t rx_wait_active_start;
 
 extern const char *sw_version;
 
@@ -567,6 +568,14 @@ void rui_running(void)
     udrv_system_event_consume();
 }
 
+static uint32_t get_elapsed_rx_wait_ms()
+{
+    portENTER_CRITICAL();
+    uint32_t elapsed_ms = udrv_rtc_tick2ms(udrv_rtc_get_elapsed_time((RtcID_E)SYS_RTC_COUNTER_PORT, rx_wait_active_start));
+    portEXIT_CRITICAL();
+    return elapsed_ms;
+}
+
 static void loop_task(void* arg)
 {
     (void) arg;
@@ -618,12 +627,14 @@ static void loop_task(void* arg)
         if (!no_busy_loop) {
             if(rx_wait_active == true)
             {
-                udrv_app_delay_ms(UART_WAIT_TIMEOUT_TIME);
-                rx_wait_active = false;
+                if (get_elapsed_rx_wait_ms() >= UART_WAIT_TIMEOUT_TIME)
+                {
+                    rx_wait_active = false;
 
-                uint8_t *str_ok = "SLEEP\r\n";
-                uhal_uart_write(0, str_ok, strlen(str_ok), 0);
-                uhal_uart_write(1, str_ok, strlen(str_ok), 0);
+                    uint8_t *str_ok = "UART RX WAIT END.\r\n";
+                    uhal_uart_write(0, str_ok, strlen(str_ok), 0);
+                    uhal_uart_write(1, str_ok, strlen(str_ok), 0);
+                }
             }
 
             rui_loop();

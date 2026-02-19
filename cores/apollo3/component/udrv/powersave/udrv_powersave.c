@@ -39,6 +39,7 @@ extern bool sched_pending;
 
 #ifdef rak11720
 extern volatile bool rx_wait_active;
+extern volatile uint64_t rx_wait_active_start;
 extern volatile bool is_mcu_resumed;
 static inline bool isInISR(void)
 {
