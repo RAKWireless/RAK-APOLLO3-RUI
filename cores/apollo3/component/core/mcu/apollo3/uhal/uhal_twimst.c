@@ -14,11 +14,15 @@
 #include "semphr.h"
 #include "event_groups.h"
 #include "rtos.h"
+#include "am_util_delay.h"
 
 #define IOM_I2C_MODULE  2
 #define TWI_TIMEOUT	10000
 
 void    *IOM2_Handle;
+
+#define IOM_BUS_RECOVERY_PULSES 9
+#define IOM_BUS_RECOVERY_DELAY_US 5
 
 static am_hal_iom_config_t IOM2_I2cConfig =
 {
@@ -35,6 +39,24 @@ static inline bool isInISR(void)
 }
 
 static SemaphoreHandle_t twi2_semaphore = NULL;
+
+static const am_hal_gpio_pincfg_t g_AM_HAL_GPIO_OUTPUT_WITH_READ_OPENDRAIN =
+{
+    .uFuncSel       = 3, // GPIO function
+    .ePullup        = AM_HAL_GPIO_PIN_PULLUP_24K,
+    .eDriveStrength = AM_HAL_GPIO_PIN_DRIVESTRENGTH_2MA,
+    .eGPOutcfg      = AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN,
+    .eGPRdZero      = AM_HAL_GPIO_PIN_RDZERO_READPIN
+};
+
+static const am_hal_gpio_pincfg_t g_iom_sda_gpio_recovery_cfg =
+{
+    .uFuncSel       = 3,
+    .ePullup        = AM_HAL_GPIO_PIN_PULLUP_1_5K,
+    .eDriveStrength = AM_HAL_GPIO_PIN_DRIVESTRENGTH_12MA,
+    .eGPOutcfg      = AM_HAL_GPIO_PIN_OUTCFG_OPENDRAIN,
+    .eGPRdZero      = AM_HAL_GPIO_PIN_RDZERO_READPIN
+};
 
 static void twi2_take_semaphore(void)
 {
@@ -90,6 +112,50 @@ static void twi2_give_semaphore(void)
     }
 }
 
+static bool iom_sda_is_high(uint32_t sda_pin)
+{
+    uint32_t pin_state = 0;
+    if (am_hal_gpio_state_read(sda_pin, AM_HAL_GPIO_INPUT_READ, &pin_state) != AM_HAL_STATUS_SUCCESS)
+    {
+        return false;
+    }
+    return (pin_state != 0);
+}
+
+static void iom_bus_recovery(uint32_t scl_pin, uint32_t sda_pin)
+{
+    am_hal_gpio_pinconfig(scl_pin, g_AM_HAL_GPIO_OUTPUT_WITH_READ_OPENDRAIN);
+    am_hal_gpio_pinconfig(sda_pin, g_AM_HAL_GPIO_INPUT_PULLUP);
+
+    am_hal_gpio_state_write(scl_pin, AM_HAL_GPIO_OUTPUT_SET);
+    am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+
+    if (!iom_sda_is_high(sda_pin))
+    {
+        for (uint32_t i = 0; i < IOM_BUS_RECOVERY_PULSES; i++)
+        {
+            am_hal_gpio_state_write(scl_pin, AM_HAL_GPIO_OUTPUT_CLEAR);
+            am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+            am_hal_gpio_state_write(scl_pin, AM_HAL_GPIO_OUTPUT_SET);
+            am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+
+            if (iom_sda_is_high(sda_pin))
+            {
+                break;
+            }
+        }
+    }
+
+    // Force a STOP condition to release targets waiting for transaction completion.
+    am_hal_gpio_pinconfig(sda_pin, g_iom_sda_gpio_recovery_cfg);
+    am_hal_gpio_state_write(sda_pin, AM_HAL_GPIO_OUTPUT_CLEAR);
+    am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+    am_hal_gpio_state_write(scl_pin, AM_HAL_GPIO_OUTPUT_SET);
+    am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+    am_hal_gpio_state_write(sda_pin, AM_HAL_GPIO_OUTPUT_SET);
+    am_util_delay_us(IOM_BUS_RECOVERY_DELAY_US);
+}
+
 void am_iomaster2_isr()
 {
     uint32_t ui32Status;
@@ -107,6 +173,8 @@ void am_iomaster2_isr()
 static void iom_set_up(void)
 {
     twi2_take_semaphore();
+
+    iom_bus_recovery(AM_BSP_GPIO_IOM2_SCL, AM_BSP_GPIO_IOM2_SDA);
 
     //
     // Initialize the IOM.
