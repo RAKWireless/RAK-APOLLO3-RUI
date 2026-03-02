@@ -558,7 +558,7 @@ bool RegionUS915TxConfig( TxConfigParams_t* txConfig, int8_t* txPower, TimerTime
     int8_t phyTxPower = 0;
 
     // Calculate physical TX power
-    phyTxPower = RegionCommonComputeTxPower( txPowerLimited, US915_DEFAULT_MAX_ERP, 0 );
+    phyTxPower = RegionCommonComputeTxPower( txPowerLimited, US915_DEFAULT_MAX_ERP, txConfig->AntennaGain );
 
     // Setup the radio frequency
     Radio.SetChannel( RegionNvmGroup2->Channels[txConfig->Channel].Frequency );
