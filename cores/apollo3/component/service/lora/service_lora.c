@@ -3106,6 +3106,45 @@ int32_t service_lora_set_txpower(uint8_t txp, bool commit)
     }
 }
 
+uint8_t service_lora_get_default_txpower(void)
+{
+    MibRequestConfirm_t mibReq;
+
+    mibReq.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
+    if (LoRaMacMibGetRequestConfirm(&mibReq) == LORAMAC_STATUS_OK)
+    {
+        return (uint8_t)mibReq.Param.ChannelsDefaultTxPower;
+    }
+
+    return service_nvm_get_txpower_from_nvm();
+}
+
+int32_t service_lora_set_default_txpower(uint8_t txp, bool commit)
+{
+    MibRequestConfirm_t mibReq;
+
+    mibReq.Type = MIB_CHANNELS_DEFAULT_TX_POWER;
+    mibReq.Param.ChannelsDefaultTxPower = txp;
+
+    LoRaMacStatus_t status = LoRaMacMibSetRequestConfirm(&mibReq);
+    if (status == LORAMAC_STATUS_OK)
+    {
+        if (commit)
+        {
+            return service_nvm_set_txpower_to_nvm(txp);
+        }
+        return UDRV_RETURN_OK;
+    }
+    else if (status == LORAMAC_STATUS_PARAMETER_INVALID)
+    {
+        return -UDRV_WRONG_ARG;
+    }
+    else
+    {
+        return -UDRV_INTERNAL_ERR;
+    }
+}
+
 uint8_t service_lora_get_ping_slot_periodicity(void)
 {
     return service_nvm_get_ping_slot_periodicity_from_nvm();

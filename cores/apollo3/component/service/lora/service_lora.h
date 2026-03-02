@@ -421,6 +421,10 @@ extern "C"
 
     int32_t service_lora_set_txpower(uint8_t txp, bool commit);
 
+    uint8_t service_lora_get_default_txpower(void);
+
+    int32_t service_lora_set_default_txpower(uint8_t txp, bool commit);
+
     uint8_t service_lora_get_ping_slot_periodicity(void);
 
     int32_t service_lora_set_ping_slot_periodicity(uint8_t periodicity);
