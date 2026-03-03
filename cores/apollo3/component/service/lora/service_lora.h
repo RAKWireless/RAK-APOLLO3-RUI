@@ -425,6 +425,12 @@ extern "C"
 
     int32_t service_lora_set_default_txpower(uint8_t txp, bool commit);
 
+    float service_lora_get_antenna_gain(void);
+
+    int32_t service_lora_set_antenna_gain(float antenna_gain);
+
+    int32_t service_lora_set_default_antenna_gain(float antenna_gain);
+
     uint8_t service_lora_get_ping_slot_periodicity(void);
 
     int32_t service_lora_set_ping_slot_periodicity(uint8_t periodicity);
