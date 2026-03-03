@@ -3145,6 +3145,49 @@ int32_t service_lora_set_default_txpower(uint8_t txp, bool commit)
     }
 }
 
+float service_lora_get_antenna_gain(void)
+{
+    MibRequestConfirm_t mibReq;
+
+    mibReq.Type = MIB_ANTENNA_GAIN;
+    if (LoRaMacMibGetRequestConfirm(&mibReq) != LORAMAC_STATUS_OK)
+    {
+        return 0.0f;
+    }
+
+    return mibReq.Param.AntennaGain;
+}
+
+int32_t service_lora_set_antenna_gain(float antenna_gain)
+{
+    MibRequestConfirm_t mibReq;
+    mibReq.Type = MIB_ANTENNA_GAIN;
+    mibReq.Param.AntennaGain = antenna_gain;
+
+    LoRaMacStatus_t status = LoRaMacMibSetRequestConfirm(&mibReq);
+    if (status != LORAMAC_STATUS_OK)
+    {
+        return (status == LORAMAC_STATUS_PARAMETER_INVALID) ? -UDRV_WRONG_ARG : -UDRV_INTERNAL_ERR;
+    }
+
+    return UDRV_RETURN_OK;
+}
+
+int32_t service_lora_set_default_antenna_gain(float antenna_gain)
+{
+    MibRequestConfirm_t mibReq;
+    mibReq.Type = MIB_DEFAULT_ANTENNA_GAIN;
+    mibReq.Param.DefaultAntennaGain = antenna_gain;
+
+    LoRaMacStatus_t status = LoRaMacMibSetRequestConfirm(&mibReq);
+    if (status != LORAMAC_STATUS_OK)
+    {
+        return (status == LORAMAC_STATUS_PARAMETER_INVALID) ? -UDRV_WRONG_ARG : -UDRV_INTERNAL_ERR;
+    }
+
+    return UDRV_RETURN_OK;
+}
+
 uint8_t service_lora_get_ping_slot_periodicity(void)
 {
     return service_nvm_get_ping_slot_periodicity_from_nvm();
