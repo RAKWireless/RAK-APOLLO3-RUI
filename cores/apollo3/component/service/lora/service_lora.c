@@ -4039,11 +4039,15 @@ static uint8_t AlternateDrUS915Callback()
 
 void service_lora_systemMaxRxError()
 {
+    // Brings the rx window a bit earlier to accommodate for system delays. This was extracted from
+    // test results. This setting affects both join RX window and confirmed messages RX window.
+    static const int HALO_SYSTEM_RX_ERROR_SAFETY_MARGIN_MS = 55;
+
     MibRequestConfirm_t mibReq;
- 
+    
     // Update the DEFAULT_SYSTEM_MAX_RX_ERROR
     mibReq.Type = MIB_SYSTEM_MAX_RX_ERROR;
-    mibReq.Param.SystemMaxRxError = 25;
+    mibReq.Param.SystemMaxRxError = HALO_SYSTEM_RX_ERROR_SAFETY_MARGIN_MS;
     if( LoRaMacMibSetRequestConfirm( &mibReq ) != LORAMAC_STATUS_OK )
     return;
 }

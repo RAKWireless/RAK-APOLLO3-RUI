@@ -101,7 +101,7 @@ typedef struct
      * \brief  Gnss Done Done callback prototype.
     */
     void    ( *GnssDone )( void );
-    
+
     /*!
      * \brief  Gnss Done Done callback prototype.
     */
