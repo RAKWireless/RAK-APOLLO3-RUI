@@ -477,11 +477,6 @@ static RadioPublicNetwork_t RadioPublicNetwork = { false };
  */
 static RadioEvents_t* RadioEvents;
 
-/*!
- * Radio operation callbacks variable
- */
-static RadioOperationCallbacks_t* RadioOperationCallbacks = NULL;
-
 /*
  * Public global variables
  */
@@ -544,11 +539,6 @@ void RadioInit( RadioEvents_t *events )
     TimerInit( &RxTimeoutTimer, RadioOnRxTimeoutIrq );
 
     IrqFired = false;
-}
-
-void Radio_RegisterOperationCallbacks( RadioOperationCallbacks_t *callbacks )
-{
-    RadioOperationCallbacks = callbacks;
 }
 
 RadioState_t RadioGetStatus( void )
@@ -1045,11 +1035,6 @@ void RadioSend( uint8_t *buffer, uint8_t size )
 {
     am_log_inf("[RADIO_SEND] Size: %d bytes, TxTimeout: %d ms\r\n", size, TxTimeout);
 
-    if( ( RadioOperationCallbacks != NULL ) && ( RadioOperationCallbacks->PreTx != NULL ) )
-    {
-        RadioOperationCallbacks->PreTx( );
-    }
-
     SX126xSetDioIrqParams( IRQ_TX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_TX_DONE | IRQ_RX_TX_TIMEOUT,
                            IRQ_RADIO_NONE,
@@ -1088,11 +1073,6 @@ void RadioStandby( void )
 
 void RadioRx( uint32_t timeout )
 {
-    if( ( RadioOperationCallbacks != NULL ) && ( RadioOperationCallbacks->PreRx != NULL ) )
-    {
-        RadioOperationCallbacks->PreRx( );
-    }
-
     if( RxContinuous == true )
     {
         am_log_inf("[RADIO_RX] Continuous mode, Timeout: %d ms\r\n", timeout);
@@ -1313,12 +1293,6 @@ void RadioIrqProcess( void )
             TimerStop( &TxTimeoutTimer );
             //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
             SX126xSetOperatingMode( MODE_STDBY_RC );
-
-            if( ( RadioOperationCallbacks != NULL ) && ( RadioOperationCallbacks->PostTx != NULL ) )
-            {
-                RadioOperationCallbacks->PostTx( );
-            }
-
             if( ( RadioEvents != NULL ) && ( RadioEvents->TxDone != NULL ) )
             {
                 RadioEvents->TxDone( );
@@ -1360,12 +1334,6 @@ void RadioIrqProcess( void )
                 SX126xGetPacketStatus( &RadioPktStatus );
                 am_log_inf("[RADIO_IRQ] RX_DONE - Size: %d, RSSI: %d, SNR: %d\r\n",
                            size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt);
-
-                if( ( RadioOperationCallbacks != NULL ) && ( RadioOperationCallbacks->PostRx != NULL ) )
-                {
-                    RadioOperationCallbacks->PostRx( );
-                }
-
                 if( ( RadioEvents != NULL ) && ( RadioEvents->RxDone != NULL ) )
                 {
                     RadioEvents->RxDone( RadioRxPayload, size, RadioPktStatus.Params.LoRa.RssiPkt, RadioPktStatus.Params.LoRa.SnrPkt );
@@ -1402,12 +1370,6 @@ void RadioIrqProcess( void )
                 TimerStop( &RxTimeoutTimer );
                 //!< Update operating mode state to a value lower than \ref MODE_STDBY_XOSC
                 SX126xSetOperatingMode( MODE_STDBY_RC );
-
-                if( ( RadioOperationCallbacks != NULL ) && ( RadioOperationCallbacks->PostRx != NULL ) )
-                {
-                    RadioOperationCallbacks->PostRx( );
-                }
-
                 if( ( RadioEvents != NULL ) && ( RadioEvents->RxTimeout != NULL ) )
                 {
                     RadioEvents->RxTimeout( );

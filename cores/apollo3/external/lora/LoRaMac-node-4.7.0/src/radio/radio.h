@@ -101,43 +101,12 @@ typedef struct
      * \brief  Gnss Done Done callback prototype.
     */
     void    ( *GnssDone )( void );
-
+    
     /*!
      * \brief  Gnss Done Done callback prototype.
     */
     void    ( *WifiDone )( void );
 }RadioEvents_t;
-
-/*!
- * \brief Radio operation callback functions
- * Separate from RadioEvents for synchronous hardware-level control
- */
-typedef struct
-{
-    /*!
-     * \brief  Pre-Tx callback prototype.
-     * Called immediately before radio transmission starts.
-    */
-    void    ( *PreTx )( void );
-
-    /*!
-     * \brief  Post-Tx callback prototype.
-     * Called immediately after radio transmission completes.
-    */
-    void    ( *PostTx )( void );
-
-    /*!
-     * \brief  Pre-Rx callback prototype.
-     * Called immediately before radio reception starts.
-    */
-    void    ( *PreRx )( void );
-
-    /*!
-     * \brief  Post-Rx callback prototype.
-     * Called immediately after radio reception completes.
-    */
-    void    ( *PostRx )( void );
-}RadioOperationCallbacks_t;
 
 /*!
  * \brief Radio driver definition
@@ -440,13 +409,6 @@ struct Radio_s
  *         board implementation
  */
 extern const struct Radio_s Radio;
-
-/*!
- * \brief Registers radio operation callbacks
- *
- * \param [IN] callbacks Structure containing the radio operation callback functions
- */
-void Radio_RegisterOperationCallbacks( RadioOperationCallbacks_t *callbacks );
 
 #ifdef __cplusplus
 }

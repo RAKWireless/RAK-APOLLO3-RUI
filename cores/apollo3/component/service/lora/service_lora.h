@@ -111,7 +111,6 @@ extern "C"
     typedef void (*service_lora_send_cb)(int32_t status);
     typedef void (*service_lora_linkcheck_cb)(SERVICE_LORA_LINKCHECK_T *data);
     typedef void (*service_lora_timereq_cb)(int32_t status);
-    typedef void (*service_lora_radio_cb)(void);
 
     typedef enum _GET_DEVICE_TIME_STATUS
     {
@@ -500,14 +499,6 @@ extern "C"
     int32_t service_lora_register_linkcheck_cb(service_lora_linkcheck_cb callback);
 
     int32_t service_lora_register_timereq_cb(service_lora_timereq_cb callback);
-
-    int32_t service_lora_register_radio_cb_pretx(service_lora_radio_cb callback);
-
-    int32_t service_lora_register_radio_cb_posttx(service_lora_radio_cb callback);
-
-    int32_t service_lora_register_radio_cb_prerx(service_lora_radio_cb callback);
-
-    int32_t service_lora_register_radio_cb_postrx(service_lora_radio_cb callback);
 
     uint32_t service_lora_get_beacon_dr(void);
 

@@ -152,7 +152,6 @@ service_lora_join_cb service_lora_join_callback;
 static service_lora_send_cb service_lora_send_callback;
 static TIMEREQ_STATE timereq_status = TIMEREQ_DISABLED;
 static service_lora_timereq_cb service_lora_timereq_callback;
-static RadioOperationCallbacks_t radio_callbacks;
 extern bool udrv_powersave_in_sleep;
 extern volatile testParameter_t testParam;
 extern uint8_t last_tx_channel; 
@@ -1138,8 +1137,6 @@ int32_t service_lora_init(SERVICE_LORA_BAND band)
         {
             goto out;
         }
-
-        Radio_RegisterOperationCallbacks(&radio_callbacks);
     }
     else
     {
@@ -3615,34 +3612,6 @@ int32_t service_lora_register_timereq_cb(service_lora_timereq_cb callback)
     return UDRV_RETURN_OK;
 }
 
-int32_t service_lora_register_radio_cb_pretx(service_lora_radio_cb callback)
-{
-    radio_callbacks.PreTx = callback;
-    Radio_RegisterOperationCallbacks(&radio_callbacks);
-    return UDRV_RETURN_OK;
-}
-
-int32_t service_lora_register_radio_cb_posttx(service_lora_radio_cb callback)
-{
-    radio_callbacks.PostTx = callback;
-    Radio_RegisterOperationCallbacks(&radio_callbacks);
-    return UDRV_RETURN_OK;
-}
-
-int32_t service_lora_register_radio_cb_prerx(service_lora_radio_cb callback)
-{
-    radio_callbacks.PreRx = callback;
-    Radio_RegisterOperationCallbacks(&radio_callbacks);
-    return UDRV_RETURN_OK;
-}
-
-int32_t service_lora_register_radio_cb_postrx(service_lora_radio_cb callback)
-{
-    radio_callbacks.PostRx = callback;
-    Radio_RegisterOperationCallbacks(&radio_callbacks);
-    return UDRV_RETURN_OK;
-}
-
 SERVICE_LORA_CLASS_B_STATE service_lora_get_class_b_state(void)
 {
     return class_b_state;
@@ -4070,23 +4039,17 @@ static uint8_t AlternateDrUS915Callback()
 
 void service_lora_systemMaxRxError()
 {
-    MibRequestConfirm_t mibReq;
+    // Brings the rx window a bit earlier to accommodate for system delays. This was extracted from
+    // test results. This setting affects both join RX window and confirmed messages RX window.
+    static const int HALO_SYSTEM_RX_ERROR_SAFETY_MARGIN_MS = 55;
 
+    MibRequestConfirm_t mibReq;
+    
     // Update the DEFAULT_SYSTEM_MAX_RX_ERROR
-    // Base: 25ms
-    // Extra: 25ms to compensate for radio operation callback overhead (PreRx I2C operations)
-    // This increases symbTimeout to allow full packet reception after preamble detection
     mibReq.Type = MIB_SYSTEM_MAX_RX_ERROR;
-    mibReq.Param.SystemMaxRxError = 25 + 25;
+    mibReq.Param.SystemMaxRxError = HALO_SYSTEM_RX_ERROR_SAFETY_MARGIN_MS;
     if( LoRaMacMibSetRequestConfirm( &mibReq ) != LORAMAC_STATUS_OK )
     return;
-
-    // Also increase MinRxSymbols for additional RX window margin
-    // Base: 6 symbols (default for reliable reception)
-    // Extra: 2 symbols to account for callback timing overhead
-    mibReq.Type = MIB_MIN_RX_SYMBOLS;
-    mibReq.Param.MinRxSymbols = 6 + 2;
-    LoRaMacMibSetRequestConfirm( &mibReq );
 }
 
 int32_t service_lora_get_lbt()

@@ -453,10 +453,15 @@ uint32_t RegionCommonComputeSymbolTimeFsk( uint8_t phyDrInKbps )
 
 void RegionCommonComputeRxWindowParameters( uint32_t tSymbolInUs, uint8_t minRxSymbols, uint32_t rxErrorInMs, uint32_t wakeUpTimeInMs, uint32_t* windowTimeoutInSymbols, int32_t* windowOffsetInMs )
 {
+    static const int HALO_RX_WINDOW_SAFETY_MARGIN_MS = 5;
+
     *windowTimeoutInSymbols = MAX( DIV_CEIL( ( ( 2 * minRxSymbols - 8 ) * tSymbolInUs + 2 * ( rxErrorInMs * 1000 ) ),  tSymbolInUs ), minRxSymbols ); // Computed number of symbols
     *windowOffsetInMs = ( int32_t )DIV_CEIL( ( int32_t )( 4 * tSymbolInUs ) -
                                                ( int32_t )DIV_CEIL( ( *windowTimeoutInSymbols * tSymbolInUs ), 2 ) -
                                                ( int32_t )( wakeUpTimeInMs * 1000 ), 1000 );
+    
+    *windowOffsetInMs -= HALO_RX_WINDOW_SAFETY_MARGIN_MS;
+    *windowTimeoutInSymbols += DIV_CEIL(HALO_RX_WINDOW_SAFETY_MARGIN_MS * 2 * 1000, tSymbolInUs);
 }
 
 int8_t RegionCommonComputeTxPower( int8_t txPowerIndex, float maxEirp, float antennaGain )
