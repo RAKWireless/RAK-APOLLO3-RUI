@@ -796,13 +796,6 @@ int8_t RegionUS915DlChannelReq( DlChannelReqParams_t* dlChannelReq )
 
 int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
 {
-    // Always use DR_4 (SF8/BW500kHz) for power efficiency
-    if(US915_SingleChannel.AlternateDr != NULL)
-    {
-        currentDr = US915_SingleChannel.AlternateDr();
-        if(currentDr)
-            return currentDr;
-    }
     if( type == ALTERNATE_DR )
     {
         RegionNvmGroup1->JoinTrialsCounter++;
@@ -812,8 +805,26 @@ int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
         RegionNvmGroup1->JoinTrialsCounter--;
     }
 
+    // Allow external callback to override alternate DR while preserving
+    // JoinTrialsCounter updates in normal alternate/restore flow.
+    if(US915_SingleChannel.AlternateDr != NULL)
+    {
+        currentDr = US915_SingleChannel.AlternateDr();
+        if(currentDr)
+            return currentDr;
+    }
+
     // Always use DR_4 (SF8/BW500kHz) instead of alternating
-    currentDr = DR_4;
+    if( RegionNvmGroup1->JoinTrialsCounter % 9 == 0 )
+    {
+        // Use DR_4 every 9th times.
+        currentDr = DR_4;
+    }
+    else
+    {
+        currentDr = DR_0;
+    }
+
     return currentDr;
 }
 

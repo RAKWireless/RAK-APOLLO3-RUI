@@ -152,6 +152,7 @@ service_lora_join_cb service_lora_join_callback;
 static service_lora_send_cb service_lora_send_callback;
 static TIMEREQ_STATE timereq_status = TIMEREQ_DISABLED;
 static service_lora_timereq_cb service_lora_timereq_callback;
+static service_lora_alternate_dr_cb service_lora_us915_alternate_dr_callback;
 extern bool udrv_powersave_in_sleep;
 extern volatile testParameter_t testParam;
 extern uint8_t last_tx_channel; 
@@ -3612,6 +3613,37 @@ int32_t service_lora_register_timereq_cb(service_lora_timereq_cb callback)
     return UDRV_RETURN_OK;
 }
 
+int32_t service_lora_set_us915_alternate_dr_callback(service_lora_alternate_dr_cb callback)
+{
+    service_lora_us915_alternate_dr_callback = callback;
+    return UDRV_RETURN_OK;
+}
+
+uint8_t service_lora_getJoinTrialCounter(void)
+{
+    MibRequestConfirm_t mibReq;
+    mibReq.Type = MIB_NVM_CTXS;
+    if (LoRaMacMibGetRequestConfirm(&mibReq) != LORAMAC_STATUS_OK || mibReq.Param.Contexts == NULL)
+    {
+        return 0;
+    }
+
+    return mibReq.Param.Contexts->RegionGroup1.JoinTrialsCounter;
+}
+
+int32_t service_lora_setJoinTrialCounter(uint8_t joinTrialCounter)
+{
+    MibRequestConfirm_t mibReq;
+    mibReq.Type = MIB_NVM_CTXS;
+    if (LoRaMacMibGetRequestConfirm(&mibReq) != LORAMAC_STATUS_OK || mibReq.Param.Contexts == NULL)
+    {
+        return -UDRV_INTERNAL_ERR;
+    }
+
+    mibReq.Param.Contexts->RegionGroup1.JoinTrialsCounter = joinTrialCounter;
+    return UDRV_RETURN_OK;
+}
+
 SERVICE_LORA_CLASS_B_STATE service_lora_get_class_b_state(void)
 {
     return class_b_state;
@@ -4019,6 +4051,11 @@ static uint32_t IsSingleChannelUS915Callback()
 }
 static uint8_t AlternateDrUS915Callback()
 {
+    if(service_lora_us915_alternate_dr_callback != NULL)
+    {
+        return service_lora_us915_alternate_dr_callback();
+    }
+
     uint8_t CurrentDr=0;
     //LORA_TEST_DEBUG("AlternateDrUS915Callback");
     uint32_t frequency = service_lora_get_chs();
