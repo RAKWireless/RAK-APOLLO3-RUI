@@ -196,38 +196,6 @@ bool RAKLorawan::registerTimereqCallback(service_lora_timereq_cb callback) {
     }
 }
 
-bool RAKLorawan::registerRadioPreTxCallback(service_lora_radio_cb callback) {
-    if (service_lora_register_radio_cb_pretx(callback) == UDRV_RETURN_OK) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool RAKLorawan::registerRadioPostTxCallback(service_lora_radio_cb callback) {
-    if (service_lora_register_radio_cb_posttx(callback) == UDRV_RETURN_OK) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool RAKLorawan::registerRadioPreRxCallback(service_lora_radio_cb callback) {
-    if (service_lora_register_radio_cb_prerx(callback) == UDRV_RETURN_OK) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-bool RAKLorawan::registerRadioPostRxCallback(service_lora_radio_cb callback) {
-    if (service_lora_register_radio_cb_postrx(callback) == UDRV_RETURN_OK) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
 //appeui
 bool RAKLorawan::appeui::get(uint8_t *buf, uint32_t len) {
     if (service_lora_get_app_eui(buf, len) == UDRV_RETURN_OK) {
