@@ -796,13 +796,6 @@ int8_t RegionUS915DlChannelReq( DlChannelReqParams_t* dlChannelReq )
 
 int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
 {
-    // Always use DR_4 (SF8/BW500kHz) for power efficiency
-    if(US915_SingleChannel.AlternateDr != NULL)
-    {
-        currentDr = US915_SingleChannel.AlternateDr();
-        if(currentDr)
-            return currentDr;
-    }
     if( type == ALTERNATE_DR )
     {
         RegionNvmGroup1->JoinTrialsCounter++;
@@ -812,8 +805,26 @@ int8_t RegionUS915AlternateDr( int8_t currentDr, AlternateDrType_t type )
         RegionNvmGroup1->JoinTrialsCounter--;
     }
 
+    // Allow external callback to override alternate DR while preserving
+    // JoinTrialsCounter updates in normal alternate/restore flow.
+    if(US915_SingleChannel.AlternateDr != NULL)
+    {
+        currentDr = US915_SingleChannel.AlternateDr();
+        if(currentDr)
+            return currentDr;
+    }
+
     // Always use DR_4 (SF8/BW500kHz) instead of alternating
-    currentDr = DR_4;
+    if( RegionNvmGroup1->JoinTrialsCounter % 9 == 0 )
+    {
+        // Use DR_4 every 9th times.
+        currentDr = DR_4;
+    }
+    else
+    {
+        currentDr = DR_0;
+    }
+
     return currentDr;
 }
 
@@ -878,9 +889,10 @@ LoRaMacStatus_t RegionUS915NextChannel( NextChanParams_t* nextChanParams, uint8_
             // follow a random channel selection sequence. It probes alternating one out of a
             // group of eight 125 kHz channels followed by probing one 500 kHz channel each pass.
             // Each time a 125 kHz channel will be selected from another group.
+            const uint32_t txBw = RegionCommonGetBandwidth(nextChanParams->Datarate, BandwidthsUS915);
 
-            // 125kHz Channels (0 - 63) DR0
-            if( nextChanParams->Datarate == DR_0 )
+            // 125kHz Channels (0 - 63)
+            if(txBw == 125000)
             {
                 if( RegionBaseUSComputeNext125kHzJoinChannel( ( uint16_t* ) RegionNvmGroup1->ChannelsMaskRemaining,
                     &RegionNvmGroup1->JoinChannelGroupsCurrentIndex, channel ) == LORAMAC_STATUS_PARAMETER_INVALID )
@@ -888,7 +900,7 @@ LoRaMacStatus_t RegionUS915NextChannel( NextChanParams_t* nextChanParams, uint8_
                     return LORAMAC_STATUS_PARAMETER_INVALID;
                 }
             }
-            // 500kHz Channels (64 - 71) DR4
+            // 500kHz Channels (64 - 71)
             else
             {
                 // Choose the next available channel
