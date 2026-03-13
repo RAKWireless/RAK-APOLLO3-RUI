@@ -892,7 +892,7 @@ LoRaMacStatus_t RegionUS915NextChannel( NextChanParams_t* nextChanParams, uint8_
             const uint32_t txBw = RegionCommonGetBandwidth(nextChanParams->Datarate, BandwidthsUS915);
 
             // 125kHz Channels (0 - 63)
-            if(txBw == 125000)
+            if(txBw == REGION_COMMON_GET_BANDWITH_RET_125000)
             {
                 if( RegionBaseUSComputeNext125kHzJoinChannel( ( uint16_t* ) RegionNvmGroup1->ChannelsMaskRemaining,
                     &RegionNvmGroup1->JoinChannelGroupsCurrentIndex, channel ) == LORAMAC_STATUS_PARAMETER_INVALID )

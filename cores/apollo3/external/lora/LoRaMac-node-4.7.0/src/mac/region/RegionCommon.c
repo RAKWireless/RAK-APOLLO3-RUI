@@ -620,10 +620,10 @@ uint32_t RegionCommonGetBandwidth( uint32_t drIndex, const uint32_t* bandwidths 
     {
         default:
         case 125000:
-            return 0;
+            return REGION_COMMON_GET_BANDWITH_RET_125000;
         case 250000:
-            return 1;
+            return REGION_COMMON_GET_BANDWITH_RET_250000;
         case 500000:
-            return 2;
+            return REGION_COMMON_GET_BANDWITH_RET_500000;
     }
 }
