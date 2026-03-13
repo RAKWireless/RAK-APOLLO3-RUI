@@ -116,6 +116,12 @@ extern "C"
  */
 #define REGION_COMMON_CLASS_B_C_RESP_TIMEOUT            8000
 
+/*!
+ * RegionCommonGetBandwidth returns these values, matching the appropriate bandwidths
+ */
+#define REGION_COMMON_GET_BANDWITH_RET_125000 0
+#define REGION_COMMON_GET_BANDWITH_RET_250000 1
+#define REGION_COMMON_GET_BANDWITH_RET_500000 2
 
 typedef struct sRegionCommonLinkAdrParams
 {
