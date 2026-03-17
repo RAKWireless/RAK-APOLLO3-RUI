@@ -346,7 +346,7 @@ int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
         // this leaves enough time for the PLL of the transceiver to settle
         Param.interval = 2000; 
         
-        if(param->argc >= 5)
+        if(param->argc == 5)
         {
             if (0 != at_check_digital_uint32_t(param->argv[4], &Param.interval))
             {
