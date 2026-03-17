@@ -614,7 +614,6 @@ static void OnTxTimerEvent(void)
     LORA_TEST_DEBUG("nb_tx %d", testParam.nb_tx);
 
     testParam.nb_tx--;
-    Radio.Send(payload, testParam.payloadLen);
     udrv_serial_log_printf("Tx Hop at %d Hz\r\n",testParam.freq_start);
     udrv_serial_log_printf("Tx Test : Packet %d of %d\r\n",( packet_back-testParam.nb_tx),packet_back);
     LORA_TEST_DEBUG("freq %d", testParam.freq_start);
@@ -625,6 +624,7 @@ static void OnTxTimerEvent(void)
       testParam.freq_start = freq_start_back;
     }
     Radio.SetChannel(testParam.freq_start);
+    Radio.Send(payload, testParam.payloadLen);
 
     if (testParam.nb_tx)
       TimerStart(&TxTimer);
@@ -664,7 +664,6 @@ static void OnTxTimerEventRandom(void)
     LORA_TEST_DEBUG("nb_tx %d", testParam.nb_tx);
 
     testParam.nb_tx--;
-    Radio.Send(payload, testParam.payloadLen);
     udrv_serial_log_printf("Tx Hop at %d Hz\r\n",testParam.freq_start);
     udrv_serial_log_printf("Tx Test : Packet %d of %d\r\n",( packet_back-testParam.nb_tx),packet_back);
     LORA_TEST_DEBUG("freq %d", testParam.freq_start);
@@ -677,6 +676,7 @@ static void OnTxTimerEventRandom(void)
         testParam.freq_start = freq_seq[packet_back-testParam.nb_tx];
     }*/
     Radio.SetChannel(testParam.freq_start);
+    Radio.Send(payload, testParam.payloadLen);
 
     if (testParam.nb_tx)
       TimerStart(&TxTimer);
