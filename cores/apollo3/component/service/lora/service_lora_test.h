@@ -94,7 +94,7 @@ typedef struct
   uint32_t freq_stop;
   uint32_t hp_step;
   uint32_t nb_tx;
-  
+  uint32_t interval;
 }testParameter_t;
 
 

@@ -541,7 +541,7 @@ int32_t service_lora_trth(const testParameter_t *param)
     Radio.SetTxConfig(testParam.modem, testParam.power, testParam.fdev, bandwidth, phyDr, testParam.coderate, testParam.preambleLen,
                       testParam.fixLen, testParam.crcOn, testParam.FreqHopOn, testParam.HopPeriod, testParam.iqInverted, testParam.txTimeout);
     TimerInit(&TxTimer, OnTxTimerEventRandom);
-    TimerSetValue(&TxTimer, 500);
+    TimerSetValue(&TxTimer, testParam.interval);
     TimerStart(&TxTimer);
 
     return UDRV_RETURN_OK;
