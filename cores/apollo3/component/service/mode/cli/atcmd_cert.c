@@ -317,7 +317,7 @@ int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
         atcmd_printf("%s=%d:%d:%d:%d\r\n", cmd, Param.freq_start,Param.freq_stop,Param.hp_step,Param.nb_tx);
         return AT_OK;
     }
-    else if (param->argc == 4)
+    else if (param->argc >= 4)
     {
         if (0 != at_check_digital_uint32_t(param->argv[0], &Param.freq_start))
         {
@@ -340,6 +340,19 @@ int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
         {
             LORA_TEST_DEBUG();
             return AT_PARAM_ERROR;
+        }
+
+        // default interval for hopping test is 2000ms
+        // this leaves enough time for the PLL of the transceiver to settle
+        Param.interval = 2000; 
+        
+        if(param->argc >= 5)
+        {
+            if (0 != at_check_digital_uint32_t(param->argv[4], &Param.interval))
+            {
+                LORA_TEST_DEBUG();
+                return AT_PARAM_ERROR;
+            }
         }
 
         if(Param.freq_start > Param.freq_stop)

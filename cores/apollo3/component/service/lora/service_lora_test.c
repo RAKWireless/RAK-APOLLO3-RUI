@@ -380,11 +380,13 @@ int32_t service_lora_tth(const testParameter_t *param)
     testParam.freq_stop = param->freq_stop;
     testParam.hp_step = param->hp_step;
     testParam.nb_tx = param->nb_tx;
+    testParam.interval = param->interval;
 
-    LORA_TEST_DEBUG("RX frequency %d", testParam.freq_start);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.freq_stop);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.hp_step);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.nb_tx);
+    LORA_TEST_DEBUG("TX freq start %d", testParam.freq_start);
+    LORA_TEST_DEBUG("TX freq stop %d", testParam.freq_stop);
+    LORA_TEST_DEBUG("TX hop step %d", testParam.hp_step);
+    LORA_TEST_DEBUG("TX nb tx %d", testParam.nb_tx);
+    LORA_TEST_DEBUG("TX interval %d", testParam.interval);
 
     /*Fill payload with PRBS9 data*/
     Prbs9_generator(payload, testParam.payloadLen);
@@ -394,7 +396,7 @@ int32_t service_lora_tth(const testParameter_t *param)
     Radio.SetTxConfig(testParam.modem, testParam.power, testParam.fdev, testParam.bandwidth, testParam.datarate, testParam.coderate, testParam.preambleLen,
                       testParam.fixLen, testParam.crcOn, testParam.FreqHopOn, testParam.HopPeriod, testParam.iqInverted, testParam.txTimeout);
     TimerInit(&TxTimer, OnTxTimerEvent);
-    TimerSetValue(&TxTimer, 500);
+    TimerSetValue(&TxTimer, testParam.interval);
     TimerStart(&TxTimer);
 
     return UDRV_RETURN_OK;
@@ -527,11 +529,13 @@ int32_t service_lora_trth(const testParameter_t *param)
     testParam.freq_stop = param->freq_stop;
     testParam.hp_step = param->hp_step;
     testParam.nb_tx = param->nb_tx;
+    testParam.interval = param->interval;
 
-    LORA_TEST_DEBUG("RX frequency %d", testParam.freq_start);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.freq_stop);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.hp_step);
-    LORA_TEST_DEBUG("RX frequency %d", testParam.nb_tx);
+    LORA_TEST_DEBUG("TX freq start %d", testParam.freq_start);
+    LORA_TEST_DEBUG("TX freq stop %d", testParam.freq_stop);
+    LORA_TEST_DEBUG("TX hop step %d", testParam.hp_step);
+    LORA_TEST_DEBUG("TX nb tx %d", testParam.nb_tx);
+    LORA_TEST_DEBUG("TX interval %d", testParam.interval);
 
     /*Fill payload with PRBS9 data*/
     Prbs9_generator(payload, testParam.payloadLen);
@@ -541,7 +545,7 @@ int32_t service_lora_trth(const testParameter_t *param)
     Radio.SetTxConfig(testParam.modem, testParam.power, testParam.fdev, bandwidth, phyDr, testParam.coderate, testParam.preambleLen,
                       testParam.fixLen, testParam.crcOn, testParam.FreqHopOn, testParam.HopPeriod, testParam.iqInverted, testParam.txTimeout);
     TimerInit(&TxTimer, OnTxTimerEventRandom);
-    TimerSetValue(&TxTimer, 500);
+    TimerSetValue(&TxTimer, testParam.interval);
     TimerStart(&TxTimer);
 
     return UDRV_RETURN_OK;
