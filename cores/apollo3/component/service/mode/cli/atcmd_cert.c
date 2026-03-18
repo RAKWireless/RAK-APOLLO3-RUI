@@ -295,6 +295,23 @@ int At_Tth(SERIAL_PORT port, char *cmd, stParam *param)
             return AT_PARAM_ERROR;
         }
 
+        // default interval for continuous transmission test is 2000ms
+        // this leaves enough time for the PLL of the transceiver to settle
+        Param.interval = 2000; 
+        
+        if(param->argc == 5)
+        {
+            if (0 != at_check_digital_uint32_t(param->argv[4], &Param.interval))
+            {
+                LORA_TEST_DEBUG();
+                return AT_PARAM_ERROR;
+            }
+        }
+        else if (param->argc > 5)
+        {
+            return AT_PARAM_ERROR;
+        }
+
         return service_lora_tth(&Param);
     }
     else
