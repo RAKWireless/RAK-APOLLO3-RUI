@@ -354,6 +354,10 @@ int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
                 return AT_PARAM_ERROR;
             }
         }
+        else if (param->argc > 5)
+        {
+            return AT_PARAM_ERROR;
+        }
 
         if(Param.freq_start > Param.freq_stop)
         {
