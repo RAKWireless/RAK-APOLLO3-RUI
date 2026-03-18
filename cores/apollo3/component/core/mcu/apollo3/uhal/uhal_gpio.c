@@ -9,6 +9,10 @@
 #include "am_log.h"
 #include "rtos.h"
 
+#if defined(SUPPORT_LORA) || defined(SUPPORT_LORA_P2P)
+#include "radio.h"
+#endif
+
 // pin configurations
 const am_hal_gpio_pincfg_t AM_HAL_GPIO_NULL =
 {
@@ -240,6 +244,18 @@ static void rak_hal_gpio_interrupt_service(uint32_t pinNumber)
 
             // Resume peripherals...
             uhal_mcu_resume();
+
+            udrv_system_event_consume();
+
+#ifdef SUPPORT_LORA
+#ifdef LORA_STACK_104
+            // Process Radio IRQ
+            if( Radio.IrqProcess != NULL )
+            {
+                Radio.IrqProcess( );
+            }
+#endif
+#endif
 
             udrv_system_event_consume();
 
@@ -525,7 +541,7 @@ void uhal_gpio_suspend(void) {
         //}
         if (i == RADIO_ANT_SW)
         {
-            am_hal_gpio_pinconfig(i, g_AM_HAL_GPIO_DISABLE);
+            // am_hal_gpio_pinconfig(i, g_AM_HAL_GPIO_DISABLE); //#BUG RUI_1050
             continue;
         }
         //if (i == RADIO_NSS)
@@ -567,7 +583,7 @@ void uhal_gpio_resume(void) {
         //}
         if (i == RADIO_ANT_SW)
         {
-            am_hal_gpio_pinconfig(i, gpio_status[i].gpio);
+            // am_hal_gpio_pinconfig(i, gpio_status[i].gpio); //#BUG RUI_1050
             continue;
         }
         //if (i == RADIO_NSS)

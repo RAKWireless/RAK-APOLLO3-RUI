@@ -198,15 +198,34 @@ static uint8_t write_cback(dmConnId_t connId, uint16_t handle, uint8_t operation
     am_log_inf("offset           = 0x%04X", offset);
     am_log_inf("len              = 0x%04X", len);
 
-    for(int i=0; i<MAXIMUM_CUS_CHARACTERISTIC_SIZE; i++)
+    uint16_t index = 0;
+    uint16_t current_uuid = 0;
+    uint16_t char_handle = 0;
+    for(index=0; index<MAXIMUM_CUS_CHARACTERISTIC_SIZE; index++)
     {
-      uint16_t char_handle = 0;
-      BYTES_TO_UINT16(char_handle, cus_char_settings[i].hdl);
+      BYTES_TO_UINT16(char_handle, cus_char_settings[index].hdl);
       if(handle == char_handle)
       {
-        am_log_inf("Char%d Write CB", (i+1));
+        am_log_inf("Char%d Write CB", (index+1));
+        current_uuid = (cus_char_uuid[index][13] << 8) + cus_char_uuid[index][12];
         break;
       }
+    }
+
+    if (CUS_SEND_HANDLER)
+    {
+      if(uhal_mcu_sleep_status() == true)
+      {
+          // Resume peripherals...
+          uhal_mcu_resume();
+
+          CUS_SEND_HANDLER(current_uuid, (uint8_t *) pValue);
+
+          // Suspend peripherals...
+          uhal_mcu_suspend();
+      }
+      else
+          CUS_SEND_HANDLER(current_uuid, (uint8_t *) pValue);
     }
 
     AttsSetAttr(handle, len, pValue);  // Update Attribute table (read caharacteristic)

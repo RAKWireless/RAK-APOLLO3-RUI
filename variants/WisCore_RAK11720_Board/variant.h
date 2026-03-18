@@ -136,8 +136,8 @@ extern const uint32_t g_ADigitalPinMap[];
 static const uint8_t A0 = PIN_A0;
 static const uint8_t A1 = PIN_A1;
 
- 
-#define PIN_A3 P5    // channel1
+  
+#define PIN_A3 P12    // channel1
 #define PIN_A4 P31    // channel2
 #define PIN_A5 P32    // channel4
 #define PIN_A6 P36

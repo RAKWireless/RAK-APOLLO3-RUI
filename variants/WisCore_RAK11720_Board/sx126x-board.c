@@ -56,7 +56,7 @@ void SX126xIoInit( void )
     GpioInit( &SX126x.Reset, RADIO_RESET, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1 );
     GpioInit( &SX126x.BUSY, RADIO_BUSY, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // Edited by Sercan ERAT
     GpioInit( &SX126x.DIO1, RADIO_DIO_1, PIN_INPUT, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // Edited by Sercan ERAT
-    udrv_gpio_init(RADIO_ANT_SW, GPIO_DIR_OUT, GPIO_PULL_NONE, GPIO_LOGIC_HIGH);
+    udrv_gpio_init(RADIO_ANT_SW, GPIO_DIR_OUT, GPIO_PULL_NONE, GPIO_LOGIC_LOW); //#BUG RUI_1050
 }
 
 void SX126xIoIrqInit( DioIrqHandler *dioIrq )
@@ -272,10 +272,12 @@ uint8_t SX126xGetDeviceId( void )
 
 void SX126xAntSwOn( void )
 {
+    udrv_gpio_init(RADIO_ANT_SW, GPIO_DIR_OUT, GPIO_PULL_NONE, GPIO_LOGIC_HIGH); //#BUG RUI_1050
 }
 
 void SX126xAntSwOff( void )
 {
+    udrv_gpio_init(RADIO_ANT_SW, GPIO_DIR_OUT, GPIO_PULL_NONE, GPIO_LOGIC_LOW); //#BUG RUI_1050
 }
 
 bool SX126xCheckRfFrequency( uint32_t frequency )
