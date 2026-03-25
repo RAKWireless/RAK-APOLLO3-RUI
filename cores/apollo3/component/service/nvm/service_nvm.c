@@ -276,7 +276,18 @@ void service_nvm_init_config(void) {
             g_rui_cfg_t.lora_work_mode = SERVICE_LORAWAN;
 #endif
 #endif
-        return UDRV_RETURN_OK;
+        // Mitigation for HWT-972: auto-snapshot live config to factory page if not up-to-date.
+        // Units shipped without AT+FACTORY at provisioning have no factory backup. We update
+        // the factory page on every valid boot so it always reflects the current credentials.
+        {
+            PRE_rui_cfg_t factory;
+            udrv_flash_read(SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&factory);
+            if (memcmp(&factory, &g_rui_cfg_t, sizeof(PRE_rui_cfg_t)) != 0) {
+                udrv_flash_erase(MCU_FACTORY_DEFAULT_NVM_ADDR, 2048);
+                udrv_flash_write(MCU_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
+            }
+        }
+        return;
     }
     else
         service_nvm_set_default_config_to_nvm();
