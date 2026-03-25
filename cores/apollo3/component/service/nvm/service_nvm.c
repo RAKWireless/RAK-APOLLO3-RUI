@@ -2,6 +2,15 @@
 #include "udrv_errno.h"
 #include "udrv_flash.h"
 #include "service_nvm.h"
+#include "am_log.h"
+
+#define NVM_LOG_EUI(label, b) \
+    am_log_inf(label ": %02X%02X%02X%02X%02X%02X%02X%02X", \
+        (b)[0],(b)[1],(b)[2],(b)[3],(b)[4],(b)[5],(b)[6],(b)[7])
+#define NVM_LOG_KEY(label, b) \
+    am_log_inf(label ": %02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X", \
+        (b)[0],(b)[1],(b)[2],(b)[3],(b)[4],(b)[5],(b)[6],(b)[7], \
+        (b)[8],(b)[9],(b)[10],(b)[11],(b)[12],(b)[13],(b)[14],(b)[15])
 extern char *sw_version;
 extern char *model_id;
 extern char *cli_version;
@@ -16,6 +25,38 @@ lora_mac_nvm_data_t g_lora_mac_nvm_data;
 #define SERVICE_STORE_CRC32(x) Crc32(((uint8_t*)x)+sizeof(uint32_t),sizeof(STORE_REOGANIZED)-sizeof(uint32_t))
 
 static void service_nvm_data_recovery_from_legacy(uint32_t data_flash_addr, PRE_rui_cfg_t *rui_cfg_cur);
+
+// Returns true if the DevEUI has been provisioned (i.e. is not all zeros).
+static bool is_dev_eui_provisioned(void) {
+    const uint8_t zero_eui[sizeof(g_rui_cfg_t.g_lora_cfg_t.dev_eui)] = {0};
+    return memcmp(g_rui_cfg_t.g_lora_cfg_t.dev_eui, zero_eui, sizeof(zero_eui)) != 0;
+}
+
+// Mitigation for HWT-972: units shipped without AT+FACTORY at provisioning have no factory
+// backup. If the factory page is already valid, nothing to do. Otherwise, snapshot the
+// current running config to the factory page so it can be restored on corruption.
+static void service_nvm_snapshot_to_factory(void) {
+    PRE_rui_cfg_t factory;
+    udrv_flash_read(SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&factory);
+    am_log_inf("NVM: factory page 0x%06X magic=0x%08X ver=0x%02X",
+        SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR, factory.magic_num, factory.version_code);
+
+    if (factory.magic_num == RUI_CFG_MAGIC_NUM && factory.version_code == RUI_CFG_VERSION_CODE) {
+        am_log_inf("NVM: factory already valid, no snapshot needed");
+        NVM_LOG_EUI("NVM: factory DevEUI", factory.g_lora_cfg_t.dev_eui);
+        return;
+    }
+
+    if (!is_dev_eui_provisioned()) {
+        am_log_inf("NVM: DevEUI not provisioned yet, skipping factory snapshot");
+        return;
+    }
+
+    am_log_inf("NVM: factory not set, snapshotting config");
+    NVM_LOG_EUI("NVM: snapshotting DevEUI", g_rui_cfg_t.g_lora_cfg_t.dev_eui);
+    udrv_flash_erase(MCU_FACTORY_DEFAULT_NVM_ADDR, 2048);
+    udrv_flash_write(MCU_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
+}
 void service_nvm_data_add_to_legacy(PRE_rui_cfg_t *rui_cfg_cur);
 void MemPrint( uint8_t *buf, uint32_t len)
 {
@@ -56,8 +97,15 @@ int32_t service_nvm_set_default_config_to_nvm(void) {
     
     memset(&g_rui_cfg_t, 0, sizeof(PRE_rui_cfg_t));
 
+    if( !factory_default_exist )
+    {
+        am_log_inf("NVM: no factory backup found at 0x%06X, using hardcoded defaults", SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR);
+    }
+
     if( factory_default_exist )
     {
+        am_log_inf("NVM: factory restore → config page 0x%06X", SERVICE_NVM_RUI_CONFIG_NVM_ADDR);
+        NVM_LOG_EUI("NVM: factory DevEUI", factory_default.g_lora_cfg_t.dev_eui);
         memcpy(&g_rui_cfg_t,&factory_default,sizeof(PRE_rui_cfg_t));
         return UDRV_RETURN_OK;
         //return udrv_flash_write(SERVICE_NVM_RUI_CONFIG_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
@@ -234,8 +282,7 @@ int32_t service_nvm_set_default_config_to_nvm(void) {
         memcpy(g_rui_cfg_t.cli_ver,cli_version,32);
     
     
-    //return udrv_flash_write(SERVICE_NVM_RUI_CONFIG_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
-    return UDRV_RETURN_OK;
+    return udrv_flash_write(SERVICE_NVM_RUI_CONFIG_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
 }
 
 #ifdef SUPPORT_LORA
@@ -263,6 +310,8 @@ void service_nvm_init_config(void) {
     service_nvm_data_recovery_from_legacy(SERVICE_NVM_RUI_CONFIG_NVM_ADDR,&g_rui_cfg_t);
     if( g_rui_cfg_t.magic_num == RUI_CFG_MAGIC_NUM && g_rui_cfg_t.version_code == RUI_CFG_VERSION_CODE)
     {
+        am_log_inf("NVM: valid config at 0x%06X", SERVICE_NVM_RUI_CONFIG_NVM_ADDR);
+        NVM_LOG_EUI("NVM: config DevEUI", g_rui_cfg_t.g_lora_cfg_t.dev_eui);
         //udrv_flash_write(SERVICE_NVM_RUI_CONFIG_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
 #ifndef SUPPORT_LORA
 #ifdef SUPPORT_LORA_P2P
@@ -276,21 +325,15 @@ void service_nvm_init_config(void) {
             g_rui_cfg_t.lora_work_mode = SERVICE_LORAWAN;
 #endif
 #endif
-        // Mitigation for HWT-972: auto-snapshot live config to factory page if not up-to-date.
-        // Units shipped without AT+FACTORY at provisioning have no factory backup. We update
-        // the factory page on every valid boot so it always reflects the current credentials.
-        {
-            PRE_rui_cfg_t factory;
-            udrv_flash_read(SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&factory);
-            if (memcmp(&factory, &g_rui_cfg_t, sizeof(PRE_rui_cfg_t)) != 0) {
-                udrv_flash_erase(MCU_FACTORY_DEFAULT_NVM_ADDR, 2048);
-                udrv_flash_write(MCU_FACTORY_DEFAULT_NVM_ADDR, sizeof(PRE_rui_cfg_t), (uint8_t *)&g_rui_cfg_t);
-            }
-        }
+        service_nvm_snapshot_to_factory();
         return;
     }
-    else
+    else{
+        am_log_inf("NVM: corrupt config at 0x%06X (magic=0x%08X). restoring from factory 0x%06X",
+            SERVICE_NVM_RUI_CONFIG_NVM_ADDR, g_rui_cfg_t.magic_num, SERVICE_NVM_FACTORY_DEFAULT_NVM_ADDR);
         service_nvm_set_default_config_to_nvm();
+        NVM_LOG_EUI("NVM: after factory restore, DevEUI", g_rui_cfg_t.g_lora_cfg_t.dev_eui);
+    }
 }
 int32_t service_nvm_set_cfg_to_nvm()
 {
