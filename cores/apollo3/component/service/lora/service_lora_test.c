@@ -82,13 +82,36 @@ extern TimerEvent_t CertifiTimer;
  *                                10: 1024, 11: 2048, 12: 4096  chips]
 */
 
-volatile testParameter_t testParam = {MODEM_LORA, LORA_BANDWIDTH, LORA_SPREADING_FACTOR, LORA_CODINGRATE,
-                                    FSK_AFC_BANDWIDTH, LORA_PREAMBLE_LENGTH, LORA_FIX_LENGTH_PAYLOAD_ON, PAYLOAD_LEN,
-                                    false, false, 0, 0,
-                                    true, LORA_SYMBOL_TIMEOUT, TX_OUTPUT_POWER, FSK_FDEV,
-                                    3000, 868000000, 0, 0,
-                                    0, 0, 868000000, 868500000,
-                                    100000, 6}; //Set a default value
+volatile testParameter_t testParam = {
+    .modem = MODEM_LORA,
+    .bandwidth = LORA_BANDWIDTH,
+    
+    .datarate = LORA_SPREADING_FACTOR,
+    .coderate = LORA_CODINGRATE,
+    .bandwidthAfc = FSK_AFC_BANDWIDTH,
+    . preambleLen = LORA_PREAMBLE_LENGTH,
+    .fixLen = LORA_FIX_LENGTH_PAYLOAD_ON,
+    .payloadLen = PAYLOAD_LEN,
+    .crcOn = false,
+    .FreqHopOn = false,
+    .HopPeriod = 0,
+    .iqInverted = 0,
+    .rxContinuous = true,
+    .symbTimeout = LORA_SYMBOL_TIMEOUT,
+    .power = TX_OUTPUT_POWER,
+    .fdev = FSK_FDEV,
+    .txTimeout = 3000,
+    .frequency = 868000000,
+    .lna = 0,
+    .paBoost = 0,
+    .lowDrOpt = 0,
+    .BTproduct = 0,
+    .freq_start = 868000000,
+    .freq_stop = 868500000,
+    .hp_step = 100000,
+    .nb_tx = 6,
+    .interval = 2000,
+};
 
 static testCwParameter_t cwParam = {868000000,14,5}; //Set a default value                        
 
@@ -302,6 +325,7 @@ int32_t service_lora_ttx(int32_t nb_packet)
     LORA_TEST_DEBUG("TX iqInverted %d", testParam.iqInverted);
     LORA_TEST_DEBUG("TX crcOn %d", testParam.crcOn);
     LORA_TEST_DEBUG("TX nb_packet %d", nb_packet);
+    LORA_TEST_DEBUG("TX interval %d", testParam.interval);
 
     /* Launch several times payload: nb times given by user */
     Radio.SetChannel(testParam.frequency);
@@ -310,7 +334,7 @@ int32_t service_lora_ttx(int32_t nb_packet)
     packet = nb_packet;
     packet_back = packet;
     TimerInit(&TxTimer, OnTxTimerEvent);
-    TimerSetValue(&TxTimer, 500);
+    TimerSetValue(&TxTimer, testParam.interval);
     TimerStart(&TxTimer);
 
     return UDRV_RETURN_OK;
