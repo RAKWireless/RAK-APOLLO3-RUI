@@ -145,10 +145,10 @@ int At_Tconf(SERIAL_PORT port, char *cmd, stParam *param)
 {
     int32_t ret;
     testParameter_t Param;
+    service_lora_get_tconf(&Param);
 
     if (param->argc == 1 && !strcmp(param->argv[0], "?"))
     {
-        service_lora_get_tconf(&Param);
         atcmd_printf("%s=%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d\r\n", cmd, Param.frequency, Param.power, Param.bandwidth, Param.datarate, Param.coderate, Param.lna,
                      Param.paBoost, Param.modem, Param.payloadLen, Param.fdev, Param.lowDrOpt, Param.BTproduct);
         return AT_OK;
