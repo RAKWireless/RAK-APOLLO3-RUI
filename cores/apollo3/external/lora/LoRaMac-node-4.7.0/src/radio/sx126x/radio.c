@@ -770,11 +770,9 @@ void RadioSetTxConfig( RadioModems_t modem, int8_t power, uint32_t fdev,
                         bool fixLen, bool crcOn, bool freqHopOn,
                         uint8_t hopPeriod, bool iqInverted, uint32_t timeout )
 {
+    am_log_inf("[RADIO_SET_TX_CONFIG] power: %d dBm, fdev: %d Hz, BW: %d, SF: %d, CR: %d\r\n",
+               power, fdev, bandwidth, datarate, coderate);
 
-    //power = 10;
-    //datarate = LORA_SF7;
-    rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: power forced to %d dBm\r\n", power);
-    rtt_log_general_print(0,0, __FILE__, __LINE__, "RadioSetTxConfig: datarate forced to %d \r\n", datarate);
     switch( modem )
     {
         case MODEM_FSK:

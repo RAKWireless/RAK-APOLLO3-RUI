@@ -254,6 +254,8 @@ int At_Tconf(SERIAL_PORT port, char *cmd, stParam *param)
 int At_Tth(SERIAL_PORT port, char *cmd, stParam *param)
 {
     testParameter_t Param;
+    service_lora_get_tconf(&Param);
+
     uint32_t freq_start;
     uint32_t freq_stop;
     uint32_t hp_step;
@@ -261,7 +263,6 @@ int At_Tth(SERIAL_PORT port, char *cmd, stParam *param)
 
     if (param->argc == 1 && !strcmp(param->argv[0], "?"))
     {
-        service_lora_get_tconf(&Param);
         atcmd_printf("%s=%d:%d:%d:%d\r\n", cmd, Param.freq_start,Param.freq_stop,Param.hp_step,Param.nb_tx);
         return AT_OK;
     }
@@ -323,6 +324,8 @@ int At_Tth(SERIAL_PORT port, char *cmd, stParam *param)
 int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
 {
     testParameter_t Param;
+    service_lora_get_tconf(&Param);
+
     uint32_t freq_start;
     uint32_t freq_stop;
     uint32_t hp_step;
@@ -330,7 +333,6 @@ int At_Trth(SERIAL_PORT port, char *cmd, stParam *param)
 
     if (param->argc == 1 && !strcmp(param->argv[0], "?"))
     {
-        service_lora_get_tconf(&Param);
         atcmd_printf("%s=%d:%d:%d:%d\r\n", cmd, Param.freq_start,Param.freq_stop,Param.hp_step,Param.nb_tx);
         return AT_OK;
     }
