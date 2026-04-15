@@ -438,8 +438,6 @@ int32_t service_lora_trth(const testParameter_t *param)
     service_lora_test_full_wake_lock();
     memset(freq_seq,0,sizeof(freq_seq));
     int j;
-    int8_t phyDr;
-    uint32_t bandwidth;
     for (freq_cnt = 0; freq_cnt < sizeof(freq_seq)/sizeof(freq_seq[0]); freq_cnt++)
     {
         if(param->freq_start + param->hp_step*freq_cnt > param->freq_stop)
@@ -463,78 +461,6 @@ int32_t service_lora_trth(const testParameter_t *param)
         freq_seq[j] = freq_seq[j] ^ freq_seq[freq_cnt];
         freq_seq[freq_cnt] = freq_seq[j] ^ freq_seq[freq_cnt];
         freq_seq[j] = freq_seq[j] ^ freq_seq[freq_cnt];
-
-    }
-    //for (int i = 0; i< sizeof(freq_seq) / sizeof(freq_seq[0]);i++)
-    //    udrv_serial_log_printf("freq_seq[%d]:%u \r\n",i,freq_seq[i]);
-    switch (service_lora_get_band())
-    {
-        case SERVICE_LORA_AS923:
-        {
-            phyDr = DataratesAS923[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsAS923 );
-            break;
-        }
-        case SERVICE_LORA_AU915:
-        {
-            phyDr = DataratesAU915[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsAU915 );
-            break;
-        }
-        case SERVICE_LORA_CN470:
-        {
-            phyDr = DataratesCN470[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsCN470 );
-            break;
-        }
-        case SERVICE_LORA_CN779:
-        {
-            phyDr = DataratesCN779[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsCN779 );
-            break;
-        }
-        case SERVICE_LORA_EU433:
-        {
-            phyDr = DataratesEU433[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsEU433 );
-            break;
-        }
-        case SERVICE_LORA_EU868:
-        {
-            phyDr = DataratesEU868[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsEU868 );
-            break;
-        }
-        case SERVICE_LORA_KR920:
-        {
-            phyDr = DataratesKR920[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsKR920 );
-            break;
-        }
-        case SERVICE_LORA_IN865:
-        {
-            phyDr = DataratesIN865[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsIN865 );
-            break;
-        }
-        case SERVICE_LORA_US915:
-        {
-            phyDr = DataratesUS915[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsUS915 );
-            break;
-        }
-        case SERVICE_LORA_LA915:
-        {
-            phyDr = DataratesLA915[testParam.datarate];
-            bandwidth = RegionCommonGetBandwidth( testParam.datarate, BandwidthsLA915 );
-            break;
-        }
-        default:
-        {
-            phyDr = LORA_SPREADING_FACTOR;
-            bandwidth = LORA_BANDWIDTH;
-            break;
-        }
 
     }
 
@@ -566,7 +492,7 @@ int32_t service_lora_trth(const testParameter_t *param)
     freq_start_back = testParam.freq_start;
     packet_back = testParam.nb_tx;
     Radio.SetChannel(testParam.freq_start);
-    Radio.SetTxConfig(testParam.modem, testParam.power, testParam.fdev, bandwidth, phyDr, testParam.coderate, testParam.preambleLen,
+    Radio.SetTxConfig(testParam.modem, testParam.power, testParam.fdev, testParam.bandwidth, testParam.datarate, testParam.coderate, testParam.preambleLen,
                       testParam.fixLen, testParam.crcOn, testParam.FreqHopOn, testParam.HopPeriod, testParam.iqInverted, testParam.txTimeout);
     TimerInit(&TxTimer, OnTxTimerEventRandom);
     TimerSetValue(&TxTimer, testParam.interval);
