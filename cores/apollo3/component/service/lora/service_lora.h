@@ -377,6 +377,8 @@ extern "C"
 
     bool service_lora_get_njs(void);
 
+    int32_t service_lora_clear_njs(void);
+
     int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO info, bool blocking);
 
     bool service_lora_get_adr(void);

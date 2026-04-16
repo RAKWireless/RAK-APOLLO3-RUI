@@ -2392,6 +2392,18 @@ bool service_lora_get_njs(void)
     }
 }
 
+int32_t service_lora_clear_njs(void)
+{
+    MibRequestConfirm_t mibReq;
+    mibReq.Type = MIB_NETWORK_ACTIVATION;
+    mibReq.Param.NetworkActivation = ACTIVATION_TYPE_NONE;
+    if (LoRaMacMibSetRequestConfirm(&mibReq) != LORAMAC_STATUS_OK)
+    {
+        return -UDRV_INTERNAL_ERR;
+    }
+    return UDRV_RETURN_OK;
+}
+
 int32_t service_lora_send(uint8_t *buff, uint32_t len, SERVICE_LORA_SEND_INFO info, bool blocking)
 {
     LoRaMacStatus_t status;
