@@ -1103,6 +1103,14 @@ int32_t service_lora_init(SERVICE_LORA_BAND band)
         LoRaMacNvmData_t* nvm = mibReq.Param.Contexts;
         nvm->Crypto.DevNonce = service_lora_get_DevNonce();
 
+        // Chirpstack resets join_nonce to 0 when a device is recreated. Without this
+        // restore, the stack also starts at 0 after the memset in LoRaMacCryptoInit,
+        // so the first Join Accept from a recreated device fails: 0 != 0 is false.
+        // UINT32_MAX is above the 24-bit server range and acts as a no-history sentinel
+        // that passes any server nonce on a device that has never successfully joined.
+        uint32_t savedJoinNonce = service_nvm_get_crypto_from_nvm()->JoinNonce;
+        nvm->Crypto.JoinNonce = (savedJoinNonce != 0) ? savedJoinNonce : UINT32_MAX;
+
         nvm->MacGroup2.IsCertPortOn = service_lora_get_IsCertPortOn();
 
         if(service_lora_get_njm()==SERVICE_LORA_ABP)

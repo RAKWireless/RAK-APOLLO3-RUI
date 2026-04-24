@@ -38,6 +38,7 @@
 #include "secure-element.h"
 
 #include "LoRaMacParser.h"
+#include "am_log.h"
 #include "LoRaMacSerializer.h"
 #include "LoRaMacCrypto.h"
 
@@ -1152,6 +1153,7 @@ LoRaMacCryptoStatus_t LoRaMacCryptoHandleJoinAccept( JoinReqIdentifier_t joinReq
                                         macMsg->BufSize, decJoinAccept,
                                         &versionMinor ) != SECURE_ELEMENT_SUCCESS )
     {
+        am_log_inf( "[CRYPTO] JoinAccept MIC/decrypt FAILED (joinReqType=%d)\r\n", (int)joinReqType );
         return LORAMAC_CRYPTO_ERROR_SECURE_ELEMENT_FUNC;
     }
 
@@ -1187,6 +1189,8 @@ LoRaMacCryptoStatus_t LoRaMacCryptoHandleJoinAccept( JoinReqIdentifier_t joinReq
     }
     else
     {
+        am_log_inf( "[CRYPTO] JoinNonce FAILED: received=%lu stored=%lu versionMinor=%d\r\n",
+                    (unsigned long)currentJoinNonce, (unsigned long)CryptoNvm->JoinNonce, (int)versionMinor );
         return LORAMAC_CRYPTO_FAIL_JOIN_NONCE;
     }
 
