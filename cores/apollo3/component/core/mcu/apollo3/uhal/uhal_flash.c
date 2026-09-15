@@ -39,20 +39,21 @@ int32_t uhal_flash_read (uint32_t addr, uint8_t *buff, uint32_t len) {
 }
 
 int32_t uhal_flash_erase (uint32_t addr, uint32_t len) {
-    
-    uint32_t page_cnt = len / uhal_flash_get_page_size();
+    uint32_t page_size = uhal_flash_get_page_size();
+    uint32_t page_cnt = len / page_size;
     
     for(uint16_t i = 0; i<page_cnt; i++)
     {
+        uint32_t erase_addr = addr + ((uint32_t)i * page_size);
         int32_t i32ReturnCode = am_hal_flash_page_erase(AM_HAL_FLASH_PROGRAM_KEY,
-                                                AM_HAL_FLASH_ADDR2INST((addr + (len*0x2000))),
-                                                AM_HAL_FLASH_ADDR2PAGE((addr+ (len*0x2000))));
+                                                AM_HAL_FLASH_ADDR2INST(erase_addr),
+                                                AM_HAL_FLASH_ADDR2PAGE(erase_addr));
         //
         // Check for an error from the HAL.
         //
         if (i32ReturnCode)
         {
-            am_log_inf(" FLASH erase page at 0x%08x i32ReturnCode =  0x%x.", addr + (len*0x2000), 
+            am_log_inf(" FLASH erase page at 0x%08x i32ReturnCode =  0x%x.", erase_addr,
                                                                              i32ReturnCode);
             return -UDRV_INTERNAL_ERR;
         }

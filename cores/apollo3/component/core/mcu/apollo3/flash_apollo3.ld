@@ -9,7 +9,7 @@ BOOT_VERSION = 0x000FC000;
 
 MEMORY
 {
-    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 976K
+    ROMEM (rx) : ORIGIN = 0x00014000, LENGTH = 448K
     RWMEM (rwx) : ORIGIN = 0x10000000, LENGTH = 384K
 }
 
@@ -83,12 +83,22 @@ SECTIONS
 		__HeapLimit = .;
 	} > RWMEM
 
-    .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } > RWMEM
+    .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } > RWMEM AT>ROMEM
     .ARM : {
         __exidx_start = .;
         *(.ARM.exidx*)
         __exidx_end = .;
-    } > RWMEM    
+    } > RWMEM AT>ROMEM
+
+    /* Include all loadable application sections in the OTA boundary checks. */
+    __app_flash_image_end = LOADADDR(.ARM) + SIZEOF(.ARM);
+    __app_flash_image_size = __app_flash_image_end - ORIGIN(ROMEM);
+    __ble_ota_package_size = __app_flash_image_size + 176;
+
+    ASSERT(__app_flash_image_end <= 0x00084000,
+           "Application image overlaps BLE OTA staging")
+    ASSERT(__ble_ota_package_size <= (0x000D0000 - 0x00084000),
+           "BLE OTA package overlaps LoRa NVM journal")
 
     /* remove the debugging information from the standard libraries */
     /DISCARD/ :
